@@ -199,7 +199,7 @@ function PreviewData({ embed, setEmbed }) {
 
     el.disabled = true;
 
-    const res = await requestProfileDataInsert(profilePublicId, content, embed, display?.trim());
+    const res = await requestProfileDataInsert(profilePublicId, content.trim(), embed, display?.trim());
 
     el.disabled = false;
 
@@ -348,7 +348,7 @@ function ProfileDataEntry({ entry, index }) {
 
     el.disabled = true;
 
-    const res = await requestProfileDataUpdate(profilePublicId, entry.tag, content, entry.embed, display?.trim());
+    const res = await requestProfileDataUpdate(profilePublicId, entry.tag, content.trim(), entry.embed, display?.trim());
 
     el.disabled = false;
 

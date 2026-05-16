@@ -67,10 +67,12 @@ export default function EditorCode({ setValue, value, ...props }) {
   /**
    * @function onChangeEditor
    * @param {string} newValue
-   * @param {ViewUpdate} _viewUpdate
+   * @param {ViewUpdate} viewUpdate
    */
-  function onChangeEditor(newValue, _viewUpdate) {
-    setValue(newValue.trim());
+  function onChangeEditor(newValue, viewUpdate) {
+    if (viewUpdate.docChanged) {
+      setValue(newValue);
+    }
   }
 
   return (
