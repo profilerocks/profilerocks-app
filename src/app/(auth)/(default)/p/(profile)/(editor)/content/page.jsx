@@ -268,6 +268,8 @@ function ProfileDataEntry({ entry, index }) {
 
   const [value, setValue] = useState(entry.content);
 
+  const trimmedValue = value.trim();
+
   /**
    * @async
    * @function deleteDataEntryOnClick
@@ -333,17 +335,17 @@ function ProfileDataEntry({ entry, index }) {
     let display;
 
     if (entry.embed != null) {
-      if (value[0] === "[") {
-        [content, display] = JSON.parse(value);
+      if (trimmedValue[0] === "[") {
+        [content, display] = JSON.parse(trimmedValue);
       } else {
-        content = value;
+        content = trimmedValue;
       }
       if (!URL.canParse(content)) {
         alertMessage("The URL is incorrect.");
         return;
       }
     } else {
-      content = value;
+      content = trimmedValue;
     }
 
     el.disabled = true;
@@ -361,7 +363,7 @@ function ProfileDataEntry({ entry, index }) {
       return;
     }
 
-    updateProfileDataEntryContent(profilePublicId, entry.tag, value);
+    updateProfileDataEntryContent(profilePublicId, entry.tag, trimmedValue);
   }
 
   return (
@@ -376,7 +378,7 @@ function ProfileDataEntry({ entry, index }) {
           Delete
         </ButtonDanger>
         <div ref={handleRef} className={styles["grab"]} title="Press to drag and move" />
-        <Button className={styles["btn-save-data-entry"]} disabled={!value || entry.content === value} onClick={saveOnClick} type="button">
+        <Button className={styles["btn-save-data-entry"]} disabled={!trimmedValue || entry.content === trimmedValue} onClick={saveOnClick} type="button">
           Save<IconPencil width="1.25em" />
         </Button>
       </div>
