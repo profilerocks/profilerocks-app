@@ -65,11 +65,11 @@ const EDITOR_BASIC_SETUP = Object.freeze({
  */
 export default function EditorCode({ setValue, value, ...props }) {
   /**
-   * @function onChangeEditor
+   * @function setValueOnChange
    * @param {string} newValue
    * @param {ViewUpdate} viewUpdate
    */
-  function onChangeEditor(newValue, viewUpdate) {
+  function setValueOnChange(newValue, viewUpdate) {
     if (viewUpdate.docChanged) {
       setValue(newValue);
     }
@@ -77,13 +77,13 @@ export default function EditorCode({ setValue, value, ...props }) {
 
   return (
     <CodeMirror
+      {...props}
       basicSetup={EDITOR_BASIC_SETUP}
       editable={true}
-      onChange={onChangeEditor}
+      onChange={setValueOnChange}
       readOnly={false}
       theme={theme}
       value={value}
-      {...props}
     />
   );
 }

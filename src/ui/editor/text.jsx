@@ -14,7 +14,10 @@ const extensions = [
   markdown({
     base: markdownLanguage,
     codeLanguages: languages,
-    completeHTMLTags: false
+    completeHTMLTags: false,
+    extensions: {
+      remove: ["HTMLBlock", "HTMLTag"]
+    }
   }),
   EditorView.lineWrapping
 ];
