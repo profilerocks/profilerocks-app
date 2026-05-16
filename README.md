@@ -6,7 +6,7 @@ Built with [Next.js](https://nextjs.org/).
 
 - [React compiler](https://nextjs.org/docs/app/api-reference/config/next-config-js/reactCompiler) enabled
 - [Output static export](https://nextjs.org/docs/app/guides/static-exports)
-- [Biome](https://biomejs.dev/) configured
+- [ESlint](https://eslint.org/) & [Prettier](https://prettier.io/) configured
 - [Sass](https://sass-lang.com/) & [SCSS](https://sass-lang.com/) support
 - [TypeScript](https://www.typescriptlang.org/) (checks JavaScript files too)
 

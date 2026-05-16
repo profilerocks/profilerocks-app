@@ -8,6 +8,7 @@ import { useSnapshot } from "valtio";
 import linkAttributes from "#shared/link.json";
 import IconLink from "#src/icons/link.svg";
 import IconPencil from "#src/icons/pencil.svg";
+import IconPlus from "#src/icons/plus.svg";
 import IconTextRight from "#src/icons/text/right.svg";
 import { alertErrorApp, alertMessage } from "#src/lib/alert";
 
@@ -245,8 +246,8 @@ function PreviewData({ embed, setEmbed }) {
         <ButtonDanger type="button" onClick={deleteDataEntryOnClick}>
           Delete
         </ButtonDanger>
-        <Button type="button" disabled={!value} onClick={saveOnClick}>
-          Insert
+        <Button type="button" className={styles["btn-save-data-entry"]} disabled={!value} onClick={saveOnClick}>
+          Insert<IconPlus width="1.25em" />
         </Button>
       </div>
     </div>
