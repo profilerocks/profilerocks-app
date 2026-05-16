@@ -255,18 +255,12 @@ function PreviewData({ embed, setEmbed }) {
 }
 
 /**
- * @function ProfileDataEntry
+ * @function ProfileDataEntryContent
  * @param {Object} props
  * @param {ProfileDataEntryObject} props.entry
- * @param {number} props.index
- * @returns {React.ReactNode}
+ * @param {(React.Ref<HTMLDivElement>|undefined)} props.handleRef
  */
-function ProfileDataEntry({ entry, index }) {
-  const { handleRef, ref } = useSortable({
-    id: entry.tag,
-    index
-  });
-
+function ProfileDataEntryContent({ entry, handleRef }) {
   const [value, setValue] = useState(entry.content);
 
   const trimmedValue = value.trim();
@@ -341,6 +335,7 @@ function ProfileDataEntry({ entry, index }) {
       } else {
         content = trimmedValue;
       }
+
       if (!URL.canParse(content)) {
         alertMessage("The URL is incorrect.");
         return;
@@ -368,7 +363,7 @@ function ProfileDataEntry({ entry, index }) {
   }
 
   return (
-    <li ref={ref}>
+    <>
       {entry.embed == null ? (
         <TextEditor value={value} setValue={setValue} />
       ) : (
@@ -383,7 +378,25 @@ function ProfileDataEntry({ entry, index }) {
           Save<IconPencil width="1.25em" />
         </Button>
       </div>
-    </li>
+    </>
+  )
+}
+
+/**
+ * @function ProfileDataEntry
+ * @param {Object} props
+ * @param {ProfileDataEntryObject} props.entry
+ * @param {number} props.index
+ * @returns {React.ReactNode}
+ */
+function ProfileDataEntry({ entry, index }) {
+  const { handleRef, ref } = useSortable({
+    id: entry.tag,
+    index
+  });
+
+  return (
+    <li ref={ref}><ProfileDataEntryContent entry={entry} handleRef={handleRef} /></li>
   );
 }
 
