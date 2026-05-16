@@ -1,0 +1,29 @@
+.long-word {
+  position: relative;
+  word-wrap: nowrap !important;
+  $pb: 0.6875em;
+  $gap: 0.75em;
+  margin-inline: -$gap;
+  margin-block-end: -$pb;
+  padding-block-end: $pb;
+  min-height: max-content;
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-gutter: stable; // In Chrome, if `both-edges` is set, the `padding-inline-end` is ignored.
+  scrollbar-width: thin;
+  &::before,
+  &::after {
+    position: sticky;
+    transition: box-shadow 0.15s;
+    box-shadow: 0 0 0.375em 0.625em var(--color-long-word-shadow, var(--color-bg));
+    content: "";
+  }
+  &::before {
+    left: 0;
+    margin-inline-end: $gap;
+  }
+  &::after {
+    right: 0;
+    margin-inline-start: $gap;
+  }
+}

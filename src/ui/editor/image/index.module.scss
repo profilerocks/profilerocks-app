@@ -1,0 +1,36 @@
+.actions {
+  display: flex;
+  position: absolute;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  z-index: 1;
+  margin-inline: auto;
+  inset-block-start: 0.5em;
+  inset-inline: 0.5em;
+  max-width: 65em;
+  > * {
+    box-shadow: 0 0 0.25em var(--color-bg);
+  }
+}
+
+.cropper {
+  box-sizing: border-box;
+  padding-block: 4.5em 6.5em !important;
+  height: 100%;
+  color: var(--color-highlight) !important;
+}
+
+.dialog-image-editor {
+  margin: 0;
+  border: none;
+  padding: 0;
+  width: auto;
+  max-width: 100%; // Change default browser behaviour
+  height: auto;
+  max-height: 100%; // Change default browser behaviour
+}
+
+.navigation {
+  inset-block-end: 1em !important;
+}

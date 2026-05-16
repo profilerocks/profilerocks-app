@@ -1,0 +1,16 @@
+.p-display-name,
+.p-email {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.p-display-name {
+  margin: 0;
+  color: var(--color);
+}
+
+.p-email {
+  margin: 0;
+  color: var(--color-3);
+  font-size: 0.75em;
+}

@@ -1,0 +1,67 @@
+.input-group {
+  position: relative;
+  transition: background 0.15s;
+  margin-block: 1.875em 1.5em;
+  user-select: none;
+  > input {
+    &::placeholder {
+      transition: color 0.1s;
+      color: transparent;
+    }
+    &:focus,
+    &:not(:placeholder-shown) {
+      + label {
+        inset-block-start: -0.75em;
+        inset-inline-start: 0.75em;
+        font-size: 0.875em;
+      }
+    }
+    &:focus {
+      + label {
+        color: var(--color-highlight);
+      }
+      &::placeholder {
+        color: var(--color-3);
+      }
+    }
+  }
+  > label {
+    display: flex;
+    position: absolute;
+    gap: 0.375em;
+    transition:
+      inset-block-start 0.1s,
+      inset-inline-start 0.1s,
+      font-size 0.1s,
+      color 0.15s;
+    cursor: text;
+    inset-block-start: 0.875em;
+    inset-inline-start: 0.375em;
+    background: var(--color-bg);
+    padding: 0 0.375em;
+    color: var(--color-2);
+    font-weight: 500;
+  }
+}
+
+.input-custom {
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+  outline: none;
+  border: 0;
+  border: 2px solid var(--color-border);
+  border-radius: 0.5em;
+  background: transparent;
+  background-clip: text; // Fixes autofill background in Chrome
+  padding: 0.75em;
+  width: 100%;
+  color: var(--color);
+  caret-color: var(--color-highlight);
+  font: inherit;
+  &::placeholder {
+    padding-left: 1px;
+  }
+  &:focus {
+    border-color: var(--color-highlight);
+  }
+}

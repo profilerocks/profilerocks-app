@@ -1,0 +1,17 @@
+.btn-oauth {
+  background: var(--color-input) !important;
+  width: 100%;
+  color: var(--color-3) !important;
+  &:hover {
+    background: var(--color-input-hover) !important;
+    color: var(--color-2) !important;
+  }
+  &:is(:active, :focus-visible) {
+    background: var(--color-input-active) !important;
+    color: var(--color) !important;
+  }
+  &:disabled {
+    background: var(--color-bg-2) !important;
+    color: var(--color-4) !important;
+  }
+}

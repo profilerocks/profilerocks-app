@@ -1,0 +1,10 @@
+.loading {
+  position: absolute;
+  inset: 0;
+  &::before {
+    position: absolute;
+    inset: 0;
+    background: var(--color-bg-2);
+    content: "";
+  }
+}

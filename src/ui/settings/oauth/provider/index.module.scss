@@ -1,0 +1,39 @@
+.linked {
+  border-color: var(--color-highlight) !important;
+}
+
+.oauth {
+  border: 2px solid var(--color-border);
+  border-radius: 0.75em;
+  overflow: hidden;
+}
+
+.oauth-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 1em;
+  > button {
+    padding-inline: 1em;
+  }
+}
+
+.oauth-hgroup {
+  margin-inline-start: 1.25em;
+}
+
+.oauth-linked {
+  margin: 0;
+  font-size: 0.875em;
+}
+
+.oauth-provider {
+  display: flex;
+  border-block-end: 2px solid var(--color-border);
+  background: var(--color-bg-2);
+  padding: 1em;
+}
+
+.oauth-title {
+  margin: 0;
+}

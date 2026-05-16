@@ -1,0 +1,75 @@
+.requirements {
+  display: grid;
+  gap: 0.5em;
+  margin-block: 1.5em;
+  padding-inline: 0.875em;
+  color: var(--color-3);
+  list-style: none;
+  > li {
+    display: flex;
+    align-items: flex-start;
+    $td: 0.1s;
+    transition: color $td;
+    &::before {
+      clip-path: polygon(0% 40%, 10% 40%, 20% 40%, 30% 40%, 40% 40%, 50% 40%, 60% 40%, 70% 40%, 80% 40%, 100% 40%, 100% 60%, 0% 60%);
+      content: "";
+      $size: 0.6875em;
+      transition-duration: $td;
+      transition-property: clip-path, background;
+      margin-inline-end: 0.875em;
+      margin-block-start: 0.4375em;
+      background: var(--color-4);
+      min-width: $size;
+      min-height: $size;
+    }
+    &:global(.loading) {
+      &::before {
+        animation: 0.5s rotation infinite !important;
+        @keyframes rotation {
+          to {
+            rotate: 1turn;
+          }
+        }
+      }
+    }
+    &:global(.valid) {
+      color: var(--color) !important;
+      &::before {
+        clip-path: polygon(
+          15% 45%,
+          35% 68%,
+          85% 0%,
+          100% 15%,
+          92.78% 24.39%,
+          85.27% 34.15%,
+          76.92% 45%,
+          71.79% 51.67%,
+          64.84% 60.69%,
+          59.22% 68%,
+          35% 99.48%,
+          0% 57.51%
+        ) !important;
+        background: var(--color-valid) !important;
+      }
+    }
+    &:global(.invalid) {
+      &::before {
+        clip-path: polygon(
+          14.5% 0%,
+          50% 35%,
+          85% 0%,
+          100% 15%,
+          65% 50%,
+          100% 85%,
+          85% 100%,
+          50% 65%,
+          15% 100%,
+          0% 85%,
+          35% 50%,
+          0% 15%
+        ) !important;
+        background: var(--color-danger) !important;
+      }
+    }
+  }
+}

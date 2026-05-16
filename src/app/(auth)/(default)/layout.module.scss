@@ -1,0 +1,158 @@
+$width-side: 20em;
+
+.iframe-preview-profile {
+  flex: 1;
+  box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;
+  user-select: none;
+}
+
+.minimap {
+  margin-block: auto 0;
+  padding-block: 3em;
+}
+
+.no-profile {
+  display: none !important;
+}
+
+.profile-preview-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  border-block-end: thin solid var(--color-border);
+  background: var(--color-input);
+  padding: 0.5em;
+}
+
+.profile-preview-url {
+  --color-a: var(--color-3);
+  --color-a-hover: var(--color-2);
+  --color-long-word-shadow: var(--color-bg-2);
+  display: inline-block;
+  flex: 1;
+  margin: 0 !important;
+  border-radius: 0.625em;
+  background: var(--color-bg-2);
+  padding-block: 0.5em;
+  scrollbar-width: none;
+  text-decoration: none;
+}
+
+.section-page {
+  display: flex;
+  flex: 1 1 10em;
+  flex-direction: column;
+  scrollbar-gutter: stable both-edges;
+}
+
+.section-side {
+  display: flex;
+  flex-direction: column;
+  z-index: 3;
+}
+
+.section-profile-preview {
+  display: flex;
+  flex-direction: column;
+}
+
+.sections-container {
+  display: flex;
+  flex: 1;
+  gap: 1em;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none !important;
+  }
+  > section {
+    min-width: 100%;
+    overflow-y: auto;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+}
+
+.side-header {
+  display: flex;
+  position: sticky;
+  gap: 0.75em;
+  z-index: 1;
+  inset-block-start: 0;
+  padding-inline: 1em;
+  padding-block: 0.875em;
+  &::before {
+    position: absolute;
+    z-index: -1;
+    inset-block-start: 0;
+    inset-inline: 0;
+    box-shadow: 0 0 1.75em 3.75em var(--color-bg);
+    content: "";
+  }
+}
+
+.side-header-a-logo {
+  margin-inline-end: auto;
+  max-width: 100%;
+  color: var(--color) !important;
+  user-select: none;
+}
+
+/**
+ * 60em is the minimum width because if it is lower, .section-page's scroll-snap-align does not work as expected.
+ */
+@media (width > 60em) {
+  .section-side {
+    position: sticky;
+    inset-inline-start: 0;
+    border-inline-end: thin solid var(--color-border);
+    min-width: $width-side !important;
+    scroll-snap-align: none !important;
+  }
+
+  .section-page {
+    scroll-snap-align: end !important;
+  }
+
+  .section-page,
+  .section-profile-preview {
+    min-width: calc(100% - $width-side) !important;
+  }
+
+  :global(.hide-desktop) {
+    display: none !important;
+  }
+}
+
+@media (60em < width <= 79em) {
+  .section-side {
+    backdrop-filter: blur(8px);
+    background: var(--color-bg-transparent);
+  }
+}
+
+@media (width > 79em) {
+  .section-page,
+  .section-profile-preview {
+    min-width: auto !important;
+  }
+
+  .section-profile-preview {
+    flex: 1;
+    border-inline-start: thin solid var(--color-border);
+    max-width: 34em;
+  }
+
+  .section-side {
+    width: 0;
+  }
+
+  :global(.hide-desktop-large) {
+    display: none !important;
+  }
+}

@@ -1,0 +1,137 @@
+.btn-logout {
+  flex-direction: row-reverse;
+  padding-inline-start: 1em;
+  width: 100%;
+  svg {
+    margin-inline-start: auto;
+  }
+}
+
+.container-actions {
+  margin-block-start: 1.75em;
+  padding-inline: 1em;
+}
+
+.dropdown {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  box-sizing: border-box;
+  inset: 0;
+  box-shadow: 0 0 1em var(--color-bg);
+  background: var(--color-bg-transparent);
+  padding-block: 5em 1.75em;
+  overflow: hidden;
+}
+
+.icon-settings {
+  filter: drop-shadow(0 0 0.5em var(--color-bg));
+  transition:
+    rotate 1s,
+    color 0.15s;
+  margin-inline: auto 0.125em;
+  color: var(--color-3);
+}
+
+.link-settings {
+  display: flex;
+  align-items: center;
+  gap: 1.5em;
+  transition: background 0.15s;
+  border-block-end: thin solid var(--color-border);
+  padding: 1em;
+  padding-inline-start: 1.5em;
+  user-select: none;
+  text-decoration: none;
+  &:hover {
+    background: var(--color-input-hover);
+    .icon-settings {
+      rotate: 1turn;
+      color: var(--color-2);
+    }
+  }
+  &:is(:active, :focus-visible) {
+    background: var(--color-input-active);
+    color: var(--color);
+  }
+}
+
+.minimap {
+  margin-block-start: auto;
+  padding-block-start: 3em;
+}
+
+.p-display-name {
+  margin: 0;
+  color: var(--color);
+  font-size: 1.25em;
+}
+
+.p-email {
+  margin: 0;
+  color: var(--color-3);
+  font-size: 0.875em;
+}
+
+.user-details {
+  &::details-content {
+    position: relative; // Important for `z-index`.
+    $td: 0.2s;
+    opacity: 0;
+    z-index: -1; // Chrome has animation glitches if `z-index` is set in `.dropdown`. That is the reason it is set here.
+    transition:
+      content-visibility $td allow-discrete,
+      opacity $td;
+  }
+  &[open] {
+    &::details-content {
+      opacity: 1;
+    }
+    > summary {
+      color: var(--color-highlight) !important;
+    }
+  }
+  > summary {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    transition-duration: 0.15s;
+    transition-property: background, color, outline-color;
+    cursor: pointer;
+    outline: medium solid transparent;
+    border-radius: 1.375em;
+    padding: 0.625em;
+    color: var(--color-3);
+    list-style: none;
+    &:hover {
+      background: var(--color-input-hover);
+      color: var(--color-2);
+    }
+    &:is(:active, :focus-visible) {
+      background: var(--color-input-active);
+      color: var(--color);
+    }
+    &:focus-visible {
+      outline-color: var(--color-3);
+    }
+    svg {
+      filter: drop-shadow(0 0 0.25em var(--color-bg));
+    }
+  }
+}
+
+@media (width >= 53em) {
+  .dropdown {
+    position: absolute;
+    inset-block: 0.5em auto;
+    inset-inline: auto 0;
+    border: thin solid var(--color-border);
+    border-radius: 1.25em;
+    padding-block-start: 0;
+    width: 25em;
+  }
+}
+
+:global(html):has(.user-details[open]) {
+  overflow: hidden;
+}

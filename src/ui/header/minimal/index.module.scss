@@ -1,0 +1,12 @@
+.header-top {
+  display: flex;
+  gap: 0.375em;
+  box-sizing: border-box;
+  margin-inline: auto;
+  margin-block-start: 1.5em;
+  padding-inline: 1.5em;
+  width: 100%;
+  max-width: 39.75em;
+  color: var(--color);
+  user-select: none;
+}

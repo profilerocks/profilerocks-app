@@ -1,0 +1,18 @@
+.btn-danger {
+  background: transparent !important;
+  color: var(--color-danger-3) !important;
+  &:hover {
+    background: var(--color-bg-danger-2) !important;
+    color: var(--color-danger-2) !important;
+  }
+  &:is(:active, :focus-visible) {
+    background: var(--color-bg-danger) !important;
+    color: var(--color-danger) !important;
+  }
+  &:focus-visible {
+    outline-color: var(--color-danger-4) !important;
+  }
+  &:disabled {
+    background: var(--color-danger-4) !important;
+  }
+}

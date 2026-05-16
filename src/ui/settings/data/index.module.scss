@@ -1,0 +1,14 @@
+.container {
+  color: var(--color-2);
+  strong {
+    color: var(--color);
+  }
+}
+
+.container-delete {
+  margin-block-start: 2.125em;
+}
+
+.title-delete {
+  color: var(--color-danger);
+}

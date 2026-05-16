@@ -1,0 +1,25 @@
+.edit {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  transition-duration: 0.15s;
+  transition-property: color, background;
+  background: var(--color-bg);
+  padding: 0.625em;
+  color: var(--color-a);
+  user-select: none;
+  text-decoration: none;
+  &:hover {
+    --color-long-word-shadow: var(--color-input-hover);
+    background: var(--color-input-hover);
+    color: var(--color-a-hover);
+  }
+  &:active {
+    --color-long-word-shadow: var(--color-input-active);
+    background: var(--color-input-active);
+    color: var(--color-a-active);
+  }
+  > svg {
+    min-width: max-content;
+  }
+}

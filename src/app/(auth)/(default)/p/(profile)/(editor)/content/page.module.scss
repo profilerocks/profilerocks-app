@@ -1,0 +1,95 @@
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1em, 3vw, 2.5em);
+  margin-block-start: 2em;
+  > button {
+    flex: 1;
+    justify-content: space-between;
+  }
+}
+
+.btn-save-data-entry {
+  position: relative;
+  gap: 0.375em !important;
+  padding-inline-end: 0.375em !important;
+  &::after {
+    content: "";
+    $size: 0.75em;
+    width: $size;
+    height: $size;
+    background: var(--color-danger);
+    position: absolute;
+    inset-block-start: -0.125em;
+    inset-inline-start: -0.125em;
+    border-radius: 50%;
+    transition: opacity 0.2s;
+  }
+  &:disabled {
+    &::after {
+      opacity: 0;
+    }
+  }
+  &:enabled {
+    &::after {
+      animation: pulse-animation 2s infinite;
+      @keyframes pulse-animation {
+        from {
+          box-shadow: 0 0 0 0 var(--color-danger-3);
+        }
+        to {
+          box-shadow: 0 0 0 0.5em transparent;
+        }
+      }
+    }
+  }
+}
+
+.entry-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-block-start: 0.875em;
+  box-shadow: 0 0 0.25em var(--color-bg);
+  border-radius: 3em;
+  background: var(--color-bg-2);
+  > button {
+    margin: 0.375em;
+    padding-block: 0.375em !important;
+  }
+}
+
+.entry-preview {
+  margin-block-start: 3em;
+}
+
+.grab {
+  flex: 1;
+  cursor: grab;
+}
+
+.list-data-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5em;
+  padding: 0;
+  list-style: none;
+  > li {
+    position: relative;
+  }
+}
+
+.link-entry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.375em;
+  background: var(--color-bg);
+  margin-block-start: 0.25em;
+  > * {
+    flex: 1 1 25em;
+    margin: 0;
+  }
+}
+
+.message-empty {
+  text-align: center;
+}

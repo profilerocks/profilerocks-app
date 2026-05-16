@@ -1,0 +1,27 @@
+.container-message {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-block-end: 5em;
+}
+
+.icon-loading {
+  color: var(--color-highlight);
+}
+
+.text,
+.wait {
+  $ls: 0.1875em;
+  margin-inline-start: $ls;
+  letter-spacing: $ls;
+}
+
+.text {
+  margin-block: 0;
+}
+
+.wait {
+  margin-block: 1em 0;
+}

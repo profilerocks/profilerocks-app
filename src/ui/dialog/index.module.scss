@@ -1,0 +1,68 @@
+.modal {
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 6px var(--color-bg);
+  border: thin solid var(--color-border);
+  border-radius: 0.75em;
+  background: transparent;
+  padding: 0;
+  $td: 0.2s;
+  transition:
+    display $td allow-discrete,
+    overlay $td allow-discrete,
+    opacity $td,
+    scale $td;
+  &::backdrop {
+    backdrop-filter: brightness(75%) blur(4px);
+    transition: backdrop-filter $td;
+  }
+  @mixin closed {
+    scale: 0.875;
+    opacity: 0;
+    &::backdrop {
+      backdrop-filter: none;
+    }
+  }
+  &:not([open]) {
+    @include closed;
+  }
+  // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
+  @starting-style {
+    @include closed; // "Because <dialog>s change from display: none to display: block each time they are shown, the <dialog> transitions from its @starting-style styles to its dialog[open]"
+  }
+}
+
+.content {
+  background: var(--color-bg-2);
+  padding-inline: 1em;
+  padding-block: 1em 1.5em;
+  max-width: 26em;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.actions-dialog {
+  display: flex;
+  border-block-start: thin solid var(--color-border);
+  > button {
+    flex: 1;
+    transition-duration: 0.15s;
+    transition-property: color, background;
+    cursor: pointer;
+    border: none;
+    background: var(--color-btn-modal);
+    padding: 0.375em;
+    color: var(--color-2);
+    font: inherit;
+    user-select: none;
+    &:not(:first-child) {
+      border-inline-start: thin solid var(--color-border);
+    }
+    &:hover,
+    &:active {
+      background: var(--color-input-hover);
+    }
+    &:active {
+      color: var(--color);
+    }
+  }
+}

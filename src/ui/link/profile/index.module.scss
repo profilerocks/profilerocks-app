@@ -1,0 +1,14 @@
+.link-profile-public {
+  --color-a: var(--color-3);
+  --color-a-hover: var(--color);
+  display: inline-block;
+  border: thin solid var(--color-border);
+  border-radius: 1em;
+  padding: 0.25em 0.75em;
+  overflow: hidden;
+  font-size: clamp(1em, 1.625vw, 1.25em);
+  text-align: center;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

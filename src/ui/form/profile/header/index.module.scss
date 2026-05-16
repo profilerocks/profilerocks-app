@@ -1,0 +1,154 @@
+.container-photos {
+  display: flex;
+  gap: 1em;
+}
+
+.container-photo-profile {
+  position: relative;
+  margin-inline: auto;
+  border-color: transparent;
+  padding: 0.75em;
+  max-width: max-content;
+}
+
+.profile-photo-edit {
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    > .icon-photo-edit {
+      color: var(--color);
+    }
+  }
+  &:active {
+    > .icon-photo-edit {
+      background: var(--color-input-hover);
+      color: var(--color);
+    }
+  }
+}
+
+.profile-image-details {
+  > summary {
+    list-style: none;
+    &::marker {
+      content: none;
+    }
+  }
+  &::details-content {
+    $td: 0.15s;
+    transition:
+      opacity $td,
+      content-visibility $td allow-discrete;
+  }
+  &:not([open]) {
+    &::details-content {
+      opacity: 0;
+    }
+  }
+}
+
+.icon-photo-edit {
+  position: absolute;
+  opacity: 0.75;
+  z-index: 2;
+  backdrop-filter: blur(4px);
+  transition-duration: 0.15s;
+  transition-property: color, background;
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  box-shadow: 0 0 3px #000;
+  border: thin solid var(--color-border);
+  border-radius: 0.5em;
+  background: var(--color-bg-transparent);
+  padding: 0.25em;
+  color: var(--color-3);
+}
+
+.photo {
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  object-fit: cover;
+  user-select: none;
+}
+
+.profile-photo-actions {
+  display: grid;
+  position: absolute;
+  z-index: 1;
+  inset-block-start: 0;
+  inset-inline: 0;
+  min-width: max-content;
+  font-size: clamp(1em, 4.5vw, 1.125em);
+  user-select: none;
+  > button {
+    border: none;
+    font: inherit;
+    text-align: start;
+    &:active {
+      color: var(--color-danger);
+      background: var(--color-bg-danger);
+    }
+  }
+  > * {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    backdrop-filter: blur(4px);
+    transition-duration: 0.15s;
+    transition-property: color, background;
+    cursor: pointer;
+    background: var(--color-bg-transparent);
+    padding: 0.375em 0.5em;
+    color: var(--color-3);
+    $br: 1em;
+    &:hover {
+      color: var(--color);
+    }
+    &:active {
+      background: var(--color-input-hover);
+      color: var(--color);
+    }
+    &:first-child {
+      border: thin solid var(--color-border);
+      border-start-start-radius: $br;
+      border-start-end-radius: $br;
+    }
+    &:last-child {
+      border: thin solid var(--color-border);
+      border-block-start: none;
+      border-end-start-radius: $br;
+      border-end-end-radius: $br;
+    }
+  }
+}
+
+.container-photo-background {
+  position: relative;
+  flex: 1;
+  border-color: var(--color-border);
+  > label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 100%;
+    color: var(--color-3);
+    user-select: none;
+  }
+  &:has(label:hover) {
+    border-color: var(--color-3) !important;
+  }
+}
+
+.photo-background {
+  border-radius: 0.4375em;
+  width: 100%;
+  height: 9.75em;
+  object-fit: cover;
+  user-select: none;
+}
+
+.btn-next {
+  float: right;
+}

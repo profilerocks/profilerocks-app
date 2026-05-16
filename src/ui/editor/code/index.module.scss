@@ -1,0 +1,21 @@
+:global(.cm-content) {
+  cursor: text !important;
+  padding-block: 0.75em !important;
+  /**
+   * Match link vertical size.
+   */
+  min-height: 8.75em !important;
+}
+
+:global(.cm-editor) {
+  transition: border-color 0.15s;
+  box-shadow: 0 0 0.25em var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 0.5em;
+  overflow: hidden;
+}
+
+:global(.cm-focused) {
+  outline: none !important;
+  border-color: var(--color-highlight);
+}

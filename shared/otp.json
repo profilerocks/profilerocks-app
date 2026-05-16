@@ -1,0 +1,5 @@
+{
+  "length": 10,
+  "maxCredentials": 3,
+  "regex": "^[a-z0-9]+$"
+}

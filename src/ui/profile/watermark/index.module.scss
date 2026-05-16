@@ -1,0 +1,48 @@
+.checkbox-watermark {
+  $size: 1.25em;
+  scale: 1.25;
+  margin: 0;
+  margin-inline-end: 0.25em;
+  accent-color: var(--color-highlight);
+  font-size: inherit;
+  &:enabled {
+    cursor: pointer;
+  }
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.container-watermark {
+  display: flex;
+  align-items: center;
+  transition: background 0.15s;
+  border-radius: 0.25em;
+  padding-inline-start: 0.5em;
+  max-width: max-content;
+}
+
+.container-watermark-disabled {
+  cursor: not-allowed !important;
+}
+
+.container-watermark-enabled {
+  &:hover,
+  &:active {
+    background: var(--color-input-hover);
+  }
+  &:has(.checkbox-watermark:checked) {
+    .label-watermark,
+    strong {
+      color: var(--color-highlight) !important;
+    }
+  }
+  .label-watermark {
+    cursor: pointer;
+  }
+}
+
+.label-watermark {
+  padding: 0.375em;
+  user-select: none;
+}

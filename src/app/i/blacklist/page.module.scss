@@ -1,0 +1,14 @@
+.page {
+  display: grid;
+  justify-content: center;
+  padding-inline: 1em;
+  p {
+    margin: 0;
+  }
+  ul {
+    margin-block-end: 3em;
+    li::marker {
+      color: var(--color-highlight);
+    }
+  }
+}
