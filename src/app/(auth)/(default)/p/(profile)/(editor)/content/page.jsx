@@ -157,20 +157,20 @@ function ButtonAddProfileData({ children, embed }) {
 /**
  * @function ButtonDeleteEntry
  * @param {Object} props
+ * @param {boolean} props.loading
+ * @param {React.Dispatch<boolean>} props.setLoading
  * @param {string} props.tag
  * @param {boolean} [props.pending]
  * @returns {React.ReactNode}
  */
-function ButtonDeleteEntry({ pending, tag }) {
+function ButtonDeleteEntry({ loading, pending, setLoading, tag }) {
   /**
    * @async
    * @function deleteDataEntryOnClick
    * @param {React.MouseEvent<HTMLButtonElement>} event
    */
   async function deleteDataEntryOnClick(event) {
-    const el = event.currentTarget || event.target;
-
-    if (el.disabled || !confirm("Are you sure you want to delete this data?")) {
+    if (loading || !confirm("Are you sure you want to delete this data?")) {
       return;
     }
 
@@ -180,30 +180,35 @@ function ButtonDeleteEntry({ pending, tag }) {
       return;
     }
 
-    el.disabled = true;
+    setLoading(true);
 
     if (!pending) {
       const res = await requestProfileDataDelete(profilePublicId, tag);
 
       if (!res) {
-        el.disabled = false;
+        setLoading(false);
         return;
       }
 
       if (!res.ok) {
-        el.disabled = false;
+        setLoading(false);
         alertErrorApp();
         return;
       }
     }
 
     if (!deleteProfileDataEntry(profilePublicId, tag)) {
-      el.disabled = false;
+      setLoading(false);
     }
   }
 
   return (
-    <ButtonDanger type="button" onClick={deleteDataEntryOnClick} className={styles["btn-delete-data-entry"]}>
+    <ButtonDanger
+      className={styles["btn-delete-data-entry"]}
+      disabled={loading}
+      onClick={deleteDataEntryOnClick}
+      type="button"
+    >
       Delete
     </ButtonDanger>
   );
@@ -228,8 +233,10 @@ function LinkEntry({
 }) {
   const [display, setDisplay] = useState(initialDisplay);
   const [embed, setEmbed] = useState(initialEmbed);
+  const [loading, setLoading] = useState(false);
   const [urlString, setUrlString] = useState(initialUrl);
   const deferredDisplay = useDeferredValue(display);
+
   const normalizedDisplay = normalizeDisplayName(deferredDisplay);
   const urlValid = URL.canParse(urlString);
   const embedEnabled = urlValid && Boolean(linkToIframe(urlString, { returnObject: true }));
@@ -240,18 +247,55 @@ function LinkEntry({
    * @param {React.ChangeEvent<HTMLInputElement>} event
    */
   async function setEmbedOnChange(event) {
-    setEmbed((event.currentTarget || event.target).checked);
+    if (loading || !embedEnabled) {
+      return;
+    }
+
+    if (!globalState.currentProfile) {
+      return;
+    }
+
+    const { data, public_id: profilePublicId } = globalState.currentProfile;
+
+    if (!profilePublicId) {
+      return;
+    }
+
+    const embedChecked = (event.currentTarget || event.target).checked;
+
+    setLoading(true);
+
+    const res = await requestProfileDataEmbedUpdate(profilePublicId, tag, embedChecked);
+
+    setLoading(false);
+
+    if (!res) {
+      return;
+    }
+
+    if (!res.ok || !data?.length) {
+      alertErrorApp();
+      return;
+    }
+
+    setEmbed(embedChecked);
+
+    const profileDataEntry = data.find(dataEntry => dataEntry.tag === tag);
+
+    if (!profileDataEntry) {
+      alertErrorApp();
+      return;
+    }
+
+    profileDataEntry.embed = embedChecked;
   }
 
   /**
    * @async
    * @function saveOnClick
-   * @param {React.MouseEvent<HTMLButtonElement>} event
    */
-  async function saveOnClick(event) {
-    const el = event.currentTarget || event.target;
-
-    if (el.disabled) {
+  async function saveOnClick() {
+    if (loading) {
       return;
     }
 
@@ -266,12 +310,12 @@ function LinkEntry({
       return;
     }
 
-    el.disabled = true;
-
     if (initialUrl) {
+      setLoading(true);
+      
       const res = await requestProfileDataUpdate(profilePublicId, tag, urlString, embed, normalizedDisplay);
 
-      el.disabled = false;
+      setLoading(false);
 
       if (!res) {
         return;
@@ -340,12 +384,14 @@ function LinkEntry({
         data.position = profileDataIndex - precedingPendingEntries;
       }
 
+      setLoading(true);
+
       const res = await requestProfileDataInsert(
         profilePublicId,
         data
       );
 
-      el.disabled = false;
+      setLoading(false);
 
       if (!res) {
         return;
@@ -390,7 +436,7 @@ function LinkEntry({
       <InputCheckbox
         checked={embed}
         className={styles["checkbox-load-external-content"]}
-        disabled={!embed || !embedEnabled}
+        disabled={loading || (!embed && !embedEnabled)}
         onChange={setEmbedOnChange}
         title={embedEnabled ? undefined : "This URL cannot be embedded."}
       >Load external content</InputCheckbox>
@@ -398,6 +444,7 @@ function LinkEntry({
         <InputGroup
           aria-invalid={urlString ? !urlValid : false}
           autoFocus={!initialUrl}
+          disabled={loading}
           maxLength={linkAttributes.maxLength}
           onChange={updateUrlStringOnChange}
           type="url"
@@ -407,6 +454,7 @@ function LinkEntry({
         </InputGroup>
         <InputGroup
           defaultValue={initialDisplay}
+          disabled={loading}
           maxLength={display.length - normalizedDisplay.length + displayAttributes.maxLength}
           onChange={updateDisplayOnChange}
           placeholder="e.g. Visit my page"
@@ -416,11 +464,11 @@ function LinkEntry({
         </InputGroup>
       </div>
       <div className={classNameEntryActions}>
-        <ButtonDeleteEntry pending={!initialUrl} tag={tag} />
+        <ButtonDeleteEntry loading={loading} pending={!initialUrl} setLoading={setLoading} tag={tag} />
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
         <Button
           className={styles["btn-save-data-entry"]}
-          disabled={!urlString || !urlValid || (urlString === initialUrl && normalizedDisplay === initialDisplay)}
+          disabled={loading || !urlValid || (urlString === initialUrl && normalizedDisplay === initialDisplay)}
           onClick={saveOnClick}
           type="button"
         >
@@ -471,6 +519,7 @@ function LinkEntryWrapper({ entry }) {
  * @returns {React.ReactNode}
  */
 function TextEditorWrapper({ entry, handleRef }) {
+  const [loading, setLoading] = useState(false);
   const [value, setValue] = useState(entry.content ?? "");
   const trimmedValue = value.trim();
 
@@ -480,13 +529,7 @@ function TextEditorWrapper({ entry, handleRef }) {
    * @param {React.MouseEvent<HTMLButtonElement>} event
    */
   async function saveOnClick(event) {
-    if (!trimmedValue) {
-      return;
-    }
-
-    const el = event.currentTarget || event.target;
-
-    if (el.disabled) {
+    if (loading || !trimmedValue) {
       return;
     }
 
@@ -496,12 +539,12 @@ function TextEditorWrapper({ entry, handleRef }) {
       return;
     }
 
-    el.disabled = true;
-
     if (entry.content) {
+      setLoading(true);
+
       const res = await requestProfileDataUpdate(profilePublicId, entry.tag, trimmedValue, entry.embed);
 
-      el.disabled = false;
+      setLoading(false);
 
       if (!res) {
         return;
@@ -564,12 +607,14 @@ function TextEditorWrapper({ entry, handleRef }) {
         data.position = profileDataIndex - precedingPendingEntries;
       }
 
+      setLoading(true);
+
       const res = await requestProfileDataInsert(
         profilePublicId,
         data
       );
 
-      el.disabled = false;
+      setLoading(false);
 
       if (!res) {
         return;
@@ -602,7 +647,7 @@ function TextEditorWrapper({ entry, handleRef }) {
         value={value}
       />
       <div className={classNameEntryActions}>
-        <ButtonDeleteEntry pending={!entry.content} tag={entry.tag} />
+        <ButtonDeleteEntry loading={loading} pending={!entry.content} setLoading={setLoading} tag={entry.tag} />
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
         <Button
           className={styles["btn-save-data-entry"]}
