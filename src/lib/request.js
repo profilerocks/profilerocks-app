@@ -232,12 +232,14 @@ export async function requestProfileDataDelete(profilePublicId, tag) {
  * @async
  * @function requestProfileDataInsert
  * @param {string} profilePublicId
- * @param {string} content
- * @param {(boolean|number|null)} [embed]
- * @param {string} [display]
+ * @param {Object} data
+ * @param {string} data.content
+ * @param {string} [data.display]
+ * @param {(boolean|number|null)} [data.embed]
+ * @param {number} [data.position]
  * @returns {Promise<Response|undefined>}
  */
-export async function requestProfileDataInsert(profilePublicId, content, embed, display) {
+export async function requestProfileDataInsert(profilePublicId, data) {
   /**
    * @type {RequestInit["body"]}
    */
@@ -248,20 +250,27 @@ export async function requestProfileDataInsert(profilePublicId, content, embed, 
    */
   let headers;
 
-  if (embed == null) {
-    body = content;
+  if (data.embed == null && data.position == null) {
+    body = data.content;
   } else {
     body = new URLSearchParams();
-    body.append("content", content);
-    body.append("embed", embed ? "1" : "0");
+    body.append("content", data.content);
 
-    if (display) {
-      body.append("display", display);
+    if (data.embed != null) {
+      body.append("embed", data.embed ? "1" : "0");
+
+      if (data.display) {
+        body.append("display", data.display);
+      }
+    }
+
+    if (data.position != null) {
+      body.append("position", data.position.toString());
     }
 
     headers = {
       "Content-Type": "application/x-www-form-urlencoded"
-    };
+    }
   }
 
   return await handleRequest(getResourceAPI("/s/profile/" + profilePublicId + "/set/data"), {

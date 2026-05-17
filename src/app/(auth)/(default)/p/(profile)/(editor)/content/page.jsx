@@ -258,24 +258,97 @@ function LinkEntry({
 
     el.disabled = true;
 
-    const res = await requestProfileDataUpdate(profilePublicId, tag, urlString, embed, normalizedDisplay);
+    if (pending) {
+      const profileDataEntries = globalState.currentProfile?.data;
 
-    el.disabled = false;
+      if (!profileDataEntries) {
+        return
+      }
 
-    if (!res) {
-      return;
+      /**
+       * @type {Parameters<requestProfileDataInsert>[1]}
+       */
+      const data = {
+        content: urlString,
+        embed,
+        display: normalizedDisplay
+      };
+
+      let profileDataIndex = 0;
+
+      /**
+       * @type {(ProfileDataEntryObject|undefined)}
+       */
+      let profileDataEntry;
+
+      do {
+        const entry = profileDataEntries[profileDataIndex];
+
+        if (entry.tag === tag) {
+          profileDataEntry = entry;
+        } else {
+          profileDataIndex++;
+        }
+      } while (!profileDataEntry && profileDataIndex < profileDataEntries.length);
+      
+      if (profileDataEntry && profileDataEntries.length !== (profileDataIndex + 1)) {
+        data.position = profileDataIndex;
+      }
+
+      const res = await requestProfileDataInsert(
+        profilePublicId,
+        data
+      );
+
+      el.disabled = false;
+
+      if (!res) {
+        return;
+      }
+
+      if (!res.ok) {
+        alertErrorApp();
+        return;
+      }
+
+      /**
+       * TODO: `currentProfile` doesn't work for this case, research why.
+       */
+      const profile = globalState.profiles?.find(profile => profile.public_id === profilePublicId);
+
+      if (!profile) {
+        alertErrorApp();
+        return;
+      }
+
+      profile.data ??= [];
+
+      profile.data.push({
+        content: urlString,
+        embed,
+        // @ts-expect-error
+        tag: (await res.bytes()).toBase64({ alphabet: "base64url" })
+      });
+    } else {
+      const res = await requestProfileDataUpdate(profilePublicId, tag, urlString, embed, normalizedDisplay);
+
+      el.disabled = false;
+
+      if (!res) {
+        return;
+      }
+
+      if (!res.ok) {
+        alertErrorApp();
+        return;
+      }
+
+      updateProfileDataEntryContent(
+        profilePublicId,
+        tag,
+        normalizedDisplay ? JSON.stringify([urlString, normalizedDisplay]) : urlString
+      );
     }
-
-    if (!res.ok) {
-      alertErrorApp();
-      return;
-    }
-
-    updateProfileDataEntryContent(
-      profilePublicId,
-      tag,
-      normalizedDisplay ? JSON.stringify([urlString, normalizedDisplay]) : urlString
-    );
   }
 
   /**
@@ -302,7 +375,7 @@ function LinkEntry({
 
   return (
     <>
-      <div className={styles["link-entry"]} title={pending ? "Pending to be inserted" : undefined}>
+      <div className={styles["link-entry"]} title={pending ? "Insert to save this entry" : undefined}>
         <InputGroup
           aria-invalid={urlString ? !urlValid : false}
           autoFocus={pending}
@@ -437,128 +510,6 @@ function TextEditorWrapper({ entry, handleRef }) {
         </Button>
       </div>
     </>
-  );
-}
-
-/**
- * @function
- * @param {Object} props
- * @param {(boolean|number|null)} props.embed
- * @param {React.Dispatch<React.SetStateAction<boolean|null|undefined>>} props.setEmbed
- * @returns {React.ReactNode}
- */
-function PreviewData({ embed, setEmbed }) {
-  const [value, setValue] = useState("");
-
-  useEffect(() => {
-    setValue("");
-  }, [embed]);
-
-  /**
-   * @async
-   * @function deleteDataEntryOnClick
-   * @param {React.MouseEvent<HTMLButtonElement>} event
-   */
-  async function deleteDataEntryOnClick(event) {
-    if (!confirm("Are you sure you want to delete this data?")) {
-      return;
-    }
-
-    setEmbed(undefined);
-  }
-
-  /**
-   * @async
-   * @function saveOnClick
-   * @param {React.MouseEvent<HTMLButtonElement>} event
-   */
-  async function saveOnClick(event) {
-    const el = event.currentTarget || event.target || {};
-
-    if (el.disabled) {
-      return;
-    }
-
-    const profilePublicId = globalState.currentProfile?.public_id;
-
-    if (!profilePublicId) {
-      return;
-    }
-
-    /**
-     * @type {string}
-     */
-    let content;
-
-    /**
-     * @type {(string|undefined)}
-     */
-    let display;
-
-    if (embed != null) {
-      if (value[0] === "[") {
-        [content, display] = JSON.parse(value);
-      } else {
-        content = value;
-      }
-      if (!URL.canParse(content)) {
-        alertMessage("The URL is incorrect.");
-        return;
-      }
-    } else {
-      content = value;
-    }
-
-    el.disabled = true;
-
-    const res = await requestProfileDataInsert(profilePublicId, content.trim(), embed, display?.trim());
-
-    el.disabled = false;
-
-    if (!res) {
-      return;
-    }
-
-    if (!res.ok) {
-      alertErrorApp();
-      return;
-    }
-
-    /**
-     * TODO: `currentProfile` doesn't work for this case, research why.
-     */
-    const profile = globalState.profiles?.find(profile => profile.public_id === profilePublicId);
-
-    if (!profile) {
-      alertErrorApp();
-      return;
-    }
-
-    profile.data ??= [];
-
-    profile.data.push({
-      content: value,
-      embed,
-      // @ts-expect-error
-      tag: (await res.bytes()).toBase64({ alphabet: "base64url" })
-    });
-
-    setEmbed(undefined);
-  }
-
-  return (
-    <div className={styles["entry-preview"]}>
-      {embed == null ? <TextEditor value={value} setValue={setValue} /> : <LinkEntry value={value} setValue={setValue} />}
-      <div className={styles["entry-actions"]}>
-        <ButtonDanger type="button" onClick={deleteDataEntryOnClick}>
-          Delete
-        </ButtonDanger>
-        <Button type="button" className={styles["btn-save-data-entry"]} disabled={!value} onClick={saveOnClick}>
-          Insert
-          <IconPlus width="1.25em" />
-        </Button>
-      </div>
-    </div>
   );
 }
 
