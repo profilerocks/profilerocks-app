@@ -237,7 +237,7 @@ export async function requestProfileDataDelete(profilePublicId, tag) {
  * @returns {Promise<Response|undefined>}
  */
 export async function requestProfileDataEmbedUpdate(profilePublicId, tag, embed) {
-  let href = getResourceAPI("/s/profile/" + profilePublicId + "/delete/data/" + tag);
+  let href = getResourceAPI("/s/profile/" + profilePublicId + "/set/data/" + tag + "/embed");
 
   if (embed) {
     href += "?embed=1";

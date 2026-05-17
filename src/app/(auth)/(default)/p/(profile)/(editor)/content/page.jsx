@@ -257,10 +257,6 @@ function LinkEntry({
 
     const { data, public_id: profilePublicId } = globalState.currentProfile;
 
-    if (!profilePublicId) {
-      return;
-    }
-
     const embedChecked = (event.currentTarget || event.target).checked;
 
     setLoading(true);
@@ -312,7 +308,7 @@ function LinkEntry({
 
     if (initialUrl) {
       setLoading(true);
-      
+
       const res = await requestProfileDataUpdate(profilePublicId, tag, urlString, embed, normalizedDisplay);
 
       setLoading(false);
@@ -651,7 +647,7 @@ function TextEditorWrapper({ entry, handleRef }) {
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
         <Button
           className={styles["btn-save-data-entry"]}
-          disabled={!trimmedValue || trimmedValue === entry.content}
+          disabled={loading || !trimmedValue || trimmedValue === entry.content}
           onClick={saveOnClick}
           type="button"
         >
