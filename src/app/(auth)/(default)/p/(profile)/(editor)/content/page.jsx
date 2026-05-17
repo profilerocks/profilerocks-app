@@ -248,43 +248,48 @@ function LinkEntry({
    * @param {React.ChangeEvent<HTMLInputElement>} event
    */
   async function setEmbedOnChange(event) {
-    if (loading || !embedEnabled) {
+    if (!embedEnabled) {
       return;
     }
-
-    if (!globalState.currentProfile) {
-      return;
-    }
-
-    const { data, public_id: profilePublicId } = globalState.currentProfile;
 
     const embedChecked = (event.currentTarget || event.target).checked;
 
-    setLoading(true);
+    /**
+     * If `initialUrl` is not set, it means that it is a new entry.
+     */
+    if (initialUrl) {
+      if (loading || !globalState.currentProfile) {
+        return;
+      }
 
-    const res = await requestProfileDataEmbedUpdate(profilePublicId, tag, embedChecked);
+      const { data, public_id: profilePublicId } = globalState.currentProfile;
 
-    setLoading(false);
+      setLoading(true);
 
-    if (!res) {
-      return;
-    }
+      const res = await requestProfileDataEmbedUpdate(profilePublicId, tag, embedChecked);
 
-    if (!res.ok || !data?.length) {
-      alertErrorApp();
-      return;
+      setLoading(false);
+
+      if (!res) {
+        return;
+      }
+
+      if (!res.ok || !data?.length) {
+        alertErrorApp();
+        return;
+      }
+
+      const profileDataEntry = data.find(dataEntry => dataEntry.tag === tag);
+
+      if (!profileDataEntry) {
+        alertErrorApp();
+        return;
+      }
+
+      profileDataEntry.embed = embedChecked;
     }
 
     setEmbed(embedChecked);
-
-    const profileDataEntry = data.find(dataEntry => dataEntry.tag === tag);
-
-    if (!profileDataEntry) {
-      alertErrorApp();
-      return;
-    }
-
-    profileDataEntry.embed = embedChecked;
   }
 
   /**
