@@ -104,6 +104,9 @@
   text-align: center;
 }
 
+/**
+ * TODO: check this query when modifying the layout viewport.
+ */
 @media (46em < width < 60em), (65em < width <= 79em), (width > 101em) {
   .actions {
     flex-direction: row;

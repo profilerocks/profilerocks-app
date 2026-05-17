@@ -58,10 +58,10 @@
 .list-nav {
   display: grid;
   gap: 1em 1.5em;
-  margin-block: 1em;
+  margin-block: 1.5em;
   border-block-end: thin solid var(--color-border);
   padding: 0;
-  padding-block-end: 1em;
+  padding-block-end: 1.375em;
   list-style: none;
   > li {
     flex: 1;
