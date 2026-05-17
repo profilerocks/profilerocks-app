@@ -179,9 +179,17 @@ function ButtonDeleteEntry({ tag }) {
  * @param {React.Ref<HTMLDivElement>} [props.handleRef]
  * @param {string} [props.initialDisplay]
  * @param {string} [props.initialUrl]
+ * @param {boolean} [props.pending]
  * @returns {React.ReactNode}
  */
-function LinkEntry({ tag, embed = false, handleRef, initialDisplay = "", initialUrl = "" }) {
+function LinkEntry({
+  embed = false,
+  handleRef,
+  initialDisplay = "",
+  initialUrl = "",
+  pending = false,
+  tag
+}) {
   const [display, setDisplay] = useState(initialDisplay);
   const [urlString, setUrlString] = useState(initialUrl);
   const deferredDisplay = useDeferredValue(display);
@@ -251,7 +259,13 @@ function LinkEntry({ tag, embed = false, handleRef, initialDisplay = "", initial
   return (
     <>
       <div className={styles["link-entry"]}>
-        <InputGroup type="url" onChange={updateUrlStringOnChange} maxLength={linkAttributes.maxLength} value={urlString}>
+        <InputGroup
+          autoFocus={pending}
+          type="url"
+          onChange={updateUrlStringOnChange}
+          maxLength={linkAttributes.maxLength}
+          value={urlString}
+        >
           *URL
         </InputGroup>
         <InputGroup
@@ -299,7 +313,15 @@ function LinkEntryWrapper({ entry }) {
     initialUrl = entry.content;
   }
 
-  return <LinkEntry embed={Boolean(entry.embed)} initialDisplay={initialDisplay} initialUrl={initialUrl} tag={entry.tag} />;
+  return (
+    <LinkEntry
+      embed={Boolean(entry.embed)}
+      initialDisplay={initialDisplay}
+      initialUrl={initialUrl}
+      pending={entry.pending}
+      tag={entry.tag}
+    />
+  );
 }
 
 /**
