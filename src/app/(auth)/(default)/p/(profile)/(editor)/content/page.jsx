@@ -9,7 +9,6 @@ import displayAttributes from "#shared/display.json";
 import linkAttributes from "#shared/link.json";
 import IconLink from "#src/icons/link.svg";
 import IconPencil from "#src/icons/pencil.svg";
-import IconPlus from "#src/icons/plus.svg";
 import IconTextRight from "#src/icons/text/right.svg";
 import { alertErrorApp, alertMessage } from "#src/lib/alert";
 import { normalizeDisplayName } from "#src/lib/name";
@@ -585,7 +584,7 @@ function TextEditorWrapper({ entry, handleRef }) {
           onClick={saveOnClick}
           type="button"
         >
-          Save
+          {entry.content ? "Save" : "Insert"}
           <IconPencil width="1.25em" />
         </Button>
       </div>
