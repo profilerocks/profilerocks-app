@@ -1,11 +1,13 @@
 .actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: clamp(1em, 3vw, 2.5em);
+  flex-direction: column;
+  gap: 1.25em;
   margin-block-start: 2em;
   > button {
     flex: 1;
-    justify-content: space-between;
+    svg:last-child {
+      margin-inline-start: auto;
+    }
   }
 }
 
@@ -100,4 +102,16 @@
 
 .message-empty {
   text-align: center;
+}
+
+@media (46em < width < 60em), (65em < width <= 79em), (width > 101em) {
+  .actions {
+    flex-direction: row;
+    > button {
+      justify-content: space-between !important;
+      svg:last-child {
+        margin-inline-start: 0 !important;
+      }
+    }
+  }
 }

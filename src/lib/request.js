@@ -240,7 +240,7 @@ export async function requestProfileDataEmbedUpdate(profilePublicId, tag, embed)
   let href = getResourceAPI("/s/profile/" + profilePublicId + "/set/data/" + tag + "/embed");
 
   if (embed) {
-    href += "?embed=1";
+    href += "?set=1";
   }
 
   return await handleRequest(href, {

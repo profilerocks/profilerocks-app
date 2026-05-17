@@ -8,6 +8,7 @@ import { useDeferredValue, useState } from "react";
 import { useSnapshot } from "valtio";
 import displayAttributes from "#shared/display.json";
 import linkAttributes from "#shared/link.json";
+import IconExternal from "#src/icons/external.svg";
 import IconLink from "#src/icons/link.svg";
 import IconPencil from "#src/icons/pencil.svg";
 import IconTextRight from "#src/icons/text/right.svg";
@@ -148,7 +149,7 @@ function ButtonAddProfileData({ children, embed }) {
   }
 
   return (
-    <ButtonAdd type="button" onClick={addDataEntryOnClick}>
+    <ButtonAdd onClick={addDataEntryOnClick} type="button" title="Add">
       {children}
     </ButtonAdd>
   );
@@ -720,11 +721,15 @@ export default function PageProfileContent() {
       {(currentProfile.data?.length ?? 0) < 100 ? (
         <div className={styles.actions}>
           <ButtonAddProfileData embed={false}>
-            Add link
+            Link
             <IconLink width="1.25em" />
           </ButtonAddProfileData>
+          <ButtonAddProfileData embed={true}>
+            External content
+            <IconExternal width="1.25em" />
+          </ButtonAddProfileData>
           <ButtonAddProfileData embed={null}>
-            Add text
+            Text
             <IconTextRight width="1.25em" />
           </ButtonAddProfileData>
         </div>
