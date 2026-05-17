@@ -10,9 +10,10 @@
     color: var(--color-danger) !important;
   }
   &:focus-visible {
-    outline-color: var(--color-danger-4) !important;
+    outline-color: var(--color-danger-3) !important;
   }
   &:disabled {
-    background: var(--color-danger-4) !important;
+    color: var(--color-bg-danger) !important;
+    background: transparent !important;
   }
 }
