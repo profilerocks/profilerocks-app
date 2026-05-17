@@ -66,6 +66,10 @@ const updateProfileDataPositionOnDragEnd = async event => {
 
   currentProfile.data.splice(index, 0, dataEntry);
 
+  if (dataEntry.pending) {
+    return;
+  }
+
   const res = await requestProfileDataPositionUpdate(currentProfile.public_id, source.id.toString(), index);
 
   if (!res) {
@@ -76,6 +80,43 @@ const updateProfileDataPositionOnDragEnd = async event => {
     alertErrorApp();
   }
 };
+
+/**
+ * @function ButtonAddProfileData
+ * @param {Object} props
+ * @param {React.ReactNode} props.children
+ * @param {(boolean|null)} props.embed
+ * @returns {React.ReactNode}
+ */
+function ButtonAddProfileData({ children, embed }) {
+  function addDataEntryOnClick() {
+    const { currentProfile } = globalState
+
+    if (!currentProfile) {
+      return;
+    }
+
+    /**
+     * @type {ProfileDataEntryObject}
+     */
+    const dataEntry = {
+      content: "",
+      embed,
+      tag: crypto.randomUUID(),
+      pending: true,
+    }
+
+    if (currentProfile.data) {
+      currentProfile.data.push(dataEntry);
+    } else {
+      currentProfile.data = [dataEntry];
+    }
+  }
+
+  return (
+    <ButtonAdd type="button" onClick={addDataEntryOnClick}>{children}</ButtonAdd>
+  )
+}
 
 /**
  * @function ButtonDeleteEntry
@@ -533,14 +574,14 @@ export default function PageProfileContent() {
         <>
           {embed !== undefined && <PreviewData embed={embed} setEmbed={setEmbed} />}
           <div className={styles.actions}>
-            <ButtonAdd type="button" onClick={() => setEmbed(false)}>
+            <ButtonAddProfileData embed={false}>
               Add link
               <IconLink width="1.25em" />
-            </ButtonAdd>
-            <ButtonAdd type="button" onClick={() => setEmbed(null)}>
+            </ButtonAddProfileData>
+            <ButtonAddProfileData embed={null}>
               Add text
               <IconTextRight width="1.25em" />
-            </ButtonAdd>
+            </ButtonAddProfileData>
           </div>
         </>
       ) : (
