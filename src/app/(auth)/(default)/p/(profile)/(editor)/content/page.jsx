@@ -374,7 +374,7 @@ function LinkEntry({
 
   return (
     <>
-      <div className={styles["link-entry"]} title={initialUrl ? undefined : "Insert to save this entry"}>
+      <div className={styles["link-entry"]} title={initialUrl ? undefined : "Insert to save this link"}>
         <InputGroup
           aria-invalid={urlString ? !urlValid : false}
           autoFocus={!initialUrl}
@@ -575,7 +575,7 @@ function TextEditorWrapper({ entry, handleRef }) {
 
   return (
     <>
-      <TextEditor value={value} setValue={setValue} />
+      <TextEditor value={value} setValue={setValue} title={entry.content ? undefined : "Insert to save this text"} />
       <div className={classNameEntryActions}>
         <ButtonDeleteEntry pending={!entry.content} tag={entry.tag} />
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
