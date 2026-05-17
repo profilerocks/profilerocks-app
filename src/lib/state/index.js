@@ -38,6 +38,7 @@ import { proxy } from "valtio";
 /**
  * @typedef {Object} GlobalState
  * @property {Profile} [currentProfile]
+ * @property {ProfileDataEntryObject[]} [currentProfileDataStored] No pending profile data.
  *
  * User
  * @property {string} [displayName]
@@ -57,9 +58,15 @@ import { proxy } from "valtio";
  */
 
 /**
- * @type {GlobalState}
+ * Valtio getters are optimized by default.
  */
-const globalState = proxy();
+const globalState = proxy(
+  /** @type {GlobalState} */ ({
+    get currentProfileDataStored() {
+      return this.currentProfile?.data?.filter(({ pending }) => !pending);
+    }
+  })
+);
 
 export default globalState;
 // const bcSyn = new BroadcastChannel("syn")

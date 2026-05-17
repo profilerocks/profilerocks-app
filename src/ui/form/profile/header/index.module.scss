@@ -85,8 +85,8 @@
     font: inherit;
     text-align: start;
     &:active {
-      color: var(--color-danger);
       background: var(--color-bg-danger);
+      color: var(--color-danger);
     }
   }
   > * {

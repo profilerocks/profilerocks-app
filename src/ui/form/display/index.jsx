@@ -6,7 +6,7 @@ import { alertErrorApp } from "#src/lib/alert";
 import { normalizeDisplayName } from "#src/lib/name";
 import { requestUserDisplayNameUpdate } from "#src/lib/request";
 import globalState from "#src/lib/state";
-import displayNameAttributes from "#shared/display.json";
+import displayAttributes from "#shared/display.json";
 import InputGroup from "#src/ui/input/group";
 import LinkBack from "#src/ui/link/back";
 import Actions from "#src/ui/actions";
@@ -27,12 +27,10 @@ export default function FormDisplayName({ children, hrefBack, hrefNext }) {
   const [displayName, setDisplayName] = useState("");
   const deferredDisplayName = useDeferredValue(displayName);
   const normalizedDisplayName = normalizeDisplayName(deferredDisplayName);
-  
+
   const lengthDifference = displayName.length - normalizedDisplayName.length;
-  const inputMinLength = lengthDifference + displayNameAttributes.minLength;
-  const inputMaxLength = lengthDifference + displayNameAttributes.maxLength;
   const invalidNormalizedName =
-    normalizedDisplayName.length < displayNameAttributes.minLength || normalizedDisplayName === globalState.displayName;
+    normalizedDisplayName.length < displayAttributes.minLength || normalizedDisplayName === globalState.displayName;
   const disabled = isSubmitting || invalidNormalizedName;
 
   /**
@@ -88,8 +86,8 @@ export default function FormDisplayName({ children, hrefBack, hrefNext }) {
         type="text"
         placeholder="e.g. John Doe"
         defaultValue={globalState.displayName}
-        minLength={inputMinLength}
-        maxLength={inputMaxLength}
+        minLength={lengthDifference + displayAttributes.minLength}
+        maxLength={lengthDifference + displayAttributes.maxLength}
         onChange={setDisplayNameOnInput}
         disabled={isSubmitting}
         required
@@ -98,7 +96,7 @@ export default function FormDisplayName({ children, hrefBack, hrefNext }) {
       </InputGroup>
       <Requirements>
         <li className={invalidNormalizedName ? undefined : "valid"}>
-          Between {displayNameAttributes.minLength} & {displayNameAttributes.maxLength} characters
+          Between {displayAttributes.minLength} & {displayAttributes.maxLength} characters
         </li>
       </Requirements>
       <Actions>

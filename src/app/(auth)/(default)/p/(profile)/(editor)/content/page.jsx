@@ -3,7 +3,7 @@
 import { RestrictToVerticalAxis } from "@dnd-kit/abstract/modifiers";
 import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable, isSortable } from "@dnd-kit/react/sortable";
-import { useEffect, useState } from "react";
+import { useDeferredValue, useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 import displayAttributes from "#shared/display.json";
 import linkAttributes from "#shared/link.json";
@@ -12,6 +12,7 @@ import IconPencil from "#src/icons/pencil.svg";
 import IconPlus from "#src/icons/plus.svg";
 import IconTextRight from "#src/icons/text/right.svg";
 import { alertErrorApp, alertMessage } from "#src/lib/alert";
+import { normalizeDisplayName } from "#src/lib/name";
 
 import {
   requestProfileDataDelete,
@@ -90,7 +91,7 @@ const updateProfileDataPositionOnDragEnd = async event => {
  */
 function ButtonAddProfileData({ children, embed }) {
   function addDataEntryOnClick() {
-    const { currentProfile } = globalState
+    const { currentProfile } = globalState;
 
     if (!currentProfile) {
       return;
@@ -103,8 +104,8 @@ function ButtonAddProfileData({ children, embed }) {
       content: "",
       embed,
       tag: crypto.randomUUID(),
-      pending: true,
-    }
+      pending: true
+    };
 
     if (currentProfile.data) {
       currentProfile.data.push(dataEntry);
@@ -114,8 +115,10 @@ function ButtonAddProfileData({ children, embed }) {
   }
 
   return (
-    <ButtonAdd type="button" onClick={addDataEntryOnClick}>{children}</ButtonAdd>
-  )
+    <ButtonAdd type="button" onClick={addDataEntryOnClick}>
+      {children}
+    </ButtonAdd>
+  );
 }
 
 /**
@@ -165,7 +168,7 @@ function ButtonDeleteEntry({ tag }) {
     <ButtonDanger type="button" onClick={deleteDataEntryOnClick} className={styles["btn-delete-data-entry"]}>
       Delete
     </ButtonDanger>
-  )
+  );
 }
 
 /**
@@ -181,6 +184,8 @@ function ButtonDeleteEntry({ tag }) {
 function LinkEntry({ tag, embed = false, handleRef, initialDisplay = "", initialUrl = "" }) {
   const [display, setDisplay] = useState(initialDisplay);
   const [urlString, setUrlString] = useState(initialUrl);
+  const deferredDisplay = useDeferredValue(display);
+  const normalizedDisplay = normalizeDisplayName(deferredDisplay);
 
   /**
    * @async
@@ -207,7 +212,7 @@ function LinkEntry({ tag, embed = false, handleRef, initialDisplay = "", initial
 
     el.disabled = true;
 
-    const res = await requestProfileDataUpdate(profilePublicId, tag, urlString, embed, display);
+    const res = await requestProfileDataUpdate(profilePublicId, tag, urlString, embed, normalizedDisplay);
 
     el.disabled = false;
 
@@ -220,7 +225,11 @@ function LinkEntry({ tag, embed = false, handleRef, initialDisplay = "", initial
       return;
     }
 
-    updateProfileDataEntryContent(profilePublicId, tag, display ? JSON.stringify([urlString, display]) : urlString);
+    updateProfileDataEntryContent(
+      profilePublicId,
+      tag,
+      normalizedDisplay ? JSON.stringify([urlString, normalizedDisplay]) : urlString
+    );
   }
 
   /**
@@ -236,25 +245,20 @@ function LinkEntry({ tag, embed = false, handleRef, initialDisplay = "", initial
    * @param {React.ChangeEvent<HTMLInputElement>} event
    */
   function updateUrlStringOnChange(event) {
-    setUrlString((event.currentTarget ?? event.target).value)
+    setUrlString((event.currentTarget ?? event.target).value);
   }
 
   return (
     <>
       <div className={styles["link-entry"]}>
-        <InputGroup
-          type="url"
-          onChange={updateUrlStringOnChange}
-          maxLength={linkAttributes.maxLength}
-        >
+        <InputGroup type="url" onChange={updateUrlStringOnChange} maxLength={linkAttributes.maxLength} value={urlString}>
           *URL
         </InputGroup>
         <InputGroup
-          maxLength={displayAttributes.maxLength}
+          maxLength={display.length - normalizedDisplay.length + displayAttributes.maxLength}
           onChange={updateDisplayOnChange}
           placeholder="e.g. Visit my page"
           type="text"
-          value={urlString}
         >
           Display
         </InputGroup>
@@ -264,11 +268,12 @@ function LinkEntry({ tag, embed = false, handleRef, initialDisplay = "", initial
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
         <Button
           className={styles["btn-save-data-entry"]}
-          disabled={!urlString || initialUrl === urlString}
+          disabled={!urlString || (urlString === initialUrl && normalizedDisplay === initialDisplay)}
           onClick={saveOnClick}
           type="button"
         >
-          Save<IconPencil width="1.25em" />
+          Save
+          <IconPencil width="1.25em" />
         </Button>
       </div>
     </>
@@ -283,7 +288,7 @@ function LinkEntry({ tag, embed = false, handleRef, initialDisplay = "", initial
  * @returns {React.ReactNode}
  */
 function LinkEntryWrapper({ entry }) {
-  let initialDisplay = ""
+  let initialDisplay = "";
   let initialUrl = "";
 
   if (entry.content[0] === "[") {
@@ -291,17 +296,10 @@ function LinkEntryWrapper({ entry }) {
       [initialUrl, initialDisplay] = JSON.parse(entry.content);
     } catch {}
   } else {
-    initialUrl = entry.content
+    initialUrl = entry.content;
   }
 
-  return (
-    <LinkEntry
-      embed={Boolean(entry.embed)}
-      initialDisplay={initialDisplay}
-      initialUrl={initialUrl}
-      tag={entry.tag}
-    />
-  )
+  return <LinkEntry embed={Boolean(entry.embed)} initialDisplay={initialDisplay} initialUrl={initialUrl} tag={entry.tag} />;
 }
 
 /**
@@ -367,11 +365,12 @@ function TextEditorWrapper({ entry, handleRef }) {
           onClick={saveOnClick}
           type="button"
         >
-          Save<IconPencil width="1.25em" />
+          Save
+          <IconPencil width="1.25em" />
         </Button>
       </div>
     </>
-  )
+  );
 }
 
 /**
@@ -482,17 +481,14 @@ function PreviewData({ embed, setEmbed }) {
 
   return (
     <div className={styles["entry-preview"]}>
-      {embed == null ? (
-        <TextEditor value={value} setValue={setValue} />
-      ) : (
-        <LinkEntry value={value} setValue={setValue} />
-      )}
+      {embed == null ? <TextEditor value={value} setValue={setValue} /> : <LinkEntry value={value} setValue={setValue} />}
       <div className={styles["entry-actions"]}>
         <ButtonDanger type="button" onClick={deleteDataEntryOnClick}>
           Delete
         </ButtonDanger>
         <Button type="button" className={styles["btn-save-data-entry"]} disabled={!value} onClick={saveOnClick}>
-          Insert<IconPlus width="1.25em" />
+          Insert
+          <IconPlus width="1.25em" />
         </Button>
       </div>
     </div>
@@ -506,13 +502,11 @@ function PreviewData({ embed, setEmbed }) {
  * @param {React.Ref<HTMLDivElement>} [props.handleRef]
  */
 function ProfileDataEntryContent({ entry, handleRef }) {
-  return (
-    entry.embed == null ? (
-      <TextEditorWrapper entry={entry} handleRef={handleRef} />
-    ) : (
-      <LinkEntryWrapper entry={entry} handleRef={handleRef} />
-    )
-  )
+  return entry.embed == null ? (
+    <TextEditorWrapper entry={entry} handleRef={handleRef} />
+  ) : (
+    <LinkEntryWrapper entry={entry} handleRef={handleRef} />
+  );
 }
 
 /**
@@ -529,7 +523,9 @@ function ProfileDataEntry({ entry, index }) {
   });
 
   return (
-    <li ref={ref}><ProfileDataEntryContent entry={entry} handleRef={handleRef} /></li>
+    <li ref={ref}>
+      <ProfileDataEntryContent entry={entry} handleRef={handleRef} />
+    </li>
   );
 }
 
@@ -546,12 +542,9 @@ export default function PageProfileContent() {
 
   return (
     <>
-      {currentProfile?.data?.length ? (
+      {currentProfile.data?.length ? (
         <ul className={styles["list-data-entries"]}>
-          <DragDropProvider
-            modifiers={[RestrictToVerticalAxis]}
-            onDragEnd={updateProfileDataPositionOnDragEnd}
-          >
+          <DragDropProvider modifiers={[RestrictToVerticalAxis]} onDragEnd={updateProfileDataPositionOnDragEnd}>
             {currentProfile.data.map((entry, i) => (
               <ProfileDataEntry entry={entry} index={i} key={entry.tag} />
             ))}
@@ -560,7 +553,7 @@ export default function PageProfileContent() {
       ) : (
         <p className={styles["message-empty"]}>Content will appear here</p>
       )}
-      {(currentProfile?.data?.length ?? 0) < 100 ? (
+      {(currentProfile.data?.length ?? 0) < 100 ? (
         <div className={styles.actions}>
           <ButtonAddProfileData embed={false}>
             Add link
