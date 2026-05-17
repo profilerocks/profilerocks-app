@@ -50,7 +50,9 @@ const updateProfileDataPositionOnDragEnd = async event => {
     return;
   }
 
-  const { initialIndex, index } = source;
+  const { initialIndex } = source;
+
+  let { index } = source;
 
   if (initialIndex === index) {
     return;
@@ -87,11 +89,18 @@ const updateProfileDataPositionOnDragEnd = async event => {
     }
   }
 
-  if (
-    precedingPendingEntries > 0 &&
-    globalState.currentProfileDataStored?.findIndex(entry => entry.tag === currentDataEntry.tag) === (index - precedingPendingEntries)
-  ) {
-    return;
+  if (precedingPendingEntries > 0) {
+    const storedIndex = globalState.currentProfileDataStored?.findIndex(entry => entry.tag === currentDataEntry.tag);
+
+    if (!storedIndex) {
+      return;
+    }
+
+    index -= precedingPendingEntries;
+
+    if (storedIndex === index) {
+      return;
+    }
   }
 
   const res = await requestProfileDataPositionUpdate(currentProfile.public_id, currentDataEntry.tag, index);
