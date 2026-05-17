@@ -27,6 +27,7 @@ export default function FormDisplayName({ children, hrefBack, hrefNext }) {
   const [displayName, setDisplayName] = useState("");
   const deferredDisplayName = useDeferredValue(displayName);
   const normalizedDisplayName = normalizeDisplayName(deferredDisplayName);
+  
   const lengthDifference = displayName.length - normalizedDisplayName.length;
   const inputMinLength = lengthDifference + displayNameAttributes.minLength;
   const inputMaxLength = lengthDifference + displayNameAttributes.maxLength;

@@ -5,6 +5,7 @@ import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable, isSortable } from "@dnd-kit/react/sortable";
 import { useEffect, useRef, useState } from "react";
 import { useSnapshot } from "valtio";
+import displayAttributes from "#shared/display.json";
 import linkAttributes from "#shared/link.json";
 import IconLink from "#src/icons/link.svg";
 import IconPencil from "#src/icons/pencil.svg";
@@ -77,25 +78,116 @@ const updateProfileDataPositionOnDragEnd = async event => {
 };
 
 /**
- * @function LinkEntry
+ * @function ButtonDeleteEntry
  * @param {Object} props
- * @param {string} props.value
- * @param {React.Dispatch<React.SetStateAction<string>>} props.setValue
+ * @param {string} props.tag
  * @returns {React.ReactNode}
  */
-function LinkEntry({ value, setValue }) {
-  const contentArrayResult = value[0] === "[";
-  const content = contentArrayResult ? JSON.parse(value) : value;
+function ButtonDeleteEntry({ tag }) {
+  /**
+   * @async
+   * @function deleteDataEntryOnClick
+   * @param {React.MouseEvent<HTMLButtonElement>} event
+   */
+  async function deleteDataEntryOnClick(event) {
+    const el = event.currentTarget || event.target;
+
+    if (el.disabled || !confirm("Are you sure you want to delete this data?")) {
+      return;
+    }
+
+    const profilePublicId = globalState.currentProfile?.public_id;
+
+    if (!profilePublicId) {
+      return;
+    }
+
+    el.disabled = true;
+
+    const res = await requestProfileDataDelete(profilePublicId, tag);
+
+    el.disabled = false;
+
+    if (!res) {
+      return;
+    }
+
+    if (!res.ok) {
+      alertErrorApp();
+      return;
+    }
+
+    deleteProfileDataEntry(profilePublicId, tag);
+  }
+
+  return (
+    <ButtonDanger type="button" onClick={deleteDataEntryOnClick} className={styles["btn-delete-data-entry"]}>
+      Delete
+    </ButtonDanger>
+  )
+}
+
+/**
+ * @function LinkEntry
+ * @param {Object} props
+ * @param {string} props.tag
+ * @param {boolean} [props.embed]
+ * @param {React.Ref<HTMLDivElement>} [props.handleRef]
+ * @param {string} [props.initialDisplay]
+ * @param {string} [props.initialUrl]
+ * @returns {React.ReactNode}
+ */
+function LinkEntry({ tag, embed = false, handleRef, initialDisplay = "", initialUrl = "" }) {
+  const [display, setDisplay] = useState(initialDisplay);
+  const [urlString, setUrlString] = useState(initialUrl);
+
+  /**
+   * @async
+   * @function saveOnClick
+   * @param {React.MouseEvent<HTMLButtonElement>} event
+   */
+  async function saveOnClick(event) {
+    const el = event.currentTarget || event.target;
+
+    if (el.disabled) {
+      return;
+    }
+
+    const profilePublicId = globalState.currentProfile?.public_id;
+
+    if (!profilePublicId) {
+      return;
+    }
+
+    if (!URL.canParse(urlString)) {
+      alertMessage("The URL is incorrect.");
+      return;
+    }
+
+    el.disabled = true;
+
+    const res = await requestProfileDataUpdate(profilePublicId, tag, urlString, embed, display);
+
+    el.disabled = false;
+
+    if (!res) {
+      return;
+    }
+
+    if (!res.ok) {
+      alertErrorApp();
+      return;
+    }
+
+    updateProfileDataEntryContent(profilePublicId, tag, display ? JSON.stringify([urlString, display]) : urlString);
+  }
 
   /**
    * @function updateDisplayOnChange
    * @param {React.ChangeEvent<HTMLInputElement>} event
    */
   function updateDisplayOnChange(event) {
-    const { value } = event.currentTarget;
-    const urlString = contentArrayResult ? content[0] : content;
-
-    setValue(value ? JSON.stringify([urlString, value]) : urlString);
+    setDisplay((event.currentTarget ?? event.target).value);
   }
 
   /**
@@ -103,30 +195,142 @@ function LinkEntry({ value, setValue }) {
    * @param {React.ChangeEvent<HTMLInputElement>} event
    */
   function updateUrlStringOnChange(event) {
-    setValue(contentArrayResult ? JSON.stringify([event.currentTarget.value, content[1]]) : event.currentTarget.value);
+    setUrlString((event.currentTarget ?? event.target).value)
   }
 
   return (
-    <div className={styles["link-entry"]}>
-      <InputGroup
-        type="url"
-        onChange={updateUrlStringOnChange}
-        value={contentArrayResult ? content[0] : content}
-        maxLength={linkAttributes.maxLength}
-      >
-        *URL
-      </InputGroup>
-      <InputGroup
-        maxLength={linkAttributes.displayMaxLength}
-        onChange={updateDisplayOnChange}
-        placeholder="e.g. Visit my page"
-        type="text"
-        value={contentArrayResult ? content[1] : ""}
-      >
-        Display
-      </InputGroup>
-    </div>
+    <>
+      <div className={styles["link-entry"]}>
+        <InputGroup
+          type="url"
+          onChange={updateUrlStringOnChange}
+          maxLength={linkAttributes.maxLength}
+        >
+          *URL
+        </InputGroup>
+        <InputGroup
+          maxLength={displayAttributes.maxLength}
+          onChange={updateDisplayOnChange}
+          placeholder="e.g. Visit my page"
+          type="text"
+          value={urlString}
+        >
+          Display
+        </InputGroup>
+      </div>
+      <div className={styles["entry-actions"]}>
+        <ButtonDeleteEntry tag={tag} />
+        <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
+        <Button
+          className={styles["btn-save-data-entry"]}
+          disabled={!urlString || initialUrl === urlString}
+          onClick={saveOnClick}
+          type="button"
+        >
+          Save<IconPencil width="1.25em" />
+        </Button>
+      </div>
+    </>
   );
+}
+
+/**
+ * @function LinkEntryWrapper
+ * @param {Object} props
+ * @param {ProfileDataEntryObject} props.entry
+ * @param {React.Ref<HTMLDivElement>} [props.handleRef]
+ * @returns {React.ReactNode}
+ */
+function LinkEntryWrapper({ entry }) {
+  let initialDisplay = ""
+  let initialUrl = "";
+
+  if (entry.content[0] === "[") {
+    try {
+      [initialUrl, initialDisplay] = JSON.parse(entry.content);
+    } catch {}
+  } else {
+    initialUrl = entry.content
+  }
+
+  return (
+    <LinkEntry
+      embed={Boolean(entry.embed)}
+      initialDisplay={initialDisplay}
+      initialUrl={initialUrl}
+      tag={entry.tag}
+    />
+  )
+}
+
+/**
+ * @function TextEditorWrapper
+ * @param {Object} props
+ * @param {ProfileDataEntryObject} props.entry
+ * @param {React.Ref<HTMLDivElement>} [props.handleRef]
+ * @returns {React.ReactNode}
+ */
+function TextEditorWrapper({ entry, handleRef }) {
+  const [value, setValue] = useState(entry.content ?? "");
+  const trimmedValue = value.trim();
+
+  /**
+   * @async
+   * @function saveOnClick
+   * @param {React.MouseEvent<HTMLButtonElement>} event
+   */
+  async function saveOnClick(event) {
+    if (!trimmedValue) {
+      return;
+    }
+
+    const el = event.currentTarget || event.target;
+
+    if (el.disabled) {
+      return;
+    }
+
+    const profilePublicId = globalState.currentProfile?.public_id;
+
+    if (!profilePublicId) {
+      return;
+    }
+
+    el.disabled = true;
+
+    const res = await requestProfileDataUpdate(profilePublicId, entry.tag, trimmedValue, entry.embed);
+
+    el.disabled = false;
+
+    if (!res) {
+      return;
+    }
+
+    if (!res.ok) {
+      alertErrorApp();
+      return;
+    }
+
+    updateProfileDataEntryContent(profilePublicId, entry.tag, trimmedValue);
+  }
+
+  return (
+    <>
+      <TextEditor value={value} setValue={setValue} />
+      <div className={styles["entry-actions"]}>
+        <ButtonDeleteEntry tag={entry.tag} />
+        <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
+        <Button
+          className={styles["btn-save-data-entry"]}
+          disabled={!trimmedValue || trimmedValue === entry.content}
+          onClick={saveOnClick}
+          type="button"
+        >
+          Save<IconPencil width="1.25em" />
+        </Button>
+      </div>
+    </>
+  )
 }
 
 /**
@@ -258,127 +462,15 @@ function PreviewData({ embed, setEmbed }) {
  * @function ProfileDataEntryContent
  * @param {Object} props
  * @param {ProfileDataEntryObject} props.entry
- * @param {(React.Ref<HTMLDivElement>|undefined)} props.handleRef
+ * @param {React.Ref<HTMLDivElement>} [props.handleRef]
  */
 function ProfileDataEntryContent({ entry, handleRef }) {
-  const [value, setValue] = useState(entry.content);
-
-  const trimmedValue = value.trim();
-
-  /**
-   * @async
-   * @function deleteDataEntryOnClick
-   * @param {React.MouseEvent<HTMLButtonElement>} event
-   */
-  async function deleteDataEntryOnClick(event) {
-    const el = event.currentTarget || event.target;
-
-    if (el.disabled || !confirm("Are you sure you want to delete this data?")) {
-      return;
-    }
-
-    const profilePublicId = globalState.currentProfile?.public_id;
-
-    if (!profilePublicId) {
-      return;
-    }
-
-    el.disabled = true;
-
-    const res = await requestProfileDataDelete(profilePublicId, entry.tag);
-
-    el.disabled = false;
-
-    if (!res) {
-      return;
-    }
-
-    if (!res.ok) {
-      alertErrorApp();
-      return;
-    }
-
-    deleteProfileDataEntry(profilePublicId, entry.tag);
-  }
-
-  /**
-   * @async
-   * @function saveOnClick
-   * @param {React.MouseEvent<HTMLButtonElement>} event
-   */
-  async function saveOnClick(event) {
-    const el = event.currentTarget || event.target;
-
-    if (el.disabled) {
-      return;
-    }
-
-    const profilePublicId = globalState.currentProfile?.public_id;
-
-    if (!profilePublicId) {
-      return;
-    }
-
-    /**
-     * @type {string}
-     */
-    let content;
-
-    /**
-     * @type {(string|undefined)}
-     */
-    let display;
-
-    if (entry.embed != null) {
-      if (trimmedValue[0] === "[") {
-        [content, display] = JSON.parse(trimmedValue);
-      } else {
-        content = trimmedValue;
-      }
-
-      if (!URL.canParse(content)) {
-        alertMessage("The URL is incorrect.");
-        return;
-      }
-    } else {
-      content = trimmedValue;
-    }
-
-    el.disabled = true;
-
-    const res = await requestProfileDataUpdate(profilePublicId, entry.tag, content.trim(), entry.embed, display?.trim());
-
-    el.disabled = false;
-
-    if (!res) {
-      return;
-    }
-
-    if (!res.ok) {
-      alertErrorApp();
-      return;
-    }
-
-    updateProfileDataEntryContent(profilePublicId, entry.tag, trimmedValue);
-  }
-
   return (
-    <>
-      {entry.embed == null ? (
-        <TextEditor value={value} setValue={setValue} />
-      ) : (
-        <LinkEntry value={value} setValue={setValue} />
-      )}
-      <div className={styles["entry-actions"]}>
-        <ButtonDanger type="button" onClick={deleteDataEntryOnClick} className={styles["btn-delete-data-entry"]}>
-          Delete
-        </ButtonDanger>
-        <div ref={handleRef} className={styles["grab"]} title="Press to drag and move" />
-        <Button className={styles["btn-save-data-entry"]} disabled={!trimmedValue || entry.content === trimmedValue} onClick={saveOnClick} type="button">
-          Save<IconPencil width="1.25em" />
-        </Button>
-      </div>
-    </>
+    entry.embed == null ? (
+      <TextEditorWrapper entry={entry} handleRef={handleRef} />
+    ) : (
+      <LinkEntryWrapper entry={entry} handleRef={handleRef} />
+    )
   )
 }
 
