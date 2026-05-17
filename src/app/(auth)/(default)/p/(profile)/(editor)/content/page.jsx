@@ -194,6 +194,7 @@ function LinkEntry({
   const [urlString, setUrlString] = useState(initialUrl);
   const deferredDisplay = useDeferredValue(display);
   const normalizedDisplay = normalizeDisplayName(deferredDisplay);
+  const urlValid = URL.canParse(urlString);
 
   /**
    * @async
@@ -256,10 +257,17 @@ function LinkEntry({
     setUrlString((event.currentTarget ?? event.target).value);
   }
 
+  let classNameEntryActions = styles["entry-actions"];
+
+  if (pending) {
+    classNameEntryActions += ` ${styles.pending}`;
+  }
+
   return (
     <>
       <div className={styles["link-entry"]}>
         <InputGroup
+          aria-invalid={!urlValid}
           autoFocus={pending}
           type="url"
           onChange={updateUrlStringOnChange}
@@ -277,16 +285,16 @@ function LinkEntry({
           Display
         </InputGroup>
       </div>
-      <div className={styles["entry-actions"]}>
+      <div className={classNameEntryActions}>
         <ButtonDeleteEntry tag={tag} />
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
         <Button
           className={styles["btn-save-data-entry"]}
-          disabled={!urlString || (urlString === initialUrl && normalizedDisplay === initialDisplay)}
+          disabled={!urlString || !urlValid || (urlString === initialUrl && normalizedDisplay === initialDisplay)}
           onClick={saveOnClick}
           type="button"
         >
-          Save
+          {pending ? "Insert" : "Save"}
           <IconPencil width="1.25em" />
         </Button>
       </div>
@@ -536,7 +544,7 @@ function ProfileDataEntryContent({ entry, handleRef }) {
  * @param {Object} props
  * @param {ProfileDataEntryObject} props.entry
  * @param {number} props.index
- * @returns {React.ReactNode}
+ * @returns {React.ReactNode}<TextEditor value={value} setValue={setValue} />
  */
 function ProfileDataEntry({ entry, index }) {
   const { handleRef, ref } = useSortable({

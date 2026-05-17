@@ -23,6 +23,11 @@
       &::placeholder {
         color: var(--color-3);
       }
+      &[aria-invalid="true"] {
+        + label {
+          color: var(--color-danger) !important;
+        }
+      }
     }
   }
   > label {
@@ -63,5 +68,11 @@
   }
   &:focus {
     border-color: var(--color-highlight);
+  }
+  &[aria-invalid="true"] {
+    caret-color: var(--color-danger) !important;
+    &:focus {
+      border-color: var(--color-danger) !important;
+    }
   }
 }

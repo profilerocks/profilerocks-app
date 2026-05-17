@@ -56,6 +56,9 @@
     margin: 0.375em;
     padding-block: 0.375em !important;
   }
+  &.pending {
+    box-shadow: 0 0 0.625em var(--color-highlight);
+  }
 }
 
 .entry-preview {
