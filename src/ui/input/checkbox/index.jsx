@@ -7,15 +7,28 @@ import styles from "./index.module.scss";
  * @function
  * @param {Omit<
  *   React.InputHTMLAttributes<HTMLInputElement>,
- *   "className"|"id"|"type"
+ *   "id"|"type"
  * > & { children?: React.ReactNode; ref?: React.Ref<HTMLInputElement> }} props
  * @returns {React.ReactNode}
  */
-export default function InputCheckbox({ children, placeholder = " ", ref, title, ...inputAttributes }) {
+export default function InputCheckbox({
+  children,
+  className,
+  placeholder = " ",
+  ref,
+  title,
+  ...inputAttributes
+}) {
   const inputId = useId();
 
+  let classNameInputCheckboxContainer = styles["container-input-checkbox"];
+
+  if (className) {
+    classNameInputCheckboxContainer += " " + className
+  }
+
   return (
-    <div className={styles["container-input-checkbox"]} title={title}>
+    <div className={classNameInputCheckboxContainer} title={title}>
       <input
         {...inputAttributes}
         className={styles.checkbox}

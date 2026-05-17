@@ -16,6 +16,7 @@ import { normalizeDisplayName } from "#src/lib/name";
 
 import {
   requestProfileDataDelete,
+  requestProfileDataEmbedUpdate,
   requestProfileDataInsert,
   requestProfileDataPositionUpdate,
   requestProfileDataUpdate
@@ -26,6 +27,7 @@ import { deleteProfileDataEntry, updateProfileDataEntryContent } from "#src/lib/
 import Button from "#src/ui/button";
 import ButtonAdd from "#src/ui/button/add";
 import ButtonDanger from "#src/ui/button/danger";
+import InputCheckbox from "#src/ui/input/checkbox";
 import InputGroup from "#src/ui/input/group";
 import TextEditor from "#src/ui/editor/text";
 import styles from "./page.module.scss";
@@ -211,24 +213,35 @@ function ButtonDeleteEntry({ pending, tag }) {
  * @function LinkEntry
  * @param {Object} props
  * @param {string} props.tag
- * @param {boolean} [props.embed]
  * @param {React.Ref<HTMLDivElement>} [props.handleRef]
  * @param {string} [props.initialDisplay]
+ * @param {boolean} [props.initialEmbed]
  * @param {string} [props.initialUrl] - If not defined, it is considered a new entry.
  * @returns {React.ReactNode}
  */
 function LinkEntry({
-  embed = false,
   handleRef,
   initialDisplay = "",
+  initialEmbed = false,
   initialUrl = "",
   tag
 }) {
   const [display, setDisplay] = useState(initialDisplay);
+  const [embed, setEmbed] = useState(initialEmbed);
   const [urlString, setUrlString] = useState(initialUrl);
   const deferredDisplay = useDeferredValue(display);
   const normalizedDisplay = normalizeDisplayName(deferredDisplay);
   const urlValid = URL.canParse(urlString);
+  const embedEnabled = urlValid && Boolean(linkToIframe(urlString, { returnObject: true }));
+
+  /**
+   * @async
+   * @function setEmbedOnChange
+   * @param {React.ChangeEvent<HTMLInputElement>} event
+   */
+  async function setEmbedOnChange(event) {
+    setEmbed((event.currentTarget || event.target).checked);
+  }
 
   /**
    * @async
@@ -374,6 +387,13 @@ function LinkEntry({
 
   return (
     <>
+      <InputCheckbox
+        checked={embed}
+        className={styles["checkbox-load-external-content"]}
+        disabled={!embed || !embedEnabled}
+        onChange={setEmbedOnChange}
+        title={embedEnabled ? undefined : "This URL cannot be embedded."}
+      >Load external content</InputCheckbox>
       <div className={styles["link-entry"]} title={initialUrl ? undefined : "Insert to save this link"}>
         <InputGroup
           aria-invalid={urlString ? !urlValid : false}
@@ -433,8 +453,8 @@ function LinkEntryWrapper({ entry }) {
 
   return (
     <LinkEntry
-      embed={Boolean(entry.embed)}
       initialDisplay={initialDisplay}
+      initialEmbed={Boolean(entry.embed)}
       initialUrl={initialUrl}
       tag={entry.tag}
     />

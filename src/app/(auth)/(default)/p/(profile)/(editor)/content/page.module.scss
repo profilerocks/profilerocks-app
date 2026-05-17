@@ -45,6 +45,10 @@
   }
 }
 
+.checkbox-load-external-content {
+  margin-block-end: 1.375em;
+}
+
 .entry-actions {
   display: flex;
   justify-content: space-between;
@@ -87,7 +91,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1.375em;
-  margin-block-start: 0.25em;
   background: var(--color-bg);
   > * {
     flex: 1 1 25em;
