@@ -69,7 +69,7 @@ const updateProfileDataPositionOnDragEnd = async event => {
 
   currentProfile.data.splice(index, 0, currentDataEntry);
 
-  if (currentDataEntry.pending) {
+  if (!currentDataEntry.content) {
     return;
   }
 
@@ -84,7 +84,7 @@ const updateProfileDataPositionOnDragEnd = async event => {
   let precedingPendingEntries = 0;
 
   for (let i = 0; i < index; i++) {
-    if (currentProfile.data[i].pending) {
+    if (!currentProfile.data[i].content) {
       precedingPendingEntries++;
     }
   }
@@ -135,8 +135,7 @@ function ButtonAddProfileData({ children, embed }) {
     const dataEntry = {
       content: "",
       embed,
-      tag: crypto.randomUUID(),
-      pending: true
+      tag: crypto.randomUUID()
     };
 
     if (currentProfile.data) {
@@ -215,8 +214,7 @@ function ButtonDeleteEntry({ pending, tag }) {
  * @param {boolean} [props.embed]
  * @param {React.Ref<HTMLDivElement>} [props.handleRef]
  * @param {string} [props.initialDisplay]
- * @param {string} [props.initialUrl]
- * @param {boolean} [props.pending]
+ * @param {string} [props.initialUrl] - If not defined, it is considered a new entry.
  * @returns {React.ReactNode}
  */
 function LinkEntry({
@@ -224,7 +222,6 @@ function LinkEntry({
   handleRef,
   initialDisplay = "",
   initialUrl = "",
-  pending = false,
   tag
 }) {
   const [display, setDisplay] = useState(initialDisplay);
@@ -258,7 +255,26 @@ function LinkEntry({
 
     el.disabled = true;
 
-    if (pending) {
+    if (initialUrl) {
+      const res = await requestProfileDataUpdate(profilePublicId, tag, urlString, embed, normalizedDisplay);
+
+      el.disabled = false;
+
+      if (!res) {
+        return;
+      }
+
+      if (!res.ok) {
+        alertErrorApp();
+        return;
+      }
+
+      updateProfileDataEntryContent(
+        profilePublicId,
+        tag,
+        normalizedDisplay ? JSON.stringify([urlString, normalizedDisplay]) : urlString
+      );
+    } else {
       const profileDataEntries = globalState.currentProfile?.data;
 
       if (!profileDataEntries) {
@@ -282,10 +298,10 @@ function LinkEntry({
       let profileDataEntry;
 
       do {
-        const entry = profileDataEntries[profileDataIndex];
+        const currentProfileDataEntry = profileDataEntries[profileDataIndex];
 
-        if (entry.tag === tag) {
-          profileDataEntry = entry;
+        if (currentProfileDataEntry.tag === tag) {
+          profileDataEntry = currentProfileDataEntry;
         } else {
           profileDataIndex++;
         }
@@ -306,48 +322,15 @@ function LinkEntry({
         return;
       }
 
-      if (!res.ok) {
+      if (!res.ok || !profileDataEntry) {
         alertErrorApp();
         return;
       }
 
-      /**
-       * TODO: `currentProfile` doesn't work for this case, research why.
-       */
-      const profile = globalState.profiles?.find(profile => profile.public_id === profilePublicId);
+      // @ts-expect-error
+      profileDataEntry.tag = (await res.bytes()).toBase64({ alphabet: "base64url" });
 
-      if (!profile) {
-        alertErrorApp();
-        return;
-      }
-
-      profile.data ??= [];
-
-      profile.data.push({
-        content: urlString,
-        embed,
-        // @ts-expect-error
-        tag: (await res.bytes()).toBase64({ alphabet: "base64url" })
-      });
-    } else {
-      const res = await requestProfileDataUpdate(profilePublicId, tag, urlString, embed, normalizedDisplay);
-
-      el.disabled = false;
-
-      if (!res) {
-        return;
-      }
-
-      if (!res.ok) {
-        alertErrorApp();
-        return;
-      }
-
-      updateProfileDataEntryContent(
-        profilePublicId,
-        tag,
-        normalizedDisplay ? JSON.stringify([urlString, normalizedDisplay]) : urlString
-      );
+      profileDataEntry.content = normalizedDisplay ? JSON.stringify([urlString, normalizedDisplay]) : urlString;
     }
   }
 
@@ -369,16 +352,16 @@ function LinkEntry({
 
   let classNameEntryActions = styles["entry-actions"];
 
-  if (pending) {
+  if (!initialUrl) {
     classNameEntryActions += ` ${styles.pending}`;
   }
 
   return (
     <>
-      <div className={styles["link-entry"]} title={pending ? "Insert to save this entry" : undefined}>
+      <div className={styles["link-entry"]} title={initialUrl ? undefined : "Insert to save this entry"}>
         <InputGroup
           aria-invalid={urlString ? !urlValid : false}
-          autoFocus={pending}
+          autoFocus={!initialUrl}
           type="url"
           onChange={updateUrlStringOnChange}
           maxLength={linkAttributes.maxLength}
@@ -396,7 +379,7 @@ function LinkEntry({
         </InputGroup>
       </div>
       <div className={classNameEntryActions}>
-        <ButtonDeleteEntry pending={pending} tag={tag} />
+        <ButtonDeleteEntry pending={!initialUrl} tag={tag} />
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
         <Button
           className={styles["btn-save-data-entry"]}
@@ -404,7 +387,7 @@ function LinkEntry({
           onClick={saveOnClick}
           type="button"
         >
-          {pending ? "Insert" : "Save"}
+          {initialUrl ? "Save" : "Insert"}
           <IconPencil width="1.25em" />
         </Button>
       </div>
@@ -436,13 +419,14 @@ function LinkEntryWrapper({ entry }) {
       embed={Boolean(entry.embed)}
       initialDisplay={initialDisplay}
       initialUrl={initialUrl}
-      pending={entry.pending}
       tag={entry.tag}
     />
   );
 }
 
 /**
+ * If `entry.content` is empty, it is considered a new entry.
+ * 
  * @function TextEditorWrapper
  * @param {Object} props
  * @param {ProfileDataEntryObject} props.entry
@@ -477,27 +461,84 @@ function TextEditorWrapper({ entry, handleRef }) {
 
     el.disabled = true;
 
-    const res = await requestProfileDataUpdate(profilePublicId, entry.tag, trimmedValue, entry.embed);
+    if (entry.content) {
+      const res = await requestProfileDataUpdate(profilePublicId, entry.tag, trimmedValue, entry.embed);
 
-    el.disabled = false;
+      el.disabled = false;
 
-    if (!res) {
-      return;
+      if (!res) {
+        return;
+      }
+
+      if (!res.ok) {
+        alertErrorApp();
+        return;
+      }
+
+      updateProfileDataEntryContent(profilePublicId, entry.tag, trimmedValue);
+    } else {
+      const profileDataEntries = globalState.currentProfile?.data;
+
+      if (!profileDataEntries) {
+        return
+      }
+
+      /**
+       * @type {Parameters<requestProfileDataInsert>[1]}
+       */
+      const data = {
+        content: trimmedValue
+      };
+
+      let profileDataIndex = 0;
+
+      /**
+       * @type {(ProfileDataEntryObject|undefined)}
+       */
+      let profileDataEntry;
+
+      do {
+        const currentProfileDataEntry = profileDataEntries[profileDataIndex];
+
+        if (currentProfileDataEntry.tag === entry.tag) {
+          profileDataEntry = currentProfileDataEntry;
+        } else {
+          profileDataIndex++;
+        }
+      } while (!profileDataEntry && profileDataIndex < profileDataEntries.length);
+      
+      if (profileDataEntry && profileDataEntries.length !== (profileDataIndex + 1)) {
+        data.position = profileDataIndex;
+      }
+
+      const res = await requestProfileDataInsert(
+        profilePublicId,
+        data
+      );
+
+      el.disabled = false;
+
+      if (!res) {
+        return;
+      }
+
+      if (!res.ok || !profileDataEntry) {
+        alertErrorApp();
+        return;
+      }
+
+      // @ts-expect-error
+      profileDataEntry.tag = (await res.bytes()).toBase64({ alphabet: "base64url" });
+
+      profileDataEntry.content = trimmedValue;
     }
-
-    if (!res.ok) {
-      alertErrorApp();
-      return;
-    }
-
-    updateProfileDataEntryContent(profilePublicId, entry.tag, trimmedValue);
   }
 
   return (
     <>
       <TextEditor value={value} setValue={setValue} />
       <div className={styles["entry-actions"]}>
-        <ButtonDeleteEntry pending={entry.pending} tag={entry.tag} />
+        <ButtonDeleteEntry pending={!entry.content} tag={entry.tag} />
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
         <Button
           className={styles["btn-save-data-entry"]}

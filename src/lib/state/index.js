@@ -9,7 +9,6 @@ import { proxy } from "valtio";
  * @property {string} content
  * @property {string} tag
  * @property {(boolean|number|null)} [embed]
- * @property {boolean} [pending]
  */
 
 /**
@@ -63,7 +62,7 @@ import { proxy } from "valtio";
 const globalState = proxy(
   /** @type {GlobalState} */ ({
     get currentProfileDataStored() {
-      return this.currentProfile?.data?.filter(({ pending }) => !pending);
+      return this.currentProfile?.data?.filter(({ content }) => content);
     }
   })
 );
