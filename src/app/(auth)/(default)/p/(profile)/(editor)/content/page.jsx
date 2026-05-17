@@ -308,7 +308,23 @@ function LinkEntry({
       } while (!profileDataEntry && profileDataIndex < profileDataEntries.length);
       
       if (profileDataEntry && profileDataEntries.length !== (profileDataIndex + 1)) {
-        data.position = profileDataIndex;
+        /**
+         * Very important!
+         * It is necessary to account for the fact that there may be pending entries
+         * that haven't been sent to the server yet. Thus, it is necessary to account
+         * for them when calculating the index of the current data entry in the stored
+         * data entries.
+         */
+
+        let precedingPendingEntries = 0;
+
+        for (let i = 0; i < profileDataIndex; i++) {
+          if (!profileDataEntries[i].content) {
+            precedingPendingEntries++;
+          }
+        }
+
+        data.position = profileDataIndex - precedingPendingEntries;
       }
 
       const res = await requestProfileDataInsert(
@@ -508,7 +524,23 @@ function TextEditorWrapper({ entry, handleRef }) {
       } while (!profileDataEntry && profileDataIndex < profileDataEntries.length);
       
       if (profileDataEntry && profileDataEntries.length !== (profileDataIndex + 1)) {
-        data.position = profileDataIndex;
+        /**
+         * Very important!
+         * It is necessary to account for the fact that there may be pending entries
+         * that haven't been sent to the server yet. Thus, it is necessary to account
+         * for them when calculating the index of the current data entry in the stored
+         * data entries.
+         */
+
+        let precedingPendingEntries = 0;
+
+        for (let i = 0; i < profileDataIndex; i++) {
+          if (!profileDataEntries[i].content) {
+            precedingPendingEntries++;
+          }
+        }
+
+        data.position = profileDataIndex - precedingPendingEntries;
       }
 
       const res = await requestProfileDataInsert(
