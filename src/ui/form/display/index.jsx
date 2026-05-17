@@ -83,14 +83,14 @@ export default function FormDisplayName({ children, hrefBack, hrefNext }) {
   return (
     <form onSubmit={sendNameToServer}>
       <InputGroup
-        type="text"
-        placeholder="e.g. John Doe"
         defaultValue={globalState.displayName}
-        minLength={lengthDifference + displayAttributes.minLength}
-        maxLength={lengthDifference + displayAttributes.maxLength}
-        onChange={setDisplayNameOnInput}
         disabled={isSubmitting}
+        maxLength={lengthDifference + displayAttributes.maxLength}
+        minLength={lengthDifference + displayAttributes.minLength}
+        onChange={setDisplayNameOnInput}
+        placeholder="e.g. John Doe"
         required
+        type="text"
       >
         Name
       </InputGroup>

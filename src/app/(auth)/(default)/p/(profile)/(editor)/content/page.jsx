@@ -378,14 +378,15 @@ function LinkEntry({
         <InputGroup
           aria-invalid={urlString ? !urlValid : false}
           autoFocus={!initialUrl}
-          type="url"
-          onChange={updateUrlStringOnChange}
           maxLength={linkAttributes.maxLength}
+          onChange={updateUrlStringOnChange}
+          type="url"
           value={urlString}
         >
           *URL
         </InputGroup>
         <InputGroup
+          defaultValue={initialDisplay}
           maxLength={display.length - normalizedDisplay.length + displayAttributes.maxLength}
           onChange={updateDisplayOnChange}
           placeholder="e.g. Visit my page"
@@ -566,10 +567,16 @@ function TextEditorWrapper({ entry, handleRef }) {
     }
   }
 
+  let classNameEntryActions = styles["entry-actions"];
+
+  if (!entry.content) {
+    classNameEntryActions += ` ${styles.pending}`;
+  }
+
   return (
     <>
       <TextEditor value={value} setValue={setValue} />
-      <div className={styles["entry-actions"]}>
+      <div className={classNameEntryActions}>
         <ButtonDeleteEntry pending={!entry.content} tag={entry.tag} />
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
         <Button
