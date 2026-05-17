@@ -3,7 +3,8 @@
 import { RestrictToVerticalAxis } from "@dnd-kit/abstract/modifiers";
 import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable, isSortable } from "@dnd-kit/react/sortable";
-import { useDeferredValue, useEffect, useState } from "react";
+import { linkToIframe } from "link-to-iframe";
+import { useDeferredValue, useState } from "react";
 import { useSnapshot } from "valtio";
 import displayAttributes from "#shared/display.json";
 import linkAttributes from "#shared/link.json";
@@ -574,7 +575,12 @@ function TextEditorWrapper({ entry, handleRef }) {
 
   return (
     <>
-      <TextEditor value={value} setValue={setValue} title={entry.content ? undefined : "Insert to save this text"} />
+      <TextEditor
+        autoFocus={!entry.content}
+        setValue={setValue}
+        title={entry.content ? undefined : "Insert to save this text"}
+        value={value}
+      />
       <div className={classNameEntryActions}>
         <ButtonDeleteEntry pending={!entry.content} tag={entry.tag} />
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />

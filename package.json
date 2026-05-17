@@ -47,6 +47,7 @@
     "eslint-config-prettier": "^10.1.8",
     "generate-license-file": "^4.1.1",
     "highlight.js": "^11.11.1",
+    "link-to-iframe": "^1.0.8",
     "mailchecker": "^6.0.20",
     "markdown-it": "^14.1.1",
     "markdown-it-math": "^5.2.1",

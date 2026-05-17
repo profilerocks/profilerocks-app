@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSnapshot } from "valtio";
 import IconBin from "#src/icons/bin.svg";
 import { alertErrorApp } from "#src/lib/alert";
+import { useProfileActivePremium } from "#src/lib/hooks/state";
 import { requestProfileMembershipDelete } from "#src/lib/request";
 import globalState from "#src/lib/state";
 import { deleteProfileState } from "#src/lib/state/profile";
@@ -17,13 +18,29 @@ import styles from "./index.module.scss";
 export default function ButtonDeleteProfileMembership() {
   const [submitting, setSubmitting] = useState(false);
   const { currentProfile } = useSnapshot(globalState);
+  const premiumActive = useProfileActivePremium();
 
   if (!currentProfile) {
     return null;
   }
 
   async function deleteProfile() {
-    if (!currentProfile || !confirm(`Are you sure you want to delete ${currentProfile.name_id} profile?`)) {
+    if (!currentProfile) {
+      return;
+    }
+
+    let confirmText = `Are you sure you want to delete ${currentProfile.name_id} profile?`;
+
+    /**
+     * TODO: Only add this message if the subscription is managed by the user and not other member.
+     */
+    if (premiumActive) {
+      confirmText += " " + (currentProfile.premium?.subscription_status
+        ? "Your subscription will be permanently cancelled."
+        : "Remember this is a premium profile and this process is not recoverable.")
+    }
+
+    if (!confirm(confirmText)) {
       return;
     }
 
