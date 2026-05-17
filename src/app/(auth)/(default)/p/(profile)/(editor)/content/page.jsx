@@ -3,7 +3,7 @@
 import { RestrictToVerticalAxis } from "@dnd-kit/abstract/modifiers";
 import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable, isSortable } from "@dnd-kit/react/sortable";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 import displayAttributes from "#shared/display.json";
 import linkAttributes from "#shared/link.json";
@@ -538,16 +538,6 @@ function ProfileDataEntry({ entry, index }) {
  * @returns {React.ReactNode}
  */
 export default function PageProfileContent() {
-  /**
-   * @type {ReturnType<typeof useState<boolean|null>>}
-   */
-  const [embed, setEmbed] = useState();
-
-  /**
-   * @type {React.RefObject<HTMLUListElement|null>}
-   */
-  const profileDataListUlRef = useRef(null);
-
   const { currentProfile } = useSnapshot(globalState);
 
   if (!currentProfile) {
@@ -557,7 +547,7 @@ export default function PageProfileContent() {
   return (
     <>
       {currentProfile?.data?.length ? (
-        <ul className={styles["list-data-entries"]} ref={profileDataListUlRef}>
+        <ul className={styles["list-data-entries"]}>
           <DragDropProvider
             modifiers={[RestrictToVerticalAxis]}
             onDragEnd={updateProfileDataPositionOnDragEnd}
@@ -571,19 +561,16 @@ export default function PageProfileContent() {
         <p className={styles["message-empty"]}>Content will appear here</p>
       )}
       {(currentProfile?.data?.length ?? 0) < 100 ? (
-        <>
-          {embed !== undefined && <PreviewData embed={embed} setEmbed={setEmbed} />}
-          <div className={styles.actions}>
-            <ButtonAddProfileData embed={false}>
-              Add link
-              <IconLink width="1.25em" />
-            </ButtonAddProfileData>
-            <ButtonAddProfileData embed={null}>
-              Add text
-              <IconTextRight width="1.25em" />
-            </ButtonAddProfileData>
-          </div>
-        </>
+        <div className={styles.actions}>
+          <ButtonAddProfileData embed={false}>
+            Add link
+            <IconLink width="1.25em" />
+          </ButtonAddProfileData>
+          <ButtonAddProfileData embed={null}>
+            Add text
+            <IconTextRight width="1.25em" />
+          </ButtonAddProfileData>
+        </div>
       ) : (
         <p className={styles["message-empty"]}>
           Maximum number of data entries reached. Modify or delete one of the entries above to add a new one.
