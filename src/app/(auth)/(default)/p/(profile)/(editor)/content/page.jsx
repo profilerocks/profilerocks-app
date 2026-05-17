@@ -58,20 +58,43 @@ const updateProfileDataPositionOnDragEnd = async event => {
 
   const { currentProfile } = globalState;
 
-  if (!currentProfile || !currentProfile.data?.length) {
+  if (!currentProfile?.data?.length) {
     alertErrorApp();
     return;
   }
 
-  const [dataEntry] = currentProfile.data.splice(initialIndex, 1);
+  const [currentDataEntry] = currentProfile.data.splice(initialIndex, 1);
 
-  currentProfile.data.splice(index, 0, dataEntry);
+  currentProfile.data.splice(index, 0, currentDataEntry);
 
-  if (dataEntry.pending) {
+  if (currentDataEntry.pending) {
     return;
   }
 
-  const res = await requestProfileDataPositionUpdate(currentProfile.public_id, source.id.toString(), index);
+  /**
+   * Very important!
+   * It is necessary to account for the fact that there may be pending entries
+   * that haven't been sent to the server yet. Thus, it is necessary to account
+   * for them when calculating the index of the current data entry in the stored
+   * data entries.
+   */
+
+  let precedingPendingEntries = 0;
+
+  for (let i = 0; i < index; i++) {
+    if (currentProfile.data[i].pending) {
+      precedingPendingEntries++;
+    }
+  }
+
+  if (
+    precedingPendingEntries > 0 &&
+    globalState.currentProfileDataStored?.findIndex(entry => entry.tag === currentDataEntry.tag) === (index - precedingPendingEntries)
+  ) {
+    return;
+  }
+
+  const res = await requestProfileDataPositionUpdate(currentProfile.public_id, currentDataEntry.tag, index);
 
   if (!res) {
     return;
@@ -125,9 +148,10 @@ function ButtonAddProfileData({ children, embed }) {
  * @function ButtonDeleteEntry
  * @param {Object} props
  * @param {string} props.tag
+ * @param {boolean} [props.pending]
  * @returns {React.ReactNode}
  */
-function ButtonDeleteEntry({ tag }) {
+function ButtonDeleteEntry({ pending, tag }) {
   /**
    * @async
    * @function deleteDataEntryOnClick
@@ -148,20 +172,24 @@ function ButtonDeleteEntry({ tag }) {
 
     el.disabled = true;
 
-    const res = await requestProfileDataDelete(profilePublicId, tag);
+    if (!pending) {
+      const res = await requestProfileDataDelete(profilePublicId, tag);
 
-    el.disabled = false;
+      if (!res) {
+        el.disabled = false;
+        return;
+      }
 
-    if (!res) {
-      return;
+      if (!res.ok) {
+        el.disabled = false;
+        alertErrorApp();
+        return;
+      }
     }
 
-    if (!res.ok) {
-      alertErrorApp();
-      return;
+    if (!deleteProfileDataEntry(profilePublicId, tag)) {
+      el.disabled = false;
     }
-
-    deleteProfileDataEntry(profilePublicId, tag);
   }
 
   return (
@@ -265,9 +293,9 @@ function LinkEntry({
 
   return (
     <>
-      <div className={styles["link-entry"]}>
+      <div className={styles["link-entry"]} title={pending ? "Pending to be inserted" : undefined}>
         <InputGroup
-          aria-invalid={!urlValid}
+          aria-invalid={urlString ? !urlValid : false}
           autoFocus={pending}
           type="url"
           onChange={updateUrlStringOnChange}
@@ -286,7 +314,7 @@ function LinkEntry({
         </InputGroup>
       </div>
       <div className={classNameEntryActions}>
-        <ButtonDeleteEntry tag={tag} />
+        <ButtonDeleteEntry pending={pending} tag={tag} />
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
         <Button
           className={styles["btn-save-data-entry"]}
@@ -387,7 +415,7 @@ function TextEditorWrapper({ entry, handleRef }) {
     <>
       <TextEditor value={value} setValue={setValue} />
       <div className={styles["entry-actions"]}>
-        <ButtonDeleteEntry tag={entry.tag} />
+        <ButtonDeleteEntry pending={entry.pending} tag={entry.tag} />
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
         <Button
           className={styles["btn-save-data-entry"]}
