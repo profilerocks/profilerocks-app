@@ -1,6 +1,5 @@
 "use client";
 
-import { useId } from "react";
 import { useSnapshot } from "valtio";
 import { alertErrorApp } from "#src/lib/alert";
 import { PLATFORM_NAME } from "#src/lib/env";
@@ -8,11 +7,11 @@ import { useProfileActivePremium } from "#src/lib/hooks/state";
 import { requestProfileWatermarkToggle } from "#src/lib/request";
 import globalState from "#src/lib/state";
 import { updateProfileState } from "#src/lib/state/profile";
+import InputCheckbox from "#src/ui/input/checkbox";
 import styles from "./index.module.scss";
 
 export default function ProfileWatermark() {
   const { currentProfile } = useSnapshot(globalState);
-  const inputId = useId();
   const premiumActive = useProfileActivePremium();
 
   if (!currentProfile) {
@@ -50,24 +49,13 @@ export default function ProfileWatermark() {
   }
 
   return (
-    <div
-      className={
-        styles["container-watermark"] +
-        " " +
-        (premiumActive ? styles["container-watermark-enabled"] : styles["container-watermark-disabled"])
-      }
+    <InputCheckbox
+      checked={premiumActive ? !currentProfile.watermark : false}
+      disabled={!premiumActive}
+      onChange={updateWatermarkStatusOnChange}
+      title={premiumActive ? undefined : "It is a premium feature"}
     >
-      <input
-        checked={premiumActive ? !currentProfile.watermark : false}
-        className={styles["checkbox-watermark"]}
-        disabled={!premiumActive}
-        id={inputId}
-        onChange={updateWatermarkStatusOnChange}
-        type="checkbox"
-      />
-      <label className={styles["label-watermark"]} htmlFor={inputId}>
-        Hide <strong>{PLATFORM_NAME}</strong> watermark
-      </label>
-    </div>
+      Hide <strong className={styles.platform}>{PLATFORM_NAME}</strong> watermark
+    </InputCheckbox>
   );
 }
