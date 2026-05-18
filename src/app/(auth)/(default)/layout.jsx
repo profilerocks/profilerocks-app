@@ -29,7 +29,7 @@ function renderMarkdown(str) {
  * @returns {React.ReactNode}
  */
 function ProfilePreview() {
-  const { currentProfile, currentProfileDataStored } = useSnapshot(globalState);
+  const { currentProfile } = useSnapshot(globalState);
 
   let className = styles["section-profile-preview"];
 
@@ -55,7 +55,7 @@ function ProfilePreview() {
                 name_id: currentProfile.name_id,
                 public_id: currentProfile.public_id,
                 // @ts-expect-error
-                data: currentProfileDataStored,
+                data: currentProfile?.data?.filter(({ content }) => content),
                 display_name: currentProfile.display_name,
                 // lang: currentProfile.lang,
                 photo: currentProfile.photo,

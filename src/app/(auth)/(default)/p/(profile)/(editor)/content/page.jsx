@@ -213,8 +213,8 @@ function ButtonDeleteEntry({ loading, pending, setLoading, tag }) {
 /**
  * @function LinkEntry
  * @param {Object} props
+ * @param {React.Ref<HTMLDivElement>} props.handleRef
  * @param {string} props.tag
- * @param {React.Ref<HTMLDivElement>} [props.handleRef]
  * @param {string} [props.initialDisplay]
  * @param {boolean} [props.initialEmbed]
  * @param {string} [props.initialUrl] - If not defined, it is considered a new entry.
@@ -473,10 +473,10 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
  * @function LinkEntryWrapper
  * @param {Object} props
  * @param {ProfileDataEntryObject} props.entry
- * @param {React.Ref<HTMLDivElement>} [props.handleRef]
+ * @param {React.Ref<HTMLDivElement>} props.handleRef
  * @returns {React.ReactNode}
  */
-function LinkEntryWrapper({ entry }) {
+function LinkEntryWrapper({ entry, handleRef }) {
   let initialDisplay = "";
   let initialUrl = "";
 
@@ -488,7 +488,15 @@ function LinkEntryWrapper({ entry }) {
     initialUrl = entry.content;
   }
 
-  return <LinkEntry initialDisplay={initialDisplay} initialEmbed={Boolean(entry.embed)} initialUrl={initialUrl} tag={entry.tag} />;
+  return (
+    <LinkEntry
+      handleRef={handleRef}
+      initialDisplay={initialDisplay}
+      initialEmbed={Boolean(entry.embed)}
+      initialUrl={initialUrl}
+      tag={entry.tag}
+    />
+  );
 }
 
 /**
@@ -646,7 +654,7 @@ function TextEditorWrapper({ entry, handleRef }) {
  * @function ProfileDataEntryContent
  * @param {Object} props
  * @param {ProfileDataEntryObject} props.entry
- * @param {React.Ref<HTMLDivElement>} [props.handleRef]
+ * @param {React.Ref<HTMLDivElement>} props.handleRef
  */
 function ProfileDataEntryContent({ entry, handleRef }) {
   return entry.embed == null ? (
