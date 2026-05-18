@@ -248,10 +248,6 @@ function LinkEntry({
    * @param {React.ChangeEvent<HTMLInputElement>} event
    */
   async function setEmbedOnChange(event) {
-    if (!embedEnabled) {
-      return;
-    }
-
     const embedChecked = (event.currentTarget || event.target).checked;
 
     /**
@@ -270,11 +266,17 @@ function LinkEntry({
 
       setLoading(false);
 
-      if (!res) {
+      if (!res?.ok) {
+        if (embedChecked) {
+          alert("URL does not appear to be embeddable");
+        } else {
+          alertErrorApp();
+        }
+
         return;
       }
 
-      if (!res.ok || !data?.length) {
+      if (!data?.length) {
         alertErrorApp();
         return;
       }
@@ -440,15 +442,16 @@ function LinkEntry({
         className={styles["checkbox-load-external-content"]}
         disabled={loading || (!embed && !embedEnabled)}
         onChange={setEmbedOnChange}
-        title={embedEnabled ? undefined : "This URL cannot be embedded."}
+        title={embedEnabled ? undefined : "This URL cannot be embedded"}
       >Load external content</InputCheckbox>
       <div className={styles["link-entry"]} title={initialUrl ? undefined : "Insert to save this link"}>
         <InputGroup
-          aria-invalid={urlString ? !urlValid : false}
+          aria-invalid={!urlValid || (embed && !embedEnabled)}
           autoFocus={!initialUrl}
           disabled={loading}
           maxLength={linkAttributes.maxLength}
           onChange={updateUrlStringOnChange}
+          title={(!embed || embedEnabled) ? undefined : "Invalid URL for embedding"}
           type="url"
           value={urlString}
         >
@@ -470,7 +473,7 @@ function LinkEntry({
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
         <Button
           className={styles["btn-save-data-entry"]}
-          disabled={loading || !urlValid || (urlString === initialUrl && normalizedDisplay === initialDisplay)}
+          disabled={loading || !urlValid || (embed && !embedEnabled) || (urlString === initialUrl && normalizedDisplay === initialDisplay)}
           onClick={saveOnClick}
           type="button"
         >
