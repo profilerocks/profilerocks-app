@@ -35,8 +35,8 @@
   }
   &:has(.checkbox:disabled) {
     .label-checkbox {
-      color: var(--color-3);
       cursor: not-allowed !important;
+      color: var(--color-3);
     }
   }
 }

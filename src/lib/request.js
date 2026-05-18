@@ -291,7 +291,7 @@ export async function requestProfileDataInsert(profilePublicId, data) {
 
     headers = {
       "Content-Type": "application/x-www-form-urlencoded"
-    }
+    };
   }
 
   return await handleRequest(getResourceAPI("/s/profile/" + profilePublicId + "/set/data"), {

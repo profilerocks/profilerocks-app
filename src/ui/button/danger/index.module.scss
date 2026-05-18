@@ -13,7 +13,7 @@
     outline-color: var(--color-danger-3) !important;
   }
   &:disabled {
-    color: var(--color-bg-danger) !important;
     background: transparent !important;
+    color: var(--color-bg-danger) !important;
   }
 }

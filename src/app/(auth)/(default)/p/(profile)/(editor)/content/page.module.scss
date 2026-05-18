@@ -54,12 +54,12 @@
 .entry-actions {
   display: flex;
   justify-content: space-between;
+  transition: outline-color 0.2s;
   margin-block-start: 1em;
+  outline: 2px solid transparent;
   box-shadow: 0 0 0.25em var(--color-bg);
   border-radius: 3em;
   background: var(--color-bg-2);
-  outline: 2px solid transparent;
-  transition: outline-color 0.2s;
   > button {
     margin: 0.375em;
     padding-block: 0.375em !important;

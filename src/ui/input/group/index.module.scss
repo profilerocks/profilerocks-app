@@ -50,7 +50,9 @@
 }
 
 .input-custom {
-  transition: caret-color 0.15s, border-color 0.15s;
+  transition:
+    caret-color 0.15s,
+    border-color 0.15s;
   box-sizing: border-box;
   outline: none;
   border: 0;

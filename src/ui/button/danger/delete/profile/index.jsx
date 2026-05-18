@@ -35,9 +35,11 @@ export default function ButtonDeleteProfileMembership() {
      * TODO: Only add this message if the subscription is managed by the user and not other member.
      */
     if (premiumActive) {
-      confirmText += " " + (currentProfile.premium?.subscription_status
-        ? "Your subscription will be permanently cancelled."
-        : "Remember this is a premium profile and this process is not recoverable.")
+      confirmText +=
+        " " +
+        (currentProfile.premium?.subscription_status
+          ? "Your subscription will be permanently cancelled."
+          : "Remember this is a premium profile and this process is not recoverable.");
     }
 
     if (!confirm(confirmText)) {

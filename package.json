@@ -16,13 +16,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:csp": "node ./scripts/csp.js",
     "build:redirects": "node ./scripts/redirects.js",
-    "license": "generate-license-file",
-    "start": "next start",
     "eslint": "eslint",
-    "stylelint": "stylelint \"**/*.{css,scss}\" --ignore-path .gitignore",
+    "license": "generate-license-file",
     "prettier:check": "prettier . --check",
-    "prettier:write": "prettier . --write"
+    "prettier:write": "prettier . --write",
+    "start": "next start",
+    "stylelint": "stylelint \"**/*.{css,scss}\" --ignore-path .gitignore"
   },
   "dependencies": {
     "@dnd-kit/react": "^0.4.0",

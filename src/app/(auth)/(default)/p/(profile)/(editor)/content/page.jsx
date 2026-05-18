@@ -204,12 +204,7 @@ function ButtonDeleteEntry({ loading, pending, setLoading, tag }) {
   }
 
   return (
-    <ButtonDanger
-      className={styles["btn-delete-data-entry"]}
-      disabled={loading}
-      onClick={deleteDataEntryOnClick}
-      type="button"
-    >
+    <ButtonDanger className={styles["btn-delete-data-entry"]} disabled={loading} onClick={deleteDataEntryOnClick} type="button">
       Delete
     </ButtonDanger>
   );
@@ -225,13 +220,7 @@ function ButtonDeleteEntry({ loading, pending, setLoading, tag }) {
  * @param {string} [props.initialUrl] - If not defined, it is considered a new entry.
  * @returns {React.ReactNode}
  */
-function LinkEntry({
-  handleRef,
-  initialDisplay = "",
-  initialEmbed = false,
-  initialUrl = "",
-  tag
-}) {
+function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initialUrl = "", tag }) {
   const [display, setDisplay] = useState(initialDisplay);
   const [embed, setEmbed] = useState(initialEmbed);
   const [loading, setLoading] = useState(false);
@@ -330,16 +319,12 @@ function LinkEntry({
         return;
       }
 
-      updateProfileDataEntryContent(
-        profilePublicId,
-        tag,
-        normalizedDisplay ? JSON.stringify([urlString, normalizedDisplay]) : urlString
-      );
+      updateProfileDataEntryContent(profilePublicId, tag, normalizedDisplay ? JSON.stringify([urlString, normalizedDisplay]) : urlString);
     } else {
       const profileDataEntries = globalState.currentProfile?.data;
 
       if (!profileDataEntries) {
-        return
+        return;
       }
 
       /**
@@ -367,8 +352,8 @@ function LinkEntry({
           profileDataIndex++;
         }
       } while (!profileDataEntry && profileDataIndex < profileDataEntries.length);
-      
-      if (profileDataEntry && profileDataEntries.length !== (profileDataIndex + 1)) {
+
+      if (profileDataEntry && profileDataEntries.length !== profileDataIndex + 1) {
         /**
          * Very important!
          * It is necessary to account for the fact that there may be pending entries
@@ -390,10 +375,7 @@ function LinkEntry({
 
       setLoading(true);
 
-      const res = await requestProfileDataInsert(
-        profilePublicId,
-        data
-      );
+      const res = await requestProfileDataInsert(profilePublicId, data);
 
       setLoading(false);
 
@@ -443,7 +425,9 @@ function LinkEntry({
         disabled={loading || (!embed && !embedEnabled)}
         onChange={setEmbedOnChange}
         title={embedEnabled ? undefined : "This URL cannot be embedded"}
-      >Load external content</InputCheckbox>
+      >
+        Load external content
+      </InputCheckbox>
       <div className={styles["link-entry"]} title={initialUrl ? undefined : "Insert to save this link"}>
         <InputGroup
           aria-invalid={!urlValid || (embed && !embedEnabled)}
@@ -451,7 +435,7 @@ function LinkEntry({
           disabled={loading}
           maxLength={linkAttributes.maxLength}
           onChange={updateUrlStringOnChange}
-          title={(!embed || embedEnabled) ? undefined : "Invalid URL for embedding"}
+          title={!embed || embedEnabled ? undefined : "Invalid URL for embedding"}
           type="url"
           value={urlString}
         >
@@ -504,19 +488,12 @@ function LinkEntryWrapper({ entry }) {
     initialUrl = entry.content;
   }
 
-  return (
-    <LinkEntry
-      initialDisplay={initialDisplay}
-      initialEmbed={Boolean(entry.embed)}
-      initialUrl={initialUrl}
-      tag={entry.tag}
-    />
-  );
+  return <LinkEntry initialDisplay={initialDisplay} initialEmbed={Boolean(entry.embed)} initialUrl={initialUrl} tag={entry.tag} />;
 }
 
 /**
  * If `entry.content` is empty, it is considered a new entry.
- * 
+ *
  * @function TextEditorWrapper
  * @param {Object} props
  * @param {ProfileDataEntryObject} props.entry
@@ -565,7 +542,7 @@ function TextEditorWrapper({ entry, handleRef }) {
       const profileDataEntries = globalState.currentProfile?.data;
 
       if (!profileDataEntries) {
-        return
+        return;
       }
 
       /**
@@ -591,8 +568,8 @@ function TextEditorWrapper({ entry, handleRef }) {
           profileDataIndex++;
         }
       } while (!profileDataEntry && profileDataIndex < profileDataEntries.length);
-      
-      if (profileDataEntry && profileDataEntries.length !== (profileDataIndex + 1)) {
+
+      if (profileDataEntry && profileDataEntries.length !== profileDataIndex + 1) {
         /**
          * Very important!
          * It is necessary to account for the fact that there may be pending entries
@@ -614,10 +591,7 @@ function TextEditorWrapper({ entry, handleRef }) {
 
       setLoading(true);
 
-      const res = await requestProfileDataInsert(
-        profilePublicId,
-        data
-      );
+      const res = await requestProfileDataInsert(profilePublicId, data);
 
       setLoading(false);
 
