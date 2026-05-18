@@ -77,13 +77,13 @@ export default function FormProfileNameId({
   useEffect(() => {
     if (!defaultValue && location.search) {
       const claim = new URLSearchParams(location.search).get("claim");
-      
+
       if (claim && regexProfile.test(claim) && !forbiddenProfileNames.has(claim)) {
         setNameId(claim.substring(0, profileAttributes.maxLength));
         location.hash = "#page";
       }
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (dirty) {

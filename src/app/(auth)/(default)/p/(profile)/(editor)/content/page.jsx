@@ -232,7 +232,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
    */
   const inputUrlRef = useRef(null);
 
-  useEffect(() =>{
+  useEffect(() => {
     /**
      * If it is a new element (`initialUrl` is empty), scroll into view.
      */
@@ -444,7 +444,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
       </InputCheckbox>
       <div className={styles["link-entry"]} title={initialUrl ? undefined : "Insert to save this link"}>
         <InputGroup
-          aria-invalid={urlString ? (!urlValid || (embed && !embedEnabled)) : false}
+          aria-invalid={urlString ? !urlValid || (embed && !embedEnabled) : false}
           autoFocus={!initialUrl}
           disabled={loading}
           maxLength={linkAttributes.maxLength}
@@ -645,7 +645,7 @@ function TextEditorWrapperContent({ entry, handleRef }) {
       <TextEditor
         autoFocus={!entry.content}
         setValue={setValue}
-        title={(!entry.content && value) ? "Insert to save this text" : undefined}
+        title={!entry.content && value ? "Insert to save this text" : undefined}
         value={value}
       />
       <div className={classNameEntryActions}>
@@ -680,7 +680,7 @@ function TextEditorWrapper({ entry, handleRef }) {
    */
   const containerRef = useRef(null);
 
-  useEffect(() =>{
+  useEffect(() => {
     /**
      * If it is a new element (`entry.content` is empty), scroll into view.
      */

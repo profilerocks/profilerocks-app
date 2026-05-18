@@ -99,9 +99,8 @@ export default function SettingsPayments() {
     <div id="payments">
       <h1>Payments</h1>
       <p>
-        Payments are processed through <strong>Polar.sh</strong>.
+        Payments are processed through <strong>Polar.sh</strong>. You can manage your orders and subscriptions in their portal.
       </p>
-      <p>In the near future, you will also be able to view and manage payments and subscriptions from here.</p>
       <PolarShSettings />
     </div>
   );
