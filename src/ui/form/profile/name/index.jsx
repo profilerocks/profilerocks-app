@@ -75,6 +75,17 @@ export default function FormProfileNameId({
   const nameIdValid = nameIdCorrect && !nameIdBlacklisted;
 
   useEffect(() => {
+    if (!defaultValue && location.search) {
+      const claim = new URLSearchParams(location.search).get("claim");
+      
+      if (claim && regexProfile.test(claim) && !forbiddenProfileNames.has(claim)) {
+        setNameId(claim.substring(0, profileAttributes.maxLength));
+        location.hash = "#page";
+      }
+    }
+  }, [])
+
+  useEffect(() => {
     if (dirty) {
       /**
        * "Are you sure you want to leave this page?" warning if the user tries to reload or close the tab.
