@@ -1,5 +1,5 @@
 /*
-  Content-Security-Policy: base-uri 'self';connect-src 'self' https://challenges.cloudflare.com https://profile.rocks;default-src 'self';frame-ancestors 'none';frame-src 'self' https://challenges.cloudflare.com https://profile.rocks;font-src 'self' https://cdn.jsdelivr.net;form-action 'self' https://profile.rocks;img-src 'self' blob: data: https://assets.profile.rocks https://www.profile.rocks;object-src 'none';script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://assets.profile.rocks;script-src-attr 'none';style-src 'self' 'unsafe-inline' https://assets.profile.rocks;upgrade-insecure-requests
+  Content-Security-Policy: base-uri 'self';connect-src 'self' blob: https://challenges.cloudflare.com https://profile.rocks;default-src 'self';frame-ancestors 'none';frame-src 'self' https://challenges.cloudflare.com https://profile.rocks;font-src 'self' https://cdn.jsdelivr.net;form-action 'self' https://profile.rocks;img-src 'self' blob: data: https://assets.profile.rocks https://www.profile.rocks;object-src 'none';script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://assets.profile.rocks;script-src-attr 'none';style-src 'self' 'unsafe-inline' https://assets.profile.rocks;upgrade-insecure-requests
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
   Origin-Agent-Cluster: ?1
