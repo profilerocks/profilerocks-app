@@ -435,13 +435,13 @@ function LinkEntry({
 
   return (
     <>
-      <InputCheckbox
+      {/*<InputCheckbox
         checked={embed}
         className={styles["checkbox-load-external-content"]}
         disabled={loading || (!embed && !embedEnabled)}
         onChange={setEmbedOnChange}
         title={embedEnabled ? undefined : "This URL cannot be embedded."}
-      >Load external content</InputCheckbox>
+      >Load external content</InputCheckbox>*/}
       <div className={styles["link-entry"]} title={initialUrl ? undefined : "Insert to save this link"}>
         <InputGroup
           aria-invalid={urlString ? !urlValid : false}
