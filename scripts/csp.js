@@ -54,12 +54,7 @@ getHtmlFiles(OUT_DIR).forEach(filePath => {
   if (hashes.length > 0) {
     const cspMetaTag = `<meta http-equiv="content-security-policy" content="base-uri 'self';connect-src 'self' blob: https://challenges.cloudflare.com https://profile.rocks;default-src 'self';frame-src 'self' https:;font-src 'self' https://cdn.jsdelivr.net;form-action 'self' https://profile.rocks;img-src 'self' blob: data: https://assets.profile.rocks https://www.profile.rocks;object-src 'none';script-src 'self' ${hashes.join(" ")} https://challenges.cloudflare.com https://assets.profile.rocks;script-src-attr 'none';style-src 'self' 'unsafe-inline' https://assets.profile.rocks;upgrade-insecure-requests">`;
 
-    // Inject the CSP meta tag into the <head> of the document
-    if (html.includes("<head>")) {
-      html = html.replace("<head>", `<head>${cspMetaTag}`);
-    } else {
-      html = html.replace("<html>", `<html><head>${cspMetaTag}</head>`);
-    }
+    html = html.replace(/<meta charset=.*?>/i, `<meta charset="utf-8">${cspMetaTag}`);
 
     fs.writeFileSync(filePath, html, "utf8");
 
