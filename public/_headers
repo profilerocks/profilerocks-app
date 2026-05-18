@@ -1,5 +1,5 @@
 /*
-  Content-Security-Policy: base-uri 'self';connect-src 'self' https://profile.rocks;default-src 'self';frame-ancestors 'none';frame-src 'self' https://profile.rocks;font-src 'self' https://cdn.jsdelivr.net;form-action 'self' https://profile.rocks;img-src 'self' https://assets.profile.rocks https://web.profile.rocks;object-src 'none';script-src 'self' 'unsafe-inline' https://assets.profile.rocks;script-src-attr 'none';style-src 'self' 'unsafe-inline' https://assets.profile.rocks;upgrade-insecure-requests
+  Content-Security-Policy: base-uri 'self';connect-src 'self' https://profile.rocks;default-src 'self';frame-ancestors 'none';frame-src 'self' https://profile.rocks;font-src 'self' https://cdn.jsdelivr.net;form-action 'self' https://profile.rocks;img-src 'self' data: https://assets.profile.rocks https://web.profile.rocks;object-src 'none';script-src 'self' 'unsafe-inline' https://assets.profile.rocks;script-src-attr 'none';style-src 'self' 'unsafe-inline' https://assets.profile.rocks;upgrade-insecure-requests
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-site
   Origin-Agent-Cluster: ?1
