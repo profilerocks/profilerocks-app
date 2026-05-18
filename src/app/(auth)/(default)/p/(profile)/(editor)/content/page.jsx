@@ -3,7 +3,6 @@
 import { RestrictToVerticalAxis } from "@dnd-kit/abstract/modifiers";
 import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable, isSortable } from "@dnd-kit/react/sortable";
-import { EditorView } from "@codemirror/view";
 import { linkToIframe } from "link-to-iframe";
 import { useDeferredValue, useEffect, useRef, useState } from "react";
 import { useSnapshot } from "valtio";
