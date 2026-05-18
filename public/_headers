@@ -9,3 +9,6 @@
   X-Frame-Options: SAMEORIGIN
   X-Permitted-Cross-Domain-Policies: none
   X-XSS-Protection: 0
+
+# `Strict-Transport-Security` HSTS should be handled in the CDN or reverse proxy.
+# `X-Content-Type-Options: nosniff` can be set in Cloudflare when HSTS is enabled.
