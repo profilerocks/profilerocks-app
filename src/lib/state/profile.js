@@ -21,12 +21,13 @@ export function deleteProfileDataEntry(profilePublicId, tag) {
     return false;
   }
 
-  return Boolean(
-    profile.data.splice(
-      profile.data.findIndex(dataEntry => dataEntry.tag === tag),
-      1
-    )
-  );
+  const i = profile.data.findIndex(dataEntry => dataEntry.tag === tag);
+
+  if (i < 0) {
+    return false;
+  }
+
+  return profile.data.splice(i, 1).length > 0;
 }
 
 /**

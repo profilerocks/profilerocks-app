@@ -95,7 +95,7 @@ const updateProfileDataPositionOnDragEnd = async event => {
   if (precedingPendingEntries > 0) {
     const storedIndex = globalState.currentProfileDataStored?.findIndex(entry => entry.tag === currentDataEntry.tag);
 
-    if (!storedIndex) {
+    if (!storedIndex || storedIndex < 0) {
       return;
     }
 
