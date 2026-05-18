@@ -729,10 +729,10 @@ export default function PageProfileContent() {
             Link
             <IconLink width="1.25em" />
           </ButtonAddProfileData>
-          <ButtonAddProfileData embed={true}>
+          {/*<ButtonAddProfileData embed={true}>
             External content
             <IconExternal width="1.25em" />
-          </ButtonAddProfileData>
+          </ButtonAddProfileData>*/}
           <ButtonAddProfileData embed={null}>
             Text
             <IconTextRight width="1.25em" />
