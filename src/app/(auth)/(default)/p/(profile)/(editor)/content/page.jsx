@@ -3,8 +3,9 @@
 import { RestrictToVerticalAxis } from "@dnd-kit/abstract/modifiers";
 import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable, isSortable } from "@dnd-kit/react/sortable";
+import { EditorView } from "@codemirror/view";
 import { linkToIframe } from "link-to-iframe";
-import { useDeferredValue, useState } from "react";
+import { useDeferredValue, useEffect, useRef, useState } from "react";
 import { useSnapshot } from "valtio";
 import displayAttributes from "#shared/display.json";
 import linkAttributes from "#shared/link.json";
@@ -227,6 +228,20 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
   const [urlString, setUrlString] = useState(initialUrl);
   const deferredDisplay = useDeferredValue(display);
 
+  /**
+   * @type {React.RefObject<HTMLInputElement|null>}
+   */
+  const inputUrlRef = useRef(null);
+
+  useEffect(() =>{
+    /**
+     * If it is a new element (`initialUrl` is empty), scroll into view.
+     */
+    if (!initialUrl) {
+      inputUrlRef.current?.scrollIntoView();
+    }
+  }, []);
+
   const normalizedDisplay = normalizeDisplayName(deferredDisplay);
   const urlValid = URL.canParse(urlString);
   const embedEnabled = urlValid && Boolean(linkToIframe(urlString, { returnObject: true }));
@@ -430,11 +445,12 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
       </InputCheckbox>
       <div className={styles["link-entry"]} title={initialUrl ? undefined : "Insert to save this link"}>
         <InputGroup
-          aria-invalid={!urlValid || (embed && !embedEnabled)}
+          aria-invalid={urlString ? (!urlValid || (embed && !embedEnabled)) : false}
           autoFocus={!initialUrl}
           disabled={loading}
           maxLength={linkAttributes.maxLength}
           onChange={updateUrlStringOnChange}
+          ref={inputUrlRef}
           title={!embed || embedEnabled ? undefined : "Invalid URL for embedding"}
           type="url"
           value={urlString}
@@ -508,7 +524,7 @@ function LinkEntryWrapper({ entry, handleRef }) {
  * @param {React.Ref<HTMLDivElement>} [props.handleRef]
  * @returns {React.ReactNode}
  */
-function TextEditorWrapper({ entry, handleRef }) {
+function TextEditorWrapperContent({ entry, handleRef }) {
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState(entry.content ?? "");
   const trimmedValue = value.trim();
@@ -630,7 +646,7 @@ function TextEditorWrapper({ entry, handleRef }) {
       <TextEditor
         autoFocus={!entry.content}
         setValue={setValue}
-        title={entry.content ? undefined : "Insert to save this text"}
+        title={(!entry.content && value) ? "Insert to save this text" : undefined}
         value={value}
       />
       <div className={classNameEntryActions}>
@@ -647,6 +663,37 @@ function TextEditorWrapper({ entry, handleRef }) {
         </Button>
       </div>
     </>
+  );
+}
+
+/**
+ * If `entry.content` is empty, it is considered a new entry.
+ *
+ * @function TextEditorWrapper
+ * @param {Object} props
+ * @param {ProfileDataEntryObject} props.entry
+ * @param {React.Ref<HTMLDivElement>} [props.handleRef]
+ * @returns {React.ReactNode}
+ */
+function TextEditorWrapper({ entry, handleRef }) {
+  /**
+   * @type {React.RefObject<HTMLDivElement|null>}
+   */
+  const containerRef = useRef(null);
+
+  useEffect(() =>{
+    /**
+     * If it is a new element (`entry.content` is empty), scroll into view.
+     */
+    if (!entry.content) {
+      containerRef.current?.scrollIntoView();
+    }
+  }, []);
+
+  return (
+    <div ref={containerRef}>
+      <TextEditorWrapperContent entry={entry} handleRef={handleRef} />
+    </div>
   );
 }
 

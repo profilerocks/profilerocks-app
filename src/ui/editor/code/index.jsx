@@ -59,7 +59,6 @@ const EDITOR_BASIC_SETUP = Object.freeze({
 
 /**
  * @param {ReactCodeMirrorProps & {
- *  value: string,
  *  setValue: React.Dispatch<React.SetStateAction<string>>
  * }} props
  */

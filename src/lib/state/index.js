@@ -37,7 +37,7 @@ import { proxy } from "valtio";
 /**
  * @typedef {Object} GlobalState
  * @property {Profile} [currentProfile]
- * @property {ProfileDataEntryObject[]} [currentProfileDataStored] No pending profile data.
+ * @property {ProfileDataEntryObject[]} [currentProfileDataStored] No pending profile data. TODO: [DELETE IT]
  *
  * User
  * @property {string} [displayName]
@@ -61,6 +61,7 @@ import { proxy } from "valtio";
  */
 const globalState = proxy(
   /** @type {GlobalState} */ ({
+    //  TODO: [DELETE IT]
     get currentProfileDataStored() {
       return this.currentProfile?.data?.filter(({ content }) => content);
     }
