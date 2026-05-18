@@ -32,7 +32,7 @@
     "@codemirror/lang-markdown": "^6.5.0",
     "@codemirror/language-data": "^6.5.2",
     "@lezer/highlight": "^1.2.3",
-    "@profile.rocks/generator": "^1.1.4",
+    "@profile.rocks/generator": "^1.1.5",
     "@svgr/webpack": "^8.1.0",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^25.8.0",
