@@ -25,7 +25,7 @@ import {
 } from "#src/lib/request";
 
 import globalState from "#src/lib/state";
-import { deleteProfileDataEntry, updateProfileDataEntryContent } from "#src/lib/state/profile";
+import { deleteProfileDataEntry, updateProfileDataEntry } from "#src/lib/state/profile";
 import Button from "#src/ui/button";
 import ButtonAdd from "#src/ui/button/add";
 import ButtonDanger from "#src/ui/button/danger";
@@ -247,7 +247,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
 
   const normalizedDisplay = normalizeDisplayName(deferredDisplay);
   const urlValid = URL.canParse(urlString);
-  const embedEnabled = urlValid && Boolean(linkToIframe(urlString, { returnObject: true }));
+  const embedAvailable = urlValid && Boolean(linkToIframe(urlString, { returnObject: true }));
 
   /**
    * @async
@@ -260,7 +260,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
     /**
      * If `initialUrl` is not set, it means that it is a new entry.
      */
-    if (urlValid && initialUrl === urlString) {
+    if (initialUrl === urlString) {
       if (loading || !globalState.currentProfile) {
         return;
       }
@@ -337,7 +337,12 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
         return;
       }
 
-      updateProfileDataEntryContent(profilePublicId, tag, normalizedDisplay ? JSON.stringify([urlString, normalizedDisplay]) : urlString);
+      updateProfileDataEntry(
+        profilePublicId,
+        tag,
+        normalizedDisplay ? JSON.stringify([urlString, normalizedDisplay]) : urlString,
+        embed
+      );
     } else {
       const profileDataEntries = globalState.currentProfile?.data;
 
@@ -440,21 +445,21 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
       <InputCheckbox
         checked={embed}
         className={styles["checkbox-load-external-content"]}
-        disabled={loading || (!embed && !embedEnabled)}
+        disabled={loading || (!embed && !embedAvailable)}
         onChange={setEmbedOnChange}
-        title={embedEnabled ? undefined : "This URL cannot be embedded"}
+        title={embedAvailable ? undefined : "This URL cannot be embedded"}
       >
         Load external content
       </InputCheckbox>
       <div className={styles["link-entry"]} title={initialUrl ? undefined : "Insert to save this link"}>
         <InputGroup
-          aria-invalid={urlString ? !urlValid || (embed && !embedEnabled) : false}
+          aria-invalid={urlString ? !urlValid || (embed && !embedAvailable) : false}
           autoFocus={!initialUrl}
           disabled={loading}
           maxLength={linkAttributes.maxLength}
           onChange={updateUrlStringOnChange}
           ref={inputUrlRef}
-          title={!embed || embedEnabled ? undefined : "Invalid URL for embedding"}
+          title={!embed || embedAvailable ? undefined : "Invalid URL for embedding"}
           type="url"
           value={urlString}
         >
@@ -476,7 +481,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
         <Button
           className={styles["btn-save-data-entry"]}
-          disabled={loading || !urlValid || (embed && !embedEnabled) || (urlString === initialUrl && normalizedDisplay === initialDisplay)}
+          disabled={loading || !urlValid || (embed && !embedAvailable) || (urlString === initialUrl && normalizedDisplay === initialDisplay)}
           onClick={saveOnClick}
           type="button"
         >
@@ -564,7 +569,7 @@ function TextEditorWrapper({ entry, handleRef }) {
         return;
       }
 
-      updateProfileDataEntryContent(profilePublicId, entry.tag, trimmedValue);
+      updateProfileDataEntry(profilePublicId, entry.tag, trimmedValue);
     } else {
       const profileDataEntries = globalState.currentProfile?.data;
 

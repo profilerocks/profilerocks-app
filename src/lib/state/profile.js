@@ -47,13 +47,14 @@ export function deleteProfileState(profilePublicId) {
 }
 
 /**
- * @function updateProfileDataEntryContent
+ * @function updateProfileDataEntry
  * @param {string} profilePublicId
  * @param {string} tag
  * @param {string} content
+ * @param {(boolean|null)} [embed]
  * @returns {boolean}
  */
-export function updateProfileDataEntryContent(profilePublicId, tag, content) {
+export function updateProfileDataEntry(profilePublicId, tag, content, embed) {
   if (!globalState.profiles) {
     return false;
   }
@@ -71,6 +72,10 @@ export function updateProfileDataEntryContent(profilePublicId, tag, content) {
   }
 
   entry.content = content;
+
+  if (embed !== undefined) {
+    entry.embed = embed;
+  }
 
   return true;
 }
