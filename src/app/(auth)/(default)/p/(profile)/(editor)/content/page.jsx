@@ -260,7 +260,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
     /**
      * If `initialUrl` is not set, it means that it is a new entry.
      */
-    if (initialUrl) {
+    if (urlValid && initialUrl === urlString) {
       if (loading || !globalState.currentProfile) {
         return;
       }
@@ -408,8 +408,8 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
 
       // @ts-expect-error
       profileDataEntry.tag = (await res.bytes()).toBase64({ alphabet: "base64url" });
-
       profileDataEntry.content = normalizedDisplay ? JSON.stringify([urlString, normalizedDisplay]) : urlString;
+      profileDataEntry.embed = embed;
     }
   }
 
