@@ -1,5 +1,6 @@
 "use client";
 
+import { EditorView } from "@codemirror/view";
 import { RestrictToVerticalAxis } from "@dnd-kit/abstract/modifiers";
 import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable, isSortable } from "@dnd-kit/react/sortable";
@@ -237,7 +238,10 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
      * If it is a new element (`initialUrl` is empty), scroll into view.
      */
     if (!initialUrl) {
-      inputUrlRef.current?.scrollIntoView();
+      inputUrlRef.current?.scrollIntoView({
+        behavior: "instant",
+        block: "start"
+      });
     }
   }, []);
 
@@ -523,7 +527,7 @@ function LinkEntryWrapper({ entry, handleRef }) {
  * @param {React.Ref<HTMLDivElement>} [props.handleRef]
  * @returns {React.ReactNode}
  */
-function TextEditorWrapperContent({ entry, handleRef }) {
+function TextEditorWrapper({ entry, handleRef }) {
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState(entry.content ?? "");
   const trimmedValue = value.trim();
@@ -644,6 +648,11 @@ function TextEditorWrapperContent({ entry, handleRef }) {
     <>
       <TextEditor
         autoFocus={!entry.content}
+        onCreateEditor={entry.content ? undefined : (view) => {
+          view.dispatch({
+            effects: EditorView.scrollIntoView(0, { y: "start" })
+          })
+        }}
         setValue={setValue}
         title={!entry.content && value ? "Insert to save this text" : undefined}
         value={value}
@@ -662,37 +671,6 @@ function TextEditorWrapperContent({ entry, handleRef }) {
         </Button>
       </div>
     </>
-  );
-}
-
-/**
- * If `entry.content` is empty, it is considered a new entry.
- *
- * @function TextEditorWrapper
- * @param {Object} props
- * @param {ProfileDataEntryObject} props.entry
- * @param {React.Ref<HTMLDivElement>} [props.handleRef]
- * @returns {React.ReactNode}
- */
-function TextEditorWrapper({ entry, handleRef }) {
-  /**
-   * @type {React.RefObject<HTMLDivElement|null>}
-   */
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    /**
-     * If it is a new element (`entry.content` is empty), scroll into view.
-     */
-    if (!entry.content) {
-      containerRef.current?.scrollIntoView();
-    }
-  }, []);
-
-  return (
-    <div ref={containerRef}>
-      <TextEditorWrapperContent entry={entry} handleRef={handleRef} />
-    </div>
   );
 }
 

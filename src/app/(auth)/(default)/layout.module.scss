@@ -45,7 +45,7 @@ $width-side: 20em;
   display: flex;
   flex: 1 1 10em;
   flex-direction: column;
-  scrollbar-gutter: stable both-edges;
+  scrollbar-gutter: stable;
 }
 
 .section-side {
@@ -62,7 +62,6 @@ $width-side: 20em;
 .sections-container {
   display: flex;
   flex: 1;
-  gap: 1em;
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
