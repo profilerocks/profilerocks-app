@@ -260,7 +260,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
     /**
      * If `initialUrl` is not set, it means that it is a new entry.
      */
-    if (initialUrl === urlString) {
+    if (initialUrl && (initialUrl === urlString || initialEmbed)) {
       if (loading || !globalState.currentProfile) {
         return;
       }
@@ -282,7 +282,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
 
         return;
       }
-
+W
       if (!data?.length) {
         alertErrorApp();
         return;
