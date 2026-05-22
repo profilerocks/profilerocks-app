@@ -481,6 +481,31 @@ export async function requestProfilePhotoUpload(profilePublicId, photo) {
 
 /**
  * @async
+ * @function requestProfileThemeChange
+ * @param {string} profilePublicId
+ * @param {string} profileThemePublicId
+ * @returns {Promise<Response|undefined>}
+ */
+export async function requestProfileThemeChange(profilePublicId, profileThemePublicId) {
+  return await handleRequest(getResourceAPI("/s/profile/" + profilePublicId + "/set/theme/" + profileThemePublicId), {
+    credentials: "include",
+    method: "POST"
+  });
+}
+
+/**
+ * @async
+ * @function requestProfileThemes
+ * @returns {Promise<Response|undefined>}
+ */
+export async function requestProfileThemes() {
+  return await handleRequest(getResourceAPI("/s/profile/themes"), {
+    method: "POST"
+  });
+}
+
+/**
+ * @async
  * @function requestProfileTitleUpdate
  * @param {string} profilePublicId
  * @param {string} [newTitle]

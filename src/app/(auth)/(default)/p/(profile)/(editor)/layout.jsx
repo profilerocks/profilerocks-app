@@ -131,12 +131,12 @@ export default function LayoutProfile({ children }) {
                 <IconContent width={ICON_DIMENSION} />
               </LinkProfileConfiguration>
             </li>
-            {/**<li>
+            <li>
               <LinkProfileConfiguration path="style" title="Style">
                 <IconStyle width={ICON_DIMENSION} />
               </LinkProfileConfiguration>
             </li>
-            <li>
+            {/**<li>
               <LinkProfileConfiguration path="members" title="Members">
                 <IconUsers width={ICON_DIMENSION} />
               </LinkProfileConfiguration>
