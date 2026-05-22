@@ -282,7 +282,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
 
         return;
       }
-W
+
       if (!data?.length) {
         alertErrorApp();
         return;
@@ -337,12 +337,7 @@ W
         return;
       }
 
-      updateProfileDataEntry(
-        profilePublicId,
-        tag,
-        normalizedDisplay ? JSON.stringify([urlString, normalizedDisplay]) : urlString,
-        embed
-      );
+      updateProfileDataEntry(profilePublicId, tag, normalizedDisplay ? JSON.stringify([urlString, normalizedDisplay]) : urlString, embed);
     } else {
       const profileDataEntries = globalState.currentProfile?.data;
 
@@ -481,7 +476,9 @@ W
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
         <Button
           className={styles["btn-save-data-entry"]}
-          disabled={loading || !urlValid || (embed && !embedAvailable) || (urlString === initialUrl && normalizedDisplay === initialDisplay)}
+          disabled={
+            loading || !urlValid || (embed && !embedAvailable) || (urlString === initialUrl && normalizedDisplay === initialDisplay)
+          }
           onClick={saveOnClick}
           type="button"
         >
@@ -653,11 +650,15 @@ function TextEditorWrapper({ entry, handleRef }) {
     <>
       <TextEditor
         autoFocus={!entry.content}
-        onCreateEditor={entry.content ? undefined : (view) => {
-          view.dispatch({
-            effects: EditorView.scrollIntoView(0, { y: "start" })
-          })
-        }}
+        onCreateEditor={
+          entry.content
+            ? undefined
+            : view => {
+                view.dispatch({
+                  effects: EditorView.scrollIntoView(0, { y: "start" })
+                });
+              }
+        }
         setValue={setValue}
         title={!entry.content && value ? "Insert to save this text" : undefined}
         value={value}
