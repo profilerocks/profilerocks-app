@@ -1,7 +1,8 @@
 .page {
   flex: 1;
   padding-inline: 1.5em;
-  max-width: max-content;
+  max-width: 36em;
+  margin-inline: auto;
 }
 
 .page-back {
@@ -15,7 +16,6 @@
 }
 
 .page-text {
-  max-width: 36em;
   color: var(--color-3);
   font-size: 1.125em;
 }
