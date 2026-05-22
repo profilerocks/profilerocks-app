@@ -407,7 +407,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
       }
 
       // @ts-expect-error
-      profileDataEntry.tag = (await res.bytes()).toBase64({ alphabet: "base64url" });
+      profileDataEntry.tag = (await res.bytes()).toBase64({ alphabet: "base64url", omitPadding: true });
       profileDataEntry.content = normalizedDisplay ? JSON.stringify([urlString, normalizedDisplay]) : urlString;
       profileDataEntry.embed = embed;
     }
@@ -634,8 +634,7 @@ function TextEditorWrapper({ entry, handleRef }) {
       }
 
       // @ts-expect-error
-      profileDataEntry.tag = (await res.bytes()).toBase64({ alphabet: "base64url" });
-
+      profileDataEntry.tag = (await res.bytes()).toBase64({ alphabet: "base64url", omitPadding: true });
       profileDataEntry.content = trimmedValue;
     }
   }

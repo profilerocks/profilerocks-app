@@ -30,6 +30,7 @@ import { proxy } from "valtio";
  * @property {string} [meta_description]
  * @property {number} [name_id_updated_at]
  * @property {boolean} [photo]
+ * @property {string} [theme]
  * @property {string} [title]
  * @property {boolean} [watermark]
  */

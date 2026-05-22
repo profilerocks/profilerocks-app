@@ -1,0 +1,38 @@
+.profile-theme {
+  border: 2px solid var(--color-border);
+  border-radius: 0.5em;
+  padding: 0.5em;
+}
+
+.profile-theme-list {
+  display: grid;
+  gap: 0.75em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.profile-theme-title {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  &::before,
+  &::after {
+    display: inline-block;
+    content: "";
+    $size: 1em;
+    border: thin solid var(--color-border);
+    width: 0.625em;
+    height: 1em;
+  }
+  &::before {
+    margin-inline-end: 0.5em;
+    border-inline-start: none;
+    background-color: var(--theme-background);
+  }
+  &::after {
+    order: -1;
+    border-inline-end: none;
+    background-color: var(--theme-color);
+  }
+}

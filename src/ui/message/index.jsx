@@ -1,5 +1,4 @@
 import IconLoading from "#src/icons/loading.svg";
-
 import styles from "./index.module.scss";
 
 /**
