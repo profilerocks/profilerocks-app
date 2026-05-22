@@ -33,10 +33,11 @@ export default function ErrorInSearchParams() {
 
         if (provider) {
           if (oauthProviderSet.has(provider)) {
-            router.push(searchParams.get("context") === "update" ? "/u/settings#oauth" : "/u/enter");
             alertMessage(
               `There was a problem while trying to authenticate with ${provider[0].toUpperCase() + provider.substring(1).toLowerCase()}.`
             );
+
+            router.replace(searchParams.get("context") === "update" ? "/u/settings#oauth" : "/u/enter");
           }
         }
 
@@ -45,8 +46,8 @@ export default function ErrorInSearchParams() {
         alertErrorServer();
         break;
       case "session":
-        router.push("/u/enter");
         alertMessage("There was a problem with your session. Please try to log in again.");
+        router.replace("/u/enter");
     }
   }, [error]);
 
