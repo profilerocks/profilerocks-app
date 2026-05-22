@@ -38,7 +38,7 @@ function Delete() {
   return (
     <div>
       <p>
-        Closing your account is a permanent action. All your profile memberships, active premium subscriptions, and personal information{" "}
+        Closing your account is a permanent action. All your profiles, active premium subscriptions, and personal information{" "}
         <strong>will be deleted permanently and will not be recoverable</strong>.
       </p>
       <p>
