@@ -1,21 +1,55 @@
 .profile-theme {
-  border: 2px solid var(--color-border);
-  border-radius: 0.5em;
-  padding: 0.5em;
+  display: flex;
+  align-items: center;
+  border-block-start: thin solid var(--color-border);
+  &:has(.profile-theme-input:not(:checked)) {
+    .profile-theme-title {
+      color: var(--color-4);
+    }
+    &:has(.profile-theme-input:not(:disabled)) {
+      .profile-theme-title {
+        cursor: pointer;
+        color: var(--color-3);
+      }
+      &:has(.profile-theme-input:hover) {
+        .profile-theme-title {
+          color: var(--color-2);
+        }
+      }
+      &:has(.profile-theme-input:is(:active, :focus-visible)) {
+        .profile-theme-title {
+          color: var(--color);
+        }
+      }
+    }
+  }
+}
+
+.profile-theme-input {
+  scale: 1.75;
+  cursor: pointer;
+  margin-inline-end: 0.625em;
+  accent-color: var(--color-highlight);
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 .profile-theme-list {
   display: grid;
-  gap: 0.75em;
   margin: 0;
   padding: 0;
   list-style: none;
+  user-select: none;
 }
 
 .profile-theme-title {
+  flex: 1;
   display: flex;
   align-items: center;
-  margin: 0;
+  font-size: 1.25em;
+  padding-block: 0.75em;
+  color: var(--color-highlight);
   &::before,
   &::after {
     display: inline-block;

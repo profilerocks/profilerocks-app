@@ -106,6 +106,7 @@ export default function LayoutProfile({ children }) {
 
     const profileState = await res.json();
 
+    profileState.theme ??= "AAAAAAAAAAAAAAAAAAAAAAAA";
     profileState.watermark = profileState.watermark !== 0 && profileState.watermark !== false;
 
     if (!res.ok || !updateProfileState(currentProfile.public_id, profileState)) {

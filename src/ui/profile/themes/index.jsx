@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { useSnapshot } from "valtio";
 import IconLoading from "#src/icons/loading.svg";
 import { alertErrorApp } from "#src/lib/alert";
@@ -21,8 +21,11 @@ import styles from "./index.module.scss";
  * @param {ProfileThemeObject & {publicId:string}} props
  * @returns {React.ReactNode}
  */
-function ProfileTheme({ background, color, premium, publicId, title }) {
+function ProfileTheme({ background, color, publicId, title }) {
   const { currentProfile } = useSnapshot(globalState);
+  const inputRadioId = useId();
+
+  const checked = currentProfile?.theme === publicId;
 
   return (
     <li
@@ -34,7 +37,8 @@ function ProfileTheme({ background, color, premium, publicId, title }) {
         "--theme-color": "#" + Uint8Array.fromBase64(color, { alphabet: "base64url" }).toHex()
       }}
     >
-      <h3 className={styles["profile-theme-title"]}>{title}</h3>
+      <label className={styles["profile-theme-title"]} htmlFor={inputRadioId}>{title}</label>
+      <div><input defaultChecked={checked} className={styles["profile-theme-input"]} id={inputRadioId} name="profile-theme" type="radio" /></div>
     </li>
   );
 }
