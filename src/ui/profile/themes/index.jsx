@@ -4,7 +4,7 @@ import { useEffect, useId, useState } from "react";
 import { useSnapshot } from "valtio";
 import IconLoading from "#src/icons/loading.svg";
 import { alertErrorApp } from "#src/lib/alert";
-import { requestProfileThemes } from "#src/lib/request";
+import { requestProfileThemes, requestProfileThemeChange } from "#src/lib/request";
 import globalState from "#src/lib/state";
 import styles from "./index.module.scss";
 
@@ -18,10 +18,14 @@ import styles from "./index.module.scss";
 
 /**
  * @function ProfileTheme
- * @param {ProfileThemeObject & {publicId:string}} props
+ * @param {ProfileThemeObject & {
+ *   onChange: React.ChangeEventHandler<HTMLInputElement,HTMLInputElement>
+ *   publicId: string
+ *   disabled?: boolean
+ * }} props
  * @returns {React.ReactNode}
  */
-function ProfileTheme({ background, color, publicId, title }) {
+function ProfileTheme({ background, color, disabled, onChange, publicId, title }) {
   const { currentProfile } = useSnapshot(globalState);
   const inputRadioId = useId();
 
@@ -38,7 +42,18 @@ function ProfileTheme({ background, color, publicId, title }) {
       }}
     >
       <label className={styles["profile-theme-title"]} htmlFor={inputRadioId}>{title}</label>
-      <div><input defaultChecked={checked} className={styles["profile-theme-input"]} id={inputRadioId} name="profile-theme" type="radio" /></div>
+      <div>
+        <input
+          defaultChecked={checked}
+          className={styles["profile-theme-input"]}
+          disabled={disabled}
+          id={inputRadioId}
+          name="profile-theme"
+          onChange={onChange}
+          type="radio"
+          value={publicId}
+        />
+      </div>
     </li>
   );
 }
@@ -48,6 +63,8 @@ export default function ProfileThemes() {
    * @type {ReturnType<typeof useState<Record<string,ProfileThemeObject>>>}
    */
   const [profileThemes, setProfileThemes] = useState();
+
+  const [submitting, setSubmitting] = useState(false);
 
   async function getProfileThemes() {
     const res = await requestProfileThemes();
@@ -77,6 +94,50 @@ export default function ProfileThemes() {
   }
 
   /**
+   * @async
+   * @function selectThemeOnChange
+   * @param {React.ChangeEvent<HTMLInputElement>} event
+   */
+  async function selectThemeOnChange(event) {
+    if (submitting) {
+      return;
+    }
+
+    const currentProfile = globalState.currentProfile;
+
+    if (!currentProfile) {
+      return;
+    }
+
+    const profilePublicId = currentProfile.public_id;
+
+    const el = event.currentTarget ?? event.target;
+
+    if (!el.checked) {
+      return;
+    }
+
+    const profileThemePublicId = el.value;
+    
+    setSubmitting(true);
+
+    const res = await requestProfileThemeChange(profilePublicId, profileThemePublicId);
+
+    setSubmitting(false);
+
+    if (!res) {
+      return;
+    }
+
+    if (!res.ok) {
+      alertErrorApp();
+      return;
+    }
+
+    currentProfile.theme = profileThemePublicId;
+  }
+
+  /**
    * @type {React.ReactNode[]}
    */
   const ProfilesThemeList = [];
@@ -86,7 +147,13 @@ export default function ProfileThemes() {
 
     if (profileTheme) {
       ProfilesThemeList.push(
-        <ProfileTheme key={profileThemePublicId} publicId={profileThemePublicId} {...profileThemes[profileThemePublicId]} />
+        <ProfileTheme
+          {...profileThemes[profileThemePublicId]}
+          disabled={submitting}
+          key={profileThemePublicId}
+          onChange={selectThemeOnChange}
+          publicId={profileThemePublicId}
+        />
       );
     }
   }
