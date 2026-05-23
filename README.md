@@ -72,15 +72,6 @@ Check the `package.json` `"scripts"` field for other built-in scripts (build, li
 
 ## License
 
-```txt
-Copyright © 2025 Stefan Samson <ss42701@outlook.com> (https://ssbit01.github.io/)
-
-This project is licensed under the MIT License.
-See the LICENSE file for the full license text.
-
-For details on third-party components and their licenses, see THIRD_PARTY_LICENSES.md.
-```
-
 This project is licensed under the [MIT License](LICENSE).
 
 See [ICON-LICENSES.md](/ICON-LICENSES.md) for icon licenses.
