@@ -487,7 +487,7 @@ export async function requestProfilePhotoUpload(profilePublicId, photo) {
  * @returns {Promise<Response|undefined>}
  */
 export async function requestProfileThemeChange(profilePublicId, profileThemePublicId) {
-  return await handleRequest(getResourceAPI("/s/profile/" + profilePublicId + "/set/theme/" + profileThemePublicId), {
+  return await handleRequest(getResourceAPI("/s/profile/" + profilePublicId + "/theme/" + profileThemePublicId), {
     credentials: "include",
     method: "POST"
   });

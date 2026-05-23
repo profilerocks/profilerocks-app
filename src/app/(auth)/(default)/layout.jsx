@@ -59,7 +59,7 @@ function ProfilePreview() {
                 display_name: currentProfile.display_name,
                 // lang: currentProfile.lang,
                 photo: currentProfile.photo,
-                // theme: currentProfile.theme,
+                theme: currentProfile.theme,
                 watermark: currentProfile.watermark
               },
               markdownRenderer.utils.escapeHtml,
