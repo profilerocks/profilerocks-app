@@ -2,7 +2,7 @@ import { PLATFORM_NAME, PLATFORM_DESCRIPTION } from "#src/lib/env";
 import { metadata } from "#src/app/layout";
 
 /**
- * @import { MetadataRoute } from "next"
+ * @import {MetadataRoute} from "next"
  */
 
 export const dynamic = "force-static";
@@ -50,9 +50,13 @@ export default function manifest() {
     // share_target
     // short_name: PLATFORM_NAME,
     start_url: "/",
-    /*shortcuts: [
-      { name: "Account settings", icons: [], url: "/u/settings" }
-    ]*/
+    shortcuts: [
+      {
+        name: "User Settings",
+        short_name: "Settings",
+        url: "/u/settings"
+      }
+    ],
     theme_color: "#000"
   };
 

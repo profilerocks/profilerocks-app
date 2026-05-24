@@ -41,7 +41,9 @@ function ProfileTheme({ background, color, disabled, onChange, publicId, title }
         "--theme-color": "#" + Uint8Array.fromBase64(color, { alphabet: "base64url" }).toHex()
       }}
     >
-      <label className={styles["profile-theme-title"]} htmlFor={inputRadioId}>{title}</label>
+      <label className={styles["profile-theme-title"]} htmlFor={inputRadioId}>
+        {title}
+      </label>
       <div>
         <input
           defaultChecked={checked}
@@ -118,7 +120,7 @@ export default function ProfileThemes() {
     }
 
     const profileThemePublicId = el.value;
-    
+
     setSubmitting(true);
 
     const res = await requestProfileThemeChange(profilePublicId, profileThemePublicId);

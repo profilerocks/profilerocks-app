@@ -33,18 +33,15 @@ export const metadata = {
   metadataBase: new URL(SITE),
   other: {
     designer: "Stefan Samson <ss42701@outlook.com> (https://ssbit01.github.io/)",
-    // license: "MIT",
-    // "license:uri": "https://github.com/profile-rocks/profile-rocks-app/blob/main/LICENSE",
+    license: "MIT",
+    "license:uri": "https://github.com/profilerocks/profilerocks-app/blob/main/LICENSE",
     MSSmartTagsPreventParsing: "true"
   },
-  openGraph: {},
   referrer: "no-referrer",
   title: {
     template: `${PLATFORM_NAME} | %s`,
     default: PLATFORM_NAME
-  },
-  twitter: {},
-  robots: "noindex, nofollow"
+  }
 };
 
 /**
