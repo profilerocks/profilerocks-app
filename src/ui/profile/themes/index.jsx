@@ -17,6 +17,21 @@ import styles from "./index.module.scss";
  */
 
 /**
+ * @function ProfileThemePreviewCheck
+ * @returns {React.ReactNode}
+ */
+function ProfileThemePreviewCheck() {
+  const inputPreviewCheckboxId = useId();
+
+  return (
+    <>
+      <input id={inputPreviewCheckboxId} type="checkbox" />
+      <label htmlFor={inputPreviewCheckboxId}>Preview</label>
+    </>
+  )
+}
+
+/**
  * @function ProfileTheme
  * @param {ProfileThemeObject & {
  *   onChange: React.ChangeEventHandler<HTMLInputElement,HTMLInputElement>
@@ -45,6 +60,7 @@ function ProfileTheme({ background, color, disabled, onChange, publicId, title }
         {title}
       </label>
       <div>
+        {!checked && <ProfileThemePreviewCheck />}
         <input
           checked={checked}
           className={styles["profile-theme-input"]}
