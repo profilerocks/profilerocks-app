@@ -46,7 +46,7 @@ function ProfileTheme({ background, color, disabled, onChange, publicId, title }
       </label>
       <div>
         <input
-          defaultChecked={checked}
+          checked={checked}
           className={styles["profile-theme-input"]}
           disabled={disabled}
           id={inputRadioId}
