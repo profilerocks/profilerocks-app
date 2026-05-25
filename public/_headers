@@ -12,3 +12,33 @@
 
 # `Strict-Transport-Security` HSTS should be handled in the CDN or reverse proxy.
 # `X-Content-Type-Options: nosniff` can be set in Cloudflare when HSTS is enabled.
+
+/sitemap-*
+  ! Cross-Origin-Resource-Policy
+
+/robots.txt
+  ! Cross-Origin-Resource-Policy
+
+/apple-icon*
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
+
+/apple-touch-icon*
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
+
+/favicon*
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
+
+/opengraph-image.*
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
+
+/web-app-manifest-*
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
+
+/humans.txt
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-Origin
