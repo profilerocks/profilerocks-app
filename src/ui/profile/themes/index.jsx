@@ -18,14 +18,44 @@ import styles from "./index.module.scss";
 
 /**
  * @function ProfileThemePreviewCheck
+ * @param {Object} props
+ * @param {string} props.publicId
  * @returns {React.ReactNode}
  */
-function ProfileThemePreviewCheck() {
+function ProfileThemePreviewCheck({ publicId }) {
+  const { currentProfile } = useSnapshot(globalState);
   const inputPreviewCheckboxId = useId();
+
+  const checked = currentProfile?.theme_preview === publicId;
+
+  /**
+   * @function setProfileThemePreviewOnChange
+   * @param {React.ChangeEvent<HTMLInputElement>} event
+   */
+  function setProfileThemePreviewOnChange(event) {
+    const { currentProfile } = globalState;
+
+    if (!currentProfile) {
+      return;
+    }
+
+    const el = event.currentTarget ?? event.target;
+
+    if (el.checked) {
+      currentProfile.theme_preview = publicId;
+    } else {
+      delete currentProfile.theme_preview;
+    }
+  }
 
   return (
     <>
-      <input id={inputPreviewCheckboxId} type="checkbox" />
+      <input
+        checked={checked}
+        id={inputPreviewCheckboxId}
+        onChange={setProfileThemePreviewOnChange}
+        type="checkbox"
+      />
       <label htmlFor={inputPreviewCheckboxId}>Preview</label>
     </>
   )
@@ -45,6 +75,7 @@ function ProfileTheme({ background, color, disabled, onChange, publicId, title }
   const inputRadioId = useId();
 
   const checked = currentProfile?.theme === publicId;
+  const htmlTitle = "Select " + title + " theme";
 
   return (
     <li
@@ -56,11 +87,11 @@ function ProfileTheme({ background, color, disabled, onChange, publicId, title }
         "--theme-color": "#" + Uint8Array.fromBase64(color, { alphabet: "base64url" }).toHex()
       }}
     >
-      <label className={styles["profile-theme-title"]} htmlFor={inputRadioId}>
+      <label className={styles["profile-theme-title"]} htmlFor={inputRadioId} title={htmlTitle}>
         {title}
       </label>
       <div>
-        {!checked && <ProfileThemePreviewCheck />}
+        {!checked && <ProfileThemePreviewCheck publicId={publicId} />}
         <input
           checked={checked}
           className={styles["profile-theme-input"]}
@@ -68,6 +99,7 @@ function ProfileTheme({ background, color, disabled, onChange, publicId, title }
           id={inputRadioId}
           name="profile-theme"
           onChange={onChange}
+          title={htmlTitle}
           type="radio"
           value={publicId}
         />
@@ -113,10 +145,10 @@ export default function ProfileThemes() {
 
   /**
    * @async
-   * @function selectThemeOnChange
+   * @function setThemeOnChange
    * @param {React.ChangeEvent<HTMLInputElement>} event
    */
-  async function selectThemeOnChange(event) {
+  async function setThemeOnChange(event) {
     if (submitting) {
       return;
     }
@@ -153,6 +185,8 @@ export default function ProfileThemes() {
     }
 
     currentProfile.theme = profileThemePublicId;
+
+    delete currentProfile.theme_preview;
   }
 
   /**
@@ -169,7 +203,7 @@ export default function ProfileThemes() {
           {...profileThemes[profileThemePublicId]}
           disabled={submitting}
           key={profileThemePublicId}
-          onChange={selectThemeOnChange}
+          onChange={setThemeOnChange}
           publicId={profileThemePublicId}
         />
       );
