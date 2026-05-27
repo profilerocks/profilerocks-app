@@ -1,3 +1,31 @@
+.profile-theme-preview-label {
+  display: inline-block;
+  font-size: 0.875em;
+  cursor: pointer;
+  padding: 0.5em;
+  min-width: 5.75em;
+  color: var(--color-3);
+  background: var(--color-input);
+  text-align: center;
+  border-radius: 1.375em;
+  outline: medium solid transparent;
+  margin-inline-end: 1em;
+  &:hover {
+    color: var(--color-2);
+    background: var(--color-input-hover);
+  }
+  &:is(:active, :focus-visible) {
+    background: var(--color-input-active);
+  }
+  &:focus-visible {
+    outline-color: var(--color-input-outline);
+  }
+}
+
+.profile-theme-preview-checked {
+  color: var(--color-highlight) !important;
+}
+
 .profile-theme {
   display: flex;
   align-items: center;
@@ -28,6 +56,7 @@
 .profile-theme-input {
   scale: 1.75;
   cursor: pointer;
+  margin: 0;
   margin-inline-end: 0.625em;
   accent-color: var(--color-highlight);
   &:disabled {

@@ -20,9 +20,10 @@ import styles from "./index.module.scss";
  * @function ProfileThemePreviewCheck
  * @param {Object} props
  * @param {string} props.publicId
+ * @param {boolean} [props.disabled]
  * @returns {React.ReactNode}
  */
-function ProfileThemePreviewCheck({ publicId }) {
+function ProfileThemePreviewCheck({ disabled, publicId }) {
   const { currentProfile } = useSnapshot(globalState);
   const inputPreviewCheckboxId = useId();
 
@@ -48,15 +49,25 @@ function ProfileThemePreviewCheck({ publicId }) {
     }
   }
 
+  let labelClassName = styles["profile-theme-preview-label"];
+
+  if (checked) {
+    labelClassName += " " + styles["profile-theme-preview-checked"];
+  }
+
   return (
     <>
       <input
         checked={checked}
+        disabled={disabled}
         id={inputPreviewCheckboxId}
         onChange={setProfileThemePreviewOnChange}
         type="checkbox"
+        hidden
       />
-      <label htmlFor={inputPreviewCheckboxId}>Preview</label>
+      <label className={labelClassName} htmlFor={inputPreviewCheckboxId}>
+        {checked ? "Previewing" : "Preview"}
+      </label>
     </>
   )
 }
@@ -91,7 +102,7 @@ function ProfileTheme({ background, color, disabled, onChange, publicId, title }
         {title}
       </label>
       <div>
-        {!checked && <ProfileThemePreviewCheck publicId={publicId} />}
+        {!checked && <ProfileThemePreviewCheck disabled={disabled} publicId={publicId} />}
         <input
           checked={checked}
           className={styles["profile-theme-input"]}
