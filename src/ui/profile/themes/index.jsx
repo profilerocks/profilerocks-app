@@ -101,20 +101,18 @@ function ProfileTheme({ background, color, disabled, onChange, publicId, title }
       <label className={styles["profile-theme-title"]} htmlFor={inputRadioId} title={htmlTitle}>
         {title}
       </label>
-      <div>
-        {!checked && <ProfileThemePreviewCheck disabled={disabled} publicId={publicId} />}
-        <input
-          checked={checked}
-          className={styles["profile-theme-input"]}
-          disabled={disabled}
-          id={inputRadioId}
-          name="profile-theme"
-          onChange={onChange}
-          title={htmlTitle}
-          type="radio"
-          value={publicId}
-        />
-      </div>
+      {!checked && <ProfileThemePreviewCheck disabled={disabled} publicId={publicId} />}
+      <input
+        checked={checked}
+        className={styles["profile-theme-input"]}
+        disabled={disabled}
+        id={inputRadioId}
+        name="profile-theme"
+        onChange={onChange}
+        title={htmlTitle}
+        type="radio"
+        value={publicId}
+      />
     </li>
   );
 }
