@@ -44,6 +44,7 @@ function ProfileThemePreviewCheck({ disabled, publicId }) {
 
     if (el.checked) {
       currentProfile.theme_preview = publicId;
+      location.hash = "#preview";
     } else {
       delete currentProfile.theme_preview;
     }
