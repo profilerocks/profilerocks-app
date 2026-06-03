@@ -67,6 +67,9 @@ function ProfilePreview() {
             )}
             title="Preview"
           />
+          {currentProfile.theme_preview && (
+            <p className={styles["theme-preview-note"]}>This is a theme preview</p>
+          )}
         </>
       )}
     </section>

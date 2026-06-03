@@ -94,9 +94,8 @@ function ProfileTheme({ background, color, disabled, onChange, publicId, title }
       className={styles["profile-theme"]}
       style={{
         // @ts-expect-error
-        "--theme-background": "#" + Uint8Array.fromBase64(background, { alphabet: "base64url" }).toHex(),
-        // @ts-expect-error
-        "--theme-color": "#" + Uint8Array.fromBase64(color, { alphabet: "base64url" }).toHex()
+        "--theme-background": background,
+        "--theme-color": color
       }}
     >
       <label className={styles["profile-theme-title"]} htmlFor={inputRadioId} title={htmlTitle}>
@@ -196,33 +195,61 @@ export default function ProfileThemes() {
 
     currentProfile.theme = profileThemePublicId;
 
+    if (profileThemePublicId !== currentProfile.theme_preview) {
+      location.hash = "#preview";
+    }
+
     delete currentProfile.theme_preview;
   }
 
   /**
    * @type {React.ReactNode[]}
    */
-  const ProfilesThemeList = [];
+  const ProfileFreeThemeList = [];
+
+  /**
+   * @type {React.ReactNode[]}
+   */
+  const ProfilePremiumThemeList = [];
 
   for (const profileThemePublicId in profileThemes) {
     const profileTheme = profileThemes[profileThemePublicId];
 
-    if (profileTheme) {
-      ProfilesThemeList.push(
-        <ProfileTheme
-          {...profileThemes[profileThemePublicId]}
-          disabled={submitting}
-          key={profileThemePublicId}
-          onChange={setThemeOnChange}
-          publicId={profileThemePublicId}
-        />
-      );
+    const profileThemeNode = (
+      <ProfileTheme
+        {...profileTheme}
+        disabled={submitting}
+        key={profileThemePublicId}
+        onChange={setThemeOnChange}
+        publicId={profileThemePublicId}
+      />
+    )
+
+    if (profileTheme.premium) {
+      ProfilePremiumThemeList.push(profileThemeNode);
+    } else {
+      ProfileFreeThemeList.push(profileThemeNode);
     }
   }
 
-  if (ProfilesThemeList.length <= 0) {
+  if (ProfileFreeThemeList.length <= 0 && ProfilePremiumThemeList.length <= 0) {
     return <h2>No themes avaiable</h2>;
   }
 
-  return <ul className={styles["profile-theme-list"]}>{ProfilesThemeList}</ul>;
+  return (
+    <>
+      {ProfileFreeThemeList.length > 0 && (
+        <>
+          <h2>Free Themes</h2>
+          <ul className={styles["profile-theme-list"]}>{ProfileFreeThemeList}</ul>
+        </>
+      )}
+      {ProfilePremiumThemeList.length > 0 && (
+        <>
+          <h2 className={styles["profile-theme-list-title-premium"]}>Premium Themes</h2>
+          <ul className={styles["profile-theme-list"]}>{ProfilePremiumThemeList}</ul>
+        </>
+      )}
+    </>
+  );
 }

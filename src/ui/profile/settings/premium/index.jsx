@@ -6,7 +6,7 @@ import styles from "./index.module.scss";
 export default function ProfilePremiumSettings() {
   return (
     <fieldset className={styles["premium-settings"]}>
-      <legend>Premium settings</legend>
+      <legend>Premium Settings</legend>
       <p className={styles["premium-settings-description"]}>Settings only available for premium profiles.</p>
       <ProfileWatermark />
       <SettingsProfileTitle />

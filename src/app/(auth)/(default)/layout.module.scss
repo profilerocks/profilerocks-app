@@ -56,6 +56,7 @@ $width-side: 20em;
 .section-profile-preview {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .sections-container {
@@ -99,6 +100,18 @@ $width-side: 20em;
   max-width: 100%;
   color: var(--color) !important;
   user-select: none;
+}
+
+.theme-preview-note {
+  position: absolute;
+  inset-block-start: 3.25rem;
+  inset-inline-end: 0.25rem;
+  font-size: 0.75em;
+  background: var(--color-input);
+  color: var(--color);
+  padding: 0.5em 0.875em;
+  border-radius: 1.5em;
+  z-index: 2;
 }
 
 /**
