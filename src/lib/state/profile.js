@@ -1,4 +1,5 @@
 import globalState from "#src/lib/state";
+import { secondsToMs } from "#src/lib/time";
 
 /**
  * @import {Profile} from "#src/lib/state"
@@ -44,6 +45,33 @@ export function deleteProfileState(profilePublicId) {
     globalState.profiles.findIndex(({ public_id }) => public_id === profilePublicId),
     1
   )[0];
+}
+
+/**
+ * @function isProfilePremium
+ * @param {string} profilePublicId
+ * @returns {boolean}
+ */
+export function isProfilePremium(profilePublicId) {
+  if (!globalState.profiles?.length) {
+    return false;
+  }
+
+  const profile = globalState.profiles.find(({ public_id }) => public_id === profilePublicId);
+
+  if (!profile || !profile.premium) {
+    return false;
+  }
+
+  return (
+    profile.premium.order_status === "paid" ||
+    profile.premium.subscription_status === "active" ||
+    (
+      profile.premium.subscription_status === "canceled" &&
+      typeof profile.premium.current_period_end === "number" &&
+      (secondsToMs(profile.premium.current_period_end) - Date.now()) <= 0
+    )
+  )
 }
 
 /**

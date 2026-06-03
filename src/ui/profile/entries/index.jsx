@@ -99,7 +99,7 @@ export default function ProfileList() {
           </LinkNext>
         </li>
       </menu>
-      <p className={styles["p-limit"]}>You can be a member of up to {profileAttributes.limit} profiles</p>
+      <p className={styles["p-limit"]}>You can create up to {profileAttributes.limit} profiles</p>
       {profiles?.length ? (
         <p className={styles["p-remaining"]}>
           {profilesRemaining} more profile{profilesRemaining !== 1 ? "s" : ""} available

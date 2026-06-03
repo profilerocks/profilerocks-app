@@ -6,6 +6,7 @@ import IconLoading from "#src/icons/loading.svg";
 import { alertErrorApp } from "#src/lib/alert";
 import { requestProfileThemes, requestProfileThemeChange } from "#src/lib/request";
 import globalState from "#src/lib/state";
+import { isProfilePremium } from "#src/lib/state/profile";
 import styles from "./index.module.scss";
 
 /**
@@ -77,6 +78,7 @@ function ProfileThemePreviewCheck({ disabled, publicId }) {
  * @function ProfileTheme
  * @param {ProfileThemeObject & {
  *   onChange: React.ChangeEventHandler<HTMLInputElement,HTMLInputElement>
+ *   premium: 0|1
  *   publicId: string
  *   disabled?: boolean
  * }} props
@@ -178,6 +180,17 @@ export default function ProfileThemes() {
 
     const profileThemePublicId = el.value;
 
+    if (
+      /**
+       * Is theme premium?
+       */
+      profileThemes?.[profileThemePublicId]?.premium &&
+      !isProfilePremium(profilePublicId)
+    ) {
+      alert("Upgrade to a premium profile to use this theme");
+      return;
+    }
+
     setSubmitting(true);
 
     const res = await requestProfileThemeChange(profilePublicId, profileThemePublicId);
@@ -232,19 +245,23 @@ export default function ProfileThemes() {
     }
   }
 
-  if (ProfileFreeThemeList.length <= 0 && ProfilePremiumThemeList.length <= 0) {
+  const freeThemesAvailable = ProfileFreeThemeList.length > 0;
+
+  const premiumThemesAvailable = ProfilePremiumThemeList.length > 0;
+
+  if (!freeThemesAvailable && !premiumThemesAvailable) {
     return <h2>No themes avaiable</h2>;
   }
 
   return (
     <>
-      {ProfileFreeThemeList.length > 0 && (
+      {freeThemesAvailable && (
         <>
           <h2>Free Themes</h2>
           <ul className={styles["profile-theme-list"]}>{ProfileFreeThemeList}</ul>
         </>
       )}
-      {ProfilePremiumThemeList.length > 0 && (
+      {premiumThemesAvailable && (
         <>
           <h2 className={styles["profile-theme-list-title-premium"]}>Premium Themes</h2>
           <ul className={styles["profile-theme-list"]}>{ProfilePremiumThemeList}</ul>
