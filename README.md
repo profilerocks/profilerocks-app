@@ -1,6 +1,9 @@
-# _profile.rocks_ app
+# _profile.rocks_ frontend application
 
-Built with [Next.js](https://nextjs.org/).
+Built with [Next.js](https://nextjs.org/) and deployed as a static site.
+
+> [!NOTE]
+> This repository does not contain any secrets or sensitive information about the backend services.
 
 ## Features
 
@@ -50,9 +53,9 @@ NEXT_PUBLIC_SITE="https://app.profile.rocks"
 
 See [`sample.env`](/sample.env).
 
-### 3. Running the Server
+### 3. Running the Frontend Server
 
-You can run the server in development mode.
+You can run the frontend server in development mode.
 
 ```sh
 # Using npm
@@ -76,4 +79,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 See [ICON-LICENSES.md](/ICON-LICENSES.md) for icon licenses.
 
-You can find other [profile.rocks](https://www.profile.rocks/) open source projects at <https://github.com/profile-rocks>.
+You can find other [profile.rocks](https://www.profile.rocks/) open source projects at <https://github.com/profilerocks>.
