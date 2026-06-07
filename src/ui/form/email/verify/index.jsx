@@ -4,25 +4,20 @@ import { usePathname, useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 import { proxySet } from "valtio/utils";
-
-import { alertErrorApp } from "#src/lib/alert";
+import { alertErrorApp, alertMessage } from "#src/lib/alert";
 import { decompressNumber } from "#src/lib/compression/number";
 import { requestOtpResending } from "#src/lib/request";
 import globalState from "#src/lib/state";
 import { clearOldOtpStates, clearOtpStateList, getCurrentOtpState } from "#src/lib/state/otp";
 import { getSecondsFromBase36 } from "#src/lib/time";
-
 import IconTick from "#src/icons/tick.svg";
 import IconUserVerify from "#src/icons/user/verify.svg";
-
 import otpAttributes from "#shared/otp.json";
-
 import Actions from "#src/ui/actions";
 import Button from "#src/ui/button";
 import InputOtp from "#src/ui/input/otp";
 import LinkBack from "#src/ui/link/back";
 import LongWord from "#src/ui/text/long";
-
 import styles from "./index.module.scss";
 
 /**
@@ -54,7 +49,11 @@ function otpInputBlockCounter(prev) {
     return prev - 1;
   }
 
-  delete getCurrentOtpState()?.inputBlock;
+  const currentOtpState = getCurrentOtpState();
+
+  if (currentOtpState) {
+    currentOtpState.inputBlock = undefined;
+  }
 
   return 0;
 }
@@ -187,9 +186,9 @@ function ResendButton({ submitting, setSubmitting }) {
 
     currentOtpState.expires = getSecondsFromBase36(await res.text());
 
-    delete currentOtpState.invalidOtpList;
-    delete globalState.otpSwitchPending;
-    delete currentOtpState.resendBlock;
+    currentOtpState.invalidOtpList = undefined;
+    globalState.otpSwitchPending = undefined;
+    currentOtpState.resendBlock = undefined;
   }
 
   return (
@@ -350,7 +349,7 @@ function FormOtp({ afterVerification, requestOtpVerification }) {
       return;
     }
 
-    delete globalState.otpSwitchPending;
+    globalState.otpSwitchPending = undefined;
 
     if (!res.ok) {
       switch (res.status) {
@@ -371,9 +370,9 @@ function FormOtp({ afterVerification, requestOtpVerification }) {
             currentOtpState.blocked = true;
             alertMessage("You have been blocked from verifying this email address. Wait a few minutes before trying again.");
             router.push(hrefBack);
-            delete currentOtpState.inputBlock;
-            delete currentOtpState.invalidOtpList;
-            delete currentOtpState.resendBlock;
+            currentOtpState.inputBlock = undefined;
+            currentOtpState.invalidOtpList = undefined;
+            currentOtpState.resendBlock = undefined;
           } else {
             alertErrorApp();
           }

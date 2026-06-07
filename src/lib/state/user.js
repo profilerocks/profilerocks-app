@@ -4,11 +4,11 @@ import globalState from "#src/lib/state";
  * @function deleteUserState
  */
 export function deleteUserState() {
-  delete globalState.email;
-  delete globalState.email2;
-  delete globalState.displayName;
-  delete globalState.oauth;
-  delete globalState.profiles;
+  globalState.email = undefined;
+  globalState.email2 = undefined;
+  globalState.displayName = undefined;
+  globalState.oauth = undefined;
+  globalState.profiles = undefined;
 }
 
 /**

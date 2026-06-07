@@ -64,7 +64,7 @@ function ProfilePhotoDetails({ setPhoto, actionRemove, children }) {
 
     setPhoto(undefined);
 
-    delete globalState.currentProfile.photo;
+    globalState.currentProfile.photo = undefined;
   }
 
   useEffect(() => {

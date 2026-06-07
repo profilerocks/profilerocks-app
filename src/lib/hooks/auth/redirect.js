@@ -14,11 +14,7 @@ export default function useAuthRedirect(redirect) {
 
   useEffect(() => {
     if (redirect) {
-      if (location.pathname === "/") {
-        delete globalState.redirect;
-      } else {
-        globalState.redirect = location.pathname + location.search + location.hash;
-      }
+      globalState.redirect = location.pathname === "/" ? undefined : (location.pathname + location.search + location.hash);
       router.replace("/u/enter"); // Redirect to login if not authenticated
     }
   }, [redirect]);

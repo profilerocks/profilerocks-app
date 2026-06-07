@@ -47,7 +47,9 @@ function ButtonUnlink({ provider, submitting, setSubmitting }) {
       return;
     }
 
-    delete globalState.oauth?.[provider];
+    if (globalState.oauth[provider]) {
+      globalState.oauth[provider] = undefined;
+    }
 
     setSubmitting(false);
   }
@@ -70,7 +72,7 @@ export default function SettingsOauth({ Icon, provider }) {
   const { oauth } = useSnapshot(globalState);
   const [submitting, setSubmitting] = useState(false);
 
-  const linked = oauth?.[provider] && new Date(secondsToMs(oauth.google));
+  const linked = oauth?.[provider] && new Date(secondsToMs(oauth[provider]));
 
   let className = styles.oauth;
 

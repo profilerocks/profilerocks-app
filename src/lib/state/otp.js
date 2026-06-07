@@ -42,7 +42,7 @@ export function clearOldOtpStates() {
  * @function clearOtpStateList
  */
 export function clearOtpStateList() {
-  delete globalState.otp;
+  globalState.otp = undefined;
 }
 
 /**

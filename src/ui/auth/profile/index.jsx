@@ -34,7 +34,7 @@ export default function AuthProfile({ children }) {
     }
 
     return () => {
-      delete globalState.currentProfile;
+      globalState.currentProfile = undefined;
     };
   }, [profilePublicId, profiles, router]);
 

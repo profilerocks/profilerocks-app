@@ -46,7 +46,7 @@ import { proxy } from "valtio";
  * @property {string} [email]
  * @property {string} [email2]
  * @property {number} [fetched] - Last fetch timestamp in seconds.
- * @property {Record<string,number>} [oauth]
+ * @property {Record<string,number|undefined>} [oauth]
  * @property {number} [polarShCreatedAt]
  * @property {string} [polarShSessionUrl]
  * @property {number} [polarShSessionUrlExpires] - Expires in seconds.
@@ -71,69 +71,3 @@ const globalState = proxy(
 );
 
 export default globalState;
-// const bcSyn = new BroadcastChannel("syn")
-
-// const bcSynTimeout = setTimeout(() => {
-//   /**
-//    * If no other tabs are listening, close the channel.
-//    */
-//   bcSyn.close()
-// }, 100)
-
-// bcSyn.addEventListener("message", function(event) {
-//   console.log(event.data)
-//   Object.assign(globalState, event.data)
-//   clearTimeout(bcSynTimeout)
-//   this.close()
-// })
-
-// const bcAck = new BroadcastChannel("ack")
-
-// bcAck.addEventListener("message", () => {
-//   if (Object.keys(globalState).length) {
-//     const bcSynTemp = new BroadcastChannel("syn")
-//     bcSynTemp.postMessage(snapshot(globalState))
-//     bcSynTemp.close()
-//   }
-// })
-
-// bcAck.postMessage(true)
-
-// const bcState = new BroadcastChannel("state")
-
-// /**
-//  * Formats:
-//  * - Object: assign
-//  * - Array:
-//  *   - Strings: delete keys.
-//  *   - Array:
-//  *     - Array (change nested value): [[key1, key2, ...], value]
-//  *     - Array (delete a nested key): [key1, key2, ...]
-//  */
-// bcState.addEventListener("message", function(event) {
-//   console.log(event.data)
-//   if (Array.isArray(event.data)) {
-//     for (const prop of event.data) {
-//       // @ts-expect-error
-//       delete globalState[prop]
-//     }
-//   } else if (typeof event.data === "object") {
-//     switch (typeof event.data) {
-//       case "object":
-//         Object.assign(globalState, event.data)
-//         break
-//       case "string":
-//         // @ts-expect-error
-//         delete globalState[event.data]
-//         break
-//       default:
-//         alertErrorApp()
-//     }
-//   }
-// })
-
-// export default globalState
-
-// export {
-//   bcState
-// }

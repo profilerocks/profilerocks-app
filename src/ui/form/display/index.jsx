@@ -74,7 +74,7 @@ export default function FormDisplayName({ children, hrefBack, hrefNext }) {
 
     if (nextHref) {
       router.push(nextHref);
-      delete globalState.redirect;
+      globalState.redirect = undefined;
     } else {
       setIsSubmitting(false);
     }
