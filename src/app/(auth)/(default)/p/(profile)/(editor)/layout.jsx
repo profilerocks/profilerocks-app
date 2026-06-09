@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useSnapshot } from "valtio";
 import { alertErrorApp } from "#src/lib/alert";
@@ -8,7 +9,6 @@ import { HREF_ASSETS } from "#src/lib/env";
 import { requestProfileData } from "#src/lib/request";
 import globalState from "#src/lib/state";
 import { updateProfileState } from "#src/lib/state/profile";
-import LinkActive from "#src/ui/link/active";
 import LinkPillSolid from "#src/ui/link/pill/solid";
 import IconContent from "#src/icons/content.svg";
 import IconPencil from "#src/icons/pencil.svg";
@@ -67,16 +67,24 @@ function FigureProfileContent() {
  */
 function LinkProfileConfiguration({ children, path, title }) {
   const { currentProfile } = useSnapshot(globalState);
+  const pathname = usePathname();
 
   if (!currentProfile) {
     return null;
   }
 
+  let active = pathname.includes(path);
+
   return (
-    <LinkActive href={"/p/" + path + "?id=" + currentProfile.public_id + "#page"} title={title}>
+    <Link
+      aria-current={active ? "page" : undefined}
+      className={active ? styles.active : undefined}
+      href={"/p/" + path + "?id=" + currentProfile.public_id + "#page"}
+      title={title}
+    >
       {children}
       <span>{title}</span>
-    </LinkActive>
+    </Link>
   );
 }
 
@@ -124,32 +132,28 @@ export default function LayoutProfile({ children }) {
         <FigureProfileContent />
       </figure>
       <div className={styles["container-content"]}>{loading ? "Loading..." : children}</div>
-      <aside className={styles["container-nav"]}>
-        <nav>
-          <ul>
-            <li>
-              <LinkProfileConfiguration path="content" title="Content">
-                <IconContent width={ICON_DIMENSION} />
-              </LinkProfileConfiguration>
-            </li>
-            <li>
-              <LinkProfileConfiguration path="style" title="Style">
-                <IconStyle width={ICON_DIMENSION} />
-              </LinkProfileConfiguration>
-            </li>
-            {/**<li>
-              <LinkProfileConfiguration path="members" title="Members">
-                <IconUsers width={ICON_DIMENSION} />
-              </LinkProfileConfiguration>
-            </li> */}
-            <li>
-              <LinkProfileConfiguration path="settings" title="Settings">
-                <IconSettings width={ICON_DIMENSION} />
-              </LinkProfileConfiguration>
-            </li>
-          </ul>
-        </nav>
-      </aside>
+      <menu className={styles["profile-menu"]}>
+        <li>
+          <LinkProfileConfiguration path="content" title="Content">
+            <IconContent width={ICON_DIMENSION} />
+          </LinkProfileConfiguration>
+        </li>
+        <li>
+          <LinkProfileConfiguration path="style" title="Style">
+            <IconStyle width={ICON_DIMENSION} />
+          </LinkProfileConfiguration>
+        </li>
+        {/**<li>
+          <LinkProfileConfiguration path="members" title="Members">
+            <IconUsers width={ICON_DIMENSION} />
+          </LinkProfileConfiguration>
+        </li> */}
+        <li>
+          <LinkProfileConfiguration path="settings" title="Settings">
+            <IconSettings width={ICON_DIMENSION} />
+          </LinkProfileConfiguration>
+        </li>
+      </menu>
     </div>
   );
 }

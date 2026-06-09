@@ -66,12 +66,10 @@ export function isProfilePremium(profilePublicId) {
   return (
     profile.premium.order_status === "paid" ||
     profile.premium.subscription_status === "active" ||
-    (
-      profile.premium.subscription_status === "canceled" &&
+    (profile.premium.subscription_status === "canceled" &&
       typeof profile.premium.current_period_end === "number" &&
-      (secondsToMs(profile.premium.current_period_end) - Date.now()) <= 0
-    )
-  )
+      secondsToMs(profile.premium.current_period_end) - Date.now() <= 0)
+  );
 }
 
 /**
