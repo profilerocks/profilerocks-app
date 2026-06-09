@@ -45,18 +45,20 @@ $width-side: 20em;
   flex: 1 1 10em;
   flex-direction: column;
   scrollbar-gutter: stable;
+  scrollbar-width: thin;
 }
 
 .section-side {
   display: flex;
   flex-direction: column;
   z-index: 3;
+  scrollbar-width: thin;
 }
 
 .section-profile-preview {
   display: flex;
-  flex-direction: column;
   position: relative;
+  flex-direction: column;
 }
 
 .sections-container {
@@ -104,14 +106,14 @@ $width-side: 20em;
 
 .theme-preview-note {
   position: absolute;
+  z-index: 2;
   inset-block-start: 3.25rem;
   inset-inline-end: 0.25rem;
-  font-size: 0.75em;
-  background: var(--color-input);
-  color: var(--color);
-  padding: 0.5em 0.875em;
   border-radius: 1.5em;
-  z-index: 2;
+  background: var(--color-input);
+  padding: 0.5em 0.875em;
+  color: var(--color);
+  font-size: 0.75em;
 }
 
 /**

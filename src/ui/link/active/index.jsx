@@ -10,14 +10,19 @@ import styles from "./index.module.scss";
 export default function LinkActive({ children, href, className: customClassName = "", ...restAttributes }) {
   const pathname = usePathname();
 
+  let active = href.split("?")[0].split("#")[0] === pathname;
   let className = customClassName;
 
-  if (href.split("?")[0].split("#")[0] === pathname) {
-    className += " " + styles.active;
+  if (active) {
+    if (className) {
+      className += " " + styles.active;
+    } else {
+      className = styles.active;
+    }
   }
 
   return (
-    <Link href={href} className={className} {...restAttributes}>
+    <Link href={href} className={className} {...restAttributes} aria-current={active ? "page" : undefined}>
       {children}
     </Link>
   );

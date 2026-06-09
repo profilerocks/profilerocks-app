@@ -71,7 +71,7 @@ function ProfileThemePreviewCheck({ disabled, publicId }) {
         {checked ? "Previewing" : "Preview"}
       </label>
     </>
-  )
+  );
 }
 
 /**
@@ -236,7 +236,7 @@ export default function ProfileThemes() {
         onChange={setThemeOnChange}
         publicId={profileThemePublicId}
       />
-    )
+    );
 
     if (profileTheme.premium) {
       ProfilePremiumThemeList.push(profileThemeNode);
