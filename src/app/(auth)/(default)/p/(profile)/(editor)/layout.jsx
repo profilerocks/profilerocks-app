@@ -124,6 +124,7 @@ export default function LayoutProfile({ children }) {
 
   useEffect(() => {
     getProfileData();
+    location.hash = "#page";
   }, [currentProfile?.public_id]);
 
   return (
