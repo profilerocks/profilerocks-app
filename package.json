@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@dnd-kit/react": "^0.4.0",
-    "next": "^16.2.6"
+    "next": "^16.2.9"
   },
   "devDependencies": {
     "@codemirror/lang-markdown": "^6.5.0",
