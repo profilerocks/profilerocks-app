@@ -1,12 +1,16 @@
+/**
+ * IMPORTANT: React is set to version 19 to avoid auto-detection issues.
+ */
+
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
-import eslintConfigPrettier from "eslint-config-prettier/flat";
+import prettier from "eslint-config-prettier/flat";
 
 const eslintConfig = defineConfig([
-  eslintConfigPrettier,
   ...nextVitals,
   ...nextTs,
+  prettier,
   globalIgnores([
     "build/",
     "dist/",
@@ -96,7 +100,12 @@ const eslintConfig = defineConfig([
     "*LICENSES*",
     "license",
     "licenses"
-  ])
+  ]),
+  {
+    settings: {
+      react: { version: "19" }
+    }
+  }
 ]);
 
 export default eslintConfig;

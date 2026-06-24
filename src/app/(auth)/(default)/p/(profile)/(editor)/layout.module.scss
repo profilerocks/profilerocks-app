@@ -99,13 +99,15 @@
       width: 100%;
       text-decoration: none;
       &::before {
-        content: "";
-        z-index: -1;
         position: absolute;
+        z-index: -1;
+        transition:
+          background 0.15s,
+          inset-inline 0.15s;
         inset-block: 0.4375em 1.8755em;
         inset-inline: 50%;
         border-radius: 3em;
-        transition: background 0.15s, inset-inline 0.15s;
+        content: "";
       }
       > span {
         font-size: 0.75em;
@@ -138,11 +140,11 @@
   }
 
   .profile-menu {
-    border: 2px solid var(--color-border);
-    border-radius: 2.3125em;
     margin-inline: 1.375em;
     inset-block-end: 0.5em;
     box-shadow: 0 0.5em 1em var(--color-bg);
+    border: 2px solid var(--color-border);
+    border-radius: 2.3125em;
     > li {
       > a {
         gap: 0.25em;
