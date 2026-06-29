@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 import { proxySet } from "valtio/utils";
-import { alertErrorApp, alertMessage } from "#src/lib/alert";
+import { showAlertErrorApp, showAlert } from "#src/lib/alert";
 import { decompressNumber } from "#src/lib/compression/number";
 import { requestOtpResending } from "#src/lib/request";
 import globalState from "#src/lib/state";
@@ -159,7 +159,7 @@ function ResendButton({ submitting, setSubmitting }) {
     const currentOtpState = getCurrentOtpState();
 
     if (!currentOtpState) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 
@@ -180,7 +180,7 @@ function ResendButton({ submitting, setSubmitting }) {
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 
@@ -298,7 +298,7 @@ function FormOtp({ afterVerification, requestOtpVerification }) {
     const currentOtpState = getCurrentOtpState();
 
     if (!currentOtpState) {
-      alertErrorApp();
+      showAlertErrorApp();
       router.replace(hrefBack);
       return;
     }
@@ -307,7 +307,7 @@ function FormOtp({ afterVerification, requestOtpVerification }) {
       () => {
         router.push(hrefBack);
         clearOldOtpStates();
-        alertMessage("The OTP has expired. Please try again.");
+        showAlert("The OTP has expired. Please try again.");
       },
       1000 * currentOtpState.expires - Date.now()
     );
@@ -328,14 +328,14 @@ function FormOtp({ afterVerification, requestOtpVerification }) {
     const otp = event.currentTarget.otp.value;
 
     if (otp?.length !== otpAttributes.length) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 
     const currentOtpState = getCurrentOtpState();
 
     if (!currentOtpState) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 
@@ -368,13 +368,13 @@ function FormOtp({ afterVerification, requestOtpVerification }) {
         case 404:
           if (currentOtpState.blocked === false) {
             currentOtpState.blocked = true;
-            alertMessage("You have been blocked from verifying this email address. Wait a few minutes before trying again.");
+            showAlert("You have been blocked from verifying this email address. Wait a few minutes before trying again.");
             router.push(hrefBack);
             currentOtpState.inputBlock = undefined;
             currentOtpState.invalidOtpList = undefined;
             currentOtpState.resendBlock = undefined;
           } else {
-            alertErrorApp();
+            showAlertErrorApp();
           }
       }
       setSubmitting(false);

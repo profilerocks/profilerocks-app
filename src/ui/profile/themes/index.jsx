@@ -3,7 +3,7 @@
 import { useEffect, useId, useState } from "react";
 import { useSnapshot } from "valtio";
 import IconLoading from "#src/icons/loading.svg";
-import { alertErrorApp } from "#src/lib/alert";
+import { showAlert, showAlertErrorApp } from "#src/lib/alert";
 import { requestProfileThemes, requestProfileThemeChange } from "#src/lib/request";
 import globalState from "#src/lib/state";
 import { isProfilePremium } from "#src/lib/state/profile";
@@ -135,7 +135,7 @@ export default function ProfileThemes() {
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 
@@ -187,7 +187,7 @@ export default function ProfileThemes() {
       profileThemes?.[profileThemePublicId]?.premium &&
       !isProfilePremium(profilePublicId)
     ) {
-      alert("Upgrade to a premium profile to use this theme");
+      showAlert("Upgrade to a premium profile to use this theme");
       return;
     }
 
@@ -202,7 +202,7 @@ export default function ProfileThemes() {
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 

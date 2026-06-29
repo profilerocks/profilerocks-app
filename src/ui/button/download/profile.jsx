@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useSnapshot } from "valtio";
-import { alertErrorApp } from "#src/lib/alert";
+import { showAlertErrorApp } from "#src/lib/alert";
 import IconDownload from "#src/icons/download.svg";
 import { requestProfileData } from "#src/lib/request";
 import globalState from "#src/lib/state";
@@ -36,14 +36,14 @@ export default function ButtonDownloadProfileData() {
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 
     const data = await res.json();
 
     if (!updateProfileState(currentProfile.public_id, data)) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useSnapshot } from "valtio";
-import { alertErrorApp } from "#src/lib/alert";
+import { showAlertErrorApp } from "#src/lib/alert";
 import { HREF_ASSETS } from "#src/lib/env";
 import { requestProfileData } from "#src/lib/request";
 import globalState from "#src/lib/state";
@@ -118,7 +118,7 @@ export default function LayoutProfile({ children }) {
     profileState.watermark = profileState.watermark !== 0 && profileState.watermark !== false;
 
     if (!res.ok || !updateProfileState(currentProfile.public_id, profileState)) {
-      alertErrorApp();
+      showAlertErrorApp();
     }
   }
 

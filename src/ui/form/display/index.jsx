@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useDeferredValue } from "react";
-import { alertErrorApp } from "#src/lib/alert";
+import { showAlertErrorApp } from "#src/lib/alert";
 import { normalizeDisplayName } from "#src/lib/name";
 import { requestUserDisplayNameUpdate } from "#src/lib/request";
 import globalState from "#src/lib/state";
@@ -63,7 +63,7 @@ export default function FormDisplayName({ children, hrefBack, hrefNext }) {
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       setIsSubmitting(false);
       return;
     }

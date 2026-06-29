@@ -5,7 +5,7 @@ import { isValid as isEmailValid } from "mailchecker";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { alertErrorApp, alertMessage } from "#src/lib/alert";
+import { showAlertErrorApp, showAlert } from "#src/lib/alert";
 import globalState from "#src/lib/state";
 import { getCurrentOtpState, getOtpState, switchOtpState } from "#src/lib/state/otp";
 import { getSecondsFromBase36 } from "#src/lib/time";
@@ -107,7 +107,7 @@ export default function FormUserEmail({ buttonChildren, children, hrefBack, requ
     const normalizedEmail = normalizeEmail(email);
 
     if (!normalizedEmail) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 
@@ -117,7 +117,7 @@ export default function FormUserEmail({ buttonChildren, children, hrefBack, requ
     }
 
     if ((globalState.otp?.length ?? 0) >= otpAttributes.maxCredentials) {
-      alertMessage("You have reached the maximum number of email addresses you can verify.");
+      showAlert("You have reached the maximum number of email addresses you can verify.");
       return;
     }
 
@@ -131,7 +131,7 @@ export default function FormUserEmail({ buttonChildren, children, hrefBack, requ
     }
 
     if (!res.ok) {
-      alertMessage("Please try again or use another email address. Contact support if you believe this is an error.");
+      showAlert("Please try again or use another email address. Contact support if you believe this is an error.");
       setSubmitting(false);
       return;
     }
@@ -139,7 +139,7 @@ export default function FormUserEmail({ buttonChildren, children, hrefBack, requ
     const text = await res.text();
 
     if (!text) {
-      alertErrorApp();
+      showAlertErrorApp();
       setSubmitting(false);
       return;
     }

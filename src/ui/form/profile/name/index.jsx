@@ -6,7 +6,7 @@ import { useSnapshot } from "valtio";
 import profileAttributes from "#shared/profile.json";
 import IconArrowRight from "#src/icons/arrow/right.svg";
 import IconPencil from "#src/icons/pencil.svg";
-import { alertErrorApp, alertMessage } from "#src/lib/alert";
+import { showAlertErrorApp, showAlert } from "#src/lib/alert";
 import { updateProfileState } from "#src/lib/state/profile";
 import forbiddenProfileNames from "#src/lib/profile/forbidden";
 import { regexProfile } from "#src/lib/regex";
@@ -141,14 +141,14 @@ export default function FormProfileNameId({
     }
 
     if (res.status === 409) {
-      alertMessage("Try another name.");
+      showAlert("Try another name.");
       setUnique(false);
       setSubmitting(false);
       return;
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       setUnique(undefined);
       setSubmitting(false);
       return;
@@ -157,7 +157,7 @@ export default function FormProfileNameId({
     if (await onSuccess(res, deferredNameId)) {
       setUnique(true);
     } else {
-      alertErrorApp();
+      showAlertErrorApp();
       setUnique(undefined);
       setSubmitting(false);
     }

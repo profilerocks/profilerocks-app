@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { alertErrorApp } from "#src/lib/alert";
+import { showAlertErrorApp } from "#src/lib/alert";
 import IconBin from "#src/icons/bin.svg";
 import { requestUserDeletion } from "#src/lib/request";
 import { deleteUserState } from "#src/lib/state/user";
@@ -31,7 +31,7 @@ function Delete() {
     deleteUserState();
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
     }
   }
 

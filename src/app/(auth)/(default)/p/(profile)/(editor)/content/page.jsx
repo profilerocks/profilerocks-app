@@ -13,7 +13,7 @@ import IconExternal from "#src/icons/external.svg";
 import IconLink from "#src/icons/link.svg";
 import IconPencil from "#src/icons/pencil.svg";
 import IconTextRight from "#src/icons/text/right.svg";
-import { alertErrorApp, alertMessage } from "#src/lib/alert";
+import { showAlert, showAlertErrorApp } from "#src/lib/alert";
 import { normalizeDisplayName } from "#src/lib/name";
 
 import {
@@ -65,7 +65,7 @@ const updateProfileDataPositionOnDragEnd = async event => {
   const { currentProfile } = globalState;
 
   if (!currentProfile?.data?.length) {
-    alertErrorApp();
+    showAlertErrorApp();
     return;
   }
 
@@ -114,7 +114,7 @@ const updateProfileDataPositionOnDragEnd = async event => {
   }
 
   if (!res.ok) {
-    alertErrorApp();
+    showAlertErrorApp();
   }
 };
 
@@ -194,7 +194,7 @@ function ButtonDeleteEntry({ loading, pending, setLoading, tag }) {
 
       if (!res.ok) {
         setLoading(false);
-        alertErrorApp();
+        showAlertErrorApp();
         return;
       }
     }
@@ -275,23 +275,23 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
 
       if (!res?.ok) {
         if (embedChecked) {
-          alert("URL does not appear to be embeddable");
+          showAlert("URL does not appear to be embeddable");
         } else {
-          alertErrorApp();
+          showAlertErrorApp();
         }
 
         return;
       }
 
       if (!data?.length) {
-        alertErrorApp();
+        showAlertErrorApp();
         return;
       }
 
       const profileDataEntry = data.find(dataEntry => dataEntry.tag === tag);
 
       if (!profileDataEntry) {
-        alertErrorApp();
+        showAlertErrorApp();
         return;
       }
 
@@ -317,7 +317,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
     }
 
     if (!URL.canParse(urlString)) {
-      alertMessage("The URL is incorrect.");
+      showAlert("The URL is incorrect.");
       return;
     }
 
@@ -333,7 +333,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
       }
 
       if (!res.ok) {
-        alertErrorApp();
+        showAlertErrorApp();
         return;
       }
 
@@ -402,7 +402,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
       }
 
       if (!res.ok || !profileDataEntry) {
-        alertErrorApp();
+        showAlertErrorApp();
         return;
       }
 
@@ -562,7 +562,7 @@ function TextEditorWrapper({ entry, handleRef }) {
       }
 
       if (!res.ok) {
-        alertErrorApp();
+        showAlertErrorApp();
         return;
       }
 
@@ -629,7 +629,7 @@ function TextEditorWrapper({ entry, handleRef }) {
       }
 
       if (!res.ok || !profileDataEntry) {
-        alertErrorApp();
+        showAlertErrorApp();
         return;
       }
 

@@ -1,7 +1,6 @@
-import ButtonDialog from "#src/ui/button/dialog";
-import DialogLogOut from "#src/ui/dialog/logout";
-import DialogLogOutOfAllSessions from "#src/ui/dialog/logout/sessions/all";
 import IconLogout from "#src/icons/logout.svg";
+import { showLogOutConfirm, showLogOutAllSessionsConfirm } from "#src/lib/confirm";
+import Button from "#src/ui/button";
 import styles from "./index.module.scss";
 
 const ICON_DIMENSION = "1.5em";
@@ -19,17 +18,17 @@ export default function SettingsSessions() {
         the options below to secure your account.
       </p>
       <div className={styles.actions}>
-        <ButtonDialog Dialog={DialogLogOut}>
+        <Button onClick={showLogOutConfirm}>
           <IconLogout width={ICON_DIMENSION} />
           Log out of current session
-        </ButtonDialog>
+        </Button>
         <div className={styles["section-compromised"]}>
           <p>Do you think your account has been compromised?</p>
           <p>Logging out of all sessions will terminate every active connection, including this one, requiring you to sign in again.</p>
-          <ButtonDialog Dialog={DialogLogOutOfAllSessions}>
+          <Button onClick={showLogOutAllSessionsConfirm}>
             <IconLogout width={ICON_DIMENSION} />
             Log out of all sessions
-          </ButtonDialog>
+          </Button>
         </div>
       </div>
     </div>

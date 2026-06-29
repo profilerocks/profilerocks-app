@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { alertErrorServer, alertMessage } from "#src/lib/alert";
+import { showAlertErrorServer, showAlert } from "#src/lib/alert";
 
 /**
  * @type {Set<string>}
@@ -33,7 +33,7 @@ export default function ErrorInSearchParams() {
 
         if (provider) {
           if (oauthProviderSet.has(provider)) {
-            alertMessage(
+            showAlert(
               `There was a problem while trying to authenticate with ${provider[0].toUpperCase() + provider.substring(1).toLowerCase()}.`
             );
 
@@ -43,10 +43,10 @@ export default function ErrorInSearchParams() {
 
         break;
       case "server":
-        alertErrorServer();
+        showAlertErrorServer();
         break;
       case "session":
-        alertMessage("There was a problem with your session. Please try to log in again.");
+        showAlert("There was a problem with your session. Please try to log in again.");
         router.replace("/u/enter");
     }
   }, [error]);

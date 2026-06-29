@@ -1,4 +1,4 @@
-import { alertErrorApp, alertErrorServer } from "#src/lib/alert";
+import { showAlertErrorApp, showAlertErrorServer } from "#src/lib/alert";
 import { requestOauthLink } from "#src/lib/request";
 import ButtonNext from "#src/ui/button/next";
 import styles from "./index.module.scss";
@@ -29,7 +29,7 @@ export default function Oauth({ children, provider }) {
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       el.disabled = false;
       return;
     }
@@ -37,7 +37,7 @@ export default function Oauth({ children, provider }) {
     const href = await res.text();
 
     if (!href) {
-      alertErrorServer();
+      showAlertErrorServer();
       el.disabled = false;
       return;
     }

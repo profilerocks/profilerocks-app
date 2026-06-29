@@ -5,7 +5,7 @@ import { useDeferredValue, useEffect, useRef, useState } from "react";
 import { CircleStencil } from "react-mobile-cropper";
 import displayNameAttributes from "#shared/display.json";
 import photoAttributes from "#shared/photo.json";
-import { alertErrorApp, alertMessage } from "#src/lib/alert";
+import { showAlertErrorApp, showAlert } from "#src/lib/alert";
 import { HREF_ASSETS } from "#src/lib/env";
 import { normalizeDisplayName } from "#src/lib/name";
 import { requestProfileDisplayNameUpdate, requestProfilePhotoUpload, requestProfilePhotoDeletion } from "#src/lib/request";
@@ -21,6 +21,7 @@ import IconBin from "#src/icons/bin.svg";
 import styles from "./index.module.scss";
 
 const sizeImg = 158;
+const maxPhotoSizeMiB = photoAttributes.maxPhotoSize / 1048576
 
 function Photo({ src = "/user.png" }) {
   return <img src={src} width={sizeImg} height={sizeImg} draggable="false" className={styles.photo} />;
@@ -58,7 +59,7 @@ function ProfilePhotoDetails({ setPhoto, actionRemove, children }) {
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 
@@ -146,7 +147,7 @@ function ProfilePhoto({ setEditorImageProps }) {
     }
 
     if (blob.size > photoAttributes.maxPhotoSize) {
-      alertMessage(
+      showAlert(
         "An error occurred, the photo is too big and your browser didn't process it correctly. Try a smaller photo or use another browser."
       );
 
@@ -162,7 +163,7 @@ function ProfilePhoto({ setEditorImageProps }) {
 
     if (!res?.ok) {
       setPhoto(undefined);
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 
@@ -198,8 +199,7 @@ function ProfilePhoto({ setEditorImageProps }) {
         do {
           const filePhotoFirst = files.item(i);
           if (filePhotoFirst?.type.startsWith("image")) {
-            // @ts-ignore
-            if (filePhotoFirst.size <= maxSizeProfilePhoto) {
+            if (filePhotoFirst.size <= photoAttributes.maxPhotoSize) {
               setEditorImageProps({
                 src: URL.createObjectURL(filePhotoFirst),
                 stencilComponent: CircleStencil,
@@ -208,8 +208,7 @@ function ProfilePhoto({ setEditorImageProps }) {
               });
               notFound = false;
             } else {
-              // @ts-ignore
-              alert(`Max photo size: ${maxSizeProfilePhotoMiB} MiB. Your photo size is ${filePhotoFirst.size / 1000000} MB`);
+              showAlert(`Max photo size: ${maxPhotoSizeMiB} MiB. Your photo size is ${filePhotoFirst.size / 1000000} MB`);
               i++;
             }
           } else {
@@ -305,7 +304,7 @@ function ProfilePhoto({ setEditorImageProps }) {
 //             notFound = false;
 //           } else {
 //             // @ts-ignore
-//             alert(`Max photo size: ${maxSizeProfilePhotoMiB} MiB`);
+//             showAlert(`Max photo size: ${maxSizeProfilePhotoMiB} MiB`);
 //             i++;
 //           }
 //         } else {
@@ -396,7 +395,7 @@ function FormProfileDisplayName() {
       }
 
       if (!res.ok) {
-        alertErrorApp();
+        showAlertErrorApp();
         setSubmitting(false);
         return;
       }

@@ -1,4 +1,4 @@
-import { alertErrorServer } from "#src/lib/alert";
+import { showAlertErrorServer } from "#src/lib/alert";
 import { API } from "#src/lib/env";
 
 /**
@@ -18,7 +18,7 @@ async function handleRequest(...props) {
     }
   }
 
-  alertErrorServer();
+  showAlertErrorServer();
 }
 
 /**

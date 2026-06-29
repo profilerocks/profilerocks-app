@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 import IconBin from "#src/icons/bin.svg";
-import { alertErrorApp } from "#src/lib/alert";
+import { showAlertErrorApp } from "#src/lib/alert";
 import { useProfileActivePremium } from "#src/lib/hooks/state";
 import { requestProfileMembershipDelete } from "#src/lib/request";
 import globalState from "#src/lib/state";
@@ -62,7 +62,7 @@ export default function ButtonDeleteProfileMembership() {
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useDeferredValue, useState } from "react";
-import { alertErrorApp } from "#src/lib/alert";
+import { showAlertErrorApp } from "#src/lib/alert";
 import { useProfileActivePremium } from "#src/lib/hooks/state";
 import globalState from "#src/lib/state";
 import { requestProfileMetaDescriptionUpdate } from "#src/lib/request";
@@ -55,7 +55,7 @@ export default function FormProfileMetaDescription() {
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 

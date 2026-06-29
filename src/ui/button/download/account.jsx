@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { alertErrorApp } from "#src/lib/alert";
+import { showAlertErrorApp } from "#src/lib/alert";
 import IconDownload from "#src/icons/download.svg";
 import { requestUser } from "#src/lib/request";
 import globalState from "#src/lib/state";
@@ -26,7 +26,7 @@ export default function ButtonDownloadAccountData() {
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 

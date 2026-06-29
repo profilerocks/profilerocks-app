@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useSnapshot } from "valtio";
-import { alertErrorApp, alertErrorServer } from "#src/lib/alert";
+import { showAlertErrorApp, showAlertErrorServer } from "#src/lib/alert";
 import { requestOauthDelete, requestOauthLink } from "#src/lib/request";
 import globalState from "#src/lib/state";
 import { secondsToMs } from "#src/lib/time";
@@ -30,7 +30,7 @@ function ButtonUnlink({ provider, submitting, setSubmitting }) {
     }
 
     if (!globalState.oauth?.[provider]) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 
@@ -43,7 +43,7 @@ function ButtonUnlink({ provider, submitting, setSubmitting }) {
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 
@@ -102,7 +102,7 @@ export default function SettingsOauth({ Icon, provider }) {
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       setSubmitting(false);
       return;
     }
@@ -110,7 +110,7 @@ export default function SettingsOauth({ Icon, provider }) {
     const href = await res.text();
 
     if (!href) {
-      alertErrorServer();
+      showAlertErrorServer();
       setSubmitting(false);
       return;
     }

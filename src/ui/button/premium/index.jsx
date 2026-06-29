@@ -1,7 +1,7 @@
 "use client";
 
 import { useSnapshot } from "valtio";
-import { alertErrorApp, alertErrorServer } from "#src/lib/alert";
+import { showAlertErrorApp, showAlertErrorServer } from "#src/lib/alert";
 import { requestProfilePremiumPlanUpgrade } from "#src/lib/request";
 import globalState from "#src/lib/state";
 import Button from "#src/ui/button";
@@ -35,7 +35,7 @@ export default function ButtonUpgradePremium() {
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       el.disabled = false;
       return;
     }
@@ -43,7 +43,7 @@ export default function ButtonUpgradePremium() {
     const href = await res.text();
 
     if (!href) {
-      alertErrorServer();
+      showAlertErrorServer();
       el.disabled = false;
       return;
     }

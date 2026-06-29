@@ -2,7 +2,7 @@
 
 import { useSnapshot } from "valtio";
 import IconPolarSh from "#src/icons/polar.sh.svg";
-import { alertErrorApp } from "#src/lib/alert";
+import { showAlertErrorApp } from "#src/lib/alert";
 import { HREF_CONTACT } from "#src/lib/env";
 import { requestPolarSession } from "#src/lib/request";
 import globalState from "#src/lib/state";
@@ -33,7 +33,7 @@ function ButtonPolarSh() {
       }
 
       if (!res.ok) {
-        alertErrorApp();
+        showAlertErrorApp();
         el.disabled = false;
         return;
       }
@@ -41,7 +41,7 @@ function ButtonPolarSh() {
       globalState.polarShSessionUrl = await res.text();
 
       if (!globalState.polarShSessionUrl) {
-        alertErrorApp();
+        showAlertErrorApp();
         el.disabled = false;
         return;
       }

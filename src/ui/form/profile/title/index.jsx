@@ -1,7 +1,7 @@
 "use client";
 
 import { useDeferredValue, useState } from "react";
-import { alertErrorApp } from "#src/lib/alert";
+import { showAlertErrorApp } from "#src/lib/alert";
 import { useProfileActivePremium } from "#src/lib/hooks/state";
 import { normalizeDisplayName } from "#src/lib/name";
 import globalState from "#src/lib/state";
@@ -57,7 +57,7 @@ export default function FormProfileTitle() {
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 

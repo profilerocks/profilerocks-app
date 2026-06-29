@@ -1,6 +1,3 @@
-import LinkEdit from "#src/ui/link/edit";
-import LinkNext from "#src/ui/link/next";
-import { useUserEmail as StateUserEmail, useUserDisplayName as StateUserDisplayName } from "#src/lib/hooks/state";
 import IconCard from "#src/icons/card.svg";
 import IconConnect from "#src/icons/connect.svg";
 import IconDevices from "#src/icons/devices.svg";
@@ -8,8 +5,11 @@ import IconEmail from "#src/icons/email.svg";
 import IconLogout from "#src/icons/logout.svg";
 import IconUser from "#src/icons/user/single.svg";
 import IconUserData from "#src/icons/user/data.svg";
-import ButtonDialog from "#src/ui/button/dialog";
-import DialogLogOut from "#src/ui/dialog/logout";
+import { showLogOutConfirm } from "#src/lib/confirm";
+import { useUserEmail as StateUserEmail, useUserDisplayName as StateUserDisplayName } from "#src/lib/hooks/state";
+import Button from "#src/ui/button";
+import LinkEdit from "#src/ui/link/edit";
+import LinkNext from "#src/ui/link/next";
 import Minimap from "#src/ui/minimap";
 import styles from "./index.module.scss";
 
@@ -78,10 +78,10 @@ export default function SettingsHome() {
           </li>
         </ul>
       </nav>
-      <ButtonDialog Dialog={DialogLogOut} className={styles["btn-logout"]}>
+      <Button onClick={showLogOutConfirm} className={styles["btn-logout"]}>
         <IconLogout width={ICON_DIMENSION} />
         Log out of current session
-      </ButtonDialog>
+      </Button>
       <Minimap />
     </div>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useSnapshot } from "valtio";
-import { alertErrorApp } from "#src/lib/alert";
+import { showAlertErrorApp } from "#src/lib/alert";
 import { PLATFORM_NAME } from "#src/lib/env";
 import { useProfileActivePremium } from "#src/lib/hooks/state";
 import { requestProfileWatermarkToggle } from "#src/lib/request";
@@ -41,7 +41,7 @@ export default function ProfileWatermark() {
     }
 
     if (!res.ok) {
-      alertErrorApp();
+      showAlertErrorApp();
       return;
     }
 
