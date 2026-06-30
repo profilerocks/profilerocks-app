@@ -1,20 +1,23 @@
 import { showAlertErrorApp } from "#src/lib/alert";
 import { requestUserLogout, requestUserAllSessionsLogout } from "#src/lib/request";
+import globalState from "#src/lib/state";
 import { deleteUserState } from "#src/lib/state/user";
 
 /**
- * @callback ConfirmFunction
- * @param {boolean} confirmResult
+ * @import {GlobalState} from "#src/lib/state"
  */
 
 /**
  * @function showConfirm
  * @param {string} message
- * @param {ConfirmFunction} confirmFunction
+ * @param {Exclude<GlobalState["dialogConfirmFunction"],undefined>} confirmFunction
  * @returns {void}
  */
 export function showConfirm(message, confirmFunction) {
   confirmFunction(window.confirm(message));
+  /*globalState.dialogContent = message;
+  globalState.dialogConfirmFunction = confirmFunction;
+  globalState.dialogOpen = true;*/
 }
 
 /**
@@ -27,16 +30,12 @@ export function showLogOutConfirm() {
 
       if (res) {
         if (res.ok) {
-          deleteUserState()
+          deleteUserState();
         } else {
-          showAlertErrorApp()
+          showAlertErrorApp();
         }
-
-        return res.ok
       }
     }
-
-    return false;
   });
 }
 
@@ -50,15 +49,11 @@ export function showLogOutAllSessionsConfirm() {
 
       if (res) {
         if (res.ok) {
-          deleteUserState()
+          deleteUserState();
         } else {
-          showAlertErrorApp()
+          showAlertErrorApp();
         }
-
-        return res.ok
       }
     }
-
-    return false;
   });
 }

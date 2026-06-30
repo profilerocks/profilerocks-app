@@ -5,6 +5,11 @@ import { proxy } from "valtio";
  */
 
 /**
+ * @callback DialogConfirmFunction
+ * @param {boolean} confirmResult
+ */
+
+/**
  * @typedef {Object} ProfileDataEntryObject
  * @property {string} content
  * @property {string} tag
@@ -42,6 +47,9 @@ import { proxy } from "valtio";
  * @property {ProfileDataEntryObject[]} [currentProfileDataStored] No pending profile data. TODO: [DELETE IT]
  *
  * User
+ * @property {React.ReactNode} [dialogContent]
+ * @property {DialogConfirmFunction} [dialogConfirmFunction]
+ * @property {boolean} [dialogOpen]
  * @property {string} [displayName]
  * @property {string} [email]
  * @property {string} [email2]
