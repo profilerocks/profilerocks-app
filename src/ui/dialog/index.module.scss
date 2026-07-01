@@ -1,0 +1,62 @@
+$br: 0.75em;
+
+.dialog {
+  padding: 0;
+  border: none;
+  background: none;
+  scale: 0.875;
+  opacity: 0;
+  transition:
+    display 0.3s allow-discrete,
+    opacity 0.3s,
+    overlay 0.3s allow-discrete,
+    scale 0.3s;
+  &::backdrop {
+    transition:
+      backdrop-filter 0.3s,
+      display 0.3s allow-discrete,
+      overlay 0.3s allow-discrete;
+  }
+  &[open] {
+    opacity: 1;
+    scale: 1;
+    &::backdrop {
+      backdrop-filter: blur(8px);
+      @starting-style {
+        backdrop-filter: none;
+      }
+    }
+    @starting-style {
+      opacity: 0;
+      scale: 0.875;
+    }
+  }
+}
+
+.dialog-content {
+  font-size: 1.125em;
+  padding: 1em;
+  padding-block-end: 1.25em;
+  background: var(--color-bg-2);
+  border: 2px solid var(--color-border);
+  border-start-start-radius: $br;
+  border-start-end-radius: $br;
+  border-block-end: none;
+}
+
+.dialog-form {
+  display: flex;
+  > button {
+    font-size: inherit;
+    border: none;
+    padding: 0.625em;
+    flex: 1;
+    cursor: pointer;
+    &:first-child {
+      border-end-start-radius: $br;
+    }
+    &:last-child {
+      border-end-end-radius: $br;
+    }
+  }
+}

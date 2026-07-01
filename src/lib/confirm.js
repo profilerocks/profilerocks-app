@@ -15,9 +15,9 @@ import { deleteUserState } from "#src/lib/state/user";
  */
 export function showConfirm(message, confirmFunction) {
   confirmFunction(window.confirm(message));
-  /*globalState.dialogContent = message;
-  globalState.dialogConfirmFunction = confirmFunction;
-  globalState.dialogOpen = true;*/
+  // globalState.dialogContent = message;
+  // globalState.dialogConfirmFunction = confirmFunction;
+  // globalState.dialogOpen = true;
 }
 
 /**

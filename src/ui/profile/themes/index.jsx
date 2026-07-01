@@ -47,7 +47,7 @@ function ProfileThemePreviewCheck({ disabled, publicId }) {
       currentProfile.theme_preview = publicId;
       location.hash = "#preview";
     } else {
-      delete currentProfile.theme_preview;
+      currentProfile.theme_preview = undefined;
     }
   }
 
@@ -212,7 +212,7 @@ export default function ProfileThemes() {
       location.hash = "#preview";
     }
 
-    delete currentProfile.theme_preview;
+    currentProfile.theme_preview = undefined;
   }
 
   /**
