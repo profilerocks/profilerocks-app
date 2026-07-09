@@ -28,27 +28,6 @@
   color-scheme: dark light;
 }
 
-html {
-  height: 100%;
-  scroll-behavior: smooth;
-  scrollbar-color: var(--color-3) transparent;
-  scrollbar-width: thin;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  background: var(--color-bg);
-  height: 100%;
-  color: var(--color-2);
-  line-height: 1.5;
-  -webkit-tap-highlight-color: transparent; // Remove tap highlight in webkit based browsers
-  &:has(dialog[open]) {
-    overflow: hidden;
-  }
-}
-
 a {
   display: inline-flex;
   align-items: center;
