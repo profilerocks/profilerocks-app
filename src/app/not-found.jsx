@@ -20,6 +20,7 @@ export default function NotFound() {
       window.location.replace(new URL(normalizedPathname, HREF_PROFILE));
     } else {
       const mainEl = document.querySelector("main");
+      
       if (mainEl) {
         mainEl.style.opacity = "1";
       }
@@ -27,7 +28,7 @@ export default function NotFound() {
   }, [pathname]);
 
   return (
-    <main>
+    <main className="transition-opacity opacity-0">
       <figure>
         <IconRobotConfused className="max-w-3xs" />
         <figcaption>
