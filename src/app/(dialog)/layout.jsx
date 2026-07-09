@@ -12,5 +12,5 @@ export default function LayoutDialog({ children }) {
       {children}
       <Dialog />
     </>
-  )
+  );
 }

@@ -3,7 +3,7 @@
  * @type {import("prettier").Config}
  */
 const prettierConfig = {
-  plugins: ["prettier-plugin-css-order"],
+  plugins: ["prettier-plugin-css-order", "prettier-plugin-tailwindcss"],
   printWidth: 140,
   tabWidth: 2,
   useTabs: false,

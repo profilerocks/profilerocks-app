@@ -21,7 +21,7 @@ import IconBin from "#src/icons/bin.svg";
 import styles from "./index.module.scss";
 
 const sizeImg = 158;
-const maxPhotoSizeMiB = photoAttributes.maxPhotoSize / 1048576
+const maxPhotoSizeMiB = photoAttributes.maxPhotoSize / 1048576;
 
 function Photo({ src = "/user.png" }) {
   return <img src={src} width={sizeImg} height={sizeImg} draggable="false" className={styles.photo} />;

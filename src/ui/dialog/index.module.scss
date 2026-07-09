@@ -1,9 +1,6 @@
 $br: 0.75em;
 
 .dialog {
-  padding: 0;
-  border: none;
-  background: none;
   scale: 0.875;
   opacity: 0;
   transition:
@@ -11,6 +8,9 @@ $br: 0.75em;
     opacity 0.3s,
     overlay 0.3s allow-discrete,
     scale 0.3s;
+  border: none;
+  background: none;
+  padding: 0;
   &::backdrop {
     transition:
       backdrop-filter 0.3s,
@@ -18,8 +18,8 @@ $br: 0.75em;
       overlay 0.3s allow-discrete;
   }
   &[open] {
-    opacity: 1;
     scale: 1;
+    opacity: 1;
     &::backdrop {
       backdrop-filter: blur(8px);
       @starting-style {
@@ -27,31 +27,31 @@ $br: 0.75em;
       }
     }
     @starting-style {
-      opacity: 0;
       scale: 0.875;
+      opacity: 0;
     }
   }
 }
 
 .dialog-content {
-  font-size: 1.125em;
-  padding: 1em;
-  padding-block-end: 1.25em;
-  background: var(--color-bg-2);
   border: 2px solid var(--color-border);
+  border-block-end: none;
   border-start-start-radius: $br;
   border-start-end-radius: $br;
-  border-block-end: none;
+  background: var(--color-bg-2);
+  padding: 1em;
+  padding-block-end: 1.25em;
+  font-size: 1.125em;
 }
 
 .dialog-form {
   display: flex;
   > button {
-    font-size: inherit;
-    border: none;
-    padding: 0.625em;
     flex: 1;
     cursor: pointer;
+    border: none;
+    padding: 0.625em;
+    font-size: inherit;
     &:first-child {
       border-end-start-radius: $br;
     }

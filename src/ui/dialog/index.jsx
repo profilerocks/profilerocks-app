@@ -14,7 +14,6 @@ function handleDialogClose() {
 export default function Dialog() {
   const { dialogConfirmFunction, dialogContent, dialogOpen } = useSnapshot(globalState);
 
-
   /**
    * @type {React.Ref<HTMLDialogElement|null>}
    */
@@ -26,10 +25,10 @@ export default function Dialog() {
     if (dialog) {
       if (dialogOpen) {
         if (!dialog.open) {
-          dialog.showModal()
+          dialog.showModal();
         }
       } else if (dialog.open) {
-        dialog.close()
+        dialog.close();
       }
     }
   }, [dialogOpen]);
@@ -43,8 +42,12 @@ export default function Dialog() {
       <form method="dialog" className={styles["dialog-form"]}>
         {dialogConfirmFunction ? (
           <>
-            <button type="submit" onClick={() => dialogConfirmFunction(true)}>Yes</button>
-            <button type="submit" onClick={() => dialogConfirmFunction(false)}>Cancel</button>
+            <button type="submit" onClick={() => dialogConfirmFunction(true)}>
+              Yes
+            </button>
+            <button type="submit" onClick={() => dialogConfirmFunction(false)}>
+              Cancel
+            </button>
           </>
         ) : (
           <button type="submit">Ok</button>

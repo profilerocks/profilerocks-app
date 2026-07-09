@@ -24,7 +24,7 @@ export function showConfirm(message, confirmFunction) {
  * @function showLogOutConfirm
  */
 export function showLogOutConfirm() {
-  showConfirm("Are you sure you want to log out?", async (confirmResult) => {
+  showConfirm("Are you sure you want to log out?", async confirmResult => {
     if (confirmResult) {
       const res = await requestUserLogout();
 
@@ -43,7 +43,7 @@ export function showLogOutConfirm() {
  * @function showLogOutAllSessionsConfirm
  */
 export function showLogOutAllSessionsConfirm() {
-  showConfirm("Are you sure you want to log out of all sessions?", async (confirmResult) => {
+  showConfirm("Are you sure you want to log out of all sessions?", async confirmResult => {
     if (confirmResult) {
       const res = await requestUserAllSessionsLogout();
 
