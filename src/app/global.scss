@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: dark light;
+}
+
+/*:root {
   --color: #ddd;
   --color-2: #c5c8c9;
   --color-3: #a5a8a9;
@@ -95,4 +99,4 @@ strong {
   body:has(.checkbox-hide-scrollbar:checked) {
     overflow: hidden;
   }
-}
+}*/

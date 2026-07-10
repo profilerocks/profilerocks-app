@@ -29,10 +29,10 @@ export default function NotFound() {
 
   return (
     <main className="transition-opacity opacity-0">
-      <figure>
+      <figure className="flex flex-col justify-center">
         <IconRobotConfused className="max-w-3xs" />
-        <figcaption>
-          <h1>404</h1>
+        <figcaption className="text-center">
+          <h1 className="text-7xl">404</h1>
           <p>Not found</p>
         </figcaption>
       </figure>
