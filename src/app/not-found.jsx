@@ -28,18 +28,18 @@ export default function NotFound() {
   }, [pathname]);
 
   return (
-    <main className="pbs- px-6 opacity-0 transition-opacity">
+    <main className="px-6 pbs-3 opacity-0 transition-opacity">
       <figure>
         <IconRobotConfused className="mx-auto max-w-3xs text-emerald-400" />
         <figcaption className="text-center">
           <h1 className="text-7xl">404</h1>
-          <p className="mbs-2 text-3xl text-gray-400">Not found</p>
+          <p className="mbs-2 text-3xl text-zinc-400">Not found</p>
         </figcaption>
       </figure>
-      <p className="mx-auto mbs-6 max-w-max">
+      <p className="mx-auto my-8 max-w-max text-zinc-200">
         <q>Looks like this page took a wrong turn... Maybe it&#39;s lost in the internet void, or just grabbing a coffee.</q>
       </p>
-      <Minimap className="mbs-8" />
+      <Minimap />
     </main>
   );
 }
