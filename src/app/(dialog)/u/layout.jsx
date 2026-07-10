@@ -1,6 +1,5 @@
-import HeaderMinimal from "#src/ui/header/minimal";
+import LogoLong from "#src/static/logo/long.svg";
 import Minimap from "#src/ui/minimap";
-
 import styles from "./layout.module.scss";
 
 /**
@@ -12,7 +11,9 @@ import styles from "./layout.module.scss";
 export default function LayoutForm({ children }) {
   return (
     <>
-      <HeaderMinimal />
+      <header className="max-w-2xl w-full mx-auto mbs-4">
+        <LogoLong width="18em" />
+      </header>
       <main className={styles["user-enter-page"]}>{children}</main>
       <footer className={styles["footer-bottom"]}>
         <Minimap />
