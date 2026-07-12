@@ -15,7 +15,7 @@ import globalState from "#src/lib/state";
 import Button from "#src/ui/button";
 import DateTime from "#src/ui/date";
 import Message from "#src/ui/message";
-import Requirements from "#src/ui/requirements";
+import Requirements from "#src/ui/requirement/list";
 import styles from "./index.module.scss";
 
 /**

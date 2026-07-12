@@ -23,7 +23,7 @@ export default function PageUserEnter() {
       <FormUserEmail buttonChildren={formButtonChildren} requestOtpCreation={requestOtpEnterCreation}>
         <p className="mx-2.5 my-5 flex items-start gap-2.5 text-sm text-zinc-300">
           <IconInfo className="max-w-5 text-teal-500" />
-          <span className="">
+          <span>
             By accessing this platform, you agree to the{" "}
             <Anchor href={HREF_PRIVACY} target="_blank" rel="privacy-policy">
               Privacy Policy

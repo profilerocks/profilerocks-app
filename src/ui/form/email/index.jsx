@@ -15,7 +15,7 @@ import InputGroup from "#src/ui/input/group";
 import ButtonNext from "#src/ui/button/next";
 import LinkBack from "#src/ui/link/back";
 import Actions from "#src/ui/actions";
-import Requirements from "#src/ui/requirements";
+import Requirements from "#src/ui/requirement/list";
 import otpAttributes from "#shared/otp.json";
 
 /**
