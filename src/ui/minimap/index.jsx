@@ -9,7 +9,7 @@ export default function Minimap({ className: customClassName }) {
   return (
     <nav
       className={
-        "flex flex-wrap justify-center gap-2 text-sm select-none *:rounded-3xl *:px-3 *:py-2 *:text-zinc-400 *:transition-colors *:hover:bg-zinc-800 *:hover:text-zinc-200 *:focus-visible:bg-zinc-700 *:focus-visible:text-zinc-100 *:active:bg-zinc-700 *:active:text-zinc-100" +
+        "flex flex-wrap justify-center gap-1 text-sm select-none *:rounded-3xl *:px-3 *:py-2 *:text-zinc-400 *:transition-colors *:hover:bg-zinc-800 *:hover:text-zinc-200 *:focus-visible:bg-zinc-700 *:focus-visible:text-zinc-100 *:active:bg-zinc-700 *:active:text-zinc-100" +
         (customClassName ? " " + customClassName : "")
       }
     >

@@ -1,6 +1,6 @@
 import LogoLong from "#src/static/logo/long.svg";
 import Minimap from "#src/ui/minimap";
-import styles from "./layout.module.scss";
+// import styles from "./layout.module.scss";
 
 /**
  * @function
@@ -11,11 +11,11 @@ import styles from "./layout.module.scss";
 export default function LayoutForm({ children }) {
   return (
     <>
-      <header className="max-w-2xl w-full mx-auto mbs-4">
+      <header className="max-w-2xl w-full mx-auto pbs-5 px-6">
         <LogoLong width="18em" />
       </header>
-      <main className={styles["user-enter-page"]}>{children}</main>
-      <footer className={styles["footer-bottom"]}>
+      <main className="max-w-2xl w-full mx-auto px-6 py-4 sm:my-auto">{children}</main>
+      <footer className="px-4 py-10 mbs-auto">
         <Minimap />
       </footer>
     </>
