@@ -12,7 +12,7 @@ export default function LayoutForm({ children }) {
   return (
     <>
       <header className="mx-auto w-full max-w-2xl px-6 pbs-5">
-        <LogoLong width="18em" />
+        <LogoLong className="select-none" width="18em" />
       </header>
       <main className="mx-auto w-full max-w-2xl px-6 py-4 sm:my-auto">{children}</main>
       <footer className="mbs-auto px-4 py-10">

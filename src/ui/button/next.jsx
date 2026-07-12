@@ -1,4 +1,4 @@
-import ArrowRight from "#src/ui/arrow/right";
+import IconArrowRight from "#src/icons/arrow/right.svg";
 import Button from "#src/ui/button";
 
 /**
@@ -10,7 +10,7 @@ export default function ButtonNext({ children = "Next", ...buttonAttributes }) {
   return (
     <Button {...buttonAttributes}>
       {children}
-      <ArrowRight />
+      <IconArrowRight className="ms-auto" width="1.25em" />
     </Button>
   );
 }

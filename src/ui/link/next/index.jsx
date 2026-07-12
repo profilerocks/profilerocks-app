@@ -1,4 +1,4 @@
-import ArrowRight from "#src/ui/arrow/right";
+import IconArrowRight from "#src/icons/arrow/right.svg";
 import LinkPillSolid from "#src/ui/link/pill/solid";
 
 /**
@@ -10,7 +10,7 @@ export default function LinkNext({ children, ...props }) {
   return (
     <LinkPillSolid {...props}>
       {children}
-      <ArrowRight />
+      <IconArrowRight />
     </LinkPillSolid>
   );
 }

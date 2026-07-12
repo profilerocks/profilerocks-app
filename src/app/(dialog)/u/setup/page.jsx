@@ -1,4 +1,4 @@
-import ArrowRight from "#src/ui/arrow/right";
+import IconArrowRight from "#src/icons/arrow/right.svg";
 import IconPencil from "#src/icons/pencil.svg";
 import FormDisplayName from "#src/ui/form/display";
 
@@ -10,7 +10,7 @@ export default function PageSetupUserName() {
       <FormDisplayName hrefNext="/">
         <IconPencil width="1.5em" />
         Set contact name
-        <ArrowRight />
+        <IconArrowRight />
       </FormDisplayName>
     </>
   );

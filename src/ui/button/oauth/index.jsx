@@ -1,7 +1,6 @@
+import IconArrowRight from "#src/icons/arrow/right.svg";
 import { showAlertErrorApp, showAlertErrorServer } from "#src/lib/alert";
 import { requestOauthLink } from "#src/lib/request";
-import ButtonNext from "#src/ui/button/next";
-import styles from "./index.module.scss";
 
 /**
  * @function
@@ -46,13 +45,14 @@ export default function Oauth({ children, provider }) {
   }
 
   return (
-    <ButtonNext
-      className={styles["btn-oauth"]}
+    <button
+      className="br-4 flex w-full items-center gap-2.5 rounded-3xl bg-zinc-900 p-2.5 text-zinc-400 transition-colors select-none enabled:cursor-pointer enabled:hover:bg-zinc-800 enabled:hover:text-zinc-300 enabled:active:bg-zinc-700 enabled:active:text-zinc-200 disabled:cursor-not-allowed disabled:bg-zinc-900 disabled:text-zinc-500"
       onClick={redirectToOauth}
       title={provider[0].toUpperCase() + provider.substring(1)}
       type="button"
     >
       {children}
-    </ButtonNext>
+      <IconArrowRight className="ms-auto drop-shadow-sm drop-shadow-black" width="1.25em" />
+    </button>
   );
 }

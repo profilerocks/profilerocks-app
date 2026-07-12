@@ -10,7 +10,7 @@ import IconColoredGoogle from "#src/icons/colored/google.svg";
 export default function OauthGoogle({ children }) {
   return (
     <Oauth provider="google">
-      <IconColoredGoogle width="1.25em" />
+      <IconColoredGoogle className="drop-shadow-xs drop-shadow-black" width="1.25em" />
       {children}
     </Oauth>
   );
