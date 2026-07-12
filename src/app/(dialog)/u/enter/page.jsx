@@ -13,16 +13,13 @@ const formButtonChildren = (
     <IconAgreement width="1.25em" />
     Agree and continue
   </>
-)
+);
 
 export default function PageUserEnter() {
   return (
     <>
       <h1 className="text-3xl">Log in or register</h1>
-      <FormUserEmail
-        buttonChildren={formButtonChildren}
-        requestOtpCreation={requestOtpEnterCreation}
-      >
+      <FormUserEmail buttonChildren={formButtonChildren} requestOtpCreation={requestOtpEnterCreation}>
         <p className="">
           <IconInfo width="1em" />
           <span className="">

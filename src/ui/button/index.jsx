@@ -6,7 +6,10 @@
 export default function Button({ className: customClassName, children, ...buttonAttributes }) {
   return (
     <button
-      className={"flex items-center gap-2.5 transition-color text-black enabled:bg-zinc-400 p-2.5 br-4 rounded-3xl disabled:bg-zinc-500 disabled:cursor-not-allowed" + (customClassName ? " " + customClassName : "")}
+      className={
+        "transition-color br-4 flex items-center gap-2.5 rounded-3xl p-2.5 text-black enabled:bg-zinc-400 disabled:cursor-not-allowed disabled:bg-zinc-500" +
+        (customClassName ? " " + customClassName : "")
+      }
       {...buttonAttributes}
     >
       {children}

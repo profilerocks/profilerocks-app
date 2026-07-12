@@ -174,6 +174,7 @@ export default function FormUserEmail({ buttonChildren, children, hrefBack, requ
   return (
     <form onSubmit={sendEmailToServer}>
       <InputGroup
+        autoComplete="email"
         defaultValue={email}
         disabled={submitting}
         maxLength={254}
