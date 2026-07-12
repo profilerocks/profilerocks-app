@@ -19,7 +19,7 @@ const formButtonChildren = (
 export default function PageUserEnter() {
   return (
     <>
-      <h1 className="mbe-4 text-3xl">Log in or register</h1>
+      <h1 className="mbe-5 text-3xl">Log in or register</h1>
       <FormUserEmail buttonChildren={formButtonChildren} requestOtpCreation={requestOtpEnterCreation}>
         <p className="mx-2.5 my-5 flex items-start gap-2.5 text-sm text-zinc-300">
           <IconInfo className="max-w-5 text-teal-500" />

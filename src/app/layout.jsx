@@ -66,7 +66,7 @@ export default function Layout({ children }) {
       lang="en"
       prefix="og: https://ogp.me/ns#"
     >
-      <body className={fontText.className + " flex h-full flex-col bg-black text-zinc-100"}>
+      <body className={"flex h-full flex-col bg-black text-zinc-100 " + fontText.className}>
         {/** Since `ErrorInSearchParams` uses `useSearchParams`, it needs to be wrapped in a Suspense boundary. */}
         <Suspense>
           <ErrorInSearchParams />

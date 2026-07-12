@@ -15,7 +15,6 @@ import InputGroup from "#src/ui/input/group";
 import ButtonNext from "#src/ui/button/next";
 import LinkBack from "#src/ui/link/back";
 import Actions from "#src/ui/actions";
-import Requirements from "#src/ui/requirement/list";
 import otpAttributes from "#shared/otp.json";
 
 /**
@@ -39,19 +38,23 @@ import otpAttributes from "#shared/otp.json";
  * @returns {React.ReactNode}
  */
 export default function FormUserEmail({ buttonChildren, children, hrefBack, requestOtpCreation }) {
-  const pathname = usePathname();
+
+  const [email, setEmail] = useState(getCurrentOtpState()?.email || globalState.email || "");
+
+  const [emailBlock, setEmailBlock] = useState(false);
+
+  const [submitting, setSubmitting] = useState(false);
+
+  const emailFormatValidity = email && globalState.email !== email ? isEmailValid(email) : undefined;
 
   /**
    * @type {React.RefObject<OtpState|null>}
    */
   const otpStateRef = useRef(null);
 
-  const router = useRouter();
-  const [email, setEmail] = useState(getCurrentOtpState()?.email || globalState.email || "");
-  const [emailBlock, setEmailBlock] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
+  const pathname = usePathname();
 
-  const emailFormatValidity = email && globalState.email !== email ? isEmailValid(email) : undefined;
+  const router = useRouter();
 
   /**
    * @function setEmailOnInput
@@ -189,11 +192,6 @@ export default function FormUserEmail({ buttonChildren, children, hrefBack, requ
         <IconEmail width="1.125em" />
         Email
       </InputGroup>
-      <Requirements>
-        <li className={emailFormatValidity ? "valid" : emailFormatValidity === false ? "invalid" : undefined}>
-          Must be a valid email address
-        </li>
-      </Requirements>
       {children}
       <Actions>
         {hrefBack && <LinkBack href={hrefBack}>Back</LinkBack>}
