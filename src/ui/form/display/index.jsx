@@ -9,7 +9,6 @@ import globalState from "#src/lib/state";
 import displayAttributes from "#shared/display.json";
 import InputGroup from "#src/ui/input/group";
 import LinkBack from "#src/ui/link/back";
-import Actions from "#src/ui/actions";
 import Requirements from "#src/ui/requirement/list";
 import Button from "#src/ui/button";
 
@@ -99,12 +98,12 @@ export default function FormDisplayName({ children, hrefBack, hrefNext }) {
           Between {displayAttributes.minLength} & {displayAttributes.maxLength} characters
         </li>
       </Requirements>
-      <Actions>
+      <div>
         {hrefBack && <LinkBack href={hrefBack}>Back</LinkBack>}
         <Button type="submit" disabled={disabled}>
           {children}
         </Button>
-      </Actions>
+      </div>
     </form>
   );
 }

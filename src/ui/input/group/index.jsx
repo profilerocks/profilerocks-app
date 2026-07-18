@@ -30,7 +30,7 @@ function InputGroupWithLabel({ children, placeholder = " ", ref, ...restProps })
   const inputId = useId();
 
   return (
-    <div className="relative pbs-2.5 transition-colors select-none">
+    <div className="relative pbs-2.5 select-none">
       {/* `background-clip: text` fixes autofill background in Chrome */}
       <Input
         {...restProps}

@@ -11,10 +11,10 @@ import { getCurrentOtpState, getOtpState, switchOtpState } from "#src/lib/state/
 import { getSecondsFromBase36 } from "#src/lib/time";
 import IconBlock from "#src/icons/block.svg";
 import IconEmail from "#src/icons/email.svg";
+import IconAgreement from "#src/icons/agreement.svg";
 import InputGroup from "#src/ui/input/group";
 import ButtonNext from "#src/ui/button/next";
 import LinkBack from "#src/ui/link/back";
-import Actions from "#src/ui/actions";
 import otpAttributes from "#shared/otp.json";
 
 /**
@@ -39,7 +39,7 @@ import otpAttributes from "#shared/otp.json";
  */
 export default function FormUserEmail({ buttonChildren, children, hrefBack, requestOtpCreation }) {
 
-  const [email, setEmail] = useState(getCurrentOtpState()?.email || globalState.email || "");
+  const [email, setEmail] = useState(getCurrentOtpState()?.email ?? globalState.email ?? "");
 
   const [emailBlock, setEmailBlock] = useState(false);
 
@@ -174,6 +174,26 @@ export default function FormUserEmail({ buttonChildren, children, hrefBack, requ
     }
   }
 
+  const buttonNext = (
+    <ButtonNext
+      className={hrefBack ? undefined : "w-full"}
+      disabled={submitting || !emailFormatValidity || emailBlock}
+      title={emailFormatValidity ? (submitting ? "Submitting..." : undefined) : "Enter a valid email address"}
+      type="submit"
+    >
+      {emailBlock ? (
+        <>
+          <IconBlock width="1.25em" />
+          Email blocked
+        </>
+      ) : hrefBack ? (
+        undefined
+      ) : (
+        <><IconAgreement width="1.25em" />Agree and continue</>
+      )}
+    </ButtonNext>
+  );
+
   return (
     <form onSubmit={sendEmailToServer}>
       <InputGroup
@@ -193,23 +213,14 @@ export default function FormUserEmail({ buttonChildren, children, hrefBack, requ
         Email
       </InputGroup>
       {children}
-      <Actions>
-        {hrefBack && <LinkBack href={hrefBack}>Back</LinkBack>}
-        <ButtonNext
-          type="submit"
-          disabled={submitting || !emailFormatValidity || emailBlock}
-          title={emailFormatValidity ? (submitting ? "Submitting..." : undefined) : "Enter a valid email address"}
-        >
-          {emailBlock ? (
-            <>
-              <IconBlock width="1.25em" />
-              Email blocked
-            </>
-          ) : (
-            buttonChildren
-          )}
-        </ButtonNext>
-      </Actions>
+      {hrefBack ? (
+        <div>
+          <LinkBack href={hrefBack}>Back</LinkBack>
+          {buttonNext}
+        </div>
+      ) : (
+        buttonNext
+      )}
     </form>
   );
 }

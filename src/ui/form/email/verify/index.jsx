@@ -13,7 +13,6 @@ import { getSecondsFromBase36 } from "#src/lib/time";
 import IconTick from "#src/icons/tick.svg";
 import IconUserVerify from "#src/icons/user/verify.svg";
 import otpAttributes from "#shared/otp.json";
-import Actions from "#src/ui/actions";
 import Button from "#src/ui/button";
 import InputOtp from "#src/ui/input/otp";
 import LinkBack from "#src/ui/link/back";
@@ -132,13 +131,13 @@ function FormOtpContent({ submitting }) {
         )}
         <InputOtp disabled={otpInputBlock} name="otp" onChange={setOtpOnChange} required valid={otpValid} value={otp} />
       </div>
-      <Actions>
+      <div>
         <ReactiveLinkBack />
         <Button disabled={submitting || otpInputBlock || !otpValid} title={submitting ? "Submitting..." : undefined} type="submit">
           Verify
           <IconUserVerify width="1.25em" />
         </Button>
-      </Actions>
+      </div>
     </>
   );
 }
