@@ -1,6 +1,6 @@
 /**
  * @function
- * @param {React.InputHTMLAttributes<HTMLAnchorElement>} props
+ * @param {React.AnchorHTMLAttributes<HTMLAnchorElement>} props
  * @returns {React.ReactNode}
  */
 export default function Anchor({ children, className: customClassName, ...restProps }) {
