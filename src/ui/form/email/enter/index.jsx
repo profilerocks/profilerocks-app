@@ -6,14 +6,17 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import normalizeEmail from "validator/es/lib/normalizeEmail";
 import { showAlertErrorApp, showAlert } from "#src/lib/alert";
+import { HREF_PRIVACY, HREF_TERMS } from "#src/lib/env";
+import { requestOtpEnterCreation } from "#src/lib/request";
 import globalState from "#src/lib/state";
-import { getOtpState, switchOtpState } from "#src/lib/state/otp";
+import { getCurrentOtpState, getOtpState, switchOtpState } from "#src/lib/state/otp";
 import { getSecondsFromBase36 } from "#src/lib/time";
-import IconBlock from "#src/icons/block.svg";
 import IconEmail from "#src/icons/email.svg";
+import IconAgreement from "#src/icons/agreement.svg";
+import IconInfo from "#src/icons/info.svg";
+import Anchor from "#src/ui/anchor";
 import InputGroup from "#src/ui/input/group";
 import ButtonNext from "#src/ui/button/next";
-import LinkBack from "#src/ui/link/back";
 import otpAttributes from "#shared/otp.json";
 
 /**
@@ -29,15 +32,11 @@ import otpAttributes from "#shared/otp.json";
 
 /**
  * @function
- * @param {Object} props
- * @param {React.ReactNode} [props.children]
- * @param {RequestOtpCreation} props.requestOtpCreation
- * @param {string} [props.hrefBack]
  * @returns {React.ReactNode}
  */
-export default function FormUserEmail({ children, hrefBack, requestOtpCreation }) {
+export default function FormUserEmailEnter() {
 
-  const [email, setEmail] = useState(globalState.email ?? "");
+  const [email, setEmail] = useState(getCurrentOtpState()?.email ?? "");
 
   const [emailBlock, setEmailBlock] = useState(false);
 
@@ -124,7 +123,7 @@ export default function FormUserEmail({ children, hrefBack, requestOtpCreation }
 
     setSubmitting(true);
 
-    const res = await requestOtpCreation(normalizedEmail);
+    const res = await requestOtpEnterCreation(normalizedEmail);
 
     if (!res) {
       setSubmitting(false);
@@ -151,6 +150,7 @@ export default function FormUserEmail({ children, hrefBack, requestOtpCreation }
         expires: getSecondsFromBase36(text.substring(0, text.length - 1)),
         blocked: true
       };
+
       setEmailBlock(true);
       setSubmitting(false);
     } else {
@@ -190,24 +190,30 @@ export default function FormUserEmail({ children, hrefBack, requestOtpCreation }
         <IconEmail width="1.125em" />
         Email
       </InputGroup>
-      {children}
-      <div>
-        {hrefBack && <LinkBack href={hrefBack}>Back</LinkBack>}
-        <ButtonNext
-          disabled={submitting || !emailFormatValidity || emailBlock}
-          title={emailFormatValidity ? (submitting ? "Submitting..." : undefined) : "Enter a valid email address"}
-          type="submit"
-        >
-          {emailBlock ? (
-            <>
-              <IconBlock width="1.25em" />
-              Email blocked
-            </>
-          ) : (
-            "Next"
-          )}
-        </ButtonNext>
-      </div>
+      <p className="mx-2.5 my-5 flex items-start gap-2.5 text-sm text-zinc-300">
+        <IconInfo className="max-w-5 text-teal-500" />
+        <span>
+          By accessing this platform, you agree to the{" "}
+          <Anchor href={HREF_PRIVACY} target="_blank" rel="privacy-policy">
+            Privacy Policy
+          </Anchor>{" "}
+          and{" "}
+          <span className="whitespace-nowrap">
+            <Anchor href={HREF_TERMS} target="_blank" rel="terms-of-service">
+              Terms of Service
+            </Anchor>
+            .
+          </span>
+        </span>
+      </p>
+      <ButtonNext
+        className="w-full"
+        disabled={submitting || !emailFormatValidity || emailBlock}
+        title={emailFormatValidity ? (submitting ? "Submitting..." : undefined) : "Enter a valid email address"}
+        type="submit"
+      >
+        <IconAgreement width="1.25em" />Agree and continue
+      </ButtonNext>
     </form>
   );
 }
