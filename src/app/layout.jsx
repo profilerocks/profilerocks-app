@@ -3,7 +3,7 @@ import { PLATFORM_NAME, PLATFORM_DESCRIPTION, SITE } from "#src/lib/env";
 import { fontText } from "#src/lib/fonts";
 import ErrorInSearchParams from "#src/ui/error";
 import OnlineStatus from "#src/ui/online";
-import "./global.scss";
+import "./global.css";
 
 /**
  * @import {Metadata,Viewport} from "next"

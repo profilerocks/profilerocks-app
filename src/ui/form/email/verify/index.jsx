@@ -17,7 +17,7 @@ import Button from "#src/ui/button";
 import InputOtp from "#src/ui/input/otp";
 import LinkBack from "#src/ui/link/back";
 import LongWord from "#src/ui/text/long";
-import styles from "./index.module.scss";
+// import styles from "./index.module.scss";
 
 /**
  * @import {OtpState} from "#src/lib/state/otp"
@@ -123,10 +123,10 @@ function FormOtpContent({ submitting }) {
 
   return (
     <>
-      <div className={styles["container-otp"]}>
+      <div className="relative mbs-4 mbe-7">
         {otpInputBlock && (
-          <p className={styles["p-blocked"]}>
-            You have been temporarily blocked<strong>{inputBlockRemainingSeconds}</strong>
+          <p className="absolute z-1 inset-x-0 inset-be-0 inset-bs-4 bg-black text-rose-500 text-sm text-center">
+            You have been temporarily blocked<strong className="block mbs-0.5 text-3xl tabular-nums">{inputBlockRemainingSeconds}</strong>
           </p>
         )}
         <InputOtp disabled={otpInputBlock} name="otp" onChange={setOtpOnChange} required valid={otpValid} value={otp} />
@@ -191,7 +191,12 @@ function ResendButton({ submitting, setSubmitting }) {
   }
 
   return (
-    <button type="button" onClick={resendOtpOnClick} disabled={submitting} className={styles["btn-resend"]}>
+    <button
+      className="transition-colors text-teal-500 enabled:cursor-pointer enabled:hover:text-teal-400 enabled:active:text-teal-300 disabled:cursor-not-allowed disabled:text-teal-700"
+      disabled={submitting}
+      onClick={resendOtpOnClick}
+      type="button"
+    >
       Resend
     </button>
   );
@@ -218,7 +223,7 @@ function ResendActionText({ submitting, setSubmitting }) {
   ) : (
     <>
       Code successfully resent
-      <IconTick width="1em" />
+      <IconTick className="ms-1.5" width="1em" />
     </>
   );
 }
@@ -274,7 +279,7 @@ function ResendText({ submitting, setSubmitting }) {
 
   return resendBlockRemainingSeconds ? (
     <>
-      Resend OTP in <strong className={styles["seconds-resend"]}>{resendBlockRemainingSeconds.toString().padStart(2, "0")}</strong> seconds
+      Resend OTP in <strong className="inline-block font-medium tabular-nums text-center">{resendBlockRemainingSeconds.toString().padStart(2, "0")}</strong> seconds
     </>
   ) : (
     <ResendActionText submitting={submitting} setSubmitting={setSubmitting} />
@@ -388,10 +393,10 @@ function FormOtp({ afterVerification, requestOtpVerification }) {
   return (
     <form onSubmit={sendOtpToServer}>
       <FormOtpContent submitting={submitting} />
-      <p className={styles["p-resend"]}>
+      <p className="mbs-7 mbe-0">
         <ResendText submitting={submitting} setSubmitting={setSubmitting} />
       </p>
-      <p className={styles["p-resend-description"]}>You can only resend once per email. Check your spam folder before resending.</p>
+      <p className="mbs-1 text-zinc-400 text-sm">You can only resend once per email. Check your spam folder before resending.</p>
     </form>
   );
 }
@@ -417,13 +422,15 @@ export default function UserEmailVerify({ afterVerification, children, requestOt
     }
   }, []);
 
-  // Prevent rendering the wrapped component
+  /**
+   * Prevent rendering the wrapped component.
+   */
   return email ? (
     <>
       {children}
       <p>
         Enter the verification code sent to:
-        <LongWord as="strong" className={styles.email}>
+        <LongWord as="strong" className="block font-medium text-emerald-400">
           {email}
         </LongWord>
       </p>
