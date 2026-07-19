@@ -1,5 +1,4 @@
 import LinkPill from "#src/ui/link/pill";
-import styles from "./index.module.scss";
 
 /**
  * @function
@@ -7,14 +6,11 @@ import styles from "./index.module.scss";
  * @returns {React.ReactNode}
  */
 export default function LinkPillOutline({ children, className: customClassName, ...props }) {
-  let className = styles.outline;
-
-  if (customClassName) {
-    className += " " + customClassName;
-  }
-
   return (
-    <LinkPill className={className} {...props}>
+    <LinkPill
+      className={"text-teal-500 hover:text-teal-400 active:text-teal-300" + (customClassName ? " " + customClassName : "")}
+      {...props}
+    >
       {children}
     </LinkPill>
   );

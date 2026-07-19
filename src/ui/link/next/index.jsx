@@ -10,7 +10,7 @@ export default function LinkNext({ children, ...props }) {
   return (
     <LinkPillSolid {...props}>
       {children}
-      <IconArrowRight />
+      <IconArrowRight className="drop-shadow-xs drop-shadow-black" width="1.25em" />
     </LinkPillSolid>
   );
 }

@@ -3,7 +3,7 @@
  * @param {React.AnchorHTMLAttributes<HTMLAnchorElement>} props
  * @returns {React.ReactNode}
  */
-export default function Anchor({ children, className: customClassName, ...restProps }) {
+export default function Link({ children, className: customClassName, ...restProps }) {
   return (
     <a
       {...restProps}

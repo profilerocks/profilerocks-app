@@ -32,7 +32,7 @@ export default function PageEmailVerify() {
 
   return (
     <UserEmailVerify afterVerification={afterVerification} requestOtpVerification={requestOtpEnterVerification}>
-      <h1>Verification</h1>
+      <h1 className="mbe-3 text-3xl">Verification</h1>
     </UserEmailVerify>
   );
 }

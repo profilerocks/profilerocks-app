@@ -4,7 +4,7 @@ import { useSnapshot } from "valtio";
 import IconUserPlus from "#src/icons/user/plus.svg";
 import { HREF_HELP, PLATFORM_DESCRIPTION, PLATFORM_NAME } from "#src/lib/env";
 import globalState from "#src/lib/state";
-import LinkBackNormal from "#src/ui/link/back/normal";
+import LinkBack from "#src/ui/link/back";
 import LinkNext from "#src/ui/link/next";
 import styles from "./page.module.scss";
 
@@ -13,9 +13,9 @@ export default function PageAuthDefault() {
 
   return (
     <>
-      <LinkBackNormal className={`${styles["page-back"]} hide-desktop`} href="#side">
+      <LinkBack className={`${styles["page-back"]} hide-desktop`} href="#side">
         Home
-      </LinkBackNormal>
+      </LinkBack>
       <div className={styles.page}>
         <h1 className={styles["page-title"]}>{PLATFORM_DESCRIPTION}</h1>
         <p>Public Beta version: 1.0</p>

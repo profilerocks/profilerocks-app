@@ -36,7 +36,6 @@ import otpAttributes from "#shared/otp.json";
  * @returns {React.ReactNode}
  */
 export default function FormUserEmail({ children, hrefBack, requestOtpCreation }) {
-
   const [email, setEmail] = useState(globalState.email ?? "");
 
   const [emailBlock, setEmailBlock] = useState(false);

@@ -9,7 +9,7 @@ import IconArrowLeft from "#src/icons/arrow/left.svg";
 export default function LinkBack({ children, ...props }) {
   return (
     <LinkPillOutline {...props}>
-      <IconArrowLeft width="1.25em" />
+      <IconArrowLeft className="drop-shadow-xs drop-shadow-black" width="1.25em" />
       {children}
     </LinkPillOutline>
   );

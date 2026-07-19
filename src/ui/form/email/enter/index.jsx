@@ -14,7 +14,7 @@ import { getSecondsFromBase36 } from "#src/lib/time";
 import IconEmail from "#src/icons/email.svg";
 import IconAgreement from "#src/icons/agreement.svg";
 import IconInfo from "#src/icons/info.svg";
-import Anchor from "#src/ui/anchor";
+import Link from "#src/ui/link";
 import InputGroup from "#src/ui/input/group";
 import ButtonNext from "#src/ui/button/next";
 import otpAttributes from "#shared/otp.json";
@@ -35,7 +35,6 @@ import otpAttributes from "#shared/otp.json";
  * @returns {React.ReactNode}
  */
 export default function FormUserEmailEnter() {
-
   const [email, setEmail] = useState(getCurrentOtpState()?.email ?? "");
 
   const [emailBlock, setEmailBlock] = useState(false);
@@ -194,14 +193,14 @@ export default function FormUserEmailEnter() {
         <IconInfo className="max-w-5 text-teal-500" />
         <span>
           By accessing this platform, you agree to the{" "}
-          <Anchor href={HREF_PRIVACY} target="_blank" rel="privacy-policy">
+          <Link href={HREF_PRIVACY} target="_blank" rel="privacy-policy">
             Privacy Policy
-          </Anchor>{" "}
+          </Link>{" "}
           and{" "}
           <span className="whitespace-nowrap">
-            <Anchor href={HREF_TERMS} target="_blank" rel="terms-of-service">
+            <Link href={HREF_TERMS} target="_blank" rel="terms-of-service">
               Terms of Service
-            </Anchor>
+            </Link>
             .
           </span>
         </span>
@@ -212,7 +211,8 @@ export default function FormUserEmailEnter() {
         title={emailFormatValidity ? (submitting ? "Submitting..." : undefined) : "Enter a valid email address"}
         type="submit"
       >
-        <IconAgreement width="1.25em" />Agree and continue
+        <IconAgreement width="1.25em" />
+        Agree and continue
       </ButtonNext>
     </form>
   );

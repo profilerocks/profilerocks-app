@@ -8,7 +8,7 @@ import { API } from "#src/lib/env";
 import markdownRenderer from "#src/lib/markdown";
 import globalState from "#src/lib/state";
 import SvgLogoLong from "#src/static/logo/long.svg";
-import LinkBackNormal from "#src/ui/link/back/normal";
+import LinkBack from "#src/ui/link/back";
 import Minimap from "#src/ui/minimap";
 import ProfileList from "#src/ui/profile/entries";
 import LongWord from "#src/ui/text/long";
@@ -42,7 +42,7 @@ function ProfilePreview() {
       {currentProfile && (
         <>
           <header className={styles["profile-preview-header"]}>
-            <LinkBackNormal className="hide-desktop-large" href="#page" />
+            <LinkBack className="hide-desktop-large" href="#page" />
             <LongWord as="a" className={styles["profile-preview-url"]} href={API + "/" + currentProfile.name_id} target="_blank">
               {API + "/" + currentProfile.name_id}
             </LongWord>

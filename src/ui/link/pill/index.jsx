@@ -1,21 +1,22 @@
-import Link from "next/link";
-import styles from "./index.module.scss";
+/**
+ * @import {LinkProps} from "next/link"
+ */
 
 /**
  * @function
- * @param {import("next/link").LinkProps<HTMLAnchorElement>&React.HTMLProps<HTMLAnchorElement>} props
+ * @param {LinkProps<HTMLAnchorElement>&React.HTMLProps<HTMLAnchorElement>} props
  * @returns {React.ReactNode}
  */
 export default function LinkPill({ children, className: customClassName, ...props }) {
-  let className = styles.pill;
-
-  if (customClassName) {
-    className += " " + customClassName;
-  }
-
   return (
-    <Link className={className} {...props}>
+    <a
+      className={
+        "flex items-center gap-2.5 rounded-3xl p-2.5 font-medium transition-colors select-none hover:bg-zinc-800 active:bg-zinc-700" +
+        (customClassName ? " " + customClassName : "")
+      }
+      {...props}
+    >
       {children}
-    </Link>
+    </a>
   );
 }

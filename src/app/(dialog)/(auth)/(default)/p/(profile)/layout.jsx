@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import AuthProfile from "#src/ui/auth/profile";
-import LinkBackNormal from "#src/ui/link/back/normal";
-import LinkNextNormal from "#src/ui/link/next/normal";
+import LinkBack from "#src/ui/link/back";
+import LinkNext from "#src/ui/link/next";
 // import LinkProfilePublic from "#src/ui/link/profile";
 import styles from "./layout.module.scss";
 
@@ -14,12 +14,12 @@ export default function LayoutProfile({ children }) {
     <Suspense>
       <AuthProfile>
         <header className={`hide-desktop-large ${styles["page-header"]}`}>
-          <LinkBackNormal href="#side" className={`hide-desktop ${styles["page-anchor-home"]}`}>
+          <LinkBack href="#side" className={`hide-desktop ${styles["page-anchor-home"]}`}>
             Home
-          </LinkBackNormal>
-          <LinkNextNormal href="#preview" className={styles["page-anchor-preview"]}>
+          </LinkBack>
+          <LinkNext href="#preview" className={styles["page-anchor-preview"]}>
             Preview
-          </LinkNextNormal>
+          </LinkNext>
         </header>
         {children}
       </AuthProfile>
