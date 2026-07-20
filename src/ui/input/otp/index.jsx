@@ -1,22 +1,18 @@
 import { fontCode } from "#src/lib/fonts";
 import otpAttributes from "#shared/otp.json";
 
-import styles from "./index.module.scss";
-
 /**
- * @import { Props } from "./types"
+ * @import {Props} from "./types"
  */
 
-const defaultClassName = `${fontCode.className} ${styles["input-otp"]}`;
 const placeholder = "*".repeat(otpAttributes.length);
 const regexNotWordsGlobal = /\W/g;
 
 /**
  * @function otpOnBeforeInput
- * @param {React.FormEvent<HTMLInputElement>} event
+ * @param {React.InputEvent} event
  */
 function otpOnBeforeInput(event) {
-  // @ts-expect-error
   const data = event.data;
 
   if (data?.replaceAll(regexNotWordsGlobal, "") !== data) {
@@ -29,27 +25,31 @@ function otpOnBeforeInput(event) {
  * @param {Props} props
  */
 export default function InputOtp({ onChange, valid, ...inputAttributes }) {
-  let className = defaultClassName;
-
-  if (valid === false) {
-    className += " " + styles["invalid"];
-  }
+  const invalid = valid === false;
 
   return (
     <input
       autoCapitalize="off"
       autoComplete="off"
       autoCorrect="off"
-      type="text"
-      name="otp"
-      placeholder={placeholder}
+      className={
+        fontCode.className +
+        /**
+         * `bg-clip-text` fixes autofill background in Chrome.
+         */
+        " w-full border-be-2 border-zinc-700 bg-clip-text py-3 text-3xl tracking-widest lowercase caret-current transition-colors outline-none placeholder:ps-px focus:border-current " +
+        (invalid ? "text-rose-500" : "text-emerald-400")
+      }
       minLength={otpAttributes.length}
       maxLength={otpAttributes.length}
-      spellCheck={false}
-      pattern={otpAttributes.regex}
+      name="otp"
       onBeforeInput={otpOnBeforeInput}
       onChange={onChange}
-      className={className}
+      pattern={otpAttributes.regex}
+      placeholder={placeholder}
+      spellCheck={false}
+      title={invalid ? "Invalid OTP Code" : undefined}
+      type="text"
       {...inputAttributes}
     />
   );
