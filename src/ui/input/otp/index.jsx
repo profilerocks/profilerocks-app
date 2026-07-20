@@ -1,12 +1,12 @@
-import { fontCode } from "#src/lib/fonts";
 import otpAttributes from "#shared/otp.json";
+import { fontCode } from "#src/lib/fonts";
+import { regexNotWordsGlobal } from "#src/lib/regex";
 
 /**
  * @import {Props} from "./types"
  */
 
 const placeholder = "*".repeat(otpAttributes.length);
-const regexNotWordsGlobal = /\W/g;
 
 /**
  * @function otpOnBeforeInput

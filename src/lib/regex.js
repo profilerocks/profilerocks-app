@@ -4,6 +4,7 @@ import profileAttributes from "#shared/profile.json";
 
 export const regexBase64Url = /^[\w-]+$/;
 export const regexDisallowedDisplayNameCharacters = new RegExp(displayNameAttributes.regexDisallowed, "gu");
+export const regexNotWordsGlobal = /\W/g;
 export const regexOtp = new RegExp(otpAttributes.regex);
 export const regexProfile = new RegExp(profileAttributes.regex);
 export const regexSpaceCharacters = /\p{Zs}+/gu;
