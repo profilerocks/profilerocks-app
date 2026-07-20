@@ -63,7 +63,11 @@ function otpInputBlockCounter(prev) {
 function ReactiveLinkBack() {
   const hrefBack = useContext(ContextHrefBack);
 
-  return <LinkBack href={hrefBack}>Back</LinkBack>;
+  return (
+    <LinkBack className="pe-3.5" href={hrefBack}>
+      Back
+    </LinkBack>
+  );
 }
 
 /**
@@ -130,9 +134,14 @@ function FormOtpContent({ submitting }) {
         )}
         <InputOtp disabled={otpInputBlock} name="otp" onChange={setOtpOnChange} required valid={otpValid} value={otp} />
       </div>
-      <div>
+      <div className="flex flex-wrap justify-between gap-5">
         <ReactiveLinkBack />
-        <Button disabled={submitting || otpInputBlock || !otpValid} title={submitting ? "Submitting..." : undefined} type="submit">
+        <Button
+          className="ps-3.5"
+          disabled={submitting || otpInputBlock || !otpValid}
+          title={submitting ? "Submitting..." : undefined}
+          type="submit"
+        >
           Verify
           <IconUserVerify width="1.25em" />
         </Button>
