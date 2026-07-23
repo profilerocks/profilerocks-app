@@ -231,7 +231,7 @@ function ResendActionText({ submitting, setSubmitting }) {
   ) : (
     <>
       Code successfully resent
-      <IconTick className="ms-1.5" width="1em" />
+      <IconTick className="ms-1.5 inline align-text-top text-emerald-400" width="1.25em" />
     </>
   );
 }
