@@ -63,7 +63,6 @@ import { proxy } from "valtio";
  * Login
  * @property {(OtpState[]|null)} [otp]
  * @property {boolean} [otpSwitchPending]
- * @property {string} [redirect]
  */
 
 /**

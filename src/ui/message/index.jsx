@@ -1,5 +1,4 @@
 import IconLoading from "#src/icons/loading.svg";
-import styles from "./index.module.scss";
 
 /**
  * @function
@@ -9,10 +8,10 @@ import styles from "./index.module.scss";
  */
 export default function Message({ children }) {
   return (
-    <div className={styles["container-message"]}>
-      <IconLoading width="10em" className={styles["icon-loading"]} />
-      <h1 className={styles.text}>{children}</h1>
-      <p className={styles.wait}>Please wait</p>
+    <div className="flex flex-1 flex-col justify-center items-center pbe-20">
+      <IconLoading width="10em" className="text-emerald-400" />
+      <h1 className="tracking-widest">{children}</h1>
+      <p className="tracking-widest mbs-4">Please wait</p>
     </div>
   );
 }
