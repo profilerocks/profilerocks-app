@@ -18,7 +18,7 @@ export default function PageAuthDefault() {
       </LinkBack>
       <div className={styles.page}>
         <h1 className={styles["page-title"]}>{PLATFORM_DESCRIPTION}</h1>
-        <p>Public Beta version: 1.0</p>
+        <p>Public Beta version: 1.1.0</p>
         {!profiles?.length && (
           <>
             <p className={styles["page-text"]}>

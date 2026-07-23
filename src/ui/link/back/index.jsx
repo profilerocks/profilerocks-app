@@ -2,8 +2,12 @@ import LinkPillOutline from "#src/ui/link/pill/outline";
 import IconArrowLeft from "#src/icons/arrow/left.svg";
 
 /**
+ * @import {LinkProps} from "next/link"
+ */
+
+/**
  * @function
- * @param {import("next/link").LinkProps<HTMLAnchorElement>&React.HTMLProps<HTMLAnchorElement>} props
+ * @param {LinkProps<HTMLAnchorElement>&React.HTMLProps<HTMLAnchorElement>} props
  * @returns {React.ReactNode}
  */
 export default function LinkBack({ children, ...props }) {
