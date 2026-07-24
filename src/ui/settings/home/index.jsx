@@ -24,16 +24,16 @@ export default function SettingsHome() {
   return (
     <div id="home">
       <h1>Information</h1>
-      <div className={styles["settings-main"]}>
-        <div className={styles["settings-main-article"]}>
-          <div className={styles["settings-main-article-header"]}>
-            <IconEmail width={ICON_MAIN_SIZE} />
+      <div className="flex flex-col gap-5">
+        <div className="border-2 border-zinc-700 bg-zinc-950 rounded-2xl">
+          <div className="flex justify-start items-start gap-4 py-3.5 px-4">
+            <IconEmail className="min-w-max text-zinc-300" width={ICON_MAIN_SIZE} />
             <hgroup className={styles["settings-main-article-hgroup"]}>
               <h2>Email address</h2>
               <p>The address used to identify your account and contact</p>
             </hgroup>
           </div>
-          <LinkEdit href="#email">
+          <LinkEdit className="border-bs-2 border-bs-zinc-70 rounded-b-2xl" href="#email">
             <StateUserEmail />
           </LinkEdit>
         </div>
