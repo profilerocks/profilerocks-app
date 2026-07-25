@@ -128,7 +128,7 @@ function FormOtpContent({ submitting }) {
     <>
       <div className="relative mbs-4 mbe-7">
         {otpInputBlock && (
-          <p className="absolute inset-x-0 inset-bs-4 inset-be-0 z-1 bg-black text-center text-sm text-rose-500">
+          <p className="absolute inset-x-0 inset-bs-4 inset-be-0 z-1 bg-black text-center text-sm text-rose-400">
             You have been temporarily blocked<strong className="mbs-0.5 block text-3xl tabular-nums">{inputBlockRemainingSeconds}</strong>
           </p>
         )}

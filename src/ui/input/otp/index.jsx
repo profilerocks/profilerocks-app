@@ -38,7 +38,7 @@ export default function InputOtp({ onChange, valid, ...inputAttributes }) {
          * `bg-clip-text` fixes autofill background in Chrome.
          */
         " w-full border-be-2 border-zinc-700 bg-clip-text py-3 ps-px text-3xl tracking-widest lowercase caret-current transition-colors outline-none placeholder:ps-px focus:border-current " +
-        (invalid ? "text-rose-500" : "text-emerald-400")
+        (invalid ? "text-rose-400" : "text-emerald-400")
       }
       minLength={otpAttributes.length}
       maxLength={otpAttributes.length}

@@ -40,7 +40,7 @@ function InputGroupWithLabel({ children, placeholder = " ", ref, ...restProps })
         ref={ref}
       />
       <label
-        className="absolute inset-s-2.5 inset-bs-0 flex cursor-text gap-1.5 bg-black px-1.5 text-sm text-zinc-300 transition-all peer-not-focus:peer-placeholder-shown:inset-s-2 peer-not-focus:peer-placeholder-shown:inset-bs-6 peer-not-focus:peer-placeholder-shown:text-base peer-user-invalid:text-rose-500 peer-focus:text-emerald-400"
+        className="absolute inset-s-2.5 inset-bs-0 flex cursor-text gap-1.5 bg-black px-1.5 text-sm text-zinc-300 transition-all peer-not-focus:peer-placeholder-shown:inset-s-2 peer-not-focus:peer-placeholder-shown:inset-bs-6 peer-not-focus:peer-placeholder-shown:text-base peer-user-invalid:text-rose-400 peer-focus:text-emerald-400"
         htmlFor={inputId}
       >
         {children}

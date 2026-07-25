@@ -50,7 +50,7 @@ export default function ButtonDownloadAccountData() {
   }
 
   return (
-    <Button type="button" onClick={downloadDataOnClick} disabled={submitting}>
+    <Button className="pe-3.5" disabled={submitting} onClick={downloadDataOnClick} type="button">
       <IconDownload width="1.25em" />
       Download my data
     </Button>
