@@ -15,9 +15,9 @@ import SettingsName from "#src/ui/settings/name";
 import SettingsOauth from "#src/ui/settings/oauth";
 import SettingsPayments from "#src/ui/settings/payments";
 import SettingsSessions from "#src/ui/settings/sessions";
-import styles from "./index.module.scss";
 
-const ICON_DIMENSION = "1.125em";
+const CLASS_ACTIVE = "!text-emerald-400"
+const ICON_DIMENSION = "1.25em";
 
 /**
  * @type {Readonly<ScrollIntoViewOptions>}
@@ -65,9 +65,9 @@ export default function Settingss() {
               autoScrolling = false;
             }
           } else if (!autoScrolling) {
-            navAnchorList[currentSection]?.classList.remove(styles.active);
+            navAnchorList[currentSection]?.classList.remove(CLASS_ACTIVE);
             const elAnchorActive = navAnchorList[id];
-            elAnchorActive.classList.add(styles.active);
+            elAnchorActive.classList.add(CLASS_ACTIVE);
             elAnchorActive.scrollIntoView(navAnchorScrollIntoViewOptions);
             currentSection = id;
             history.pushState(null, "", "#" + id);
@@ -106,14 +106,14 @@ export default function Settingss() {
       // @ts-expect-error
       const href = event.currentTarget?.getAttribute("href");
 
-      navAnchorList[currentSection]?.classList.remove(styles.active);
+      navAnchorList[currentSection]?.classList.remove(CLASS_ACTIVE);
 
       currentSection = href?.substring(1);
 
       sections[currentSection].scrollIntoView();
 
       const elAnchorActive = navAnchorList[currentSection];
-      elAnchorActive.classList.add(styles.active);
+      elAnchorActive.classList.add(CLASS_ACTIVE);
       elAnchorActive.scrollIntoView(navAnchorScrollIntoViewOptions);
 
       history.pushState(null, "", href);
@@ -128,7 +128,7 @@ export default function Settingss() {
         const idSection = href.substring(1);
 
         if (sections[idSection]) {
-          if (a.classList.contains(styles["a-setting"])) {
+          if (a.classList.contains("H")) {
             navAnchorList[idSection] = a;
           }
 
@@ -142,14 +142,17 @@ export default function Settingss() {
 
     if (currentSection in sections) {
       const elAnchorActive = navAnchorList[currentSection];
-      elAnchorActive.classList.add(styles.active);
-      elAnchorActive.scrollIntoView(navAnchorScrollIntoViewOptions);
 
-      if (currentSection != "home") {
-        sections[currentSection].scrollIntoView({ behavior: "instant" });
+      if (elAnchorActive) {
+        elAnchorActive.classList.add(CLASS_ACTIVE);
+        elAnchorActive.scrollIntoView(navAnchorScrollIntoViewOptions);
+
+        if (currentSection != "home") {
+          sections[currentSection].scrollIntoView({ behavior: "instant" });
+        }
       }
     } else {
-      navAnchorList.home?.classList.add(styles.active);
+      navAnchorList.home?.classList.add(CLASS_ACTIVE);
       history.replaceState(null, "", "#home");
     }
 
@@ -165,10 +168,10 @@ export default function Settingss() {
 
       autoScrolling = true;
 
-      navAnchorList[currentSection]?.classList.remove(styles.active);
+      navAnchorList[currentSection]?.classList.remove(CLASS_ACTIVE);
 
       const elAnchorActive = navAnchorList[hash];
-      elAnchorActive.classList.add(styles.active);
+      elAnchorActive.classList.add(CLASS_ACTIVE);
       elAnchorActive.scrollIntoView(navAnchorScrollIntoViewOptions);
 
       currentSection = hash;
@@ -193,53 +196,41 @@ export default function Settingss() {
   return (
     <>
       <nav
-        className="z-1 shadow-sm flex border-be 
-
-.li-setting {
-  $pi: 1.125em;
-  flex: 1;
-  &:first-child {
-    > .a-setting {
-      padding-inline-start: $pi;
-    }
-  }
-  &:last-child {
-    > .a-setting {
-      padding-inline-end: $pi;
-    }
-  }
-}border-be-zinc-700 text-zinc-400 overflow-auto scrollbar-none md:flex-col md:mbs-4 md:border-be-0 md:text-xl *:flex *:gap-1.5 *:transition-colors *:p-2.5 *:hover:text-zinc-200 *:active:text-zinc-100"
+        className="z-1 shadow-sm flex border-be border-be-zinc-700 text-zinc-400 overflow-auto scrollbar-none md:flex-col md:mbs-4 md:border-be-0 md:text-2xl *:flex *:gap-1.5 *:transition-colors *:p-2.5 *:hover:text-zinc-200 *:active:text-zinc-100 md:*:gap-3.5"
       >
-        <a className="ps-4.5" href="#home">
+        <a className="ps-4.5 H" href="#home">
           <IconHome width={ICON_DIMENSION} />
           Home
         </a>
-        <a href="#email">
+        <a className="H" href="#email">
           <IconEmail width={ICON_DIMENSION} />
           Email
         </a>
-        <a href="#name">
+        <a className="H" href="#name">
           <IconUserSingle width={ICON_DIMENSION} />
           Name
         </a>
-        <a href="#oauth">
+        <a className="H" href="#oauth">
           <IconConnect width={ICON_DIMENSION} />
           Linked accounts
         </a>
-        <a href="#payments">
+        <a className="H" href="#payments">
           <IconCard width={ICON_DIMENSION} />
           Payments
         </a>
-        <a href="#sessions">
+        <a className="H" href="#sessions">
           <IconDevices width={ICON_DIMENSION} />
           Sessions
         </a>
-        <a className="pe-4.5" href="#data">
+        <a className="pe-4.5 H" href="#data">
           <IconUserData width={ICON_DIMENSION} />
           Data
         </a>
       </nav>
-      <div className={styles["settings-container"]} ref={sectionsContainerRef}>
+      <div
+        className="flex gap-12 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none max-w-2xl md:overflow-x-hidden md:scroll-auto *:px-6 *:pbe-12 *:min-w-full *:overflow-y-auto *:snap-center *:snap-always"
+        ref={sectionsContainerRef}
+      >
         <SettingsHome />
         <SettingsEmail />
         <SettingsName />
