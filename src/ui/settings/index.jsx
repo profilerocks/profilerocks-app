@@ -16,8 +16,9 @@ import SettingsOauth from "#src/ui/settings/oauth";
 import SettingsPayments from "#src/ui/settings/payments";
 import SettingsSessions from "#src/ui/settings/sessions";
 
-const CLASS_ACTIVE = "!text-emerald-400"
-const ICON_DIMENSION = "1.25em";
+const CLASS_ACTIVE = "!text-emerald-400";
+const CLASS_NAV_ANCHOR = "H";
+const ICON_DIMENSION = "1.125em";
 
 /**
  * @type {Readonly<ScrollIntoViewOptions>}
@@ -128,7 +129,7 @@ export default function Settingss() {
         const idSection = href.substring(1);
 
         if (sections[idSection]) {
-          if (a.classList.contains("H")) {
+          if (a.classList.contains(CLASS_NAV_ANCHOR)) {
             navAnchorList[idSection] = a;
           }
 
@@ -195,40 +196,38 @@ export default function Settingss() {
 
   return (
     <>
-      <nav
-        className="z-1 shadow-sm flex border-be border-be-zinc-700 text-zinc-400 overflow-auto scrollbar-none md:flex-col md:mbs-4 md:border-be-0 md:text-2xl *:flex *:gap-1.5 *:transition-colors *:p-2.5 *:hover:text-zinc-200 *:active:text-zinc-100 md:*:gap-3.5"
-      >
-        <a className="ps-4.5 H" href="#home">
+      <nav className="z-1 flex scrollbar-none overflow-auto border-be border-be-zinc-700 text-zinc-400 shadow-sm *:flex *:min-w-max *:gap-1.5 *:p-2.5 *:transition-colors *:hover:text-zinc-200 *:active:text-zinc-100 md:mbs-4 md:flex-col md:border-be-0 md:text-2xl md:*:gap-3.5">
+        <a className={"ps-4.5 " + CLASS_NAV_ANCHOR} href="#home">
           <IconHome width={ICON_DIMENSION} />
           Home
         </a>
-        <a className="H" href="#email">
+        <a className={CLASS_NAV_ANCHOR} href="#email">
           <IconEmail width={ICON_DIMENSION} />
           Email
         </a>
-        <a className="H" href="#name">
+        <a className={CLASS_NAV_ANCHOR} href="#name">
           <IconUserSingle width={ICON_DIMENSION} />
           Name
         </a>
-        <a className="H" href="#oauth">
+        <a className={CLASS_NAV_ANCHOR} href="#oauth">
           <IconConnect width={ICON_DIMENSION} />
           Linked accounts
         </a>
-        <a className="H" href="#payments">
+        <a className={CLASS_NAV_ANCHOR} href="#payments">
           <IconCard width={ICON_DIMENSION} />
           Payments
         </a>
-        <a className="H" href="#sessions">
+        <a className={CLASS_NAV_ANCHOR} href="#sessions">
           <IconDevices width={ICON_DIMENSION} />
           Sessions
         </a>
-        <a className="pe-4.5 H" href="#data">
+        <a className={"pe-4.5 " + CLASS_NAV_ANCHOR} href="#data">
           <IconUserData width={ICON_DIMENSION} />
           Data
         </a>
       </nav>
       <div
-        className="flex gap-12 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none max-w-2xl md:overflow-x-hidden md:scroll-auto *:px-6 *:pbe-12 *:min-w-full *:overflow-y-auto *:snap-center *:snap-always"
+        className="flex max-w-2xl snap-x snap-mandatory scrollbar-none gap-12 overflow-x-auto scroll-smooth *:min-w-full *:snap-center *:snap-always *:overflow-y-auto *:px-6 *:pbs-5 *:pbe-12 md:overflow-x-hidden md:scroll-auto"
         ref={sectionsContainerRef}
       >
         <SettingsHome />

@@ -21,7 +21,7 @@ export default function LinkEdit({ children, className: customClassName, ...prop
       }
     >
       <IconPencil className="min-w-max" width="1.5em" />
-      <span className="text-ellipsis overflow-hidden whitespace-nowrap">{children}</span>
+      <span className="overflow-hidden text-ellipsis whitespace-nowrap">{children}</span>
       <IconArrowRight className="ms-auto min-w-max" width="1.25em" />
     </Link>
   );

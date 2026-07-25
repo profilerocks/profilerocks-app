@@ -14,15 +14,15 @@ export default function SettingsData() {
         <p className="my-4">Your data is exported in a standard, machine-readable JSON format, allowing you to easily view it.</p>
         <ButtonDownloadAccountData />
       </div>
-      <h2 className="text-rose-400 text-2xl mbs-8">Delete account</h2>
+      <h2 className="mbs-8 text-2xl text-rose-400">Delete account</h2>
       <div className="text-zinc-200">
         <p className="my-4">
           Closing your account is a permanent action. All your profiles, active premium subscriptions, and personal information{" "}
           <strong>will be deleted permanently and will not be recoverable</strong>.
         </p>
         <p className="my-4">
-          Please ensure you have downloaded any important data before proceeding, as accounts cannot be restored once the deletion process is
-          complete.
+          Please ensure you have downloaded any important data before proceeding, as accounts cannot be restored once the deletion process
+          is complete.
         </p>
         <ButtonDeleteAccount />
       </div>

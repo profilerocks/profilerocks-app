@@ -5,7 +5,7 @@ export default function SettingsEmail() {
   return (
     <div id="email">
       <h1 className="text-3xl">Email address</h1>
-      <p className="text-zinc-200 my-4">Used for authentication and contact information. You can always change it.</p>
+      <p className="my-4 text-zinc-200">Used for authentication and contact information. You can always change it.</p>
       <FormUserEmail hrefBack="#home" requestOtpCreation={requestOtpUpdateCreation} />
     </div>
   );

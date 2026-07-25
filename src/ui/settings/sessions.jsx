@@ -22,8 +22,10 @@ export default function SettingsSessions() {
           Log out of current session
         </Button>
         <div className="mbs-4 border-bs border-bs-zinc-700 pbs-2">
-          <h2 className="text-xl my-4">Do you think your account has been compromised?</h2>
-          <p className="my-4">Logging out of all sessions will terminate every active connection, including this one, requiring you to sign in again.</p>
+          <h2 className="my-4 text-xl">Do you think your account has been compromised?</h2>
+          <p className="my-4">
+            Logging out of all sessions will terminate every active connection, including this one, requiring you to sign in again.
+          </p>
           <Button className="pe-3.5" onClick={showLogOutAllSessionsConfirm}>
             <IconLogout width={ICON_DIMENSION} />
             Log out of all sessions

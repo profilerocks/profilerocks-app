@@ -12,10 +12,7 @@ import LinkPill from "#src/ui/link/pill";
 export default function LinkPillSolid({ children, className: customClassName, ...props }) {
   return (
     <LinkPill
-      className={
-        "bg-zinc-900 text-zinc-400 hover:text-zinc-300 active:text-zinc-200" +
-        (customClassName ? " " + customClassName : "")
-      }
+      className={"bg-zinc-900 text-zinc-400 hover:text-zinc-300 active:text-zinc-200" + (customClassName ? " " + customClassName : "")}
       {...props}
     >
       {children}

@@ -24,25 +24,25 @@ export default function SettingsHome() {
   return (
     <div id="home">
       <h1 className="text-3xl">Information</h1>
-      <div className="flex flex-col gap-5 mbs-5">
-        <div className="rounded-2xl border-2 border-zinc-700 bg-zinc-950 overflow-hidden">
-          <div className="flex items-start justify-start gap-4 px-4 py-3.5 border-be-zinc-700 border-be-2">
+      <div className="mbs-5 flex flex-col gap-5">
+        <div className="overflow-hidden rounded-2xl border-2 border-zinc-700 bg-zinc-950">
+          <div className="flex items-start justify-start gap-4 border-be-2 border-be-zinc-700 px-4 py-3.5">
             <IconEmail className="min-w-max text-zinc-300 drop-shadow-xs drop-shadow-black" width={ICON_MAIN_SIZE} />
             <hgroup>
               <h2 className="text-xl">Email address</h2>
-              <p className="text-zinc-300 text-sm">The address used to identify your account and contact</p>
+              <p className="text-sm text-zinc-300">The address used to identify your account and contact</p>
             </hgroup>
           </div>
           <LinkEdit href="#email">
             <StateUserEmail />
           </LinkEdit>
         </div>
-        <div className="rounded-2xl border-2 border-zinc-700 bg-zinc-950 overflow-hidden">
-          <div className="flex items-start justify-start gap-4 px-4 py-3.5 border-be-zinc-700 border-be-2">
+        <div className="overflow-hidden rounded-2xl border-2 border-zinc-700 bg-zinc-950">
+          <div className="flex items-start justify-start gap-4 border-be-2 border-be-zinc-700 px-4 py-3.5">
             <IconUser className="min-w-max text-zinc-300 drop-shadow-xs drop-shadow-black" width={ICON_MAIN_SIZE} />
             <hgroup>
               <h2 className="text-xl">Name</h2>
-              <p className="text-zinc-300 text-sm">For contact information</p>
+              <p className="text-sm text-zinc-300">For contact information</p>
             </hgroup>
           </div>
           <LinkEdit href="#name">
@@ -50,7 +50,7 @@ export default function SettingsHome() {
           </LinkEdit>
         </div>
       </div>
-      <nav className="grid gap-y-4 gap-x-6 my-7 pbe-6 border-be border-zinc-700 sm:grid-cols-2">
+      <nav className="my-7 grid gap-x-6 gap-y-4 border-be border-zinc-700 pbe-6 sm:grid-cols-2">
         <LinkNext href="#oauth">
           <IconConnect className="drop-shadow-xs drop-shadow-black" width={ICON_DIMENSION} />
           Linked accounts

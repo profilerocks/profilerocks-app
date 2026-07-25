@@ -191,8 +191,12 @@ export default function FormUserEmail({ children, hrefBack, requestOtpCreation }
         Email
       </InputGroup>
       {children}
-      <div className="flex justify-between mbs-5">
-        {hrefBack && <LinkBack className="pe-3.5" href={hrefBack}>Back</LinkBack>}
+      <div className="mbs-5 flex justify-between">
+        {hrefBack && (
+          <LinkBack className="pe-3.5" href={hrefBack}>
+            Back
+          </LinkBack>
+        )}
         <Button
           className={emailBlock ? "pe-3.5" : "ps-3.5"}
           disabled={submitting || !emailFormatValidity || emailBlock}

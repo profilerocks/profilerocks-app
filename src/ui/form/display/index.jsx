@@ -98,8 +98,12 @@ export default function FormDisplayName({ children, hrefBack, hrefNext }) {
       <p className={"ms-2 mbs-2 text-sm transition-colors " + (invalidNormalizedName ? "text-zinc-400" : "text-emerald-400")}>
         Between {displayAttributes.minLength} & {displayAttributes.maxLength} characters
       </p>
-      <div className="flex justify-between mbs-5">
-        {hrefBack && <LinkBack className="pe-3.5" href={hrefBack}>Back</LinkBack>}
+      <div className="mbs-5 flex justify-between">
+        {hrefBack && (
+          <LinkBack className="pe-3.5" href={hrefBack}>
+            Back
+          </LinkBack>
+        )}
         <Button className={hrefBack ? "ps-3.5" : "w-full"} disabled={disabled} type="submit">
           {children}
         </Button>

@@ -8,7 +8,7 @@ export default function SettingsPayments() {
   return (
     <div id="payments">
       <h1 className="text-3xl">Payments</h1>
-      <p className="text-zinc-200 my-4">
+      <p className="my-4 text-zinc-200">
         Payments are processed through <strong>Polar.sh</strong>. You can manage your orders and subscriptions in their portal.
       </p>
       <PolarShSettings />
