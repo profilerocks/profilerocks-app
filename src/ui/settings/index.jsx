@@ -192,60 +192,53 @@ export default function Settingss() {
 
   return (
     <>
-      <aside className={styles["aside-settings"]}>
-        <nav>
-          <ul className={styles["ul-settings"]}>
-            <li className={styles["li-setting"]}>
-              <a href="#home" className={styles["a-setting"]}>
-                <IconHome width={ICON_DIMENSION} />
-                Home
-              </a>
-            </li>
-            <li className={styles["li-setting"]}>
-              <a href="#email" className={styles["a-setting"]}>
-                <IconEmail width={ICON_DIMENSION} />
-                Email
-              </a>
-            </li>
-            <li className={styles["li-setting"]}>
-              <a href="#name" className={styles["a-setting"]}>
-                <IconUserSingle width={ICON_DIMENSION} />
-                Name
-              </a>
-            </li>
-            <li className={styles["li-setting"]}>
-              <a href="#oauth" className={styles["a-setting"]}>
-                <IconConnect width={ICON_DIMENSION} />
-                Linked accounts
-              </a>
-            </li>
-            <li className={styles["li-setting"]}>
-              <a href="#payments" className={styles["a-setting"]}>
-                <IconCard width={ICON_DIMENSION} />
-                Payments
-              </a>
-            </li>
-            {/*<li className={styles["li-setting"]}>
-              <Link href="#profiles" className={styles["a-setting"]}>
-                <IconUserMultiple width={ICON_DIMENSION} />
-                Profiles
-              </Link>
-            </li>*/}
-            <li className={styles["li-setting"]}>
-              <a href="#sessions" className={styles["a-setting"]}>
-                <IconDevices width={ICON_DIMENSION} />
-                Sessions
-              </a>
-            </li>
-            <li className={styles["li-setting"]}>
-              <a href="#data" className={styles["a-setting"]}>
-                <IconUserData width={ICON_DIMENSION} />
-                Data
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </aside>
+      <nav
+        className="z-1 shadow-sm flex border-be 
+
+.li-setting {
+  $pi: 1.125em;
+  flex: 1;
+  &:first-child {
+    > .a-setting {
+      padding-inline-start: $pi;
+    }
+  }
+  &:last-child {
+    > .a-setting {
+      padding-inline-end: $pi;
+    }
+  }
+}border-be-zinc-700 text-zinc-400 overflow-auto scrollbar-none md:flex-col md:mbs-4 md:border-be-0 md:text-xl *:flex *:gap-1.5 *:transition-colors *:p-2.5 *:hover:text-zinc-200 *:active:text-zinc-100"
+      >
+        <a className="ps-4.5" href="#home">
+          <IconHome width={ICON_DIMENSION} />
+          Home
+        </a>
+        <a href="#email">
+          <IconEmail width={ICON_DIMENSION} />
+          Email
+        </a>
+        <a href="#name">
+          <IconUserSingle width={ICON_DIMENSION} />
+          Name
+        </a>
+        <a href="#oauth">
+          <IconConnect width={ICON_DIMENSION} />
+          Linked accounts
+        </a>
+        <a href="#payments">
+          <IconCard width={ICON_DIMENSION} />
+          Payments
+        </a>
+        <a href="#sessions">
+          <IconDevices width={ICON_DIMENSION} />
+          Sessions
+        </a>
+        <a className="pe-4.5" href="#data">
+          <IconUserData width={ICON_DIMENSION} />
+          Data
+        </a>
+      </nav>
       <div className={styles["settings-container"]} ref={sectionsContainerRef}>
         <SettingsHome />
         <SettingsEmail />
