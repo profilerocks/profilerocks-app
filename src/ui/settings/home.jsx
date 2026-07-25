@@ -50,7 +50,7 @@ export default function SettingsHome() {
           </LinkEdit>
         </div>
       </div>
-      <nav className="my-7 grid gap-x-6 gap-y-4 border-be border-zinc-700 pbe-6 sm:grid-cols-2">
+      <nav className="my-7 flex flex-wrap gap-x-6 gap-y-4 border-be border-zinc-700 pbe-6 *:flex-1 *:basis-3xs">
         <LinkNext href="#oauth">
           <IconConnect className="drop-shadow-xs drop-shadow-black" width={ICON_DIMENSION} />
           Linked accounts
