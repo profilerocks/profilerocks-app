@@ -8,8 +8,8 @@ import IconPencil from "#src/icons/pencil.svg";
 export default function SettingsUserName() {
   return (
     <div id="name">
-      <h1>Contact name</h1>
-      <p>Used for contact information. You can always change it.</p>
+      <h1 className="text-3xl">Contact name</h1>
+      <p className="text-zinc-200 mbs-3 mbe-4">Used for contact information. You can always change it.</p>
       <FormDisplayName hrefBack="#home">
         Change
         <IconPencil width="1.25em" />

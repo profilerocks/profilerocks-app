@@ -190,7 +190,7 @@ export default function FormUserEmail({ children, hrefBack, requestOtpCreation }
         Email
       </InputGroup>
       {children}
-      <div>
+      <div className="flex justify-between mbs-5">
         {hrefBack && <LinkBack href={hrefBack}>Back</LinkBack>}
         <ButtonNext
           disabled={submitting || !emailFormatValidity || emailBlock}
