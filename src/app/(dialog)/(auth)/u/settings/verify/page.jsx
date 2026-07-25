@@ -21,7 +21,7 @@ export default function PageEmailVerify() {
 
   return (
     <UserEmailVerify afterVerification={afterVerification} requestOtpVerification={requestOtpUpdateVerification}>
-      <h1>Change email verification</h1>
+      <h1 className="mbe-3 text-3xl">New email verification</h1>
     </UserEmailVerify>
   );
 }

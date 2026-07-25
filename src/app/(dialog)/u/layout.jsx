@@ -1,6 +1,5 @@
 import LogoLong from "#src/static/logo/long.svg";
 import Minimap from "#src/ui/minimap";
-// import styles from "./layout.module.scss";
 
 /**
  * @function
