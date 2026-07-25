@@ -25,7 +25,7 @@ export default function SettingsHome() {
     <div id="home">
       <h1 className="text-3xl">Information</h1>
       <div className="mbs-5 flex flex-col gap-5">
-        <div className="overflow-hidden rounded-2xl border-2 border-zinc-700 bg-zinc-950">
+        <div className="overflow-hidden rounded-2xl border-2 border-zinc-700 bg-zinc-900">
           <div className="flex items-start justify-start gap-4 border-be-2 border-be-zinc-700 px-4 py-3.5">
             <IconEmail className="min-w-max text-zinc-300 drop-shadow-xs drop-shadow-black" width={ICON_MAIN_SIZE} />
             <hgroup>
@@ -37,7 +37,7 @@ export default function SettingsHome() {
             <StateUserEmail />
           </LinkEdit>
         </div>
-        <div className="overflow-hidden rounded-2xl border-2 border-zinc-700 bg-zinc-950">
+        <div className="overflow-hidden rounded-2xl border-2 border-zinc-700 bg-zinc-900">
           <div className="flex items-start justify-start gap-4 border-be-2 border-be-zinc-700 px-4 py-3.5">
             <IconUser className="min-w-max text-zinc-300 drop-shadow-xs drop-shadow-black" width={ICON_MAIN_SIZE} />
             <hgroup>
