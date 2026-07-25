@@ -8,7 +8,6 @@ import globalState from "#src/lib/state";
 import { secondsToMs } from "#src/lib/time";
 import Button from "#src/ui/button";
 import ButtonDanger from "#src/ui/button/danger";
-import styles from "./index.module.scss";
 
 /**
  * @function
@@ -74,12 +73,6 @@ export default function SettingsOauth({ Icon, provider }) {
 
   const linked = oauth?.[provider] && new Date(secondsToMs(oauth[provider]));
 
-  let className = styles.oauth;
-
-  if (linked) {
-    className += " " + styles.linked;
-  }
-
   /**
    * @async
    * @function onSubmit
@@ -119,12 +112,15 @@ export default function SettingsOauth({ Icon, provider }) {
   }
 
   return (
-    <article className={className}>
-      <div className={styles["oauth-provider"]}>
-        <Icon width="2.5em" />
-        <hgroup className={styles["oauth-hgroup"]}>
-          <h2 className={styles["oauth-title"]}>{provider[0].toUpperCase() + provider.substring(1).toLowerCase()}</h2>
-          <p className={styles["oauth-linked"]}>
+    <article className={
+      "border-2 rounded-xl overflow-hidden " +
+      (linked ? "border-emerald-400" : "border-zinc-700")
+    }>
+      <div className="flex border-be-2 border-be-zinc-700 bg-zinc-900 p-4">
+        <Icon className="drop-shadow-xs drop-shadow-black" width="2.5em" />
+        <hgroup className="ms-5">
+          <h2 className="text-xl">{provider[0].toUpperCase() + provider.substring(1).toLowerCase()}</h2>
+          <p className="text-sm text-zinc-200">
             {linked ? (
               <>
                 Linked on <time dateTime={linked.toISOString().split("T")[0]}>{linked.toDateString()}</time>
@@ -135,7 +131,7 @@ export default function SettingsOauth({ Icon, provider }) {
           </p>
         </hgroup>
       </div>
-      <div className={styles["oauth-actions"]}>
+      <div className="flex justify-between gap-4 p-4 *:px-4">
         <Button disabled={submitting} onClick={linkOauthOnClick} type="button">
           {linked ? "Change account" : "Link account"}
         </Button>

@@ -27,7 +27,7 @@ export default function SettingsHome() {
       <div className="flex flex-col gap-5 mbs-5">
         <div className="rounded-2xl border-2 border-zinc-700 bg-zinc-900 overflow-hidden">
           <div className="flex items-start justify-start gap-4 px-4 py-3.5 border-be-zinc-700 border-be-2">
-            <IconEmail className="min-w-max text-zinc-300" width={ICON_MAIN_SIZE} />
+            <IconEmail className="min-w-max text-zinc-300 drop-shadow-xs drop-shadow-black" width={ICON_MAIN_SIZE} />
             <hgroup>
               <h2 className="text-xl">Email address</h2>
               <p className="text-zinc-300 text-sm">The address used to identify your account and contact</p>
@@ -39,7 +39,7 @@ export default function SettingsHome() {
         </div>
         <div className="rounded-2xl border-2 border-zinc-700 bg-zinc-900 overflow-hidden">
           <div className="flex items-start justify-start gap-4 px-4 py-3.5 border-be-zinc-700 border-be-2">
-            <IconUser className="min-w-max text-zinc-300" width={ICON_MAIN_SIZE} />
+            <IconUser className="min-w-max text-zinc-300 drop-shadow-xs drop-shadow-black" width={ICON_MAIN_SIZE} />
             <hgroup>
               <h2 className="text-xl">Name</h2>
               <p className="text-zinc-300 text-sm">For contact information</p>

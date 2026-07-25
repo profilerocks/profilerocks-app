@@ -9,10 +9,11 @@ import { showAlertErrorApp, showAlert } from "#src/lib/alert";
 import globalState from "#src/lib/state";
 import { getOtpState, switchOtpState } from "#src/lib/state/otp";
 import { getSecondsFromBase36 } from "#src/lib/time";
+import IconArrowRight from "#src/icons/arrow/right.svg";
 import IconBlock from "#src/icons/block.svg";
 import IconEmail from "#src/icons/email.svg";
 import InputGroup from "#src/ui/input/group";
-import ButtonNext from "#src/ui/button/next";
+import Button from "#src/ui/button";
 import LinkBack from "#src/ui/link/back";
 import otpAttributes from "#shared/otp.json";
 
@@ -191,8 +192,9 @@ export default function FormUserEmail({ children, hrefBack, requestOtpCreation }
       </InputGroup>
       {children}
       <div className="flex justify-between mbs-5">
-        {hrefBack && <LinkBack href={hrefBack}>Back</LinkBack>}
-        <ButtonNext
+        {hrefBack && <LinkBack className="pe-3.5" href={hrefBack}>Back</LinkBack>}
+        <Button
+          className={emailBlock ? "pe-3.5" : "ps-3.5"}
           disabled={submitting || !emailFormatValidity || emailBlock}
           title={emailFormatValidity ? (submitting ? "Submitting..." : undefined) : "Enter a valid email address"}
           type="submit"
@@ -203,9 +205,12 @@ export default function FormUserEmail({ children, hrefBack, requestOtpCreation }
               Email blocked
             </>
           ) : (
-            "Next"
+            <>
+              Next
+              <IconArrowRight width="1.25em" />
+            </>
           )}
-        </ButtonNext>
+        </Button>
       </div>
     </form>
   );

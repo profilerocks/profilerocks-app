@@ -99,8 +99,8 @@ export default function FormDisplayName({ children, hrefBack, hrefNext }) {
         Between {displayAttributes.minLength} & {displayAttributes.maxLength} characters
       </p>
       <div className="flex justify-between mbs-5">
-        {hrefBack && <LinkBack href={hrefBack}>Back</LinkBack>}
-        <Button className={hrefBack ? undefined : "w-full"} disabled={disabled} type="submit">
+        {hrefBack && <LinkBack className="pe-3.5" href={hrefBack}>Back</LinkBack>}
+        <Button className={hrefBack ? "ps-3.5" : "w-full"} disabled={disabled} type="submit">
           {children}
         </Button>
       </div>
