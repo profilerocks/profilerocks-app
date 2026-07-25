@@ -3,6 +3,7 @@ import IconConnect from "#src/icons/connect.svg";
 import IconDevices from "#src/icons/devices.svg";
 import IconEmail from "#src/icons/email.svg";
 import IconLogout from "#src/icons/logout.svg";
+import IconSad from "#src/icons/sad.svg";
 import IconUser from "#src/icons/user/single.svg";
 import IconUserData from "#src/icons/user/data.svg";
 import { showLogOutConfirm } from "#src/lib/confirm";
@@ -11,7 +12,6 @@ import Button from "#src/ui/button";
 import LinkEdit from "#src/ui/link/edit";
 import LinkNext from "#src/ui/link/next";
 import Minimap from "#src/ui/minimap";
-import styles from "./index.module.scss";
 
 const ICON_MAIN_SIZE = "2.875em";
 const ICON_DIMENSION = "1.5em";
@@ -23,66 +23,57 @@ const ICON_DIMENSION = "1.5em";
 export default function SettingsHome() {
   return (
     <div id="home">
-      <h1>Information</h1>
+      <h1 className="text-3xl mbe-4">Information</h1>
       <div className="flex flex-col gap-5">
-        <div className="border-2 border-zinc-700 bg-zinc-950 rounded-2xl">
-          <div className="flex justify-start items-start gap-4 py-3.5 px-4">
+        <div className="rounded-2xl border-2 border-zinc-700 bg-zinc-900 overflow-hidden">
+          <div className="flex items-start justify-start gap-4 px-4 py-3.5 border-be-zinc-700 border-be-2">
             <IconEmail className="min-w-max text-zinc-300" width={ICON_MAIN_SIZE} />
-            <hgroup className={styles["settings-main-article-hgroup"]}>
-              <h2>Email address</h2>
-              <p>The address used to identify your account and contact</p>
+            <hgroup>
+              <h2 className="text-xl">Email address</h2>
+              <p className="text-zinc-300 text-sm">The address used to identify your account and contact</p>
             </hgroup>
           </div>
-          <LinkEdit className="border-bs-2 border-bs-zinc-70 rounded-b-2xl" href="#email">
+          <LinkEdit href="#email">
             <StateUserEmail />
           </LinkEdit>
         </div>
-        <article className={styles["settings-main-article"]}>
-          <div className={styles["settings-main-article-header"]}>
-            <IconUser width={ICON_MAIN_SIZE} />
-            <hgroup className={styles["settings-main-article-hgroup"]}>
-              <h2>Name</h2>
-              <p>For contact information</p>
+        <div className="rounded-2xl border-2 border-zinc-700 bg-zinc-900 overflow-hidden">
+          <div className="flex items-start justify-start gap-4 px-4 py-3.5 border-be-zinc-700 border-be-2">
+            <IconUser className="min-w-max text-zinc-300" width={ICON_MAIN_SIZE} />
+            <hgroup>
+              <h2 className="text-xl">Name</h2>
+              <p className="text-zinc-300 text-sm">For contact information</p>
             </hgroup>
           </div>
           <LinkEdit href="#name">
             <StateUserDisplayName />
           </LinkEdit>
-        </article>
+        </div>
       </div>
-      <nav>
-        <ul className={styles["list-nav"]}>
-          <li>
-            <LinkNext href="#oauth">
-              <IconConnect width={ICON_DIMENSION} />
-              Linked accounts
-            </LinkNext>
-          </li>
-          <li>
-            <LinkNext href="#sessions">
-              <IconDevices width={ICON_DIMENSION} />
-              Sessions
-            </LinkNext>
-          </li>
-          <li>
-            <LinkNext href="#payments">
-              <IconCard width={ICON_DIMENSION} />
-              Payments
-            </LinkNext>
-          </li>
-          <li>
-            <LinkNext href="#data">
-              <IconUserData width={ICON_DIMENSION} />
-              My data
-            </LinkNext>
-          </li>
-        </ul>
+      <nav className="grid gap-y-4 gap-x-6 my-7 pbe-6 border-be border-zinc-700 sm:grid-cols-2">
+        <LinkNext href="#oauth">
+          <IconConnect className="drop-shadow-xs drop-shadow-black" width={ICON_DIMENSION} />
+          Linked accounts
+        </LinkNext>
+        <LinkNext href="#sessions">
+          <IconDevices className="drop-shadow-xs drop-shadow-black" width={ICON_DIMENSION} />
+          Sessions
+        </LinkNext>
+        <LinkNext href="#payments">
+          <IconCard className="drop-shadow-xs drop-shadow-black" width={ICON_DIMENSION} />
+          Payments
+        </LinkNext>
+        <LinkNext href="#data">
+          <IconUserData className="drop-shadow-xs drop-shadow-black" width={ICON_DIMENSION} />
+          My data
+        </LinkNext>
       </nav>
-      <Button onClick={showLogOutConfirm} className={styles["btn-logout"]}>
+      <Button onClick={showLogOutConfirm} className="w-full">
         <IconLogout width={ICON_DIMENSION} />
         Log out of current session
+        <IconSad className="ms-auto" width={ICON_DIMENSION} />
       </Button>
-      <Minimap />
+      <Minimap className="mbs-12" />
     </div>
   );
 }

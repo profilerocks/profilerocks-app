@@ -1,8 +1,6 @@
 import Link from "next/link";
 import IconPencil from "#src/icons/pencil.svg";
 import IconArrowRight from "#src/icons/arrow/right.svg";
-import LongWord from "#src/ui/text/long";
-import styles from "./index.module.scss";
 
 /**
  * @import {LinkProps} from "next/link"
@@ -13,12 +11,18 @@ import styles from "./index.module.scss";
  * @param {LinkProps<HTMLAnchorElement>&React.HTMLProps<HTMLAnchorElement>} props
  * @returns
  */
-export default function LinkEdit({ children, className, ...props }) {
+export default function LinkEdit({ children, className: customClassName, ...props }) {
   return (
-    <Link {...props} className={className ? `${className} ${styles.edit}` : styles.edit}>
-      <IconPencil width="1.5em" />
-      <LongWord>{children}</LongWord>
-      <IconArrowRight className="ms-auto" width="1.25em" />
+    <Link
+      {...props}
+      className={
+        "flex items-center gap-3 bg-black p-2.5 text-teal-500 transition-colors select-none hover:bg-zinc-800 hover:text-teal-400 active:bg-zinc-700 active:text-teal-300" +
+        (customClassName ? " " + customClassName : "")
+      }
+    >
+      <IconPencil className="min-w-max" width="1.5em" />
+      <span className="text-ellipsis overflow-hidden whitespace-nowrap">{children}</span>
+      <IconArrowRight className="ms-auto min-w-max" width="1.25em" />
     </Link>
   );
 }

@@ -8,10 +8,10 @@ import IconLoading from "#src/icons/loading.svg";
  */
 export default function Message({ children }) {
   return (
-    <div className="flex flex-1 flex-col justify-center items-center pbe-20">
+    <div className="flex flex-1 flex-col items-center justify-center pbe-20">
       <IconLoading width="10em" className="text-emerald-400" />
       <h1 className="tracking-widest">{children}</h1>
-      <p className="tracking-widest mbs-4">Please wait</p>
+      <p className="mbs-4 tracking-widest">Please wait</p>
     </div>
   );
 }

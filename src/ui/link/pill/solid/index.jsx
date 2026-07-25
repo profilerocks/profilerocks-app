@@ -1,20 +1,23 @@
 import LinkPill from "#src/ui/link/pill";
-import styles from "./index.module.scss";
+
+/**
+ * @import {LinkProps} from "next/link"
+ */
 
 /**
  * @function
- * @param {import("next/link").LinkProps<HTMLAnchorElement>&React.HTMLProps<HTMLAnchorElement>} props
+ * @param {LinkProps<HTMLAnchorElement>&React.HTMLProps<HTMLAnchorElement>} props
  * @returns {React.ReactNode}
  */
 export default function LinkPillSolid({ children, className: customClassName, ...props }) {
-  let className = styles.solid;
-
-  if (customClassName) {
-    className += " " + customClassName;
-  }
-
   return (
-    <LinkPill className={className} {...props}>
+    <LinkPill
+      className={
+        "bg-zinc-900 text-zinc-400 hover:text-zinc-300 active:text-zinc-200" +
+        (customClassName ? " " + customClassName : "")
+      }
+      {...props}
+    >
       {children}
     </LinkPill>
   );

@@ -34,7 +34,7 @@ export default function FormDisplayName({ children, hrefBack, hrefNext }) {
 
   const invalidNormalizedName =
     normalizedDisplayName.length < displayAttributes.minLength || normalizedDisplayName === globalState.displayName;
-  
+
   const disabled = isSubmitting || invalidNormalizedName;
 
   /**
@@ -95,19 +95,12 @@ export default function FormDisplayName({ children, hrefBack, hrefNext }) {
       >
         Name
       </InputGroup>
-      <p
-        className={
-          "ms-2 mbs-2 text-sm transition-colors " +
-          (invalidNormalizedName ? "text-zinc-400" : "text-emerald-400")
-        }
-      >Between {displayAttributes.minLength} & {displayAttributes.maxLength} characters</p>
+      <p className={"ms-2 mbs-2 text-sm transition-colors " + (invalidNormalizedName ? "text-zinc-400" : "text-emerald-400")}>
+        Between {displayAttributes.minLength} & {displayAttributes.maxLength} characters
+      </p>
       <div className="mbs-5">
         {hrefBack && <LinkBack href={hrefBack}>Back</LinkBack>}
-        <Button
-          className={hrefBack ? undefined : "w-full"}
-          disabled={disabled}
-          type="submit"
-        >
+        <Button className={hrefBack ? undefined : "w-full"} disabled={disabled} type="submit">
           {children}
         </Button>
       </div>
