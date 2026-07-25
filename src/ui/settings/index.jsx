@@ -16,7 +16,7 @@ import SettingsOauth from "#src/ui/settings/oauth";
 import SettingsPayments from "#src/ui/settings/payments";
 import SettingsSessions from "#src/ui/settings/sessions";
 
-const CLASS_ACTIVE = "!text-emerald-400";
+const CLASS_ACTIVE = "text-emerald-400!";
 const CLASS_NAV_ANCHOR = "H";
 const ICON_DIMENSION = "1.125em";
 
@@ -141,16 +141,14 @@ export default function Settingss() {
 
     Object.freeze(navAnchorList);
 
-    if (currentSection in sections) {
+    if (sections.hasOwnProperty(currentSection)) {
       const elAnchorActive = navAnchorList[currentSection];
 
-      if (elAnchorActive) {
-        elAnchorActive.classList.add(CLASS_ACTIVE);
-        elAnchorActive.scrollIntoView(navAnchorScrollIntoViewOptions);
+      elAnchorActive.classList.add(CLASS_ACTIVE);
+      elAnchorActive.scrollIntoView(navAnchorScrollIntoViewOptions);
 
-        if (currentSection != "home") {
-          sections[currentSection].scrollIntoView({ behavior: "instant" });
-        }
+      if (currentSection != "home") {
+        sections[currentSection].scrollIntoView({ behavior: "instant" });
       }
     } else {
       navAnchorList.home?.classList.add(CLASS_ACTIVE);
@@ -160,7 +158,7 @@ export default function Settingss() {
     function onHashChange() {
       let hash = location.hash.substring(1);
 
-      if (!(hash in sections)) {
+      if (!sections.hasOwnProperty(hash)) {
         hash = "home";
         history.replaceState(null, "", "#" + hash);
       }
@@ -197,7 +195,7 @@ export default function Settingss() {
   return (
     <>
       <nav className="z-1 flex scrollbar-none overflow-auto border-be border-be-zinc-700 text-zinc-400 shadow-sm *:flex *:min-w-max *:gap-1.5 *:p-2.5 *:transition-colors *:hover:text-zinc-200 *:active:text-zinc-100 md:mbs-4 md:flex-col md:border-be-0 md:text-2xl md:*:gap-3.5">
-        <a className={"ps-4.5 " + CLASS_NAV_ANCHOR} href="#home">
+        <a className={"ps-4.5! md:ps-2.5! " + CLASS_NAV_ANCHOR} href="#home">
           <IconHome width={ICON_DIMENSION} />
           Home
         </a>
@@ -221,7 +219,7 @@ export default function Settingss() {
           <IconDevices width={ICON_DIMENSION} />
           Sessions
         </a>
-        <a className={"pe-4.5 " + CLASS_NAV_ANCHOR} href="#data">
+        <a className={"pe-4.5! " + CLASS_NAV_ANCHOR} href="#data">
           <IconUserData width={ICON_DIMENSION} />
           Data
         </a>
