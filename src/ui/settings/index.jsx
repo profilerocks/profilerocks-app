@@ -194,7 +194,7 @@ export default function Settingss() {
 
   return (
     <>
-      <nav className="z-1 flex overflow-auto border-be border-be-zinc-700 text-zinc-400 shadow-sm *:flex *:min-w-max *:gap-1.5 *:p-2.5 *:transition-colors *:hover:text-zinc-200 *:active:text-zinc-100 lg:mbs-4 lg:flex-col lg:border-be-0 lg:text-2xl lg:*:gap-3.5">
+      <nav className="flex overflow-auto border-be border-be-zinc-700 text-zinc-400 shadow-sm select-none *:flex *:min-w-max *:gap-1.5 *:p-2.5 *:transition-colors *:hover:text-zinc-200 *:active:text-zinc-100 lg:mbs-4 lg:flex-col lg:border-be-0 lg:text-2xl lg:*:gap-3.5">
         <a className={"ps-4.5! lg:ps-2.5! " + CLASS_NAV_ANCHOR} href="#home">
           <IconHome width={ICON_DIMENSION} />
           Home

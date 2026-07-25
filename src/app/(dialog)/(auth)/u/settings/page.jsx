@@ -13,7 +13,7 @@ export const metadata = {
 export default function PageSettings() {
   return (
     <>
-      <header className="mx-auto flex w-full max-w-5xl items-center gap-2 px-2 pbs-2 md:pbe-2 lg:gap-3 lg:px-4 lg:pbs-6">
+      <header className="mx-auto flex w-full max-w-4xl items-center gap-2 px-2 pbs-2 md:pbe-2 md:pbs-3 lg:gap-3 lg:px-4 lg:pbs-6 lg:max-w-5xl">
         <LinkBack href="/#side" title="Home" />
         <h1 className="pe-4 text-2xl">Settings</h1>
         <SvgLogoLong width="11em" className="ms-auto select-none" />
