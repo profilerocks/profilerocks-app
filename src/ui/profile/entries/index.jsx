@@ -61,9 +61,7 @@ function ProfileEntry({ profile }) {
  */
 function profileEntryCallback(profile, index) {
   return (
-    <li key={index}>
-      <ProfileEntry profile={profile} />
-    </li>
+    <ProfileEntry key={index} profile={profile} />
   );
 }
 
@@ -79,8 +77,14 @@ export default function ProfileList() {
     <>
       {profiles?.length ? (
         <Suspense>
-          {/* @ts-ignore */}
-          <ul className={styles["profile-list"]}>{profiles.map(profileEntryCallback)}</ul>
+          <div
+            className="select-none"
+          >
+            {
+              // @ts-ignore
+              profiles.map(profileEntryCallback)
+            }
+          </div>
         </Suspense>
       ) : null}
       <menu className={styles["menu-actions"]}>
