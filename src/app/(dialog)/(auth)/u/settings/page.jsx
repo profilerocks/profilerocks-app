@@ -3,7 +3,11 @@ import Settings from "#src/ui/settings";
 import SvgLogoLong from "#src/static/logo/long.svg";
 
 /**
- * @type {import("next").Metadata}
+ * @import {Metadata} from "next"
+ */
+
+/**
+ * @type {Metadata}
  */
 export const metadata = {
   title: "Settings",
