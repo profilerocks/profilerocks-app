@@ -156,10 +156,13 @@ export default function DefaultLayout({ children }) {
   }, []);
 
   return (
-    <div className={styles["sections-container"]} ref={containersRef}>
-      <section className={styles["section-side"]} id="side">
-        <header className={styles["side-header"]}>
-          <Link href="/#side" className={styles["side-header-a-logo"]}>
+    <div
+      className="flex flex-1 snap-x snap-mandatory scrollbar-none overflow-x-auto scroll-smooth *:min-w-full *:snap-center *:snap-always *:overflow-y-auto"
+      ref={containersRef}
+    >
+      <section className="z-3 flex flex-col" id="side">
+        <header className="sticky inset-bs-0 z-1 flex gap-3 px-4 py-3.5 before:absolute before:inset-x-0 before:inset-bs-0 before:-z-1 before:shadow-[0_0_1.75em_3.75em_#000]">
+          <Link href="/#side" className="select-none">
             <SvgLogoLong width="16em" />
           </Link>
           {/*<details name={DETAILS_NAME} className={styles["page-header-details"]}>
@@ -167,7 +170,7 @@ export default function DefaultLayout({ children }) {
             <div className={styles.dropdown}></div>
           </details>*/}
         </header>
-        <User />
+        <User className="m-4" />
         <ProfileList />
         <Minimap className={styles.minimap} />
       </section>
