@@ -11,7 +11,6 @@ import { HREF_ASSETS } from "#src/lib/env";
 import globalState from "#src/lib/state";
 import LinkNext from "#src/ui/link/next";
 import LinkPillSolidActive from "#src/ui/link/pill/solid/active";
-import styles from "./index.module.scss";
 
 /**
  * @import {Profile} from "#src/lib/state"
@@ -28,26 +27,26 @@ import styles from "./index.module.scss";
 function ProfileEntry({ profile }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  let className = styles["profile-item-link"];
-
-  if (pathname.startsWith("/p/") && searchParams.get("id") === profile.public_id) {
-    className += " " + styles["profile-item-link-active"];
-  }
+  const active = pathname.startsWith("/p/") && searchParams.get("id") === profile.public_id;
 
   return (
-    <Link href={"/p/content?id=" + profile.public_id + "#page"} className={className}>
+    <Link
+      className="flex flex-1 items-center gap-3.5 overflow-hidden p-4 transition-colors select-none hover:bg-zinc-800 hover:text-zinc-100 active:bg-zinc-700 active:text-zinc-100"
+      href={"/p/content?id=" + profile.public_id + "#page"}
+    >
       <img
         src={profile.photo ? HREF_ASSETS + "/profile/" + profile.public_id + "/photo" : "/user.png"}
         alt="Profile photo"
         width="48"
         height="48"
         draggable="false"
-        className={styles["profile-photo"]}
+        className="rounded-full shadow-xs"
       />
-      <div className={styles["profile-info"]}>
-        <p className={styles["profile-display-name"]}>{profile.display_name || profile.name_id}</p>
-        <p className={styles["profile-name-id"]}>{profile.name_id}</p>
+      <div className="flex flex-1 items-center gap-3.5 overflow-hidden p-4 transition-colors">
+        <p className={"truncate text-lg transition-colors " + (active ? "text-emerald-400" : "text-zinc-300")}>
+          {profile.display_name || profile.name_id}
+        </p>
+        <p className="truncate text-sm text-zinc-400 transition-colors">{profile.name_id}</p>
       </div>
     </Link>
   );
@@ -60,9 +59,7 @@ function ProfileEntry({ profile }) {
  * @returns {React.ReactNode}
  */
 function profileEntryCallback(profile, index) {
-  return (
-    <ProfileEntry key={index} profile={profile} />
-  );
+  return <ProfileEntry key={index} profile={profile} />;
 }
 
 /**
@@ -77,9 +74,7 @@ export default function ProfileList() {
     <>
       {profiles?.length ? (
         <Suspense>
-          <div
-            className="select-none"
-          >
+          <div className="select-none">
             {
               // @ts-ignore
               profiles.map(profileEntryCallback)
@@ -87,25 +82,25 @@ export default function ProfileList() {
           </div>
         </Suspense>
       ) : null}
-      <menu className={styles["menu-actions"]}>
+      <menu className="flex flex-wrap gap-x-6 gap-y-4 px-4 *:flex-1">
         {profilesRemaining > 0 && (
           <li>
-            <LinkPillSolidActive href="/p#page">
+            <LinkPillSolidActive className="pe-3.5" href="/p#page">
               <IconUserPlus width="1.5em" />
               Create a new profile
             </LinkPillSolidActive>
           </li>
         )}
         <li>
-          <LinkNext href="/u/settings" className={styles["link-settings"]}>
-            <IconSettings width="1.5em" className={styles["icon-settings"]} />
+          <LinkNext className="hover:*:rotate-360" href="/u/settings">
+            <IconSettings className="transition-transform duration-1000" width="1.5em" />
             User Settings
           </LinkNext>
         </li>
       </menu>
-      <p className={styles["p-limit"]}>You can create up to {profileAttributes.limit} profiles</p>
+      <p className="text-center text-sm text-zinc-500">You can create up to {profileAttributes.limit} profiles</p>
       {profiles?.length ? (
-        <p className={styles["p-remaining"]}>
+        <p className="text-center text-sm text-zinc-500">
           {profilesRemaining} more profile{profilesRemaining !== 1 ? "s" : ""} available
         </p>
       ) : null}
