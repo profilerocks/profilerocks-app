@@ -225,7 +225,7 @@ export default function Settingss() {
         </a>
       </nav>
       <div
-        className="mx-auto h-full flex w-full max-w-2xl snap-x snap-mandatory scrollbar-none gap-12 overflow-x-auto scroll-smooth *:min-h-full *:min-w-full *:snap-center *:snap-always *:overflow-y-auto *:px-6 *:pbs-5 *:pbe-12 md:overflow-x-hidden md:scroll-auto"
+        className="mx-auto flex h-full w-full max-w-2xl snap-x snap-mandatory scrollbar-none gap-12 overflow-x-auto scroll-smooth *:min-h-full *:min-w-full *:snap-center *:snap-always *:overflow-y-auto *:px-6 *:pbs-5 *:pbe-12 md:overflow-x-hidden md:scroll-auto"
         ref={sectionsContainerRef}
       >
         <SettingsHome />
