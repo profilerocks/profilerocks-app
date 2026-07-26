@@ -12,6 +12,7 @@ import { getSecondsFromBase36 } from "#src/lib/time";
 import IconArrowRight from "#src/icons/arrow/right.svg";
 import IconBlock from "#src/icons/block.svg";
 import IconEmail from "#src/icons/email.svg";
+import { requestOtpUpdateCreation } from "#src/lib/request";
 import InputGroup from "#src/ui/input/group";
 import Button from "#src/ui/button";
 import LinkBack from "#src/ui/link/back";
@@ -32,11 +33,10 @@ import otpAttributes from "#shared/otp.json";
  * @function
  * @param {Object} props
  * @param {React.ReactNode} [props.children]
- * @param {RequestOtpCreation} props.requestOtpCreation
  * @param {string} [props.hrefBack]
  * @returns {React.ReactNode}
  */
-export default function FormUserEmail({ children, hrefBack, requestOtpCreation }) {
+export default function FormUserEmail({ children, hrefBack }) {
   const [email, setEmail] = useState(getCurrentOtpState()?.email ?? globalState.email ?? "");
 
   const [emailBlock, setEmailBlock] = useState(false);
@@ -124,7 +124,7 @@ export default function FormUserEmail({ children, hrefBack, requestOtpCreation }
 
     setSubmitting(true);
 
-    const res = await requestOtpCreation(normalizedEmail);
+    const res = await requestOtpUpdateCreation(normalizedEmail);
 
     if (!res) {
       setSubmitting(false);
