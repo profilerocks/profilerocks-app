@@ -18,7 +18,7 @@ export default function PageSettings() {
         <h1 className="pe-4 text-2xl">Settings</h1>
         <SvgLogoLong width="11em" className="ms-auto select-none" />
       </header>
-      <main className="mx-auto flex max-w-full flex-1 flex-col gap-x-12 lg:flex-row lg:items-start">
+      <main className="mx-auto h-full flex max-w-full flex-1 flex-col gap-x-12 lg:flex-row lg:items-start">
         <Settings />
       </main>
     </>
