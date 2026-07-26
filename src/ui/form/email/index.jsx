@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import normalizeEmail from "validator/es/lib/normalizeEmail";
 import { showAlertErrorApp, showAlert } from "#src/lib/alert";
 import globalState from "#src/lib/state";
-import { getOtpState, switchOtpState } from "#src/lib/state/otp";
+import { getCurrentOtpState, getOtpState, switchOtpState } from "#src/lib/state/otp";
 import { getSecondsFromBase36 } from "#src/lib/time";
 import IconArrowRight from "#src/icons/arrow/right.svg";
 import IconBlock from "#src/icons/block.svg";
@@ -37,7 +37,7 @@ import otpAttributes from "#shared/otp.json";
  * @returns {React.ReactNode}
  */
 export default function FormUserEmail({ children, hrefBack, requestOtpCreation }) {
-  const [email, setEmail] = useState(globalState.email ?? "");
+  const [email, setEmail] = useState(getCurrentOtpState()?.email ?? globalState.email ?? "");
 
   const [emailBlock, setEmailBlock] = useState(false);
 
