@@ -13,7 +13,6 @@ import Minimap from "#src/ui/minimap";
 import ProfileList from "#src/ui/profile/entries";
 import LongWord from "#src/ui/text/long";
 import User from "#src/ui/user";
-import styles from "./layout.module.scss";
 
 /**
  * @function renderMarkdown
@@ -31,24 +30,23 @@ function renderMarkdown(str) {
 function ProfilePreview() {
   const { currentProfile } = useSnapshot(globalState);
 
-  let className = styles["section-profile-preview"];
-
-  if (!currentProfile) {
-    className += " " + styles["no-profile"];
-  }
-
   return (
-    <section className={className} id="preview" title="Profile preview">
+    <section className={"relative flex flex-col" + (currentProfile ? "" : " hidden")} id="preview" title="Profile preview">
       {currentProfile && (
         <>
-          <header className={styles["profile-preview-header"]}>
+          <header className="flex items-center gap-2 border-be border-be-zinc-700 bg-zinc-900 p-2">
             <LinkBack className="hide-desktop-large" href="#page" />
-            <LongWord as="a" className={styles["profile-preview-url"]} href={API + "/" + currentProfile.name_id} target="_blank">
+            <LongWord
+              as="a"
+              className="inline-block flex-1 rounded-lg bg-zinc-950 py-2"
+              href={API + "/" + currentProfile.name_id}
+              target="_blank"
+            >
               {API + "/" + currentProfile.name_id}
             </LongWord>
           </header>
           <iframe
-            className={styles["iframe-preview-profile"]}
+            className="w-full flex-1 select-none"
             frameBorder="0"
             srcDoc={renderProfile(
               {
@@ -67,7 +65,9 @@ function ProfilePreview() {
             )}
             title="Preview"
           />
-          {currentProfile.theme_preview && <p className={styles["theme-preview-note"]}>This is a theme preview</p>}
+          {currentProfile.theme_preview && (
+            <p className="font-sm absolute inset-e-1 inset-bs-13 z-2 rounded-3xl bg-zinc-900 px-3.5 py-2">This is a theme preview</p>
+          )}
         </>
       )}
     </section>
@@ -160,7 +160,7 @@ export default function DefaultLayout({ children }) {
       className="flex flex-1 snap-x snap-mandatory scrollbar-none overflow-x-auto scroll-smooth *:min-w-full *:snap-center *:snap-always *:overflow-y-auto"
       ref={containersRef}
     >
-      <section className="z-3 flex flex-col" id="side">
+      <section className="z-3 flex flex-col pbe-10" id="side">
         <header className="sticky inset-bs-0 z-1 flex gap-3 px-4 py-3.5 before:absolute before:inset-x-0 before:inset-bs-0 before:-z-1 before:shadow-[0_0_1.75em_3.75em_#000]">
           <Link href="/#side" className="select-none">
             <SvgLogoLong width="16em" />
@@ -172,9 +172,9 @@ export default function DefaultLayout({ children }) {
         </header>
         <User className="m-4" />
         <ProfileList />
-        <Minimap className={styles.minimap} />
+        <Minimap className="mbs-auto" />
       </section>
-      <section className={styles["section-page"]} id="page">
+      <section className="flex flex-1 basis-3xs scrollbar-gutter-stable flex-col" id="page">
         {children}
       </section>
       <ProfilePreview />
