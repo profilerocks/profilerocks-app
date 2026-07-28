@@ -140,7 +140,7 @@ export default function DefaultLayout({ children }) {
       const el = document.getElementById(hash);
 
       if (el) {
-        navigator?.vibrate(1);
+        navigator?.vibrate?.(1);
         autoScrolling = true;
         currentSection = hash;
         el.scrollIntoView();
