@@ -98,7 +98,7 @@ export default function ProfileList() {
           </LinkNext>
         </li>
       </menu>
-      <p className="text-center text-sm text-zinc-500">You can create up to {profileAttributes.limit} profiles</p>
+      <p className="text-center text-sm my-6 text-zinc-500">You can create up to {profileAttributes.limit} profiles</p>
       {profiles?.length ? (
         <p className="text-center text-sm text-zinc-500">
           {profilesRemaining} more profile{profilesRemaining !== 1 ? "s" : ""} available
