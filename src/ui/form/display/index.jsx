@@ -95,7 +95,7 @@ export default function FormDisplayName({ children, hrefBack, hrefNext }) {
       >
         Name
       </InputGroup>
-      <p className={"ms-2 mbs-2 text-sm transition-colors " + (invalidNormalizedName ? "text-zinc-400" : "text-emerald-400")}>
+      <p className={"ms-2 mbs-2 text-sm transition-colors " + (invalidNormalizedName ? "text-zinc-400" : "text-green-400")}>
         Between {displayAttributes.minLength} & {displayAttributes.maxLength} characters
       </p>
       <div className="mbs-5 flex justify-between">

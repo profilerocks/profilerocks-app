@@ -14,8 +14,8 @@ import { requestProfileCreation, requestProfileNameIdUpdate } from "#src/lib/req
 import globalState from "#src/lib/state";
 import Button from "#src/ui/button";
 import DateTime from "#src/ui/date";
+import Link from "#src/ui/link";
 import Message from "#src/ui/message";
-import Requirements from "#src/ui/requirement/list";
 
 /**
  * @callback RequestFunction
@@ -38,21 +38,12 @@ const NAME_ID_UPDATE_GAP_DAYS = Math.ceil(profileAttributes.nameIdUpdateGapMs / 
  * @param {React.ReactNode} params.children
  * @param {OnSuccessFunction} params.onSuccess
  * @param {RequestFunction} params.requestFunction
- * @param {string} [params.boxClassName]
  * @param {string} [params.defaultValue]
  * @param {boolean} [params.disabled]
  * @param {string} [params.submitTitle]
  * @returns {React.ReactNode}
  */
-export default function FormProfileNameId({
-  boxClassName: customBoxClassName,
-  children,
-  defaultValue = "",
-  disabled,
-  onSuccess,
-  requestFunction,
-  submitTitle
-}) {
+export default function FormProfileNameId({ children, defaultValue = "", disabled, onSuccess, requestFunction, submitTitle }) {
   const [nameId, setNameId] = useState(defaultValue);
   const [submitting, setSubmitting] = useState(false);
 
@@ -162,12 +153,7 @@ export default function FormProfileNameId({
 
   return (
     <form autoComplete="off" onSubmit={submitProfileName} title={disabled ? "Not allowed to change the profile name." : undefined}>
-      <div
-        className={
-          "flex rounded-4xl border-2 border-zinc-700 transition-colors focus-within:border-emerald-400 sm:text-lg" +
-          (customBoxClassName ? " " + customBoxClassName : "")
-        }
-      >
+      <div className="mx-auto flex max-w-3xl rounded-4xl border-2 border-zinc-700 text-lg transition-colors focus-within:border-emerald-400">
         <label className="cursor-text py-2.5 ps-3.5 text-zinc-300" htmlFor={inputId}>
           profile.rocks/
         </label>
@@ -192,23 +178,25 @@ export default function FormProfileNameId({
           {children}
         </Button>
       </div>
-      <Requirements>
-        <li className={nameIdFormatCorrect === true ? "valid" : nameIdFormatCorrect === false ? "invalid" : undefined}>
+      <ul className="mx-auto mbs-4 max-w-max space-y-2 text-sm text-zinc-400 *:transition-colors sm:text-base">
+        <li className={nameIdFormatCorrect ? "text-green-400" : nameIdFormatCorrect === false ? "text-rose-400" : undefined}>
           Latin letters, numbers & embedded underscores
         </li>
-        <li className={nameIdLengthCorrect ? "valid" : undefined}>
+        <li className={nameIdLengthCorrect ? "text-green-400" : undefined}>
           Between {profileAttributes.minLength} & {profileAttributes.maxLength} characters
         </li>
-        <li className={nameIdBlacklisted ? "invalid" : nameIdBlacklisted === false ? "valid" : undefined}>
+        <li className={nameIdBlacklisted ? "text-rose-400" : nameIdBlacklisted === false ? "text-green-400" : undefined}>
           <span>
             It is not{" "}
-            <a href="/i/blacklist" target="_blank" rel="noopener noreferrer">
+            <Link href="/i/blacklist" target="_blank" rel="noopener noreferrer">
               blacklisted
-            </a>
+            </Link>
           </span>
         </li>
-        <li className={unique ? "valid" : submitting ? "loading" : unique === false ? "invalid" : undefined}>Must be unique</li>
-      </Requirements>
+        <li className={unique ? "text-green-400" : submitting ? "animate-pulse" : unique === false ? "text-rose-400" : undefined}>
+          Must be unique
+        </li>
+      </ul>
     </form>
   );
 }
@@ -252,12 +240,7 @@ export function FormProfileNameIdPageWrapper() {
   }
 
   return allowed ? (
-    <FormProfileNameId
-      boxClassName="max-w-2xl mx-auto"
-      onSuccess={moveToSetupPageOnSuccess}
-      requestFunction={requestProfileCreation}
-      submitTitle="Next"
-    >
+    <FormProfileNameId onSuccess={moveToSetupPageOnSuccess} requestFunction={requestProfileCreation} submitTitle="Next">
       <IconArrowRight width="1em" />
     </FormProfileNameId>
   ) : (
