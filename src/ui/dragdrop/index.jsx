@@ -59,10 +59,7 @@ export default function DragDrop({ children, onDrop, ...props }) {
 
   return (
     <div
-      className={
-        "transition-colors border-3 border-dashed rounded-lg" +
-        (isDragging ? " border-zinc-600 pointer-events-none" : "")
-      }
+      className={"rounded-lg border-3 border-dashed transition-colors" + (isDragging ? " pointer-events-none border-zinc-600" : "")}
       onDragEnter={onDragEnter}
       onDragLeave={onDragLeave}
       onDragOver={onDragOver}

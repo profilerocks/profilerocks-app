@@ -6,7 +6,7 @@ import { CircleStencil } from "react-mobile-cropper";
 import displayNameAttributes from "#shared/display.json";
 import photoAttributes from "#shared/photo.json";
 import IconBin from "#src/icons/bin.svg";
-import IconLoading from "#src/icons/loading.svg"
+import IconLoading from "#src/icons/loading.svg";
 import IconPencil from "#src/icons/pencil.svg";
 import IconUpload from "#src/icons/upload.svg";
 import { showAlertErrorApp, showAlert } from "#src/lib/alert";
@@ -18,24 +18,38 @@ import ButtonNext from "#src/ui/button/next";
 import DragDrop from "#src/ui/dragdrop";
 import EditorImage from "#src/ui/editor/image";
 import InputGroup from "#src/ui/input/group";
-import styles from "./index.module.scss";
+
+/**
+ * @async
+ * @callback ActionRemovePhoto
+ * @param {string} publicId
+ * @returns {Promise<Response|undefined>}
+ */
 
 const sizeImg = 158;
 const maxPhotoSizeMiB = photoAttributes.maxPhotoSize / 1048576;
 
 function Photo({ src = "/user.png" }) {
-  return <img src={src} width={sizeImg} height={sizeImg} draggable="false" className={styles.photo} />;
+  return (
+    <img
+      className="rounded-full border-2 border-zinc-700 object-cover select-none"
+      draggable="false"
+      height={sizeImg}
+      src={src}
+      width={sizeImg}
+    />
+  );
 }
 
 /**
  * @function ProfilePhotoDetails
  * @param {Object} props
- * @param {(publicId:string)=>Promise<Response|undefined>} props.actionRemove
+ * @param {ActionRemovePhoto} props.actionRemovePhoto
  * @param {React.ReactNode} props.children
  * @param {string} props.inputPhotoId
  * @param {React.Dispatch<React.SetStateAction<string|undefined>>} props.setPhoto
  */
-function ProfilePhotoDetails({ actionRemove, children, inputPhotoId, setPhoto }) {
+function ProfilePhotoDetails({ actionRemovePhoto, children, inputPhotoId, setPhoto }) {
   /** @type {React.RefObject<HTMLDetailsElement|null>} */
   const detailsRef = useRef(null);
 
@@ -44,7 +58,7 @@ function ProfilePhotoDetails({ actionRemove, children, inputPhotoId, setPhoto })
       return;
     }
 
-    const res = await actionRemove(globalState.currentProfile.public_id);
+    const res = await actionRemovePhoto(globalState.currentProfile.public_id);
 
     if (!res) {
       return;
@@ -78,12 +92,19 @@ function ProfilePhotoDetails({ actionRemove, children, inputPhotoId, setPhoto })
   }, []);
 
   return (
-    <details className="details-content:transition details-content:transition-discrete not-open:details-content:opacity-0 " name="photo-options" ref={detailsRef}>
-      <summary className="flex cursor-pointer hover:text-zinc-200 hover:bg-zinc-800 active:text-zinc-100 active:bg-zinc-700">
+    <details
+      className="details-content:transition details-content:transition-discrete not-open:details-content:opacity-0"
+      name="photo-options"
+      ref={detailsRef}
+    >
+      <summary className="group flex cursor-pointer text-zinc-400 hover:text-zinc-300 active:text-zinc-200">
         {children}
-        <IconPencil width="2em" className={styles["icon-photo-edit"]} />
+        <IconPencil
+          className="absolute inset-e-0 inset-be-0 rounded-lg bg-zinc-900 p-1.5 transition-colors group-hover:bg-zinc-800 group-active:bg-zinc-700"
+          width="2.125em"
+        />
       </summary>
-      <div className={styles["profile-photo-actions"]}>
+      <div className="absolute inset-x-0 inset-bs-0 z-1 min-w-max select-none">
         <label htmlFor={inputPhotoId}>
           <IconUpload width="1.25em" />
           Change
@@ -127,10 +148,10 @@ function ProfilePhoto({ setEditorImageProps }) {
   /**
    * @async
    * @function callbackBlob
-   * @param {Blob} blob
+   * @param {(Blob|null)} blob
    */
   async function callbackBlob(blob) {
-    if (!globalState.currentProfile) {
+    if (!blob || !globalState.currentProfile) {
       return;
     }
 
@@ -174,9 +195,9 @@ function ProfilePhoto({ setEditorImageProps }) {
         setEditorImageProps({
           src: URL.createObjectURL(firstFile),
           stencilComponent: CircleStencil,
-          // @ts-ignore
           callbackBlob
         });
+
         el.value = "";
       }
     }
@@ -197,7 +218,6 @@ function ProfilePhoto({ setEditorImageProps }) {
               setEditorImageProps({
                 src: URL.createObjectURL(filePhotoFirst),
                 stencilComponent: CircleStencil,
-                // @ts-ignore
                 callbackBlob
               });
               notFound = false;
@@ -214,15 +234,18 @@ function ProfilePhoto({ setEditorImageProps }) {
   }
 
   return (
-    <DragDrop onDrop={onDropPhoto} className={styles["container-photo-profile"]}>
+    <DragDrop onDrop={onDropPhoto} className="relative mx-auto max-w-max p-3">
       {photo ? (
-        <ProfilePhotoDetails actionRemove={requestProfilePhotoDeletion} inputPhotoId={inputPhotoId} setPhoto={setPhoto}>
+        <ProfilePhotoDetails actionRemovePhoto={requestProfilePhotoDeletion} inputPhotoId={inputPhotoId} setPhoto={setPhoto}>
           <Photo src={photo} />
         </ProfilePhotoDetails>
       ) : (
-        <label htmlFor={inputPhotoId} className={styles["profile-photo-edit"]}>
+        <label className="group flex cursor-pointer text-zinc-400 hover:text-zinc-300 active:text-zinc-200" htmlFor={inputPhotoId}>
           <Photo />
-          <IconUpload width="2em" className={styles["icon-photo-edit"]} />
+          <IconUpload
+            className="absolute inset-e-0 inset-be-0 rounded-lg bg-zinc-900 p-1.5 transition-colors group-hover:bg-zinc-800 group-active:bg-zinc-700"
+            width="2.125em"
+          />
         </label>
       )}
       {submitting && <IconLoading className="absolute inset-0" />}
@@ -230,104 +253,6 @@ function ProfilePhoto({ setEditorImageProps }) {
     </DragDrop>
   );
 }
-
-// /**
-//  * @param {{
-//  *   setEditorImageProps: React.Dispatch<React.SetStateAction<React.ComponentProps<typeof EditorImage> | undefined>>
-//  * }} props
-//  */
-// function ProfileBackground({ setEditorImageProps }) {
-//   const [photo, setPhoto] = useState();
-
-//   function cleanPhoto() {
-//     if (photo) {
-//       URL.revokeObjectURL(photo);
-//     }
-//   }
-
-//   useEffect(() => {
-//     return cleanPhoto;
-//   }, [photo]);
-
-//   /** @param {Blob | null} blob */
-//   async function callbackBlob(blob) {
-//     const profilePublicId = globalState.currentProfile?.publicId;
-
-//     if (profilePublicId && blob) {
-//       // Send image to server
-//       setPhoto(URL.createObjectURL(blob));
-//       // setLoading(true)
-//       // Send image to server
-//       // @ts-ignore
-//       if (!(await uploadBackground(profilePublicId))) {
-//         setPhoto(undefined);
-//       }
-//       // setLoading(false)
-//     }
-//   }
-
-//   /** @type {React.ChangeEventHandler<HTMLInputElement>} */
-//   const onChangePhoto = event => {
-//     const el = event.currentTarget;
-//     const firstFile = el.files?.[0];
-
-//     if (firstFile) {
-//       setEditorImageProps({
-//         src: URL.createObjectURL(firstFile),
-//         // @ts-ignore
-//         callbackBlob
-//       });
-//       el.value = "";
-//     }
-//   };
-
-//   /** @param {React.DragEvent<HTMLInputElement>} event */
-//   function onDropPhoto(event) {
-//     const { files } = event.dataTransfer;
-
-//     if (files.length) {
-//       let i = 0;
-//       let notFound = true;
-//       do {
-//         const filePhotoFirst = files.item(i);
-//         if (filePhotoFirst?.type.startsWith("image")) {
-//           // @ts-ignore
-//           if (filePhotoFirst.size <= maxSizeProfilePhoto) {
-//             setEditorImageProps({
-//               src: URL.createObjectURL(filePhotoFirst),
-//               // @ts-ignore
-//               callbackBlob
-//             });
-//             notFound = false;
-//           } else {
-//             // @ts-ignore
-//             showAlert(`Max photo size: ${maxSizeProfilePhotoMiB} MiB`);
-//             i++;
-//           }
-//         } else {
-//           i++;
-//         }
-//       } while (notFound && i < files.length);
-//     }
-//   }
-
-//   return (
-//     <DragDrop onDrop={onDropPhoto} className={styles["container-photo-background"]}>
-//       {photo ? (
-//         // @ts-ignore
-//         <ProfilePhotoDetails setPhoto={setPhoto} actionRemove={removeBackgroundBackend}>
-//           <img src={photo} draggable={false} className={styles["photo-background"]} />
-//         </ProfilePhotoDetails>
-//       ) : (
-//         <label htmlFor="input-background">
-//           <IconPhoto width="5em" />
-//           Background
-//         </label>
-//       )}
-//       <input type="file" accept="image/*" onChange={onChangePhoto} hidden id="input-background" />
-//     </DragDrop>
-//   );
-// }
 
 function Photos() {
   /**
@@ -337,10 +262,6 @@ function Photos() {
 
   return (
     <>
-      {/*<div className={styles["container-photos"]}>
-        <ProfilePhoto setEditorImageProps={setEditorImageProps} />
-        {/* <ProfileBackground setEditorImageProps={setEditorImageProps} /> */}
-      {/*</div>*/}
       <ProfilePhoto setEditorImageProps={setEditorImageProps} />
       <EditorImage {...EditorImageProps} />
     </>
@@ -404,7 +325,7 @@ function FormProfileDisplayName() {
   }
 
   return (
-    <form onSubmit={submitProfileDisplayName}>
+    <form className="mbs-4" onSubmit={submitProfileDisplayName}>
       <InputGroup
         type="text"
         placeholder="e.g. John Doe"
@@ -416,7 +337,7 @@ function FormProfileDisplayName() {
       >
         Display name
       </InputGroup>
-      <ButtonNext className="float-end ps-3.5 mbs-4" disabled={submitting} type="submit" />
+      <ButtonNext className="float-end mbs-4 ps-3.5" disabled={submitting} type="submit" />
     </form>
   );
 }

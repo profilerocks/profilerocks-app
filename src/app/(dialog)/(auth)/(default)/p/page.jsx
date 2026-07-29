@@ -4,7 +4,7 @@ import LinkBack from "#src/ui/link/back";
 export default function PageCreateProfile() {
   return (
     <>
-      <LinkBack className="ms-2 mbs-3 max-w-max sm:hidden pe-3.5" href="#side">
+      <LinkBack className="ms-2 mbs-3 max-w-max pe-3.5 sm:hidden" href="#side">
         Home
       </LinkBack>
       <div className="px-4">

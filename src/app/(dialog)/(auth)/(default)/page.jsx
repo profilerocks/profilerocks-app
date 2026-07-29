@@ -13,7 +13,7 @@ export default function PageAuthDefault() {
 
   return (
     <>
-      <LinkBack className="ms-2 mbs-3 max-w-max sm:hidden pe-3.5" href="#side">
+      <LinkBack className="ms-2 mbs-3 max-w-max pe-3.5 sm:hidden" href="#side">
         Home
       </LinkBack>
       <div className="px-6 pbs-4">

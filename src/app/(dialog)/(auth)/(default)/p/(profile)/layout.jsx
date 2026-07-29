@@ -11,8 +11,8 @@ export default function LayoutProfile({ children }) {
   return (
     <Suspense>
       <AuthProfile>
-        <header className="md:hidden flex items-center gap-2 px-2 pbs-2">
-          <LinkBack href="#side" className="sm:hidden pe-3.5">
+        <header className="flex items-center gap-2 px-2 pbs-2 md:hidden">
+          <LinkBack href="#side" className="pe-3.5 sm:hidden">
             Home
           </LinkBack>
           <LinkNext href="#preview" className="ms-auto ps-3.5">

@@ -6,11 +6,7 @@ import globalState from "#src/lib/state";
 export function UserDisplayName() {
   const { displayName } = useSnapshot(globalState);
 
-  return (
-    <p title={displayName}>
-      {displayName}
-    </p>
-  );
+  return <p title={displayName}>{displayName}</p>;
 }
 
 export function UserEmail() {
@@ -22,7 +18,7 @@ export function UserEmail() {
   }
 
   return (
-    <p className="text-zinc-400 text-xs" title={displayEmail}>
+    <p className="text-xs text-zinc-400" title={displayEmail}>
       {displayEmail}
     </p>
   );
