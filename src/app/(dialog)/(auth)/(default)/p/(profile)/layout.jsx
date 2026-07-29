@@ -2,8 +2,6 @@ import { Suspense } from "react";
 import AuthProfile from "#src/ui/auth/profile";
 import LinkBack from "#src/ui/link/back";
 import LinkNext from "#src/ui/link/next";
-// import LinkProfilePublic from "#src/ui/link/profile";
-import styles from "./layout.module.scss";
 
 /**
  * @param {Object} props
@@ -13,11 +11,11 @@ export default function LayoutProfile({ children }) {
   return (
     <Suspense>
       <AuthProfile>
-        <header className={`hide-desktop-large ${styles["page-header"]}`}>
-          <LinkBack href="#side" className={`hide-desktop ${styles["page-anchor-home"]}`}>
+        <header className="md:hidden flex items-center justify-between gap-2 px-2 pbs-2">
+          <LinkBack href="#side" className="sm:hidden pe-3.5">
             Home
           </LinkBack>
-          <LinkNext href="#preview" className={styles["page-anchor-preview"]}>
+          <LinkNext href="#preview" className="ps-3.5">
             Preview
           </LinkNext>
         </header>

@@ -1,8 +1,8 @@
-import styles from "./layout.module.scss";
-
 /**
- * @param {{ children: React.ReactNode }} props
+ * @function
+ * @param {Object} props
+ * @param {React.ReactNode} props.children
  */
 export default function LayoutProfileSetup({ children }) {
-  return <div className={styles.container}>{children}</div>;
+  return <div className="max-w-2xl w-full mx-auto px-6 pbe-10">{children}</div>;
 }

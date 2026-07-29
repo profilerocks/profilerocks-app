@@ -1,11 +1,9 @@
 import EditProfileHeader from "#src/ui/form/profile/header";
 
-import styles from "./page.module.scss";
-
 export default function PageSetupProfileHeader() {
   return (
     <>
-      <h1 className={styles["page-title"]}>Add your personal touch</h1>
+      <h1 className="text-2xl sm:text-3xl my-4 text-center">Add your personal touch</h1>
       <EditProfileHeader />
     </>
   );
