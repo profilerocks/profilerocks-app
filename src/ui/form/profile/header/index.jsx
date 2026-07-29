@@ -1,10 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useDeferredValue, useEffect, useRef, useState } from "react";
+import { useDeferredValue, useEffect, useId, useRef, useState } from "react";
 import { CircleStencil } from "react-mobile-cropper";
 import displayNameAttributes from "#shared/display.json";
 import photoAttributes from "#shared/photo.json";
+import IconBin from "#src/icons/bin.svg";
+import IconLoading from "#src/icons/loading.svg"
+import IconPencil from "#src/icons/pencil.svg";
+import IconUpload from "#src/icons/upload.svg";
 import { showAlertErrorApp, showAlert } from "#src/lib/alert";
 import { HREF_ASSETS } from "#src/lib/env";
 import { normalizeDisplayName } from "#src/lib/name";
@@ -13,11 +17,7 @@ import globalState from "#src/lib/state";
 import ButtonNext from "#src/ui/button/next";
 import DragDrop from "#src/ui/dragdrop";
 import EditorImage from "#src/ui/editor/image";
-import Loading from "#src/ui/loading";
 import InputGroup from "#src/ui/input/group";
-import IconUpload from "#src/icons/upload.svg";
-import IconPencil from "#src/icons/pencil.svg";
-import IconBin from "#src/icons/bin.svg";
 import styles from "./index.module.scss";
 
 const sizeImg = 158;
@@ -27,23 +27,15 @@ function Photo({ src = "/user.png" }) {
   return <img src={src} width={sizeImg} height={sizeImg} draggable="false" className={styles.photo} />;
 }
 
-function ProfilePhotoEmpty() {
-  return (
-    <label htmlFor="input-photo" className={styles["profile-photo-edit"]}>
-      <Photo />
-      <IconUpload width="2em" className={styles["icon-photo-edit"]} />
-    </label>
-  );
-}
-
 /**
- * @param {{
- *   children: React.ReactNode,
- *   actionRemove: (publicId: string) => Promise<Response | undefined>,
- *   setPhoto: React.Dispatch<React.SetStateAction<string | undefined>>
- * }} props
+ * @function ProfilePhotoDetails
+ * @param {Object} props
+ * @param {(publicId:string)=>Promise<Response|undefined>} props.actionRemove
+ * @param {React.ReactNode} props.children
+ * @param {string} props.inputPhotoId
+ * @param {React.Dispatch<React.SetStateAction<string|undefined>>} props.setPhoto
  */
-function ProfilePhotoDetails({ setPhoto, actionRemove, children }) {
+function ProfilePhotoDetails({ actionRemove, children, inputPhotoId, setPhoto }) {
   /** @type {React.RefObject<HTMLDetailsElement|null>} */
   const detailsRef = useRef(null);
 
@@ -86,13 +78,13 @@ function ProfilePhotoDetails({ setPhoto, actionRemove, children }) {
   }, []);
 
   return (
-    <details className={styles["profile-image-details"]} name="photo-options" ref={detailsRef}>
-      <summary className={styles["profile-photo-edit"]}>
+    <details className="details-content:transition details-content:transition-discrete not-open:details-content:opacity-0 " name="photo-options" ref={detailsRef}>
+      <summary className="flex cursor-pointer hover:text-zinc-200 hover:bg-zinc-800 active:text-zinc-100 active:bg-zinc-700">
         {children}
         <IconPencil width="2em" className={styles["icon-photo-edit"]} />
       </summary>
       <div className={styles["profile-photo-actions"]}>
-        <label htmlFor="input-photo">
+        <label htmlFor={inputPhotoId}>
           <IconUpload width="1.25em" />
           Change
         </label>
@@ -119,6 +111,8 @@ function ProfilePhoto({ setEditorImageProps }) {
   );
 
   const [submitting, setSubmitting] = useState(false);
+
+  const inputPhotoId = useId();
 
   function cleanPhoto() {
     if (photo) {
@@ -222,14 +216,17 @@ function ProfilePhoto({ setEditorImageProps }) {
   return (
     <DragDrop onDrop={onDropPhoto} className={styles["container-photo-profile"]}>
       {photo ? (
-        <ProfilePhotoDetails setPhoto={setPhoto} actionRemove={requestProfilePhotoDeletion}>
+        <ProfilePhotoDetails actionRemove={requestProfilePhotoDeletion} inputPhotoId={inputPhotoId} setPhoto={setPhoto}>
           <Photo src={photo} />
         </ProfilePhotoDetails>
       ) : (
-        <ProfilePhotoEmpty />
+        <label htmlFor={inputPhotoId} className={styles["profile-photo-edit"]}>
+          <Photo />
+          <IconUpload width="2em" className={styles["icon-photo-edit"]} />
+        </label>
       )}
-      {submitting && <Loading />}
-      <input type="file" accept="image/*" onChange={onChangePhoto} hidden id="input-photo" />
+      {submitting && <IconLoading className="absolute inset-0" />}
+      <input accept="image/*" hidden id={inputPhotoId} onChange={onChangePhoto} type="file" />
     </DragDrop>
   );
 }
@@ -419,7 +416,7 @@ function FormProfileDisplayName() {
       >
         Display name
       </InputGroup>
-      <ButtonNext type="submit" disabled={submitting} className={styles["btn-next"]} />
+      <ButtonNext className="float-end ps-3.5 mbs-4" disabled={submitting} type="submit" />
     </form>
   );
 }

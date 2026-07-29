@@ -11,11 +11,11 @@ export default function LayoutProfile({ children }) {
   return (
     <Suspense>
       <AuthProfile>
-        <header className="md:hidden flex items-center justify-between gap-2 px-2 pbs-2">
+        <header className="md:hidden flex items-center gap-2 px-2 pbs-2">
           <LinkBack href="#side" className="sm:hidden pe-3.5">
             Home
           </LinkBack>
-          <LinkNext href="#preview" className="ps-3.5">
+          <LinkNext href="#preview" className="ms-auto ps-3.5">
             Preview
           </LinkNext>
         </header>

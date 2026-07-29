@@ -1,5 +1,4 @@
 import { useState } from "react";
-import styles from "./index.module.scss";
 
 /**
  * @callback OnDrop
@@ -25,7 +24,7 @@ function onDragOver(event) {
  * @param {React.HTMLAttributes<HTMLDivElement>&DragDropSpecificProps} props
  * @returns {React.ReactNode}
  */
-export default function DragDrop({ children, onDrop, className, ...props }) {
+export default function DragDrop({ children, onDrop, ...props }) {
   const [isDragging, setIsDragging] = useState(false);
 
   /**
@@ -58,19 +57,16 @@ export default function DragDrop({ children, onDrop, className, ...props }) {
     setIsDragging(false);
   }
 
-  className += " " + styles["container-draggable"];
-
-  if (isDragging) {
-    className += " " + styles.dragging;
-  }
-
   return (
     <div
+      className={
+        "transition-colors border-3 border-dashed rounded-lg" +
+        (isDragging ? " border-zinc-600 pointer-events-none" : "")
+      }
       onDragEnter={onDragEnter}
-      onDragOver={onDragOver}
       onDragLeave={onDragLeave}
+      onDragOver={onDragOver}
       onDrop={onDropWrapper}
-      className={className}
       {...props}
     >
       {children}
