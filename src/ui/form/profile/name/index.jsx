@@ -153,8 +153,8 @@ export default function FormProfileNameId({ children, defaultValue = "", disable
 
   return (
     <form autoComplete="off" onSubmit={submitProfileName} title={disabled ? "Not allowed to change the profile name." : undefined}>
-      <div className="mx-auto flex max-w-3xl rounded-4xl border-2 border-zinc-700 text-lg transition-colors focus-within:border-emerald-400">
-        <label className="cursor-text py-2.5 ps-3.5 text-zinc-300" htmlFor={inputId}>
+      <div className="mx-auto flex max-w-3xl rounded-4xl border-2 border-zinc-700 text-lg sm:text-xl transition-colors focus-within:border-emerald-400">
+        <label className="cursor-text py-2.5 ps-3.5 sm:py-3 sm:ps-4 text-zinc-300" htmlFor={inputId}>
           profile.rocks/
         </label>
         <input

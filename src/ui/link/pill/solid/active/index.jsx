@@ -1,24 +1,27 @@
 import { usePathname } from "next/navigation";
-import LinkPillSolid from "#src/ui/link/pill/solid";
-import styles from "./index.module.scss";
+import LinkPill from "#src/ui/link/pill";
 
 /**
  * @function
  * @param {import("next/link").LinkProps<HTMLAnchorElement>&React.HTMLProps<HTMLAnchorElement>} props
  * @returns {React.ReactNode}
  */
-export default function LinkPillSolidActive({ children, href, className: customClassName = "", ...props }) {
+export default function LinkPillSolidActive({ children, href, className: customClassName, ...props }) {
   const pathname = usePathname();
 
-  let className = customClassName;
-
-  if (href.split("?")[0].split("#")[0] === pathname) {
-    className += " " + styles.active;
-  }
+  const active = href.split("?")[0].split("#")[0] === pathname;
 
   return (
-    <LinkPillSolid className={className} href={href} {...props}>
+    <LinkPill
+      className={
+        "bg-zinc-900 " +
+        (active ? "text-emerald-400" : "text-zinc-400 hover:text-zinc-300 active:text-zinc-200") +
+        (customClassName ? " " + customClassName : "")
+      }
+      href={href}
+      {...props}
+    >
       {children}
-    </LinkPillSolid>
+    </LinkPill>
   );
 }

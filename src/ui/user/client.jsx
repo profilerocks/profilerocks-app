@@ -2,13 +2,12 @@
 
 import { useSnapshot } from "valtio";
 import globalState from "#src/lib/state";
-import styles from "./index.module.scss";
 
 export function UserDisplayName() {
   const { displayName } = useSnapshot(globalState);
 
   return (
-    <p className={styles["p-display-name"]} title={displayName}>
+    <p title={displayName}>
       {displayName}
     </p>
   );
@@ -23,7 +22,7 @@ export function UserEmail() {
   }
 
   return (
-    <p className={styles["p-email"]} title={displayEmail}>
+    <p className="text-zinc-400 text-xs" title={displayEmail}>
       {displayEmail}
     </p>
   );
