@@ -4,16 +4,14 @@ import { useRef, useEffect } from "react";
 import { Cropper } from "react-mobile-cropper";
 import IconClose from "#src/icons/close.svg";
 import Button from "#src/ui/button";
-import styles from "./index.module.scss";
 import "react-mobile-cropper/dist/style.css";
 
 /**
- * @typedef {import("react-mobile-cropper").CropperRef} CropperRef
- * @typedef {import("react-mobile-cropper").CropperProps} CropperProps
+ * @import {CropperProps,CropperRef} from "react-mobile-cropper"
  */
 
 /**
- * @param {CropperProps & { callbackBlob?: BlobCallback }} props
+ * @param {CropperProps&{callbackBlob?:BlobCallback}} props
  */
 export default function ImageEditor({ src, callbackBlob, ...restProps }) {
   /**
@@ -32,7 +30,6 @@ export default function ImageEditor({ src, callbackBlob, ...restProps }) {
   }
 
   useEffect(() => {
-    console.log(src);
     if (src) {
       dialogRef.current?.showModal();
       return cleanPhoto;
@@ -59,8 +56,11 @@ export default function ImageEditor({ src, callbackBlob, ...restProps }) {
   };
 
   return (
-    <dialog className={styles["dialog-image-editor"]} onKeyDown={onKeyDown} ref={dialogRef}>
-      <form method="dialog" className={styles.actions}>
+    <dialog className="max-w-full max-h-full" onKeyDown={onKeyDown} ref={dialogRef}>
+      <form
+        className="flex absolute justify-between items-center gap-4 z-1 mx-auto inset-bs-2 inset-x-2 max-w-5xl"
+        method="dialog"
+      >
         <Button type="submit">
           <IconClose width="1.5em" />
         </Button>
@@ -68,7 +68,15 @@ export default function ImageEditor({ src, callbackBlob, ...restProps }) {
           Save
         </Button>
       </form>
-      <Cropper src={src} ref={copperRef} className={styles.cropper} navigationProps={{ className: styles.navigation }} {...restProps} />
+      <Cropper
+        className="pbs-18 pbe-26 h-full text-emerald-400"
+        navigationProps={{
+          className: "inset-be-4"
+        }}
+        ref={copperRef}
+        src={src}
+        {...restProps}
+      />
     </dialog>
   );
 }
