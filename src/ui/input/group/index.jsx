@@ -14,7 +14,7 @@ function Input({ className: customClassName, ...restProps }) {
     <input
       {...restProps}
       className={
-        "w-full rounded-lg border-2 border-zinc-700 bg-clip-text p-3 caret-emerald-400 transition-colors outline-none user-invalid:border-rose-500 focus:border-emerald-400" +
+        "w-full rounded-lg border-2 border-zinc-700 bg-clip-text p-3 caret-emerald-400 outline-hidden transition-colors user-invalid:border-rose-500 focus:border-emerald-400" +
         (customClassName ? " " + customClassName : "")
       }
     />

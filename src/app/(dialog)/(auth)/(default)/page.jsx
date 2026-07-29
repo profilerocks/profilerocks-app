@@ -21,19 +21,24 @@ export default function PageAuthDefault() {
         <p className="mbs-4">Public Beta version: 1.1.0</p>
         {!profiles?.length && (
           <>
-            <p className="text-zinc-200 mbs-4">
+            <p className="mbs-4 text-zinc-200">
               A profile is the foundation of your identity on <strong>{PLATFORM_NAME}</strong>. It allows you to centralize your digital
               footprint and showcase your content with the world.
             </p>
-            <p className="text-zinc-200 mbs-4">Start by creating your first profile.</p>
+            <p className="mbs-4 text-zinc-200">Start by creating your first profile.</p>
             <LinkNext href="/p#page" className="mbs-4">
               <IconUserPlus width="1.25em" />
               Create your first profile
             </LinkNext>
-        </>
+          </>
         )}
-        <footer className="text-zinc-300 mbs-6">
-          If you have any issues, you can visit the{" "} <Link href={HREF_HELP} rel="noopener noreferrer" target="_blank"> help page</Link>.
+        <footer className="mbs-6 text-zinc-300">
+          If you have any issues, you can visit the{" "}
+          <Link href={HREF_HELP} rel="noopener noreferrer" target="_blank">
+            {" "}
+            help page
+          </Link>
+          .
         </footer>
       </div>
     </>

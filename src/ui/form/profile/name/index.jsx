@@ -16,7 +16,6 @@ import Button from "#src/ui/button";
 import DateTime from "#src/ui/date";
 import Message from "#src/ui/message";
 import Requirements from "#src/ui/requirement/list";
-import styles from "./index.module.scss";
 
 /**
  * @callback RequestFunction
@@ -42,7 +41,6 @@ const NAME_ID_UPDATE_GAP_DAYS = Math.ceil(profileAttributes.nameIdUpdateGapMs / 
  * @param {string} [params.boxClassName]
  * @param {string} [params.defaultValue]
  * @param {boolean} [params.disabled]
- * @param {string} [params.requirementsClassName]
  * @param {string} [params.submitTitle]
  * @returns {React.ReactNode}
  */
@@ -53,7 +51,6 @@ export default function FormProfileNameId({
   disabled,
   onSuccess,
   requestFunction,
-  requirementsClassName,
   submitTitle
 }) {
   const [nameId, setNameId] = useState(defaultValue);
@@ -163,20 +160,22 @@ export default function FormProfileNameId({
     }
   }
 
-  let boxClassName = styles["box-profile-name-id"];
-
-  if (customBoxClassName) {
-    boxClassName += " " + customBoxClassName;
-  }
-
   return (
     <form autoComplete="off" onSubmit={submitProfileName} title={disabled ? "Not allowed to change the profile name." : undefined}>
-      <div className={boxClassName}>
-        <label htmlFor={inputId}>profile.rocks/</label>
+      <div
+        className={
+          "flex rounded-4xl border-2 border-zinc-700 transition-colors focus-within:border-emerald-400 sm:text-lg" +
+          (customBoxClassName ? " " + customBoxClassName : "")
+        }
+      >
+        <label className="cursor-text py-2.5 ps-3.5 text-zinc-300" htmlFor={inputId}>
+          profile.rocks/
+        </label>
         <input
           autoCapitalize="off"
           autoComplete="off"
           autoCorrect="off"
+          className="min-w-0 flex-1 caret-emerald-400 outline-hidden"
           disabled={inputDisabled}
           id={inputId}
           minLength={profileAttributes.minLength}
@@ -189,11 +188,11 @@ export default function FormProfileNameId({
           value={nameId}
           type="text"
         />
-        <Button type="submit" disabled={!nameIdValid || inputDisabled} title={submitTitle}>
+        <Button className="mx-1.5 self-center" disabled={!nameIdValid || inputDisabled} title={submitTitle} type="submit">
           {children}
         </Button>
       </div>
-      <Requirements className={requirementsClassName}>
+      <Requirements>
         <li className={nameIdFormatCorrect === true ? "valid" : nameIdFormatCorrect === false ? "invalid" : undefined}>
           Latin letters, numbers & embedded underscores
         </li>
@@ -254,10 +253,9 @@ export function FormProfileNameIdPageWrapper() {
 
   return allowed ? (
     <FormProfileNameId
-      boxClassName={styles["box-profile-name-id-page"]}
+      boxClassName="max-w-2xl mx-auto"
       onSuccess={moveToSetupPageOnSuccess}
       requestFunction={requestProfileCreation}
-      requirementsClassName={styles["requirements-box-profile-name-id"]}
       submitTitle="Next"
     >
       <IconArrowRight width="1em" />
@@ -326,7 +324,7 @@ export function FormProfileNameIdUpdate() {
   return (
     <>
       {nameIdUpdateAt && (
-        <p className={styles["profile-name-id-update-date"]}>
+        <p className="text-sm">
           Last update: <DateTime dateTime={nameIdUpdateAt} />
         </p>
       )}
@@ -335,14 +333,13 @@ export function FormProfileNameIdUpdate() {
         {NAME_ID_UPDATE_GAP_DAYS} days.
       </p>
       <FormProfileNameId
-        boxClassName={styles["box-profile-name-id-update"]}
         defaultValue={currentProfile.name_id}
         disabled={disabled}
         onSuccess={onSuccess}
         requestFunction={requestFunction}
         submitTitle="Save"
       >
-        <span className={styles["btn-text-profile-name-id"]}>Save</span>
+        <span className="hidden sm:inline-block">Save</span>
         <IconPencil width="1.125em" />
       </FormProfileNameId>
     </>
