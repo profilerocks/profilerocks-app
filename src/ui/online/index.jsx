@@ -2,7 +2,6 @@
 
 import useOnlineStatus from "#src/lib/hooks/online";
 import IconOffline from "#src/icons/offline.svg";
-import styles from "./index.module.scss";
 
 /**
  * @function
