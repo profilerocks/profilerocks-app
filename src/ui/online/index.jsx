@@ -12,11 +12,9 @@ export default function OnlineStatus() {
   const isOnline = useOnlineStatus();
 
   return isOnline ? null : (
-    <aside className={styles["container-offline"]}>
-      <figure className={styles["figure-offline"]}>
-        <IconOffline width="1.125em" />
-        <figcaption>You're offline</figcaption>
-      </figure>
+    <aside className="fixed inset-x-0 inset-be-0 z-2 flex justify-center gap-2 bg-rose-500 text-zinc-950">
+      <IconOffline width="1.125em" />
+      You're offline
     </aside>
   );
 }
