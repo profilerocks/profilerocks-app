@@ -28,25 +28,34 @@ function ProfileEntry({ profile }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const active = pathname.startsWith("/p/") && searchParams.get("id") === profile.public_id;
+  const displayName = profile.display_name || profile.name_id;
 
   return (
     <Link
-      className="flex flex-1 items-center gap-3.5 overflow-hidden p-4 transition-colors select-none hover:bg-zinc-800 hover:text-zinc-100 active:bg-zinc-700 active:text-zinc-100"
+      className={"group flex gap-3 px-4 py-3 transition-colors hover:bg-zinc-800 active:bg-zinc-700" + (active ? " bg-zinc-900" : "")}
       href={"/p/content?id=" + profile.public_id + "#page"}
     >
       <img
-        src={profile.photo ? HREF_ASSETS + "/profile/" + profile.public_id + "/photo" : "/user.png"}
         alt="Profile photo"
-        width="48"
-        height="48"
+        className="rounded-full shadow-sm shadow-black"
         draggable="false"
-        className="rounded-full shadow-xs"
+        height="48"
+        src={profile.photo ? HREF_ASSETS + "/profile/" + profile.public_id + "/photo" : "/user.png"}
+        width="48"
       />
-      <div className="flex flex-1 items-center gap-3.5 overflow-hidden p-4 transition-colors">
-        <p className={"truncate text-lg transition-colors " + (active ? "text-emerald-400" : "text-zinc-300")}>
-          {profile.display_name || profile.name_id}
+      <div className="overflow-hidden">
+        <p
+          className={
+            "truncate text-lg transition-colors " +
+            (active ? "text-emerald-400" : "text-zinc-300 group-hover:text-zinc-200 group-active:text-zinc-100")
+          }
+          title={displayName}
+        >
+          {displayName}
         </p>
-        <p className="truncate text-sm text-zinc-400 transition-colors">{profile.name_id}</p>
+        <p className="truncate text-sm text-zinc-400 transition-colors group-active:text-zinc-300" title={profile.name_id}>
+          {profile.name_id}
+        </p>
       </div>
     </Link>
   );
@@ -82,7 +91,7 @@ export default function ProfileList() {
           </div>
         </Suspense>
       ) : null}
-      <menu className="flex flex-wrap gap-x-6 gap-y-4 px-4 *:flex-1">
+      <menu className="mbs-4 flex flex-wrap gap-x-6 gap-y-4 px-4 *:flex-1">
         {profilesRemaining > 0 && (
           <li>
             <LinkPillSolidActive className="pe-3.5" href="/p#page">
@@ -92,15 +101,15 @@ export default function ProfileList() {
           </li>
         )}
         <li>
-          <LinkNext className="hover:*:rotate-360" href="/u/settings">
-            <IconSettings className="transition-transform duration-1000" width="1.5em" />
+          <LinkNext className="group" href="/u/settings">
+            <IconSettings className="transition-transform duration-1000 group-hover:rotate-360" width="1.5em" />
             User Settings
           </LinkNext>
         </li>
       </menu>
-      <p className="my-6 text-center text-sm text-zinc-500">You can create up to {profileAttributes.limit} profiles</p>
+      <p className="mbs-6 text-center text-sm text-zinc-500">You can create up to {profileAttributes.limit} profiles</p>
       {profiles?.length ? (
-        <p className="text-center text-sm text-zinc-500">
+        <p className="text-center text-sm text-zinc-500 mbs-1.5">
           {profilesRemaining} more profile{profilesRemaining !== 1 ? "s" : ""} available
         </p>
       ) : null}

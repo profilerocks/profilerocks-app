@@ -16,11 +16,11 @@ export default function User({ className: customClassName }) {
         <UserEmail />
       </div>
       <Link
-        className="flex min-w-max items-center gap-2.5 rounded-3xl p-1.5 font-medium text-teal-500 transition-colors select-none hover:bg-zinc-800 hover:text-teal-400 hover:*:rotate-360 active:bg-zinc-700 active:text-teal-300"
+        className="flex min-w-max items-center gap-2.5 rounded-3xl p-1.5 font-medium text-teal-500 transition-colors select-none hover:bg-zinc-800 hover:text-teal-400 active:bg-zinc-700 active:text-teal-300 group"
         href="/u/settings"
         title="User settings"
       >
-        <IconSettings className="transition-transform duration-1000" width="1.75em" />
+        <IconSettings className="transition-transform duration-1000 group-hover:rotate-360" width="1.75em" />
       </Link>
     </div>
   );
