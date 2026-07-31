@@ -104,12 +104,12 @@ function ProfilePhotoDetails({ actionRemovePhoto, children, inputPhotoId, setPho
           width="2.125em"
         />
       </summary>
-      <div className="absolute inset-x-0 inset-bs-0 z-1 min-w-max select-none">
+      <div className="flex flex-col divide-y divide-zinc-700 border border-zinc-700 absolute inset-x-0 inset-bs-0 z-1 min-w-max select-none *:flex *:p-2 *:flex *:gap-2 *:cursor-pointer *:bg-zinc-900/90">
         <label htmlFor={inputPhotoId}>
           <IconUpload width="1.25em" />
           Change
         </label>
-        <button type="button" onClick={removePhoto}>
+        <button onClick={removePhoto} type="button">
           <IconBin width="1.25em" />
           Remove
         </button>

@@ -8,10 +8,10 @@ import "react-mobile-cropper/dist/style.css";
 
 /**
  * @import {CropperProps,CropperRef} from "react-mobile-cropper"
- * 
+ *
  * @typedef {object} ImageEditorRestProps
  * @prop {BlobCallback} [callbackBlob]
- * 
+ *
  * Remember that Webkit applies a default max-width and max-height of 100% - 2em - 6px.
  * Override with `none`.
  */
@@ -62,7 +62,7 @@ export default function ImageEditor({ src, callbackBlob, ...restProps }) {
   };
 
   return (
-    <dialog className="w-full h-full max-w-none max-h-none" onKeyDown={onKeyDown} ref={dialogRef}>
+    <dialog className="h-full max-h-none w-full max-w-none" onKeyDown={onKeyDown} ref={dialogRef}>
       <form
         className="absolute inset-x-4 inset-bs-2 z-1 mx-auto flex max-w-5xl items-center justify-between gap-4 *:shadow-sm *:shadow-black"
         method="dialog"
@@ -70,16 +70,11 @@ export default function ImageEditor({ src, callbackBlob, ...restProps }) {
         <Button type="submit">
           <IconClose width="1.5em" />
         </Button>
-        <Button type="submit" onClick={onCrop} autoFocus>
+        <Button autoFocus type="submit" onClick={onCrop}>
           Save
         </Button>
       </form>
-      <Cropper
-        className="h-full pbs-15.5! text-emerald-400!"
-        ref={copperRef}
-        src={src}
-        {...restProps}
-      />
+      <Cropper className="h-full pbs-15.5! text-emerald-400!" ref={copperRef} src={src} {...restProps} />
     </dialog>
   );
 }

@@ -160,7 +160,7 @@ export default function DefaultLayout({ children }) {
       className="flex flex-1 snap-x snap-mandatory scrollbar-none overflow-x-auto scroll-smooth *:min-w-full *:snap-center *:snap-always *:overflow-y-auto"
       ref={containersRef}
     >
-      <section className="flex flex-col z-3 pbe-10" id="side">
+      <section className="z-3 flex flex-col pbe-10" id="side">
         <header className="sticky inset-bs-0 z-1 flex gap-3 px-4 py-3.5 before:absolute before:inset-x-0 before:inset-bs-0 before:-z-1 before:shadow-[0_0_1.75em_3.75em_#000]">
           <Link href="/#side" className="select-none">
             <SvgLogoLong width="16em" />

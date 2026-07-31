@@ -109,7 +109,7 @@ export default function ProfileList() {
       </menu>
       <p className="mbs-6 text-center text-sm text-zinc-500">You can create up to {profileAttributes.limit} profiles</p>
       {profiles?.length ? (
-        <p className="text-center text-sm text-zinc-500 mbs-1.5">
+        <p className="mbs-1.5 text-center text-sm text-zinc-500">
           {profilesRemaining} more profile{profilesRemaining !== 1 ? "s" : ""} available
         </p>
       ) : null}
