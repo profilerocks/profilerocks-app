@@ -9,7 +9,7 @@ import IconArrowRight from "#src/icons/arrow/right.svg";
 /**
  * @function
  * @param {LinkProps<HTMLAnchorElement>&React.HTMLProps<HTMLAnchorElement>} props
- * @returns
+ * @returns {React.ReactNode}
  */
 export default function LinkEdit({ children, className: customClassName, ...props }) {
   return (

@@ -8,10 +8,16 @@ import "react-mobile-cropper/dist/style.css";
 
 /**
  * @import {CropperProps,CropperRef} from "react-mobile-cropper"
+ * 
+ * @typedef {object} ImageEditorRestProps
+ * @prop {BlobCallback} [callbackBlob]
+ * 
+ * Remember that Webkit applies a default max-width and max-height of 100% - 2em - 6px.
+ * Override with `none`.
  */
 
 /**
- * @param {CropperProps&{callbackBlob?:BlobCallback}} props
+ * @param {CropperProps&ImageEditorRestProps} props
  */
 export default function ImageEditor({ src, callbackBlob, ...restProps }) {
   /**
@@ -56,8 +62,11 @@ export default function ImageEditor({ src, callbackBlob, ...restProps }) {
   };
 
   return (
-    <dialog className="max-h-full max-w-full" onKeyDown={onKeyDown} ref={dialogRef}>
-      <form className="absolute inset-x-2 inset-bs-2 z-1 mx-auto flex max-w-5xl items-center justify-between gap-4" method="dialog">
+    <dialog className="w-full h-full max-w-none max-h-none" onKeyDown={onKeyDown} ref={dialogRef}>
+      <form
+        className="absolute inset-x-4 inset-bs-2 z-1 mx-auto flex max-w-5xl items-center justify-between gap-4 *:shadow-sm *:shadow-black"
+        method="dialog"
+      >
         <Button type="submit">
           <IconClose width="1.5em" />
         </Button>
@@ -66,10 +75,7 @@ export default function ImageEditor({ src, callbackBlob, ...restProps }) {
         </Button>
       </form>
       <Cropper
-        className="h-full pbs-18 pbe-26 text-emerald-400"
-        navigationProps={{
-          className: "inset-be-4"
-        }}
+        className="h-full pbs-15.5! text-emerald-400!"
         ref={copperRef}
         src={src}
         {...restProps}
