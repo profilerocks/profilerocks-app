@@ -27,8 +27,8 @@ const maxPhotoSizeMiB = photoAttributes.maxPhotoSize / 1048576;
 /**
  * @function Photo
  * @param {Object} props
- * @param {string} [props.src] 
- * @returns 
+ * @param {string} [props.src]
+ * @returns
  */
 function Photo({ src = "/user.png" }) {
   return (
@@ -95,25 +95,23 @@ function ProfilePhotoDetails({ actionRemovePhoto, children, inputPhotoId, setPho
 
   return (
     <details
-      className="details-content:transition details-content:transition-discrete not-open:details-content:opacity-0 group"
+      className="group details-content:transition details-content:transition-discrete not-open:details-content:opacity-0"
       name="photo-options"
       ref={detailsRef}
     >
-      <summary className="group flex cursor-pointer text-zinc-400 hover:text-zinc-300 active:text-zinc-200 group-open:text-zinc-100!">
+      <summary className="group flex cursor-pointer text-zinc-400 group-open:text-zinc-100! hover:text-zinc-300 active:text-zinc-200">
         {children}
         <IconPencil
           className="absolute inset-e-0 inset-be-0 rounded-lg bg-zinc-900 p-1.5 transition-colors hover:bg-zinc-800 active:bg-zinc-700"
           width="2.125em"
         />
       </summary>
-      <div
-        className="flex flex-col divide-y divide-zinc-700 text-zinc-300 absolute inset-x-0 inset-bs-0 z-1 min-w-max select-none *:flex *:p-2 *:gap-2 *:cursor-pointer *:transition-colors *:bg-zinc-900/90 *:hover:bg-zinc-800/90 *:hover:text-zinc-200 *:active:bg-zinc-700/90 *:active:text-zinc-100 *:border-x *:border-zinc-700"
-      >
-        <label className="border-bs rounded-t-xl" htmlFor={inputPhotoId}>
+      <div className="absolute inset-x-0 inset-bs-0 z-1 flex min-w-max flex-col divide-y divide-zinc-700 text-zinc-300 select-none *:flex *:cursor-pointer *:gap-2 *:border-x *:border-zinc-700 *:bg-zinc-900/90 *:p-2 *:transition-colors *:hover:bg-zinc-800/90 *:hover:text-zinc-200 *:active:bg-zinc-700/90 *:active:text-zinc-100">
+        <label className="rounded-t-xl border-bs" htmlFor={inputPhotoId}>
           <IconUpload width="1.25em" />
           Change
         </label>
-        <button className="border-be rounded-b-xl" onClick={removePhoto} type="button">
+        <button className="rounded-b-xl border-be" onClick={removePhoto} type="button">
           <IconBin width="1.25em" />
           Remove
         </button>
@@ -210,7 +208,7 @@ function ProfilePhoto({ setEditorImageProps }) {
 
   /**
    * @function onDropPhoto
-   * @param {React.DragEvent<HTMLInputElement>} event 
+   * @param {React.DragEvent<HTMLInputElement>} event
    */
   function onDropPhoto(event) {
     if (!submitting) {
