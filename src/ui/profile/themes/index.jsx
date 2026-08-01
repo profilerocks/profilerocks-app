@@ -7,12 +7,11 @@ import { showAlert, showAlertErrorApp } from "#src/lib/alert";
 import { requestProfileThemes, requestProfileThemeChange } from "#src/lib/request";
 import globalState from "#src/lib/state";
 import { isProfilePremium } from "#src/lib/state/profile";
-import styles from "./index.module.scss";
 
 /**
  * @typedef {Object} ProfileThemeObject
- * @prop {string} background - Base64Url encoded
- * @prop {string} color - Base64Url encoded
+ * @prop {string} background
+ * @prop {string} color
  * @prop {(0|1)} premium
  * @prop {string} title
  *
