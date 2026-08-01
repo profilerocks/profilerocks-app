@@ -406,7 +406,6 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
         return;
       }
 
-      // @ts-expect-error
       profileDataEntry.tag = (await res.bytes()).toBase64({ alphabet: "base64url", omitPadding: true });
       profileDataEntry.content = normalizedDisplay ? JSON.stringify([urlString, normalizedDisplay]) : urlString;
       profileDataEntry.embed = embed;
@@ -633,7 +632,6 @@ function TextEditorWrapper({ entry, handleRef }) {
         return;
       }
 
-      // @ts-expect-error
       profileDataEntry.tag = (await res.bytes()).toBase64({ alphabet: "base64url", omitPadding: true });
       profileDataEntry.content = trimmedValue;
     }

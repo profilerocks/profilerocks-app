@@ -8,7 +8,6 @@ import globalState from "#src/lib/state";
 import { requestProfileTitleUpdate } from "#src/lib/request";
 import Button from "#src/ui/button";
 import InputGroup from "#src/ui/input/group";
-import styles from "./index.module.scss";
 
 /**
  * @function
@@ -80,7 +79,7 @@ export default function FormProfileTitle() {
       <Button
         type="submit"
         disabled={!premiumActive || submitting || (globalState.currentProfile?.title ?? "") === normalizedTitle}
-        className={styles["btn-submit"]}
+        className="float-right mbs-4 px-3.5"
       >
         Save custom title
       </Button>

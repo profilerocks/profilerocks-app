@@ -162,7 +162,7 @@ export default function ProfileThemes() {
   if (!profileThemes) {
     return (
       <>
-        <IconLoading width="1.5em" /> Loading...
+        <IconLoading width="1.5em" />Loading...
       </>
     );
   }
@@ -270,7 +270,7 @@ export default function ProfileThemes() {
     <>
       {freeThemesAvailable && (
         <>
-          <h2 className="text-2xl">Free Themes</h2>
+          <h2 className="text-2xl text-zinc-200">Free Themes</h2>
           <ProfileThemeList>{profileFreeThemeList}</ProfileThemeList>
         </>
       )}

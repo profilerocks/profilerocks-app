@@ -6,7 +6,6 @@ import { HREF_CONTACT } from "#src/lib/env";
 import { useProfileActivePremium } from "#src/lib/hooks/state";
 import globalState from "#src/lib/state";
 import ButtonUpgradePremium from "#src/ui/button/premium";
-import styles from "./index.module.scss";
 
 /**
  * @function
@@ -20,17 +19,11 @@ export default function ProfileCurrentPlan() {
     return null;
   }
 
-  let className = styles["profile-current-plan"];
-
-  if (premiumActive) {
-    className += ` ${styles.premium}`;
-  }
-
   return (
-    <div className={className}>
-      <h2 className={styles["profile-current-plan-title"]}>
+    <div className={"border-2 rounded-lg px-3 " + (premiumActive ? "border-yellow-400" : "border-zinc-700")}>
+      <h2 className="my-3">
         Current plan:{" "}
-        <span className={currentProfile.premium ? styles["text-premium"] : undefined}>{currentProfile.premium ? "Premium" : "Free"}</span>
+        <span className={currentProfile.premium ? "text-yellow-400" : undefined}>{currentProfile.premium ? "Premium" : "Free"}</span>
       </h2>
       {currentProfile.premium ? (
         <>

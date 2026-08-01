@@ -8,7 +8,6 @@ import { requestProfileWatermarkToggle } from "#src/lib/request";
 import globalState from "#src/lib/state";
 import { updateProfileState } from "#src/lib/state/profile";
 import InputCheckbox from "#src/ui/input/checkbox";
-import styles from "./index.module.scss";
 
 export default function ProfileWatermark() {
   const { currentProfile } = useSnapshot(globalState);
@@ -55,7 +54,7 @@ export default function ProfileWatermark() {
       onChange={updateWatermarkStatusOnChange}
       title={premiumActive ? undefined : "It is a premium feature"}
     >
-      Hide <strong className={styles.platform}>{PLATFORM_NAME}</strong> watermark
+      Hide <strong>{PLATFORM_NAME}</strong> watermark
     </InputCheckbox>
   );
 }

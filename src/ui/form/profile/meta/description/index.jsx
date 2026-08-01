@@ -6,7 +6,6 @@ import { useProfileActivePremium } from "#src/lib/hooks/state";
 import globalState from "#src/lib/state";
 import { requestProfileMetaDescriptionUpdate } from "#src/lib/request";
 import Button from "#src/ui/button";
-import styles from "./index.module.scss";
 
 /**
  * @function
@@ -65,7 +64,7 @@ export default function FormProfileMetaDescription() {
   return (
     <form onSubmit={submitProfileMetaDescription} title={premiumActive ? undefined : "Meta description custom is premium feature."}>
       <textarea
-        className={styles["meta-description-textarea"]}
+        className="block transition-colors my-5 border-2 border-zinc-700 rounded-lg p-2 bg-zinc-900 w-full resize-none focus:border-emerald-400 disabled:bg-zinc-950 cursor-not-allowed"
         disabled={!premiumActive || submitting}
         maxLength={maxLengthMetaDescription}
         minLength={minLengthMetaDescription}
@@ -77,7 +76,7 @@ export default function FormProfileMetaDescription() {
       <Button
         type="submit"
         disabled={!premiumActive || submitting || (globalState.currentProfile?.meta_description ?? "") === normalizedMetaDescription}
-        className={styles["btn-submit"]}
+        className="float-right px-3.5"
       >
         Save meta description
       </Button>
