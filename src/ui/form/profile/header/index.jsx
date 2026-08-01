@@ -93,23 +93,25 @@ function ProfilePhotoDetails({ actionRemovePhoto, children, inputPhotoId, setPho
 
   return (
     <details
-      className="details-content:transition details-content:transition-discrete not-open:details-content:opacity-0"
+      className="details-content:transition details-content:transition-discrete not-open:details-content:opacity-0 group"
       name="photo-options"
       ref={detailsRef}
     >
-      <summary className="group flex cursor-pointer text-zinc-400 hover:text-zinc-300 active:text-zinc-200">
+      <summary className="group flex cursor-pointer text-zinc-400 hover:text-zinc-300 active:text-zinc-200 group-open:text-zinc-100!">
         {children}
         <IconPencil
           className="absolute inset-e-0 inset-be-0 rounded-lg bg-zinc-900 p-1.5 transition-colors group-hover:bg-zinc-800 group-active:bg-zinc-700"
           width="2.125em"
         />
       </summary>
-      <div className="flex flex-col divide-y divide-zinc-700 border border-zinc-700 absolute inset-x-0 inset-bs-0 z-1 min-w-max select-none *:flex *:p-2 *:flex *:gap-2 *:cursor-pointer *:bg-zinc-900/90">
-        <label htmlFor={inputPhotoId}>
+      <div
+        className="flex flex-col divide-y divide-zinc-700 text-zinc-300 absolute inset-x-0 inset-bs-0 z-1 min-w-max select-none *:flex *:p-2 *:gap-2 *:cursor-pointer *:transition-colors *:bg-zinc-900/90 *:hover:bg-zinc-800/90 *:hover:text-zinc-200 *:active:bg-zinc-700/90 *:active:text-zinc-100 *:border-x *:border-zinc-700"
+      >
+        <label className="border-bs rounded-t-xl" htmlFor={inputPhotoId}>
           <IconUpload width="1.25em" />
           Change
         </label>
-        <button onClick={removePhoto} type="button">
+        <button className="border-be rounded-b-xl" onClick={removePhoto} type="button">
           <IconBin width="1.25em" />
           Remove
         </button>

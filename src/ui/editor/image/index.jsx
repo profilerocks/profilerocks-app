@@ -70,7 +70,7 @@ export default function ImageEditor({ src, callbackBlob, ...restProps }) {
         <Button type="submit">
           <IconClose width="1.5em" />
         </Button>
-        <Button autoFocus type="submit" onClick={onCrop}>
+        <Button autoFocus onClick={onCrop} type="submit">
           Save
         </Button>
       </form>
