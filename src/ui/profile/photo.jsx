@@ -1,9 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useDeferredValue, useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { CircleStencil } from "react-mobile-cropper";
-import displayNameAttributes from "#shared/display.json";
 import photoAttributes from "#shared/photo.json";
 import IconBin from "#src/icons/bin.svg";
 import IconLoading from "#src/icons/loading.svg";
@@ -11,13 +9,10 @@ import IconPencil from "#src/icons/pencil.svg";
 import IconUpload from "#src/icons/upload.svg";
 import { showAlertErrorApp, showAlert } from "#src/lib/alert";
 import { HREF_ASSETS } from "#src/lib/env";
-import { normalizeDisplayName } from "#src/lib/name";
-import { requestProfileDisplayNameUpdate, requestProfilePhotoUpload, requestProfilePhotoDeletion } from "#src/lib/request";
+import { requestProfilePhotoUpload, requestProfilePhotoDeletion } from "#src/lib/request";
 import globalState from "#src/lib/state";
-import ButtonNext from "#src/ui/button/next";
 import DragDrop from "#src/ui/dragdrop";
 import EditorImage from "#src/ui/editor/image";
-import InputGroup from "#src/ui/input/group";
 
 /**
  * @async
@@ -29,6 +24,12 @@ import InputGroup from "#src/ui/input/group";
 const sizeImg = 158;
 const maxPhotoSizeMiB = photoAttributes.maxPhotoSize / 1048576;
 
+/**
+ * @function Photo
+ * @param {Object} props
+ * @param {string} [props.src] 
+ * @returns 
+ */
 function Photo({ src = "/user.png" }) {
   return (
     <img
@@ -76,6 +77,7 @@ function ProfilePhotoDetails({ actionRemovePhoto, children, inputPhotoId, setPho
 
   useEffect(() => {
     const elDetails = detailsRef.current;
+
     if (elDetails) {
       /** @param {MouseEvent} event */
       function closeDetails(event) {
@@ -121,9 +123,10 @@ function ProfilePhotoDetails({ actionRemovePhoto, children, inputPhotoId, setPho
 }
 
 /**
- * @param {{
- *   setEditorImageProps: React.Dispatch<React.SetStateAction<React.ComponentProps<typeof EditorImage> | undefined>>
- * }} props
+ * @function ProfilePhoto
+ * @param {Object} props
+ * @param {React.Dispatch<React.SetStateAction<React.ComponentProps<typeof EditorImage>|undefined>>} props.setEditorImageProps
+ * @return {React.ReactNode}
  */
 function ProfilePhoto({ setEditorImageProps }) {
   /**
@@ -205,7 +208,10 @@ function ProfilePhoto({ setEditorImageProps }) {
     }
   }
 
-  /** @param {React.DragEvent<HTMLInputElement>} event */
+  /**
+   * @function onDropPhoto
+   * @param {React.DragEvent<HTMLInputElement>} event 
+   */
   function onDropPhoto(event) {
     if (!submitting) {
       const { files } = event.dataTransfer;
@@ -256,7 +262,11 @@ function ProfilePhoto({ setEditorImageProps }) {
   );
 }
 
-function Photos() {
+/**
+ * @function
+ * @returns {React.ReactNode}
+ */
+export default function ProfilePhotoEditor() {
   /**
    * @type {ReturnType<typeof useState<React.ComponentProps<EditorImage>>>}
    */
@@ -266,89 +276,6 @@ function Photos() {
     <>
       <ProfilePhoto setEditorImageProps={setEditorImageProps} />
       <EditorImage {...EditorImageProps} />
-    </>
-  );
-}
-
-function FormProfileDisplayName() {
-  const router = useRouter();
-  const [submitting, setSubmitting] = useState(false);
-  const [displayName, setDisplayName] = useState(globalState.currentProfile?.display_name ?? "");
-  const deferredDisplayName = useDeferredValue(displayName);
-
-  const normalizedDisplayName = normalizeDisplayName(deferredDisplayName);
-
-  const lengthDifference = normalizedDisplayName.length - displayName.length;
-  const minLengthDisplayName = lengthDifference + 1;
-  const maxLengthDisplayName = lengthDifference + displayNameAttributes.maxLength;
-
-  /**
-   * @function setDisplayNameOnChange
-   * @param {React.ChangeEvent<HTMLInputElement>} event
-   */
-  function setDisplayNameOnChange(event) {
-    setDisplayName(event.currentTarget.value);
-  }
-
-  /**
-   * @async
-   * @function submitProfileDisplayName
-   * @param {React.SubmitEvent<HTMLFormElement>} event
-   */
-  async function submitProfileDisplayName(event) {
-    event.preventDefault();
-
-    const { currentProfile } = globalState;
-
-    if (!currentProfile) {
-      return;
-    }
-
-    if (normalizedDisplayName) {
-      setSubmitting(true);
-
-      const res = await requestProfileDisplayNameUpdate(currentProfile.public_id, normalizedDisplayName);
-
-      if (!res) {
-        setSubmitting(false);
-        return;
-      }
-
-      if (!res.ok) {
-        showAlertErrorApp();
-        setSubmitting(false);
-        return;
-      }
-
-      currentProfile.display_name = normalizedDisplayName;
-    }
-
-    router.push("/p/content?id=" + currentProfile.public_id);
-  }
-
-  return (
-    <form className="mbs-4" onSubmit={submitProfileDisplayName}>
-      <InputGroup
-        type="text"
-        placeholder="e.g. John Doe"
-        minLength={minLengthDisplayName}
-        maxLength={maxLengthDisplayName}
-        onChange={setDisplayNameOnChange}
-        value={displayName}
-        disabled={submitting}
-      >
-        Display name
-      </InputGroup>
-      <ButtonNext className="float-end mbs-4 ps-3.5" disabled={submitting} type="submit" />
-    </form>
-  );
-}
-
-export default function EditProfileHeader() {
-  return (
-    <>
-      <Photos />
-      <FormProfileDisplayName />
     </>
   );
 }
