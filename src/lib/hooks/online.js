@@ -23,7 +23,7 @@ function getServerSnapshot() {
 /**
  * @function subscribe
  * @param {Template} callback
- * @return {Template}
+ * @returns {Template}
  */
 function subscribe(callback) {
   window.addEventListener("online", callback);

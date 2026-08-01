@@ -124,7 +124,7 @@ function ProfilePhotoDetails({ actionRemovePhoto, children, inputPhotoId, setPho
  * @function ProfilePhoto
  * @param {Object} props
  * @param {React.Dispatch<React.SetStateAction<React.ComponentProps<typeof EditorImage>|undefined>>} props.setEditorImageProps
- * @return {React.ReactNode}
+ * @returns {React.ReactNode}
  */
 function ProfilePhoto({ setEditorImageProps }) {
   /**

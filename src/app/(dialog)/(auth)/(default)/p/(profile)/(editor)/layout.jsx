@@ -134,7 +134,7 @@ export default function LayoutProfile({ children }) {
         <FigureProfileContent />
       </figure>
       <div className="px-4 pbe-12">{loading ? "Loading..." : children}</div>
-      <nav className="sticky inset-be-0 z-2 mbs-auto flex border-bs border-zinc-700 bg-zinc-950/80 text-xs text-zinc-400 shadow-black backdrop-blur-sm select-none *:relative *:flex *:flex-1 *:flex-col *:items-center *:gap-1 *:p-2.5 *:transition-colors *:before:absolute *:before:inset-x-1/2 *:before:inset-bs-2 *:before:inset-be-7 *:before:-z-1 *:before:rounded-4xl *:before:transition-all *:hover:text-zinc-300 *:active:text-zinc-200 sm:inset-be-2 sm:mx-4 sm:rounded-full sm:border-2 sm:text-sm sm:shadow-xl sm:*:before:inset-y-1">
+      <nav className="sticky inset-be-0 z-2 mbs-auto flex border-bs border-zinc-700 bg-zinc-950/80 text-xs text-zinc-400 shadow-black backdrop-blur-sm select-none *:relative *:flex *:flex-1 *:flex-col *:items-center *:gap-1 *:p-2.5 *:transition-colors *:before:absolute *:before:inset-x-1/2 *:before:inset-bs-2 *:before:inset-be-7 *:before:-z-1 *:before:rounded-4xl *:before:shadow-xs *:before:shadow-black *:before:transition-all *:hover:text-zinc-300 *:active:text-zinc-200 sm:inset-be-2 sm:mx-4 sm:rounded-full sm:border-2 sm:text-sm sm:shadow-xl sm:*:before:inset-y-1">
         <LinkProfileConfiguration path="content">
           <IconContent width={ICON_DIMENSION} />
           Content

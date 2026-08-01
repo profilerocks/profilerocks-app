@@ -15,6 +15,11 @@ import styles from "./index.module.scss";
  * @prop {string} color - Base64Url encoded
  * @prop {(0|1)} premium
  * @prop {string} title
+ *
+ * @typedef {Object} ProfileThemeState
+ * @prop {React.ChangeEventHandler<HTMLInputElement,HTMLInputElement>} onChange
+ * @prop {string} publicId
+ * @prop {boolean} [disabled]
  */
 
 /**
@@ -63,7 +68,7 @@ function ProfileThemePreviewCheck({ disabled, publicId }) {
       />
       <label
         className={
-          "cursor-pointer rounded-3xl bg-zinc-900 p-2 min-w-24 text-center text-sm transition-colors hover:bg-zinc-800 active:bg-zinc-700 " +
+          "min-w-24 cursor-pointer rounded-3xl bg-zinc-900 p-2 text-center text-sm transition-colors hover:bg-zinc-800 active:bg-zinc-700 " +
           (checked ? "text-emerald-400" : "text-zinc-400 hover:text-zinc-300 active:text-zinc-200")
         }
         htmlFor={inputPreviewCheckboxId}
@@ -75,16 +80,11 @@ function ProfileThemePreviewCheck({ disabled, publicId }) {
 }
 
 /**
- * @function ProfileTheme
- * @param {ProfileThemeObject & {
- *   onChange: React.ChangeEventHandler<HTMLInputElement,HTMLInputElement>
- *   premium: 0|1
- *   publicId: string
- *   disabled?: boolean
- * }} props
+ * @function ProfileThemeEntry
+ * @param {ProfileThemeObject&ProfileThemeState} props
  * @returns {React.ReactNode}
  */
-function ProfileTheme({ background, color, disabled, onChange, publicId, title }) {
+function ProfileThemeEntry({ background, color, disabled, onChange, publicId, title }) {
   const { currentProfile } = useSnapshot(globalState);
   const inputRadioId = useId();
 
@@ -92,21 +92,25 @@ function ProfileTheme({ background, color, disabled, onChange, publicId, title }
   const htmlTitle = "Select " + title + " theme";
 
   return (
-    <li
-      className={styles["profile-theme"]}
-      style={{
-        // @ts-expect-error
-        "--theme-background": background,
-        "--theme-color": color
-      }}
-    >
-      <label className={styles["profile-theme-title"]} htmlFor={inputRadioId} title={htmlTitle}>
+    <li>
+      <label
+        className={
+          "flex-1 py-3 text-xl cursor-pointer " +
+          (checked ? "text-emerald-400" : "text-zinc-400 hover:text-zinc-300 active:text-zinc-200")
+        }
+        htmlFor={inputRadioId}
+        title={htmlTitle}
+      >
+        <span className="self me-2 inline-flex h-5.5 border border-zinc-700 align-text-top *:w-3">
+          <span style={{ backgroundColor: color }} title="Main color" />
+          <span style={{ backgroundColor: background }} title="Background" />
+        </span>
         {title}
       </label>
       {!checked && <ProfileThemePreviewCheck disabled={disabled} publicId={publicId} />}
       <input
         checked={checked}
-        className={styles["profile-theme-input"]}
+        className="scale-150 cursor-pointer accent-emerald-400 disabled:cursor-not-allowed"
         disabled={disabled}
         id={inputRadioId}
         name="profile-theme"
@@ -117,6 +121,16 @@ function ProfileTheme({ background, color, disabled, onChange, publicId, title }
       />
     </li>
   );
+}
+
+/**
+ * @function ProfileThemeList
+ * @param {Object} props
+ * @param {React.ReactNode} props.children
+ * @returns {React.ReactNode}
+ */
+function ProfileThemeList({ children }) {
+  return <ul className="mbs-2 select-none *:flex *:items-center *:gap-4 *:border-bs *:border-bs-zinc-700 *:pe-2">{children}</ul>;
 }
 
 export default function ProfileThemes() {
@@ -218,18 +232,18 @@ export default function ProfileThemes() {
   /**
    * @type {React.ReactNode[]}
    */
-  const ProfileFreeThemeList = [];
+  const profileFreeThemeList = [];
 
   /**
    * @type {React.ReactNode[]}
    */
-  const ProfilePremiumThemeList = [];
+  const profilePremiumThemeList = [];
 
   for (const profileThemePublicId in profileThemes) {
     const profileTheme = profileThemes[profileThemePublicId];
 
     const profileThemeNode = (
-      <ProfileTheme
+      <ProfileThemeEntry
         {...profileTheme}
         disabled={submitting}
         key={profileThemePublicId}
@@ -239,15 +253,15 @@ export default function ProfileThemes() {
     );
 
     if (profileTheme.premium) {
-      ProfilePremiumThemeList.push(profileThemeNode);
+      profilePremiumThemeList.push(profileThemeNode);
     } else {
-      ProfileFreeThemeList.push(profileThemeNode);
+      profileFreeThemeList.push(profileThemeNode);
     }
   }
 
-  const freeThemesAvailable = ProfileFreeThemeList.length > 0;
+  const freeThemesAvailable = profileFreeThemeList.length > 0;
 
-  const premiumThemesAvailable = ProfilePremiumThemeList.length > 0;
+  const premiumThemesAvailable = profilePremiumThemeList.length > 0;
 
   if (!freeThemesAvailable && !premiumThemesAvailable) {
     return <h2>No themes avaiable</h2>;
@@ -257,14 +271,14 @@ export default function ProfileThemes() {
     <>
       {freeThemesAvailable && (
         <>
-          <h2>Free Themes</h2>
-          <ul className={styles["profile-theme-list"]}>{ProfileFreeThemeList}</ul>
+          <h2 className="text-2xl">Free Themes</h2>
+          <ProfileThemeList>{profileFreeThemeList}</ProfileThemeList>
         </>
       )}
       {premiumThemesAvailable && (
         <>
-          <h2 className={styles["profile-theme-list-title-premium"]}>Premium Themes</h2>
-          <ul className={styles["profile-theme-list"]}>{ProfilePremiumThemeList}</ul>
+          <h2 className="mbs-5 text-2xl text-yellow-400">Premium Themes</h2>
+          <ProfileThemeList>{profilePremiumThemeList}</ProfileThemeList>
         </>
       )}
     </>
