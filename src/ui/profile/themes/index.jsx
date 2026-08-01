@@ -51,12 +51,6 @@ function ProfileThemePreviewCheck({ disabled, publicId }) {
     }
   }
 
-  let labelClassName = styles["profile-theme-preview-label"];
-
-  if (checked) {
-    labelClassName += " " + styles["profile-theme-preview-checked"];
-  }
-
   return (
     <>
       <input
@@ -67,7 +61,13 @@ function ProfileThemePreviewCheck({ disabled, publicId }) {
         type="checkbox"
         hidden
       />
-      <label className={labelClassName} htmlFor={inputPreviewCheckboxId}>
+      <label
+        className={
+          "cursor-pointer rounded-3xl bg-zinc-900 p-2 min-w-24 text-center text-sm transition-colors hover:bg-zinc-800 active:bg-zinc-700 " +
+          (checked ? "text-emerald-400" : "text-zinc-400 hover:text-zinc-300 active:text-zinc-200")
+        }
+        htmlFor={inputPreviewCheckboxId}
+      >
         {checked ? "Previewing" : "Preview"}
       </label>
     </>
