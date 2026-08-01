@@ -100,7 +100,7 @@ function ProfilePhotoDetails({ actionRemovePhoto, children, inputPhotoId, setPho
       <summary className="group flex cursor-pointer text-zinc-400 hover:text-zinc-300 active:text-zinc-200 group-open:text-zinc-100!">
         {children}
         <IconPencil
-          className="absolute inset-e-0 inset-be-0 rounded-lg bg-zinc-900 p-1.5 transition-colors group-hover:bg-zinc-800 group-active:bg-zinc-700"
+          className="absolute inset-e-0 inset-be-0 rounded-lg bg-zinc-900 p-1.5 transition-colors hover:bg-zinc-800 active:bg-zinc-700"
           width="2.125em"
         />
       </summary>
