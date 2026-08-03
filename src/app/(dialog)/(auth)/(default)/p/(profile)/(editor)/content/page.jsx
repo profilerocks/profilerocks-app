@@ -432,14 +432,14 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
     <>
       <InputCheckbox
         checked={embed}
-        className={styles["checkbox-load-external-content"]}
+        className="mbe-5.5"
         disabled={loading || (!embed && !embedAvailable)}
         onChange={setEmbedOnChange}
         title={embedAvailable ? undefined : "This URL cannot be embedded"}
       >
         Load external content
       </InputCheckbox>
-      <div className={styles["link-entry"]} title={initialUrl ? undefined : "Insert to save this link"}>
+      <div className="flex flex-wrap gap-5.5 bg-black *:grow *:shrink *:basis-sm" title={initialUrl ? undefined : "Insert to save this link"}>
         <InputGroup
           aria-invalid={urlString ? !urlValid || (embed && !embedAvailable) : false}
           autoFocus={!initialUrl}
@@ -471,7 +471,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
         }
       >
         <ButtonDeleteEntry loading={loading} pending={!initialUrl} setLoading={setLoading} tag={tag} />
-        <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
+        <div className="flex-1 cursor-grab" ref={handleRef} title="Press to drag and move" />
         <Button
           className="relative py-1.5 pe-1.5 group"
           disabled={
@@ -728,7 +728,7 @@ export default function PageProfileContent() {
   return (
     <>
       {currentProfile.data?.length ? (
-        <ul className={styles["list-data-entries"]}>
+        <ul className="flex flex-col gap-10.5">
           <DragDropProvider modifiers={[RestrictToVerticalAxis]} onDragEnd={updateProfileDataPositionOnDragEnd}>
             {currentProfile.data.map((entry, i) => (
               <ProfileDataEntry entry={entry} index={i} key={entry.tag} />
@@ -736,10 +736,10 @@ export default function PageProfileContent() {
           </DragDropProvider>
         </ul>
       ) : (
-        <p className={styles["message-empty"]}>Content will appear here</p>
+        <p className="text-center text-zinc-300">Content will appear here</p>
       )}
       {(currentProfile.data?.length ?? 0) < 100 ? (
-        <div className={styles.actions}>
+        <div className="flex flex-col gap-5 mbs-11 *:flex-1 md:flex-row">
           <ButtonAddProfileData embed={false}>
             Link
             <IconLink width="1.25em" />
@@ -754,7 +754,7 @@ export default function PageProfileContent() {
           </ButtonAddProfileData>
         </div>
       ) : (
-        <p className={styles["message-empty"]}>
+        <p className="text-center text-zinc-300">
           Maximum number of data entries reached. Modify or delete one of the entries above to add a new one.
         </p>
       )}
