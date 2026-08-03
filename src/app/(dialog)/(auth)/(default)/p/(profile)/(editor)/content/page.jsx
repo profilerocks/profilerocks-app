@@ -205,7 +205,7 @@ function ButtonDeleteEntry({ loading, pending, setLoading, tag }) {
   }
 
   return (
-    <ButtonDanger className={styles["btn-delete-data-entry"]} disabled={loading} onClick={deleteDataEntryOnClick} type="button">
+    <ButtonDanger className="py-1.5" disabled={loading} onClick={deleteDataEntryOnClick} type="button">
       Delete
     </ButtonDanger>
   );
@@ -428,12 +428,6 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
     setUrlString((event.currentTarget ?? event.target).value);
   }
 
-  let classNameEntryActions = styles["entry-actions"];
-
-  if (!initialUrl) {
-    classNameEntryActions += ` ${styles.pending}`;
-  }
-
   return (
     <>
       <InputCheckbox
@@ -470,11 +464,16 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
           Display
         </InputGroup>
       </div>
-      <div className={classNameEntryActions}>
+      <div
+        className={
+          "flex justify-between transition-colors mbs-4 outline-2 shadow-sm shadow-black rounded-full bg-zinc-900 p-1.5" +
+          (initialUrl ? "" : " outline-rose-400")
+        }
+      >
         <ButtonDeleteEntry loading={loading} pending={!initialUrl} setLoading={setLoading} tag={tag} />
         <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
         <Button
-          className={styles["btn-save-data-entry"]}
+          className="relative py-1.5 pe-1.5 group"
           disabled={
             loading || !urlValid || (embed && !embedAvailable) || (urlString === initialUrl && normalizedDisplay === initialDisplay)
           }
@@ -483,6 +482,10 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
         >
           {initialUrl ? "Save" : "Insert"}
           <IconPencil width="1.25em" />
+          <span className="absolute -inset-bs-0.5 -inset-s-0.5 flex size-3 group-disabled:hidden">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-400 opacity-75" />
+            <span className="relative inline-flex size-3 rounded-full bg-rose-500 shadow-sm shadow-black" />
+          </span>
         </Button>
       </div>
     </>
