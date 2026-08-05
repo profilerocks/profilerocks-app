@@ -32,7 +32,6 @@ import ButtonDanger from "#src/ui/button/danger";
 import InputCheckbox from "#src/ui/input/checkbox";
 import InputGroup from "#src/ui/input/group";
 import TextEditor from "#src/ui/editor/text";
-import styles from "./page.module.scss";
 
 // TODO: Add Ctrl + S to save
 
@@ -640,12 +639,6 @@ function TextEditorWrapper({ entry, handleRef }) {
     }
   }
 
-  let classNameEntryActions = styles["entry-actions"];
-
-  if (!entry.content) {
-    classNameEntryActions += ` ${styles.pending}`;
-  }
-
   return (
     <>
       <TextEditor
@@ -663,17 +656,24 @@ function TextEditorWrapper({ entry, handleRef }) {
         title={!entry.content && value ? "Insert to save this text" : undefined}
         value={value}
       />
-      <div className={classNameEntryActions}>
+      <div className={
+        "flex justify-between transition-colors mbs-4 outline-2 shadow-sm shadow-black rounded-full bg-zinc-900 p-1.5" +
+        (entry.content ? "" : " outline-rose-400")
+      }>
         <ButtonDeleteEntry loading={loading} pending={!entry.content} setLoading={setLoading} tag={entry.tag} />
-        <div ref={handleRef} className={styles.grab} title="Press to drag and move" />
+        <div className="flex-1 cursor-grab" ref={handleRef} title="Press to drag and move" />
         <Button
-          className={styles["btn-save-data-entry"]}
+          className="relative py-1.5 pe-1.5 group"
           disabled={loading || !trimmedValue || trimmedValue === entry.content}
           onClick={saveOnClick}
           type="button"
         >
           {entry.content ? "Save" : "Insert"}
           <IconPencil width="1.25em" />
+          <span className="absolute -inset-bs-0.5 -inset-s-0.5 flex size-3 group-disabled:hidden">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-400 opacity-75" />
+            <span className="relative inline-flex size-3 rounded-full bg-rose-500 shadow-sm shadow-black" />
+          </span>
         </Button>
       </div>
     </>
