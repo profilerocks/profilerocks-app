@@ -5,7 +5,7 @@ import { useSnapshot } from "valtio";
 import { HREF_CONTACT } from "#src/lib/env";
 import { useProfileActivePremium } from "#src/lib/hooks/state";
 import globalState from "#src/lib/state";
-import ButtonUpgradeProfilePremium from "#src/ui/button/profile/premium";
+import ButtonUpgradeProfilePremium from "#src/ui/button/premium/profile";
 
 /**
  * @function

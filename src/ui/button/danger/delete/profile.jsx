@@ -9,7 +9,6 @@ import { requestProfileMembershipDelete } from "#src/lib/request";
 import globalState from "#src/lib/state";
 import { deleteProfileState } from "#src/lib/state/profile";
 import ButtonDanger from "#src/ui/button/danger";
-import styles from "./index.module.scss";
 
 /**
  * @function
@@ -70,7 +69,7 @@ export default function ButtonDeleteProfileMembership() {
   }
 
   return (
-    <ButtonDanger className={styles["btn-delete-profile"]} disabled={submitting} onClick={deleteProfile} type="button">
+    <ButtonDanger className="pe-3.5" disabled={submitting} onClick={deleteProfile} type="button">
       <IconBin width="1.375em" />
       Delete profile
     </ButtonDanger>
