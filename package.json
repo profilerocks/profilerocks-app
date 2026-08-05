@@ -35,7 +35,6 @@
     "@profile.rocks/generator": "^1.1.5",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4.3.3",
-    "@types/markdown-it": "^14.1.2",
     "@types/node": "^26.1.2",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",

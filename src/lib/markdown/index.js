@@ -1,6 +1,5 @@
 import hljs from "highlight.js";
 import MarkdownIt from "markdown-it";
-import * as utils from "markdown-it/lib/common/utils.mjs";
 import markdownItPluginMath from "markdown-it-math/no-default-renderer";
 import Temml from "temml";
 
@@ -27,44 +26,54 @@ const TEMML_BLOCK_OPTIONS = Object.freeze({
   displayMode: true
 });
 
-const markdownRenderer = MarkdownIt({
+/**
+ * @function highlight
+ * @param {string} code
+ * @param {string} language
+ * @return {string}
+ */
+function highlight(code, language) {
+  language = language.toLowerCase();
+
+  if (language && hljs.getLanguage(language)) {
+    try {
+      return hljs.highlight(code, { language }).value;
+    } catch {}
+  }
+
+  return markdownRenderer.utils.escapeHtml(code);
+}
+
+const markdownRenderer = new MarkdownIt({
   html: false,
   xhtmlOut: false,
   breaks: false,
   langPrefix: "language-",
   linkify: true,
   typographer: false,
-  highlight(code, language) {
-    language = language.toLowerCase();
-
-    if (language && hljs.getLanguage(language)) {
-      try {
-        return hljs.highlight(code, { language }).value;
-      } catch {}
-    }
-
-    return utils.escapeHtml(code);
-  }
+  highlight
 }).use(markdownItPluginMath, {
   blockRenderer(src) {
     try {
       return Temml.renderToString(src, TEMML_BLOCK_OPTIONS);
     } catch {
-      return utils.escapeHtml(src);
+      return markdownRenderer.utils.escapeHtml(src);
     }
   },
   inlineRenderer(src) {
     try {
       return Temml.renderToString(src, TEMML_INLINE_OPTIONS);
     } catch {
-      return utils.escapeHtml(src);
+      return markdownRenderer.utils.escapeHtml(src);
     }
   }
 });
 
 markdownRenderer.disable("image");
 
-// Remember the old renderer if overridden, or proxy to the default renderer.
+/**
+ * Remember the old renderer if overridden, or proxy to the default renderer.
+ */
 const renderLink =
   markdownRenderer.renderer.rules.link_open ||
   function (tokens, idx, options, _env, self) {
