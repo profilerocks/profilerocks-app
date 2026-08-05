@@ -64,7 +64,7 @@ export default function FormProfileMetaDescription() {
   return (
     <form onSubmit={submitProfileMetaDescription} title={premiumActive ? undefined : "Meta description custom is premium feature."}>
       <textarea
-        className="block transition-colors my-5 border-2 border-zinc-700 rounded-lg p-2 bg-zinc-900 w-full resize-none focus:border-emerald-400 disabled:bg-zinc-950 cursor-not-allowed"
+        className="my-5 block w-full cursor-not-allowed resize-none rounded-lg border-2 border-zinc-700 bg-zinc-900 p-2 transition-colors focus:border-emerald-400 disabled:bg-zinc-950"
         disabled={!premiumActive || submitting}
         maxLength={maxLengthMetaDescription}
         minLength={minLengthMetaDescription}

@@ -5,7 +5,7 @@ import { useSnapshot } from "valtio";
 import { HREF_CONTACT } from "#src/lib/env";
 import { useProfileActivePremium } from "#src/lib/hooks/state";
 import globalState from "#src/lib/state";
-import ButtonUpgradePremium from "#src/ui/button/premium";
+import ButtonUpgradeProfilePremium from "#src/ui/button/profile/premium";
 
 /**
  * @function
@@ -20,7 +20,7 @@ export default function ProfileCurrentPlan() {
   }
 
   return (
-    <div className={"border-2 rounded-lg px-3 " + (premiumActive ? "border-yellow-400" : "border-zinc-700")}>
+    <div className={"rounded-lg border-2 px-3 " + (premiumActive ? "border-yellow-400" : "border-zinc-700")}>
       <h2 className="my-3">
         Current plan:{" "}
         <span className={currentProfile.premium ? "text-yellow-400" : undefined}>{currentProfile.premium ? "Premium" : "Free"}</span>
@@ -51,7 +51,7 @@ export default function ProfileCurrentPlan() {
           )}
         </>
       ) : (
-        <ButtonUpgradePremium />
+        <ButtonUpgradeProfilePremium />
       )}
       <p>
         If you think this is a mistake, please{" "}

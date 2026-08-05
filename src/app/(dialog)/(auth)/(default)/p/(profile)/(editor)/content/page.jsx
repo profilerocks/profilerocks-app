@@ -438,7 +438,10 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
       >
         Load external content
       </InputCheckbox>
-      <div className="flex flex-wrap gap-5.5 bg-black *:grow *:shrink *:basis-sm" title={initialUrl ? undefined : "Insert to save this link"}>
+      <div
+        className="flex flex-wrap gap-5.5 bg-black *:shrink *:grow *:basis-sm"
+        title={initialUrl ? undefined : "Insert to save this link"}
+      >
         <InputGroup
           aria-invalid={urlString ? !urlValid || (embed && !embedAvailable) : false}
           autoFocus={!initialUrl}
@@ -465,14 +468,14 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
       </div>
       <div
         className={
-          "flex justify-between transition-colors mbs-4 outline-2 shadow-sm shadow-black rounded-full bg-zinc-900 p-1.5" +
+          "mbs-4 flex justify-between rounded-full bg-zinc-900 p-1.5 shadow-sm shadow-black outline-2 transition-colors" +
           (initialUrl ? "" : " outline-rose-400")
         }
       >
         <ButtonDeleteEntry loading={loading} pending={!initialUrl} setLoading={setLoading} tag={tag} />
         <div className="flex-1 cursor-grab" ref={handleRef} title="Press to drag and move" />
         <Button
-          className="relative py-1.5 pe-1.5 group"
+          className="group relative py-1.5 pe-1.5"
           disabled={
             loading || !urlValid || (embed && !embedAvailable) || (urlString === initialUrl && normalizedDisplay === initialDisplay)
           }
@@ -481,7 +484,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
         >
           {initialUrl ? "Save" : "Insert"}
           <IconPencil width="1.25em" />
-          <span className="absolute -inset-bs-0.5 -inset-s-0.5 flex size-3 group-disabled:hidden">
+          <span className="absolute -inset-s-0.5 -inset-bs-0.5 flex size-3 group-disabled:hidden">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-400 opacity-75" />
             <span className="relative inline-flex size-3 rounded-full bg-rose-500 shadow-sm shadow-black" />
           </span>
@@ -656,21 +659,23 @@ function TextEditorWrapper({ entry, handleRef }) {
         title={!entry.content && value ? "Insert to save this text" : undefined}
         value={value}
       />
-      <div className={
-        "flex justify-between transition-colors mbs-4 outline-2 shadow-sm shadow-black rounded-full bg-zinc-900 p-1.5" +
-        (entry.content ? "" : " outline-rose-400")
-      }>
+      <div
+        className={
+          "mbs-4 flex justify-between rounded-full bg-zinc-900 p-1.5 shadow-sm shadow-black outline-2 transition-colors" +
+          (entry.content ? "" : " outline-rose-400")
+        }
+      >
         <ButtonDeleteEntry loading={loading} pending={!entry.content} setLoading={setLoading} tag={entry.tag} />
         <div className="flex-1 cursor-grab" ref={handleRef} title="Press to drag and move" />
         <Button
-          className="relative py-1.5 pe-1.5 group"
+          className="group relative py-1.5 pe-1.5"
           disabled={loading || !trimmedValue || trimmedValue === entry.content}
           onClick={saveOnClick}
           type="button"
         >
           {entry.content ? "Save" : "Insert"}
           <IconPencil width="1.25em" />
-          <span className="absolute -inset-bs-0.5 -inset-s-0.5 flex size-3 group-disabled:hidden">
+          <span className="absolute -inset-s-0.5 -inset-bs-0.5 flex size-3 group-disabled:hidden">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-400 opacity-75" />
             <span className="relative inline-flex size-3 rounded-full bg-rose-500 shadow-sm shadow-black" />
           </span>
@@ -739,7 +744,7 @@ export default function PageProfileContent() {
         <p className="text-center text-zinc-300">Content will appear here</p>
       )}
       {(currentProfile.data?.length ?? 0) < 100 ? (
-        <div className="flex flex-col gap-5 mbs-11 *:flex-1 md:flex-row">
+        <div className="mbs-11 flex flex-col gap-5 *:flex-1 md:flex-row">
           <ButtonAddProfileData embed={false}>
             Link
             <IconLink width="1.25em" />

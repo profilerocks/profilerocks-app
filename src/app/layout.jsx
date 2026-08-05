@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { PLATFORM_NAME, PLATFORM_DESCRIPTION, SITE } from "#src/lib/env";
 import { fontText } from "#src/lib/fonts";
-import ErrorInSearchParams from "#src/ui/error";
+import ErrorInSearchParams from "#src/ui/error/params";
 import OnlineStatus from "#src/ui/online";
 import "./global.css";
 

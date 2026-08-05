@@ -10,7 +10,7 @@ import Button from "#src/ui/button";
  * @function
  * @returns {React.ReactNode}
  */
-export default function ButtonUpgradePremium() {
+export default function ButtonUpgradeProfilePremium() {
   const { currentProfile } = useSnapshot(globalState);
 
   /**

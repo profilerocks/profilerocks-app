@@ -94,8 +94,7 @@ function ProfileThemeEntry({ background, color, disabled, onChange, publicId, ti
     <li>
       <label
         className={
-          "flex-1 py-3 text-xl cursor-pointer " +
-          (checked ? "text-emerald-400" : "text-zinc-400 hover:text-zinc-300 active:text-zinc-200")
+          "flex-1 cursor-pointer py-3 text-xl " + (checked ? "text-emerald-400" : "text-zinc-400 hover:text-zinc-300 active:text-zinc-200")
         }
         htmlFor={inputRadioId}
         title={htmlTitle}
@@ -162,7 +161,8 @@ export default function ProfileThemes() {
   if (!profileThemes) {
     return (
       <>
-        <IconLoading width="1.5em" />Loading...
+        <IconLoading width="1.5em" />
+        Loading...
       </>
     );
   }

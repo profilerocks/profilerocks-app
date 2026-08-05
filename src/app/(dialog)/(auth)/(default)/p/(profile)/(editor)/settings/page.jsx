@@ -2,7 +2,7 @@ import ButtonDeleteProfileMembership from "#src/ui/button/danger/delete/profile"
 import ButtonDownloadProfileData from "#src/ui/button/download/profile";
 import { FormProfileNameIdUpdate } from "#src/ui/form/profile/name";
 import Link from "#src/ui/link";
-import ProfileCurrentPlan from "#src/ui/profile/current/plan";
+import ProfileCurrentPlan from "#src/ui/profile/plan";
 import ProfilePremiumSettings from "#src/ui/profile/settings/premium";
 
 /**
@@ -23,7 +23,7 @@ export default function PageProfileSettings() {
         the <Link href="/u/settings#data">account settings</Link>.
       </p>
       <ButtonDownloadProfileData />
-      <h2 className="text-rose-400 text-2xl">Danger zone</h2>
+      <h2 className="text-2xl text-rose-400">Danger zone</h2>
       <p>
         After deletion, the profile and its associated plan will be <strong>permanently removed and cannot be recovered</strong>.
       </p>

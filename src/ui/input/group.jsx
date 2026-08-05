@@ -1,7 +1,10 @@
 import { useId } from "react";
 
 /**
- * @typedef {React.InputHTMLAttributes<HTMLInputElement>&{ref?:React.Ref<HTMLInputElement>}} Props
+ * @typedef {Object} PropInputRef
+ * @prop {React.Ref<HTMLInputElement>} [ref]
+ *
+ * @typedef {React.InputHTMLAttributes<HTMLInputElement>&PropInputRef} Props
  */
 
 /**

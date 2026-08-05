@@ -13,7 +13,7 @@ import { regexProfile } from "#src/lib/regex";
 import { requestProfileCreation, requestProfileNameIdUpdate } from "#src/lib/request";
 import globalState from "#src/lib/state";
 import Button from "#src/ui/button";
-import DateTime from "#src/ui/date";
+import DateTime from "#src/ui/date/time";
 import Link from "#src/ui/link";
 import Message from "#src/ui/message";
 
