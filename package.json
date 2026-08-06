@@ -64,10 +64,5 @@
     "typescript": "^6.0.3",
     "validator": "^13.15.35",
     "valtio": "^2.3.2"
-  },
-  "allowScripts": {
-    "@parcel/watcher@2.5.6": true,
-    "sharp@0.34.5": true,
-    "unrs-resolver@1.12.2": true
   }
 }
