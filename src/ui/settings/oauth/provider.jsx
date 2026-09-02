@@ -113,7 +113,7 @@ export default function SettingsOauth({ Icon, provider }) {
 
   return (
     <article className={"overflow-hidden rounded-4xl border-2 " + (linked ? "border-emerald-400" : "border-zinc-700")}>
-      <div className="flex border-be-2 border-be-zinc-700 bg-zinc-900 p-4">
+      <div className="flex border-be-2 border-zinc-700 bg-zinc-900 p-4">
         <Icon className="drop-shadow-xs drop-shadow-black" width="2.5em" />
         <hgroup className="ms-5">
           <h2 className="text-xl">{provider[0].toUpperCase() + provider.substring(1).toLowerCase()}</h2>

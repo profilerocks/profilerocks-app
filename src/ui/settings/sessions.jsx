@@ -21,7 +21,7 @@ export default function SettingsSessions() {
           <IconLogout width={ICON_DIMENSION} />
           Log out of current session
         </Button>
-        <div className="mbs-4 border-bs border-bs-zinc-700 pbs-2">
+        <div className="mbs-4 border-bs border-zinc-700 pbs-2">
           <h2 className="my-4 text-xl">Do you think your account has been compromised?</h2>
           <p className="my-4">
             Logging out of all sessions will terminate every active connection, including this one, requiring you to sign in again.

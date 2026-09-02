@@ -34,7 +34,7 @@ function ProfilePreview() {
     <section className={"relative flex flex-col" + (currentProfile ? "" : " hidden")} id="preview" title="Profile preview">
       {currentProfile && (
         <>
-          <header className="flex items-center gap-2 border-be border-be-zinc-700 bg-zinc-900 p-2">
+          <header className="flex items-center gap-2 border-be border-zinc-700 bg-zinc-900 p-2">
             <LinkBack className="hide-desktop-large" href="#page" />
             <LongWord
               as="a"

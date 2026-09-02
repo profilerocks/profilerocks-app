@@ -128,7 +128,7 @@ function ProfileThemeEntry({ background, color, disabled, onChange, publicId, ti
  * @returns {React.ReactNode}
  */
 function ProfileThemeList({ children }) {
-  return <ul className="mbs-2 select-none *:flex *:items-center *:gap-4 *:border-bs *:border-bs-zinc-700 *:pe-2">{children}</ul>;
+  return <ul className="mbs-2 select-none *:flex *:items-center *:gap-4 *:border-bs *:border-zinc-700 *:pe-2">{children}</ul>;
 }
 
 export default function ProfileThemes() {
