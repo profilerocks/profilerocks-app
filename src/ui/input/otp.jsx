@@ -26,6 +26,8 @@ function otpOnBeforeInput(event) {
  * @param {Exclude<React.InputHTMLAttributes<HTMLInputElement>,"autoCapitalize"|"className"|"maxLength"|"minLength"|"name"|"onBeforeInput"|"placeholder"|"spellCheck"|"type">&Props} props
  */
 export default function InputOtp({ onChange, valid, ...inputAttributes }) {
+  const invalid = valid === false;
+
   return (
     <input
       autoCapitalize="off"
@@ -37,7 +39,7 @@ export default function InputOtp({ onChange, valid, ...inputAttributes }) {
          * `bg-clip-text` fixes autofill background in Chrome.
          */
         " w-full border-be-2 border-zinc-700 bg-clip-text py-3 ps-px text-3xl tracking-widest lowercase caret-current outline-hidden transition-colors placeholder:ps-px focus:border-current " +
-        (valid ? "text-emerald-400" : "text-rose-400")
+        (invalid ? "text-rose-400" : "text-emerald-400")
       }
       minLength={otpAttributes.length}
       maxLength={otpAttributes.length}
@@ -47,7 +49,7 @@ export default function InputOtp({ onChange, valid, ...inputAttributes }) {
       pattern={otpAttributes.regex}
       placeholder={placeholder}
       spellCheck={false}
-      title={valid ? undefined : "Invalid OTP Code"}
+      title={invalid ? "Invalid OTP Code" : undefined}
       type="text"
       {...inputAttributes}
     />
