@@ -46,13 +46,12 @@ getHtmlFiles(OUT_DIR).forEach(filePath => {
 
     if (content) {
       // Calculate SHA-256 hash
-      const hash = crypto.createHash("sha256").update(content).digest("base64");
-      hashes.push(`'sha256-${hash}'`);
+      hashes.push(`'sha256-${crypto.createHash("sha256").update(content).digest("base64")}'`);
     }
   }
 
   if (hashes.length > 0) {
-    const cspMetaTag = `<meta http-equiv="content-security-policy" content="base-uri 'self';connect-src 'self' blob: https://challenges.cloudflare.com https://profile.rocks;default-src 'self';frame-src 'self' https:;font-src 'self' https://cdn.jsdelivr.net;form-action 'self' https://profile.rocks;img-src 'self' blob: data: https://assets.profile.rocks https://www.profile.rocks;object-src 'none';script-src 'self' ${hashes.join(" ")} https://challenges.cloudflare.com https://assets.profile.rocks;script-src-attr 'none';style-src 'self' 'unsafe-inline' https://assets.profile.rocks;upgrade-insecure-requests">`;
+    const cspMetaTag = `<meta http-equiv="content-security-policy" content="script-src 'self' 'wasm-unsafe-eval' https://challenges.cloudflare.com https://assets.profile.rocks ${hashes.join(" ")}">`;
 
     html = html.replace(/<meta charset=.*?>/i, `<meta charset="utf-8">${cspMetaTag}`);
 
