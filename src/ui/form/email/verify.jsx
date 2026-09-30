@@ -139,13 +139,7 @@ function FormOtpContent({ submitting }) {
         <Button
           className="ps-3.5"
           disabled={submitting || otpInputBlock || !otpValid}
-          title={(
-            submitting
-              ? "Submitting..."
-              : otpValid === false
-                ? "Invalid OTP Code"
-                : undefined
-          )}
+          title={submitting ? "Submitting..." : otpValid === false ? "Invalid OTP Code" : undefined}
           type="submit"
         >
           Verify

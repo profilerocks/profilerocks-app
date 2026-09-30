@@ -60,7 +60,12 @@ export const viewport = {
  */
 export default function Layout({ children }) {
   return (
-    <html className="h-full scrollbar-thumb-zinc-400 scroll-smooth motion-reduce:scroll-auto" data-scroll-behavior="smooth" lang="en" prefix="og: https://ogp.me/ns#">
+    <html
+      className="h-full scrollbar-thumb-zinc-400 scroll-smooth motion-reduce:scroll-auto"
+      data-scroll-behavior="smooth"
+      lang="en"
+      prefix="og: https://ogp.me/ns#"
+    >
       <body className={"flex h-full flex-col bg-black text-zinc-200 " + fontText.className}>
         {/** Since `ErrorInSearchParams` uses `useSearchParams`, it needs to be wrapped in a Suspense boundary. */}
         <Suspense>
