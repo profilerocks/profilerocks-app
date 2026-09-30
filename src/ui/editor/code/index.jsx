@@ -4,6 +4,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import { createTheme } from "@uiw/codemirror-themes";
 import { tags as t } from "@lezer/highlight";
 import { fontCode } from "#src/lib/fonts";
+import "./index.module.css";
 
 /**
  * @import {BasicSetupOptions,ReactCodeMirrorProps,ViewUpdate} from "@uiw/react-codemirror"

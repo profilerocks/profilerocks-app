@@ -91,22 +91,18 @@ export default function ProfileList() {
           </div>
         </Suspense>
       ) : null}
-      <menu className="mbs-4 flex flex-wrap gap-x-6 gap-y-4 px-4 *:flex-1">
+      <nav className="mbs-4 flex flex-wrap gap-x-6 gap-y-4 px-4 *:flex-1">
         {profilesRemaining > 0 && (
-          <li>
-            <LinkPillSolidActive className="pe-3.5" href="/p#page">
-              <IconUserPlus width="1.5em" />
-              Create a new profile
-            </LinkPillSolidActive>
-          </li>
+          <LinkPillSolidActive className="pe-3.5" href="/p#page">
+            <IconUserPlus width="1.5em" />
+            Create a new profile
+          </LinkPillSolidActive>
         )}
-        <li>
-          <LinkNext className="group" href="/u/settings">
-            <IconSettings className="transition-transform duration-1000 group-hover:rotate-360" width="1.5em" />
-            User Settings
-          </LinkNext>
-        </li>
-      </menu>
+        <LinkNext className="group" href="/u/settings">
+          <IconSettings className="transition-transform duration-1000 group-hover:rotate-360" width="1.5em" />
+          User Settings
+        </LinkNext>
+      </nav>
       <p className="mbs-6 text-center text-sm text-zinc-500">You can create up to {profileAttributes.limit} profiles</p>
       {profiles?.length ? (
         <p className="mbs-1.5 text-center text-sm text-zinc-500">

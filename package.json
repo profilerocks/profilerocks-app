@@ -62,7 +62,6 @@
     "prettier": "^3.9.9",
     "prettier-plugin-css-order": "^2.2.0",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "sass": "^1.105.1",
     "typescript": "^6.0.3"
   }
 }

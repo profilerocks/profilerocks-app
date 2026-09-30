@@ -1,5 +1,4 @@
 import FormProfileMetaDescription from "#src/ui/form/profile/meta/description";
-import styles from "./index.module.scss";
 
 export default function SettingsProfileMetaDescription() {
   return (
