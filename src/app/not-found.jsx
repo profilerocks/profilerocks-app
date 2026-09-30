@@ -36,7 +36,7 @@ export default function NotFound() {
           <p className="mbs-2 text-3xl text-zinc-400">Not found</p>
         </figcaption>
       </figure>
-      <p className="mx-auto my-8 max-w-max text-zinc-200">
+      <p className="mx-auto my-8 max-w-max text-zinc-300">
         <q>Looks like this page took a wrong turn... Maybe it&#39;s lost in the internet void, or just grabbing a coffee.</q>
       </p>
       <Minimap />

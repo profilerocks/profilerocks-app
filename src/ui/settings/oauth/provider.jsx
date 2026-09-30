@@ -117,7 +117,7 @@ export default function SettingsOauth({ Icon, provider }) {
         <Icon className="drop-shadow-xs drop-shadow-black" width="2.5em" />
         <hgroup className="ms-5">
           <h2 className="text-xl">{provider[0].toUpperCase() + provider.substring(1).toLowerCase()}</h2>
-          <p className="text-sm text-zinc-200">
+          <p className="text-sm text-zinc-300">
             {linked ? (
               <>
                 Linked on <time dateTime={linked.toISOString().split("T")[0]}>{linked.toDateString()}</time>
