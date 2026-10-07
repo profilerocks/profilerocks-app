@@ -11,8 +11,9 @@ import SvgLogoLong from "#src/static/logo/long.svg";
 import LinkBack from "#src/ui/link/back";
 import Minimap from "#src/ui/minimap";
 import ProfileList from "#src/ui/profile/entries";
-import LongWord from "#src/ui/text/long";
 import User from "#src/ui/user";
+
+const API_HOST = new URL(API).host;
 
 /**
  * @function renderMarkdown
@@ -34,16 +35,15 @@ function ProfilePreview() {
     <section className={"relative flex flex-col" + (currentProfile ? "" : " hidden")} id="preview" title="Profile preview">
       {currentProfile && (
         <>
-          <header className="flex items-center gap-2 border-be border-zinc-700 bg-zinc-900 p-2">
+          <header className="flex items-center gap-1.5 border-be border-zinc-700 bg-zinc-900 p-2">
             <LinkBack className="hide-desktop-large" href="#page" />
-            <LongWord
-              as="a"
-              className="inline-block flex-1 rounded-lg bg-zinc-950 py-2"
-              href={API + "/" + currentProfile.name_id}
+            <a
+              className="relative min-h-max flex-1 scrollbar-gutter-stable overflow-x-auto overflow-y-visible rounded-lg bg-zinc-950 py-2 text-nowrap shadow-zinc-950 before:sticky before:inset-s-0 before:me-3 before:shadow-md after:sticky after:inset-e-0 after:ms-3 after:shadow-md"
+              href={API_HOST + "/" + currentProfile.name_id}
               target="_blank"
             >
-              {API + "/" + currentProfile.name_id}
-            </LongWord>
+              {API_HOST + "/" + currentProfile.name_id}
+            </a>
           </header>
           <iframe
             className="w-full flex-1 select-none"

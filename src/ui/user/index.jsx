@@ -10,7 +10,11 @@ import { UserDisplayName, UserEmail } from "#src/ui/user/client";
  */
 export default function User({ className: customClassName }) {
   return (
-    <div className={"flex items-center gap-4 rounded-xl bg-zinc-900 p-3" + (customClassName ? " " + customClassName : "")}>
+    <div
+      className={
+        "flex items-center gap-4 rounded-xl border-2 border-zinc-800 bg-zinc-950 p-3" + (customClassName ? " " + customClassName : "")
+      }
+    >
       <div className="flex-1 overflow-hidden">
         <UserDisplayName />
         <UserEmail />

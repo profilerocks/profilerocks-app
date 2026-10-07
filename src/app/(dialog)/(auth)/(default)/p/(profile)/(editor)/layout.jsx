@@ -79,7 +79,7 @@ function LinkProfileConfiguration({ children, path }) {
       aria-current={active ? "page" : undefined}
       className={
         active
-          ? "text-emerald-400! before:inset-x-6! before:bg-zinc-900 hover:before:bg-zinc-800 active:before:bg-zinc-700 sm:before:inset-x-1!"
+          ? "text-emerald-400! before:inset-x-6! before:bg-zinc-800 hover:before:bg-zinc-700 active:before:bg-zinc-600 sm:before:inset-x-1!"
           : undefined
       }
       href={"/p/" + path + "?id=" + currentProfile.public_id + "#page"}

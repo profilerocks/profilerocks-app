@@ -16,7 +16,6 @@ import otpAttributes from "#shared/otp.json";
 import Button from "#src/ui/button";
 import InputOtp from "#src/ui/input/otp";
 import LinkBack from "#src/ui/link/back";
-import LongWord from "#src/ui/text/long";
 
 /**
  * @import {OtpState} from "#src/lib/state/otp"
@@ -405,7 +404,7 @@ function FormOtp({ afterVerification, requestOtpVerification }) {
   return (
     <form onSubmit={sendOtpToServer}>
       <FormOtpContent submitting={submitting} />
-      <p className="mbs-7 mbe-0">
+      <p className="mbs-7 mbe-0 text-zinc-300">
         <ResendText submitting={submitting} setSubmitting={setSubmitting} />
       </p>
       <p className="mbs-1 text-sm text-zinc-400">You can only resend once per email. Check your spam folder before resending.</p>
@@ -440,11 +439,11 @@ export default function UserEmailVerify({ afterVerification, children, requestOt
   return email ? (
     <>
       {children}
-      <p>
+      <p className="text-zinc-300">
         Enter the verification code sent to:
-        <LongWord as="strong" className="block font-medium text-emerald-400">
+        <strong className="block truncate font-medium text-emerald-400" title={email}>
           {email}
-        </LongWord>
+        </strong>
       </p>
       <ContextHrefBack value={hrefBack}>
         <FormOtp afterVerification={afterVerification} requestOtpVerification={requestOtpVerification} />
