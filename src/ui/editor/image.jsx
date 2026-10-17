@@ -1,0 +1,80 @@
+"use client";
+
+import { useRef, useEffect } from "react";
+import { Cropper } from "react-mobile-cropper";
+import IconClose from "#src/icons/close.svg";
+import Button from "#src/ui/button";
+import "react-mobile-cropper/dist/style.css";
+
+/**
+ * @import {CropperProps,CropperRef} from "react-mobile-cropper"
+ *
+ * @typedef {object} ImageEditorRestProps
+ * @prop {BlobCallback} [callbackBlob]
+ *
+ * Remember that Webkit applies a default max-width and max-height of 100% - 2em - 6px.
+ * Override with `none`.
+ */
+
+/**
+ * @param {CropperProps&ImageEditorRestProps} props
+ */
+export default function ImageEditor({ src, callbackBlob, ...restProps }) {
+  /**
+   * @type {React.RefObject<HTMLDialogElement|null>}
+   */
+  const dialogRef = useRef(null);
+
+  /**
+   * @type {React.RefObject<CropperRef|null>}
+   */
+  const copperRef = useRef(null);
+
+  function cleanPhoto() {
+    // @ts-expect-error
+    URL.revokeObjectURL(src);
+  }
+
+  useEffect(() => {
+    if (src) {
+      dialogRef.current?.showModal();
+      return cleanPhoto;
+    }
+  }, [src]);
+
+  function onCrop() {
+    if (callbackBlob) {
+      copperRef.current?.getCanvas()?.toBlob(callbackBlob, "image/webp", 0.9);
+    }
+  }
+
+  /** @type {React.KeyboardEventHandler<HTMLDialogElement>} */
+  const onKeyDown = event => {
+    if (event.code === "Enter") {
+      const el = event.currentTarget;
+      if (el.open) {
+        event.currentTarget.close();
+        event.preventDefault();
+        event.stopPropagation();
+        onCrop();
+      }
+    }
+  };
+
+  return (
+    <dialog className="h-full max-h-none w-full max-w-none" onKeyDown={onKeyDown} ref={dialogRef}>
+      <form
+        className="absolute inset-x-4 inset-bs-2 z-1 mx-auto flex max-w-5xl items-center justify-between gap-4 *:shadow-sm *:shadow-black"
+        method="dialog"
+      >
+        <Button type="submit">
+          <IconClose width="1.5em" />
+        </Button>
+        <Button autoFocus onClick={onCrop} type="submit">
+          Save
+        </Button>
+      </form>
+      <Cropper className="h-full pbs-15.5! text-emerald-400!" ref={copperRef} src={src} {...restProps} />
+    </dialog>
+  );
+}

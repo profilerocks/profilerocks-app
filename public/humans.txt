@@ -1,0 +1,6 @@
+profile.rocks app was originally created by Stefan Samson <ss42701@outlook.com> (https://ssbit01.github.io/)
+and released under the MIT license.
+
+He hopes you like it :)
+
+Repository: <https://github.com/profile-rocks/profile-rocks-app>

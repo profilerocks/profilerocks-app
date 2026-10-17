@@ -1,0 +1,11 @@
+import FormUserEmail from "#src/ui/form/email";
+
+export default function SettingsEmail() {
+  return (
+    <div id="email">
+      <h1 className="text-3xl">Email address</h1>
+      <p className="my-4 text-zinc-400">Used for authentication and contact information. You can always change it.</p>
+      <FormUserEmail hrefBack="#home" />
+    </div>
+  );
+}

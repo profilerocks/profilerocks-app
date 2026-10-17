@@ -1,0 +1,29 @@
+import ButtonDownloadAccountData from "#src/ui/button/download/account";
+import ButtonDeleteAccount from "#src/ui/button/danger/delete/account";
+
+export default function SettingsData() {
+  return (
+    <div id="data">
+      <h1 className="text-3xl">My data</h1>
+      <p className="my-4 text-zinc-400">
+        All data associated with your account can be manually exported and downloaded at any time, ensuring complete access and portability
+        of your information. You can also export each profile data separately in the profile settings and{" "}
+        <strong className="text-zinc-300">Polar.sh</strong> data in the <a href="#payments">payments</a> settings.
+      </p>
+      <p className="mbe-4 text-zinc-400">
+        Your data is exported in a standard, machine-readable JSON format, allowing you to easily view it.
+      </p>
+      <ButtonDownloadAccountData />
+      <h2 className="mbs-8 text-2xl text-rose-400">Delete account</h2>
+      <p className="my-4 text-zinc-400">
+        Closing your account is a permanent action. All your profiles, active premium subscriptions, and personal information{" "}
+        <strong className="text-zinc-300">will be deleted permanently and will not be recoverable</strong>.
+      </p>
+      <p className="mbe-4 text-zinc-400">
+        Please ensure you have downloaded any important data before proceeding, as accounts cannot be restored once the deletion process is
+        complete.
+      </p>
+      <ButtonDeleteAccount />
+    </div>
+  );
+}
