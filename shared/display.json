@@ -1,0 +1,5 @@
+{
+  "maxLength": 60,
+  "minLength": 2,
+  "regexDisallowed": "[\\p{M}\\p{Zl}\\p{Zp}\\p{Ps}\\p{Pe}\\p{Pi}\\p{Pf}\\p{C}]+"
+}

@@ -1,0 +1,25 @@
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 0.625em;
+  transition-duration: 0.15s;
+  transition-property: background, color, outline-color;
+  box-sizing: border-box;
+  outline: medium solid transparent;
+  border-radius: 1.375em;
+  padding: 0.625em;
+  font: inherit;
+  font-weight: 500;
+  user-select: none;
+  text-decoration: none;
+  white-space: nowrap;
+  &:hover {
+    background: var(--color-input-hover);
+  }
+  &:is(:active, :focus-visible) {
+    background: var(--color-input-active);
+  }
+  svg {
+    filter: drop-shadow(0 0 0.25em var(--color-bg));
+  }
+}

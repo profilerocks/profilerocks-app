@@ -1,0 +1,12 @@
+.outline {
+  color: var(--color-a);
+  &:hover {
+    color: var(--color-a-hover);
+  }
+  &:is(:active, :focus-visible) {
+    color: var(--color-a-active);
+  }
+  &:focus-visible {
+    outline-color: var(--color-a-hover);
+  }
+}

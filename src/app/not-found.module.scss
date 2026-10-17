@@ -1,0 +1,59 @@
+.page {
+  transition: opacity 0.2s;
+  margin-inline: 1em;
+  margin-block: auto;
+  padding-block-end: 4em;
+}
+
+.figure-not-found {
+  $gap: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  font-size: 3em;
+  text-align: center;
+  > svg {
+    filter: drop-shadow(0 0 3px);
+    margin-inline-end: $gap;
+    max-width: 4em;
+    color: var(--color-highlight);
+  }
+  > figcaption {
+    border-inline-start: thin solid var(--color-border);
+    padding-inline-start: $gap;
+    > h1 {
+      margin: 0;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+    }
+    > p {
+      margin: 0;
+      color: var(--color-3);
+    }
+  }
+}
+
+.quote {
+  margin-block: 2.5em;
+  padding-inline: 0.5em;
+  color: var(--color-2);
+  font-style: italic;
+  text-align: center;
+}
+
+@media (max-width: 42em) {
+  .figure-not-found {
+    flex-direction: column;
+    gap: 0.25em;
+    font-size: 2.5em;
+    > svg {
+      margin: 0;
+    }
+    > figcaption {
+      border: 0;
+      padding: 0;
+    }
+  }
+}

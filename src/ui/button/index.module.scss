@@ -1,0 +1,32 @@
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 0.625em;
+  transition-duration: 0.15s;
+  transition-property: color, background, border-color, outline-color;
+  cursor: pointer;
+  box-sizing: border-box;
+  outline: medium solid transparent;
+  border: none;
+  border-radius: 1.375em;
+  background: var(--color-3);
+  padding: 0.625em;
+  color: var(--color-bg);
+  font: inherit;
+  font-weight: 500;
+  user-select: none;
+  white-space: nowrap;
+  &:hover {
+    background: var(--color-2);
+  }
+  &:is(:active, :focus-visible) {
+    background: var(--color);
+  }
+  &:focus-visible {
+    outline-color: var(--color-input-outline);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background: var(--color-4);
+  }
+}

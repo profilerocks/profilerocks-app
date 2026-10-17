@@ -1,0 +1,15 @@
+.content {
+  padding-inline: 1em;
+  padding-block-end: 2em;
+}
+
+.page-back {
+  margin-inline: 0.5em;
+  margin-block-start: 0.75em;
+  max-width: max-content;
+}
+
+.page-title {
+  font-size: clamp(2em, 7vw, 3em);
+  text-align: center;
+}

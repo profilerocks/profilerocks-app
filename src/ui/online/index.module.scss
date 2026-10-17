@@ -1,0 +1,17 @@
+.container-offline {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 2;
+  background: var(--color-danger);
+  padding-block: 0.0625em;
+  color: var(--color-bg);
+}
+
+.figure-offline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0;
+}

@@ -1,0 +1,8 @@
+{
+  "limit": 10,
+  "maxLength": 32,
+  "minLength": 3,
+  "nameIdUpdateGapMs": 1209600000,
+  "refundDays": 15,
+  "regex": "^([a-z0-9]_?)*[a-z0-9]$"
+}

@@ -1,0 +1,28 @@
+.icon-settings {
+  transition: rotate 1s;
+}
+
+.link-settings {
+  padding: 0.375em !important;
+  &:hover {
+    .icon-settings {
+      rotate: 1turn;
+    }
+  }
+}
+
+.user-container {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin: 1em;
+  border-radius: 0.75em;
+  background: var(--color-bg-2);
+  padding: 0.75em;
+  //border: thin solid var(--color-border);
+}
+
+.user-info {
+  flex: 1;
+  overflow: hidden;
+}

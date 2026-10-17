@@ -1,0 +1,110 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useState, useDeferredValue } from "react";
+import { showAlertErrorApp } from "#src/lib/alert";
+import { normalizeDisplayName } from "#src/lib/name";
+import { requestUserDisplayNameUpdate } from "#src/lib/request";
+import globalState from "#src/lib/state";
+import displayAttributes from "#shared/display.json";
+import InputGroup from "#src/ui/input/group";
+import LinkBack from "#src/ui/link/back";
+import Actions from "#src/ui/actions";
+import Requirements from "#src/ui/requirements";
+import Button from "#src/ui/button";
+
+/**
+ * @function
+ * @param {Object} props
+ * @param {React.ReactNode} props.children
+ * @param {string} [props.hrefBack]
+ * @param {string} [props.hrefNext]
+ * @returns {React.ReactNode}
+ */
+export default function FormDisplayName({ children, hrefBack, hrefNext }) {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [displayName, setDisplayName] = useState("");
+  const deferredDisplayName = useDeferredValue(displayName);
+  const normalizedDisplayName = normalizeDisplayName(deferredDisplayName);
+
+  const lengthDifference = displayName.length - normalizedDisplayName.length;
+  const invalidNormalizedName =
+    normalizedDisplayName.length < displayAttributes.minLength || normalizedDisplayName === globalState.displayName;
+  const disabled = isSubmitting || invalidNormalizedName;
+
+  /**
+   * @function setDisplayNameOnInput
+   * @param {React.ChangeEvent<HTMLInputElement>} event
+   */
+  function setDisplayNameOnInput(event) {
+    setDisplayName(event.currentTarget.value);
+  }
+
+  /**
+   * @async
+   * @function sendNameToServer
+   * @param {React.SubmitEvent<HTMLFormElement>} event
+   */
+  async function sendNameToServer(event) {
+    event.preventDefault();
+
+    if (disabled) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    const res = await requestUserDisplayNameUpdate(normalizedDisplayName);
+
+    if (!res) {
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!res.ok) {
+      showAlertErrorApp();
+      setIsSubmitting(false);
+      return;
+    }
+
+    globalState.displayName = normalizedDisplayName;
+
+    const nextHref = globalState.redirect || hrefNext;
+
+    if (nextHref) {
+      router.push(nextHref);
+      globalState.redirect = undefined;
+    } else {
+      setIsSubmitting(false);
+    }
+  }
+
+  return (
+    <form onSubmit={sendNameToServer}>
+      <InputGroup
+        defaultValue={globalState.displayName}
+        disabled={isSubmitting}
+        maxLength={lengthDifference + displayAttributes.maxLength}
+        minLength={lengthDifference + displayAttributes.minLength}
+        onChange={setDisplayNameOnInput}
+        placeholder="e.g. John Doe"
+        required
+        type="text"
+      >
+        Name
+      </InputGroup>
+      <Requirements>
+        <li className={invalidNormalizedName ? undefined : "valid"}>
+          Between {displayAttributes.minLength} & {displayAttributes.maxLength} characters
+        </li>
+      </Requirements>
+      <Actions>
+        {hrefBack && <LinkBack href={hrefBack}>Back</LinkBack>}
+        <Button type="submit" disabled={disabled}>
+          {children}
+        </Button>
+      </Actions>
+    </form>
+  );
+}

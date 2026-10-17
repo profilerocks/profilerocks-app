@@ -1,0 +1,13 @@
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1em;
+  margin-block-start: 1.25em;
+}
+
+.section-compromised {
+  margin-block-start: 0.9375em;
+  border-block-start: thin solid var(--color-border);
+  padding-block-start: 0.4375em;
+}

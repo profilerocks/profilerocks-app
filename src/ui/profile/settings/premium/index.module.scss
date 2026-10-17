@@ -1,0 +1,16 @@
+.premium-settings {
+  margin-block: 1.5em;
+  border-width: 2px;
+  border-color: var(--color-premium);
+  border-radius: 0.5em;
+  min-height: max-content;
+  > legend {
+    padding-inline: 0.25em;
+    color: var(--color);
+    font-size: 1.25em;
+  }
+}
+
+.premium-settings-description {
+  margin-block: 0.5em 1em;
+}

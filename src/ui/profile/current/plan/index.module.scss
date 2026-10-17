@@ -1,0 +1,17 @@
+.profile-current-plan {
+  border: 2px solid var(--color-border);
+  border-radius: 0.5em;
+  padding-inline: 0.75em;
+}
+
+.profile-current-plan-title {
+  margin-block: 0.75em;
+}
+
+.premium {
+  border-color: var(--color-premium) !important;
+}
+
+.text-premium {
+  color: var(--color-premium) !important;
+}

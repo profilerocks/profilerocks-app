@@ -1,0 +1,113 @@
+.box-profile-name-id {
+  display: flex;
+  transition: border-color 0.15s;
+  border: 2px solid var(--color-border);
+  border-radius: 1.5625em;
+  user-select: none;
+  &:focus-within {
+    border-color: var(--color-highlight);
+  }
+  > button {
+    align-self: center;
+    margin-inline: 0.375em;
+    padding: 0.5em;
+  }
+  > label {
+    cursor: text;
+    padding-inline-start: 0.875em;
+    padding-block: 0.625em;
+    color: var(--color-2);
+  }
+  > input {
+    flex: 1;
+    outline: none;
+    border: none;
+    background: none;
+    padding: 0;
+    min-width: 0 !important;
+    color: var(--color);
+    caret-color: var(--color-highlight);
+    font: inherit;
+    &:-webkit-autofill {
+      &,
+      &:hover,
+      &:focus,
+      &:active {
+        -webkit-box-shadow: 0 0 0 red;
+      }
+    }
+  }
+}
+
+.box-profile-name-id-page {
+  margin-inline: auto;
+  max-width: 38.5em;
+  font-size: clamp(1em, 3vw, 1.5em);
+}
+
+.box-profile-name-id-update {
+  font-size: clamp(1em, 3vw, 1.125em);
+}
+
+.btn-text-profile-name-id {
+  margin-inline-end: -0.25em;
+  line-height: 1;
+}
+
+.profile-name-id-update-date {
+  font-size: 0.875em;
+}
+
+.requirements-box-profile-name-id {
+  margin-inline: auto !important;
+  max-width: max-content;
+}
+
+/*.profile-title {
+  display: flex;
+  > span {
+    position: relative;
+    z-index: 1;
+    width: 18em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: .375em 1.625em .25em .5em;
+    border: thin solid var(--color-border);
+    border-bottom: none;
+    $br: .875em;
+    border-radius: $br $br 0 0;
+    overflow: hidden;
+    user-select: none;
+    > img {
+      vertical-align: middle;
+      margin-inline-end: .5em;
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      top: 1em;
+      right: .75em;
+      $size: .6875em;
+      width: $size;
+      height: $size;
+      background: var(--color-3);
+      clip-path: polygon(14.5% 0%, 50% 35%, 85% 0%, 100% 15%, 65% 50%, 100% 85%, 85% 100%, 50% 65%, 15% 100%, 0% 85%, 35% 50%, 0% 15%);
+    }
+  }
+  &::before, &::after {
+    content: "";
+    border-bottom: thin solid var(--color-border);
+  }
+  &::before {
+    width: 2em;
+  }
+  &::after {
+    flex: 1;
+  }
+}*/
+
+@media (width < 35em) {
+  .btn-text-profile-name-id {
+    display: none;
+  }
+}

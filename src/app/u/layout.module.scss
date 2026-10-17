@@ -1,0 +1,20 @@
+.user-enter-page {
+  box-sizing: border-box;
+  margin-inline: auto;
+  padding-inline: 1.5em;
+  width: 100%;
+  max-width: 39.75em;
+  height: 27.75em;
+  min-height: max-content;
+}
+
+.footer-bottom {
+  margin-block-start: auto;
+  padding-block: 2.5em;
+}
+
+@media (min-width: 44em) {
+  .user-enter-page {
+    margin-block-start: auto;
+  }
+}

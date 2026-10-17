@@ -1,0 +1,180 @@
+########################################################################
+# Build / Output
+########################################################################
+
+/build/
+/dist/
+/out/
+/out-tsc/
+/tmp/
+/.output/
+/coverage/
+/coverage/**
+
+# Output of `npm pack`
+*.tgz
+
+
+########################################################################
+# Dependency directories
+########################################################################
+
+/node_modules/
+/jspm_packages/
+/.pnp
+.pnp.*
+.yarn/*
+
+# Keep specific .yarn subfolders that projects often commit
+!.yarn/patches/
+!.yarn/plugins/
+!.yarn/releases/
+!.yarn/versions/
+!.yarn/sdks/
+
+
+########################################################################
+# Package manager caches & metadata
+########################################################################
+
+.npm
+.yarn-integrity
+.pnpm-store
+.lock-wscript
+
+
+########################################################################
+# Framework / tool specific
+########################################################################
+
+.astro/
+.next/
+.nuxt/
+.vercel/
+.svelte-kit/
+.vitepress/cache/
+.vitepress/dist/
+.turbo/
+.netlify/
+/.wrangler
+
+
+########################################################################
+# Runtime / process files
+########################################################################
+
+pids
+*.pid
+*.seed
+*.pid.lock
+
+
+########################################################################
+# Coverage / test / reports
+########################################################################
+
+.lcov
+.nyc_output/
+.vitest/
+.playwright/
+playwright-report/
+test-results/
+
+
+########################################################################
+# Build tools / intermediate
+########################################################################
+
+.lib-cov
+.grunt
+typings/
+
+
+########################################################################
+# Logs
+########################################################################
+
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+
+########################################################################
+# Environment / secrets
+########################################################################
+
+.env*
+.dev.vars
+
+
+########################################################################
+# TypeScript
+########################################################################
+
+*.tsbuildinfo
+next-env.d.ts
+
+
+########################################################################
+# Deno / Bun
+########################################################################
+
+.deno/
+.bun
+
+
+########################################################################
+# Misc / OS files
+########################################################################
+
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.pem
+*.key
+*.cert
+
+
+########################################################################
+# IDEs and Editors
+########################################################################
+
+# JetBrains IDEs (WebStorm, IntelliJ, PhpStorm, etc.)
+.idea/
+
+# Eclipse / VSCode / Cloud9
+.project
+.classpath
+.c9/
+*.launch
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# VSCode: ignore personal settings, but keep shared config if desired
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Misc editor temp files
+*.swp
+*.swo
+*~
+
+
+########################################################################
+# Storybook / Sentry / other
+########################################################################
+
+storybook-static/
+.sentryclirc

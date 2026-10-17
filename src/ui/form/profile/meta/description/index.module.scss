@@ -1,0 +1,26 @@
+.btn-submit {
+  display: block;
+  float: right;
+}
+
+.meta-description-textarea {
+  display: block;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+  margin-block: 1.25em;
+  outline: none;
+  border: 2px solid var(--color-border);
+  border-radius: 0.5em;
+  background: var(--color-bg-2);
+  padding: 0.5em;
+  width: 100%;
+  resize: none;
+  font: inherit;
+  &:focus {
+    border-color: var(--color-highlight);
+  }
+  &:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+  }
+}

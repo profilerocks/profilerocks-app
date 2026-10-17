@@ -1,0 +1,29 @@
+.map {
+  --color-a: var(--color-3);
+  --color-a-active: var(--color);
+  --color-a-hover: var(--color-2);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5em;
+  margin: 0;
+  padding: 0;
+  font-size: 0.75em;
+  list-style: none;
+  user-select: none;
+  > li > a {
+    transition-property: color, background;
+    border-radius: 1.375em;
+    padding: 0.5em 0.875em;
+    text-decoration: none;
+    &:hover {
+      background: var(--color-input-hover);
+    }
+    &:is(:active, :focus-visible) {
+      background: var(--color-input-active);
+    }
+    &:focus-visible {
+      outline-color: var(--color-input-outline);
+    }
+  }
+}

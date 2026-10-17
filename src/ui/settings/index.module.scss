@@ -1,0 +1,98 @@
+.a-setting {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: top;
+  gap: 0.375em;
+  transition: color 0.15s;
+  box-sizing: border-box;
+  padding-inline: 0.625em;
+  padding-block: 0.6875em;
+  width: 100%;
+  color: var(--color-3);
+  user-select: none;
+  text-decoration: none;
+  &:hover {
+    color: var(--color);
+  }
+  &:active {
+    color: var(--color-a-active);
+  }
+}
+
+.active {
+  pointer-events: none;
+  color: var(--color-highlight) !important;
+}
+
+.aside-settings {
+  z-index: 1;
+  box-shadow: 0 0.1875em 0.25em var(--color-bg);
+}
+
+.li-setting {
+  $pi: 1.125em;
+  flex: 1;
+  &:first-child {
+    > .a-setting {
+      padding-inline-start: $pi;
+    }
+  }
+  &:last-child {
+    > .a-setting {
+      padding-inline-end: $pi;
+    }
+  }
+}
+
+.settings-container {
+  display: flex;
+  gap: 3em;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory; // Not "both" due to Safari desktop bug
+  scrollbar-width: none;
+  > div {
+    box-sizing: border-box;
+    padding-inline: 1.5em;
+    padding-block-end: 3em;
+    min-width: 100%;
+    overflow-y: auto;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+}
+
+.ul-settings {
+  display: flex;
+  margin: 0;
+  border-block-end: thin solid var(--color-border);
+  padding: 0;
+  overflow: auto;
+  scrollbar-width: none;
+  list-style: none;
+}
+
+@media (min-width: 50em) {
+  .a-setting {
+    justify-content: flex-start;
+    gap: 0.875em;
+    padding-inline-start: 1.125em !important;
+    > svg {
+      width: 1.5em;
+    }
+  }
+
+  .settings-container {
+    max-width: 43em;
+    overflow: hidden;
+    scroll-behavior: auto;
+  }
+
+  .ul-settings {
+    flex-direction: column;
+    margin-block-start: 1em;
+    border-block-end: none;
+    font-size: 1.25em;
+  }
+}

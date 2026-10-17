@@ -1,0 +1,39 @@
+.input-otp {
+  transition-duration: 0.15s;
+  transition-property: color, border-color;
+  box-sizing: border-box;
+  outline: none;
+  border: 0;
+  border-bottom: 2px solid var(--color-border);
+  background: transparent;
+  background-clip: text; // Fixes autofill background in Chrome
+  padding: 0.5em;
+  width: 100%;
+  color: var(--color-highlight);
+  caret-color: var(--color-highlight);
+  font-size: 2em;
+  letter-spacing: 0.125em;
+  text-transform: lowercase;
+  &::placeholder {
+    padding-left: 0.0625em;
+  }
+  &:focus {
+    border-color: currentColor;
+  }
+}
+
+.invalid {
+  animation: shake 0.25s;
+  color: var(--color-danger);
+  caret-color: currentColor;
+  $move: 0.5em;
+  @keyframes shake {
+    25%,
+    75% {
+      transform: translateX($move);
+    }
+    50% {
+      transform: translateX(-$move);
+    }
+  }
+}

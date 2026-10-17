@@ -1,0 +1,12 @@
+.container-draggable {
+  transition: border-color 0.1s;
+  border: medium dashed;
+  border-radius: 0.625em;
+}
+
+.dragging {
+  border-color: var(--color-3) !important;
+  * {
+    pointer-events: none;
+  }
+}

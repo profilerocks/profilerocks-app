@@ -1,0 +1,13 @@
+.solid {
+  background: var(--color-input);
+  color: var(--color-3);
+  &:hover {
+    color: var(--color-2);
+  }
+  &:is(:active, :focus-visible) {
+    color: var(--color);
+  }
+  &:focus-visible {
+    outline-color: var(--color-input-outline);
+  }
+}

@@ -1,0 +1,70 @@
+.btn-resend {
+  transition: color 0.15s;
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--color-a);
+  font: inherit;
+  &:enabled {
+    cursor: pointer;
+    &:hover {
+      color: var(--color-a-hover);
+    }
+    &:active {
+      color: var(--color-a-active);
+    }
+  }
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.container-otp {
+  position: relative;
+  margin-block: 1em 1.75em;
+}
+
+.email {
+  display: block;
+  color: var(--color-highlight);
+  font-weight: 500;
+}
+
+.p-blocked {
+  position: absolute;
+  z-index: 1;
+  margin: 0;
+  inset: 1em 0 0 0;
+  background: var(--color-bg);
+  color: var(--color-danger);
+  font-size: 0.875em;
+  text-align: center;
+  > strong {
+    display: block;
+    margin-top: 0.125em;
+    font-size: 2em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.p-resend {
+  margin-block: 1.75em 0;
+  > svg {
+    margin-inline-start: 0.375em;
+    color: var(--color-highlight);
+  }
+}
+
+.p-resend-description {
+  margin-block: 0.25rem 0;
+  color: var(--color-3);
+  font-size: 0.875em;
+}
+
+.seconds-resend {
+  display: inline-block;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
