@@ -1,11 +1,10 @@
 import { HREF_HELP, HREF_LEGAL, HREF_PRIVACY, HREF_TERMS } from "#src/lib/env";
 
-/**
- * @function
- * @param {Object} props
- * @param {string} [props.className]
- */
-export default function Minimap({ className: customClassName }) {
+interface MinimapProps {
+  className?: string;
+}
+
+export default function Minimap({ className: customClassName }: MinimapProps): React.ReactNode {
   return (
     <nav
       className={

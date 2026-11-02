@@ -3,13 +3,13 @@
 import { useSnapshot } from "valtio";
 import globalState from "#src/lib/state";
 
-export function UserDisplayName() {
+export function UserDisplayName(): React.ReactNode {
   const { displayName } = useSnapshot(globalState);
 
   return <p title={displayName}>{displayName}</p>;
 }
 
-export function UserEmail() {
+export function UserEmail(): React.ReactNode {
   const { email, email2 } = useSnapshot(globalState);
   const displayEmail = email || email2;
 

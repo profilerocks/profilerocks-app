@@ -10,13 +10,10 @@ function handleDialogClose() {
   // globalState.dialogContent = undefined;
 }
 
-export default function Dialog() {
+export default function Dialog(): React.ReactNode {
   const { dialogConfirmFunction, dialogContent, dialogOpen } = useSnapshot(globalState);
 
-  /**
-   * @type {React.Ref<HTMLDialogElement|null>}
-   */
-  const dialogRef = useRef(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     const dialog = dialogRef.current;

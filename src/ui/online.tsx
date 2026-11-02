@@ -3,11 +3,7 @@
 import useOnlineStatus from "#src/lib/hooks/online";
 import IconOffline from "#src/icons/offline.svg";
 
-/**
- * @function
- * @returns {React.ReactNode}
- */
-export default function OnlineStatus() {
+export default function OnlineStatus(): React.ReactNode {
   const isOnline = useOnlineStatus();
 
   return isOnline ? null : (

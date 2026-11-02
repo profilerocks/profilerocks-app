@@ -2,13 +2,11 @@ import Link from "next/link";
 import IconSettings from "#src/icons/settings.svg";
 import { UserDisplayName, UserEmail } from "#src/ui/user/client";
 
-/**
- * @function
- * @param {object} props
- * @param {string} [props.className]
- * @returns {React.ReactNode}
- */
-export default function User({ className: customClassName }) {
+interface UserProps {
+  className?: string;
+}
+
+export default function User({ className: customClassName }: UserProps): React.ReactNode {
   return (
     <div
       className={

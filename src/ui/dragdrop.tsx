@@ -1,45 +1,20 @@
 import { useState } from "react";
 
-/**
- * @callback OnDrop
- * @param {React.DragEvent<HTMLInputElement>} event
- */
-
-/**
- * @typedef {object} DragDropSpecificProps
- * @property {React.ReactNode} children
- * @property {OnDrop} onDrop
- */
-
-/**
- * @type {React.DragEventHandler<HTMLInputElement>}
- */
-function onDragOver(event) {
+function onDragOver(event: React.DragEvent<HTMLInputElement>) {
   event.preventDefault(); // Important
   event.stopPropagation();
 }
 
-/**
- * @function
- * @param {React.ComponentPropsWithoutRef<"div">&DragDropSpecificProps} props
- * @returns {React.ReactNode}
- */
-export default function DragDrop({ children, onDrop, ...props }) {
+export default function DragDrop({ children, onDrop, ...props }: React.ComponentPropsWithoutRef<"div">) {
   const [isDragging, setIsDragging] = useState(false);
 
-  /**
-   * @type {React.DragEventHandler<HTMLInputElement>}
-   */
-  function onDragEnter(event) {
+  function onDragEnter(event: React.DragEvent<HTMLInputElement>) {
     event.preventDefault(); // Important
     event.stopPropagation();
     setIsDragging(true);
   }
 
-  /**
-   * @type {React.DragEventHandler<HTMLInputElement>}
-   */
-  function onDragLeave(event) {
+  function onDragLeave(event: React.DragEvent<HTMLInputElement>) {
     event.preventDefault(); // Important
     event.stopPropagation();
     // @ts-expect-error
@@ -48,12 +23,9 @@ export default function DragDrop({ children, onDrop, ...props }) {
     }
   }
 
-  /**
-   * @type {React.DragEventHandler<HTMLInputElement>}
-   */
-  function onDropWrapper(event) {
+  function onDropWrapper(event: React.DragEvent<HTMLInputElement>) {
     event.preventDefault();
-    onDrop(event);
+    onDrop?.(event);
     setIsDragging(false);
   }
 

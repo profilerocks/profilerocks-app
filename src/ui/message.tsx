@@ -1,12 +1,10 @@
 import IconLoading from "#src/icons/loading.svg";
 
-/**
- * @function
- * @param {Object} props
- * @param {React.ReactNode} props.children
- * @returns {React.ReactNode}
- */
-export default function Message({ children }) {
+interface MessageProps {
+  children: React.ReactNode;
+}
+
+export default function Message({ children }: MessageProps): React.ReactNode {
   return (
     <div className="flex flex-1 flex-col items-center justify-center pbe-20">
       <IconLoading width="10em" className="text-emerald-400" />
