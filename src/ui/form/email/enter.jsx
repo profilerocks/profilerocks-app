@@ -216,5 +216,3 @@ export default function FormUserEmailEnter() {
     </form>
   );
 }
-
-// By continuing, you agree to the [Terms of Service] and acknowledge the [Privacy Policy]
