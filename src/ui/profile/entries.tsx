@@ -11,20 +11,13 @@ import { HREF_ASSETS } from "#src/lib/env";
 import globalState from "#src/lib/state";
 import LinkNext from "#src/ui/link/next";
 import LinkPillSolidActive from "#src/ui/link/pill/solid/active";
+import type { Profile } from "#src/lib/state";
 
-/**
- * @import {Profile} from "#src/lib/state"
- */
+interface ProfileEntryProps {
+  profile: Readonly<Profile>;
+}
 
-/**
- * It uses `useSearchParams`, so it needs to be wrapped in a Suspense boundary.
- *
- * @function ProfileEntry
- * @param {Object} props
- * @param {Readonly<Profile>} props.profile
- * @returns {React.ReactNode}
- */
-function ProfileEntry({ profile }) {
+function ProfileEntry({ profile }: ProfileEntryProps): React.ReactNode {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const active = pathname.startsWith("/p/") && searchParams.get("id") === profile.public_id;
@@ -61,21 +54,11 @@ function ProfileEntry({ profile }) {
   );
 }
 
-/**
- * @function profileEntryCallback
- * @param {Readonly<Profile>} profile
- * @param {number} index
- * @returns {React.ReactNode}
- */
-function profileEntryCallback(profile, index) {
+function profileEntryCallback(profile: Readonly<Profile>, index: number): React.ReactNode {
   return <ProfileEntry key={index} profile={profile} />;
 }
 
-/**
- * @function
- * @returns {React.ReactNode}
- */
-export default function ProfileList() {
+export default function ProfileList(): React.ReactNode {
   const { profiles } = useSnapshot(globalState);
   const profilesRemaining = profileAttributes.limit - (profiles?.length ?? 0);
 

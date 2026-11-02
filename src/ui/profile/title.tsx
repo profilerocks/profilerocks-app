@@ -1,6 +1,6 @@
 import FormProfileTitle from "#src/ui/form/profile/title";
 
-export default function SettingsProfileTitle() {
+export default function SettingsProfileTitle(): React.ReactNode {
   return (
     <div>
       <h2>Page title</h2>

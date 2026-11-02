@@ -14,23 +14,10 @@ import globalState from "#src/lib/state";
 import DragDrop from "#src/ui/dragdrop";
 import EditorImage from "#src/ui/editor/image";
 
-/**
- * @async
- * @callback ActionRemovePhoto
- * @param {string} publicId
- * @returns {Promise<Response|undefined>}
- */
-
 const sizeImg = 158;
 const maxPhotoSizeMiB = photoAttributes.maxPhotoSize / 1048576;
 
-/**
- * @function Photo
- * @param {Object} props
- * @param {string} [props.src]
- * @returns
- */
-function Photo({ src = "/user.png" }) {
+function Photo({ src = "/user.png" }): React.ReactNode {
   return (
     <img
       className="rounded-full border-2 border-zinc-700 object-cover select-none"
@@ -42,17 +29,15 @@ function Photo({ src = "/user.png" }) {
   );
 }
 
-/**
- * @function ProfilePhotoDetails
- * @param {Object} props
- * @param {ActionRemovePhoto} props.actionRemovePhoto
- * @param {React.ReactNode} props.children
- * @param {string} props.inputPhotoId
- * @param {React.Dispatch<React.SetStateAction<string|undefined>>} props.setPhoto
- */
-function ProfilePhotoDetails({ actionRemovePhoto, children, inputPhotoId, setPhoto }) {
-  /** @type {React.RefObject<HTMLDetailsElement|null>} */
-  const detailsRef = useRef(null);
+interface ProfilePhotoDetailsProps {
+  actionRemovePhoto: (publicId: string) => Promise<Response | undefined>;
+  children: React.ReactNode;
+  inputPhotoId: string;
+  setPhoto: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+
+function ProfilePhotoDetails({ actionRemovePhoto, children, inputPhotoId, setPhoto }: ProfilePhotoDetailsProps): React.ReactNode {
+  const detailsRef = useRef<HTMLDetailsElement>(null);
 
   async function removePhoto() {
     if (!globalState.currentProfile) {
@@ -79,14 +64,15 @@ function ProfilePhotoDetails({ actionRemovePhoto, children, inputPhotoId, setPho
     const elDetails = detailsRef.current;
 
     if (elDetails) {
-      /** @param {MouseEvent} event */
-      function closeDetails(event) {
+      function closeDetails(event: MouseEvent) {
         // @ts-expect-error
         if (elDetails?.open && !elDetails.contains(event.target)) {
           elDetails.open = false;
         }
       }
+
       document.addEventListener("mousedown", closeDetails);
+
       return () => {
         document.removeEventListener("mousedown", closeDetails);
       };
@@ -120,17 +106,12 @@ function ProfilePhotoDetails({ actionRemovePhoto, children, inputPhotoId, setPho
   );
 }
 
-/**
- * @function ProfilePhoto
- * @param {Object} props
- * @param {React.Dispatch<React.SetStateAction<React.ComponentProps<typeof EditorImage>|undefined>>} props.setEditorImageProps
- * @returns {React.ReactNode}
- */
-function ProfilePhoto({ setEditorImageProps }) {
-  /**
-   * @type {ReturnType<typeof useState<string|undefined>>}
-   */
-  const [photo, setPhoto] = useState(
+interface ProfilePhotoProps {
+  setEditorImageProps: React.Dispatch<React.SetStateAction<React.ComponentProps<typeof EditorImage> | undefined>>;
+}
+
+function ProfilePhoto({ setEditorImageProps }: ProfilePhotoProps): React.ReactNode {
+  const [photo, setPhoto] = useState<string | undefined>(
     globalState.currentProfile?.photo ? HREF_ASSETS + "/profile/" + globalState.currentProfile.public_id + "/photo" : undefined
   );
 
@@ -148,12 +129,7 @@ function ProfilePhoto({ setEditorImageProps }) {
     return cleanPhoto;
   }, [photo]);
 
-  /**
-   * @async
-   * @function callbackBlob
-   * @param {(Blob|null)} blob
-   */
-  async function callbackBlob(blob) {
+  async function callbackBlob(blob: Blob | null) {
     if (!blob || !globalState.currentProfile) {
       return;
     }
@@ -188,8 +164,7 @@ function ProfilePhoto({ setEditorImageProps }) {
     globalState.currentProfile.photo = true;
   }
 
-  /** @type {React.ChangeEventHandler<HTMLInputElement>} */
-  function onChangePhoto(event) {
+  function onChangePhoto(event: React.ChangeEvent<HTMLInputElement>) {
     if (!submitting) {
       const el = event.currentTarget;
       const firstFile = el.files?.[0];
@@ -206,19 +181,17 @@ function ProfilePhoto({ setEditorImageProps }) {
     }
   }
 
-  /**
-   * @function onDropPhoto
-   * @param {React.DragEvent<HTMLInputElement>} event
-   */
-  function onDropPhoto(event) {
+  function onDropPhoto(event: React.DragEvent<HTMLInputElement>) {
     if (!submitting) {
       const { files } = event.dataTransfer;
 
       if (files.length) {
         let i = 0;
         let notFound = true;
+
         do {
           const filePhotoFirst = files.item(i);
+
           if (filePhotoFirst?.type.startsWith("image")) {
             if (filePhotoFirst.size <= photoAttributes.maxPhotoSize) {
               setEditorImageProps({
@@ -226,6 +199,7 @@ function ProfilePhoto({ setEditorImageProps }) {
                 stencilComponent: CircleStencil,
                 callbackBlob
               });
+
               notFound = false;
             } else {
               showAlert(`Max photo size: ${maxPhotoSizeMiB} MiB. Your photo size is ${filePhotoFirst.size / 1000000} MB`);
@@ -260,15 +234,8 @@ function ProfilePhoto({ setEditorImageProps }) {
   );
 }
 
-/**
- * @function
- * @returns {React.ReactNode}
- */
-export default function ProfilePhotoEditor() {
-  /**
-   * @type {ReturnType<typeof useState<React.ComponentProps<EditorImage>>>}
-   */
-  const [EditorImageProps, setEditorImageProps] = useState();
+export default function ProfilePhotoEditor(): React.ReactNode {
+  const [EditorImageProps, setEditorImageProps] = useState<React.ComponentProps<typeof EditorImage>>();
 
   return (
     <>

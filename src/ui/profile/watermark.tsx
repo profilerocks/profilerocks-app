@@ -9,7 +9,7 @@ import globalState from "#src/lib/state";
 import { updateProfileState } from "#src/lib/state/profile";
 import InputCheckbox from "#src/ui/input/checkbox";
 
-export default function ProfileWatermark() {
+export default function ProfileWatermark(): React.ReactNode {
   const { currentProfile } = useSnapshot(globalState);
   const premiumActive = useProfileActivePremium();
 
@@ -17,10 +17,7 @@ export default function ProfileWatermark() {
     return null;
   }
 
-  /**
-   * @param {React.ChangeEvent<HTMLInputElement>} event
-   */
-  async function updateWatermarkStatusOnChange(event) {
+  async function updateWatermarkStatusOnChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (!currentProfile?.public_id) {
       return;
     }

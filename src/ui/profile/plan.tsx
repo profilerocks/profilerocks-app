@@ -7,12 +7,7 @@ import { useProfileActivePremium } from "#src/lib/hooks/state";
 import globalState from "#src/lib/state";
 import ButtonUpgradeProfilePremium from "#src/ui/button/premium/profile";
 
-/**
- * @function
- * @param {React.ComponentPropsWithoutRef<"div">} props
- * @returns {React.ReactNode}
- */
-export default function ProfileCurrentPlan(props) {
+export default function ProfileCurrentPlan(props: React.ComponentPropsWithoutRef<"div">): React.ReactNode {
   const premiumActive = useProfileActivePremium();
   const { currentProfile } = useSnapshot(globalState);
 

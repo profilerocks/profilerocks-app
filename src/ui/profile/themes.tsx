@@ -8,37 +8,25 @@ import { requestProfileThemes, requestProfileThemeChange } from "#src/lib/reques
 import globalState from "#src/lib/state";
 import { isProfilePremium } from "#src/lib/state/profile";
 
-/**
- * @typedef {Object} ProfileThemeObject
- * @prop {string} background
- * @prop {string} color
- * @prop {(0|1)} premium
- * @prop {string} title
- *
- * @typedef {Object} ProfileThemeState
- * @prop {React.ChangeEventHandler<HTMLInputElement,HTMLInputElement>} onChange
- * @prop {string} publicId
- * @prop {boolean} [disabled]
- */
+interface ProfileThemeObject {
+  background: string;
+  color: string;
+  premium: 0 | 1;
+  title: string;
+}
 
-/**
- * @function ProfileThemePreviewCheck
- * @param {Object} props
- * @param {string} props.publicId
- * @param {boolean} [props.disabled]
- * @returns {React.ReactNode}
- */
-function ProfileThemePreviewCheck({ disabled, publicId }) {
+interface ProfileThemePreviewCheckProps {
+  publicId: string;
+  disabled?: boolean;
+}
+
+function ProfileThemePreviewCheck({ disabled, publicId }: ProfileThemePreviewCheckProps): React.ReactNode {
   const { currentProfile } = useSnapshot(globalState);
   const inputPreviewCheckboxId = useId();
 
   const checked = currentProfile?.theme_preview === publicId;
 
-  /**
-   * @function setProfileThemePreviewOnChange
-   * @param {React.ChangeEvent<HTMLInputElement>} event
-   */
-  function setProfileThemePreviewOnChange(event) {
+  function setProfileThemePreviewOnChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { currentProfile } = globalState;
 
     if (!currentProfile) {
@@ -78,12 +66,11 @@ function ProfileThemePreviewCheck({ disabled, publicId }) {
   );
 }
 
-/**
- * @function ProfileThemeEntry
- * @param {ProfileThemeObject&ProfileThemeState} props
- * @returns {React.ReactNode}
- */
-function ProfileThemeEntry({ background, color, disabled, onChange, publicId, title }) {
+interface ProfileThemeEntryProps extends ProfileThemeObject, ProfileThemePreviewCheckProps {
+  onChange: React.ChangeEventHandler<HTMLInputElement, HTMLInputElement>;
+}
+
+function ProfileThemeEntry({ background, color, disabled, onChange, publicId, title }: ProfileThemeEntryProps): React.ReactNode {
   const { currentProfile } = useSnapshot(globalState);
   const inputRadioId = useId();
 
@@ -121,21 +108,16 @@ function ProfileThemeEntry({ background, color, disabled, onChange, publicId, ti
   );
 }
 
-/**
- * @function ProfileThemeList
- * @param {Object} props
- * @param {React.ReactNode} props.children
- * @returns {React.ReactNode}
- */
-function ProfileThemeList({ children }) {
+interface ProfileThemeListProps {
+  children: React.ReactNode;
+}
+
+function ProfileThemeList({ children }: ProfileThemeListProps): React.ReactNode {
   return <ul className="mbs-2 select-none *:flex *:items-center *:gap-4 *:border-bs *:border-zinc-700 *:pe-2">{children}</ul>;
 }
 
 export default function ProfileThemes() {
-  /**
-   * @type {ReturnType<typeof useState<Record<string,ProfileThemeObject>>>}
-   */
-  const [profileThemes, setProfileThemes] = useState();
+  const [profileThemes, setProfileThemes] = useState<Record<string, ProfileThemeObject>>();
 
   const [submitting, setSubmitting] = useState(false);
 
@@ -167,12 +149,7 @@ export default function ProfileThemes() {
     );
   }
 
-  /**
-   * @async
-   * @function setThemeOnChange
-   * @param {React.ChangeEvent<HTMLInputElement>} event
-   */
-  async function setThemeOnChange(event) {
+  async function setThemeOnChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (submitting) {
       return;
     }
@@ -228,15 +205,9 @@ export default function ProfileThemes() {
     currentProfile.theme_preview = undefined;
   }
 
-  /**
-   * @type {React.ReactNode[]}
-   */
-  const profileFreeThemeList = [];
+  const profileFreeThemeList: React.ReactNode[] = [];
 
-  /**
-   * @type {React.ReactNode[]}
-   */
-  const profilePremiumThemeList = [];
+  const profilePremiumThemeList: React.ReactNode[] = [];
 
   for (const profileThemePublicId in profileThemes) {
     const profileTheme = profileThemes[profileThemePublicId];

@@ -1,6 +1,6 @@
 import FormProfileMetaDescription from "#src/ui/form/profile/meta/description";
 
-export default function SettingsProfileMetaDescription() {
+export default function SettingsProfileMetaDescription(): React.ReactNode {
   return (
     <div>
       <h2>Meta description</h2>
