@@ -4,15 +4,9 @@ import { fontText } from "#src/lib/fonts";
 import ErrorInSearchParams from "#src/ui/error/params";
 import OnlineStatus from "#src/ui/online";
 import "./global.css";
+import type { Metadata, Viewport } from "next"
 
-/**
- * @import {Metadata,Viewport} from "next"
- */
-
-/**
- * @type {Metadata}
- */
-export const metadata = {
+export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     //startupImage: "...",
@@ -44,21 +38,16 @@ export const metadata = {
   }
 };
 
-/**
- * @type {Viewport}
- */
-export const viewport = {
+export const viewport: Viewport = {
   colorScheme: "dark light",
   themeColor: [{ color: "#000" }]
 };
 
-/**
- * @function
- * @param {Object} props
- * @param {React.ReactNode} props.children
- * @returns {React.ReactNode}
- */
-export default function Layout({ children }) {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+export default function Layout({ children }: LayoutProps): React.ReactNode {
   return (
     <html
       className="h-full scrollbar-thumb-zinc-400 scroll-smooth motion-reduce:scroll-auto"

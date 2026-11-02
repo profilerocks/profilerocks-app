@@ -1,21 +1,11 @@
 import { PLATFORM_NAME, PLATFORM_DESCRIPTION } from "#src/lib/env";
 import { metadata } from "#src/app/layout";
-
-/**
- * @import {MetadataRoute} from "next"
- */
+import type { MetadataRoute } from "next";
 
 export const dynamic = "force-static";
 
-/**
- * @function
- * @returns {MetadataRoute.Manifest}
- */
-export default function manifest() {
-  /**
-   * @type {MetadataRoute.Manifest}
-   */
-  const manifest = {
+export default function manifest(): MetadataRoute.Manifest {
+  const manifest: MetadataRoute.Manifest = {
     background_color: "#000",
     description: PLATFORM_DESCRIPTION,
     display: "standalone",
