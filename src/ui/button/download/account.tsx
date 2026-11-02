@@ -1,0 +1,55 @@
+"use client";
+
+import type React from "react";
+import { useState } from "react";
+import { showAlertErrorApp } from "#src/lib/alert";
+import IconDownload from "#src/icons/download.svg";
+import { requestUser } from "#src/lib/request";
+import globalState from "#src/lib/state";
+import { updateUserState } from "#src/lib/state/user";
+import { msToSeconds } from "#src/lib/time";
+import Button from "#src/ui/button";
+
+export default function ButtonDownloadAccountData(): React.ReactNode {
+  const [submitting, setSubmitting] = useState(false);
+
+  async function downloadDataOnClick(): Promise<void> {
+    setSubmitting(true);
+
+    const res = await requestUser();
+
+    if (!res) {
+      return;
+    }
+
+    if (!res.ok) {
+      showAlertErrorApp();
+      return;
+    }
+
+    const data = await res.json();
+
+    updateUserState(data);
+
+    globalState.fetched = msToSeconds(Date.now(), Math.ceil);
+
+    const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }));
+
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "user_data.json";
+    link.click();
+
+    URL.revokeObjectURL(url);
+
+    setSubmitting(false);
+  }
+
+  return (
+    <Button className="pe-3.5" disabled={submitting} onClick={downloadDataOnClick} type="button">
+      <IconDownload width="1.25em" />
+      Download my data
+    </Button>
+  );
+}
