@@ -4,16 +4,12 @@ import CodeMirror from "@uiw/react-codemirror";
 import { createTheme } from "@uiw/codemirror-themes";
 import { tags as t } from "@lezer/highlight";
 import { fontCode } from "#src/lib/fonts";
+import type { BasicSetupOptions, ReactCodeMirrorProps, ViewUpdate } from "@uiw/react-codemirror";
 import "./index.module.css";
 
-/**
- * @import {BasicSetupOptions,ReactCodeMirrorProps,ViewUpdate} from "@uiw/react-codemirror"
- */
-
-/**
- * @typedef {Object} EditorProps
- * @prop {React.Dispatch<React.SetStateAction<string>>} setValue
- */
+interface EditorProps {
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+}
 
 const theme = createTheme({
   theme: "dark",
@@ -48,25 +44,12 @@ const theme = createTheme({
   ]
 });
 
-/**
- * @type {(BasicSetupOptions|boolean|undefined)}
- */
-const EDITOR_BASIC_SETUP = Object.freeze({
+const EDITOR_BASIC_SETUP: BasicSetupOptions = Object.freeze({
   searchKeymap: false
 });
 
-/**
- * @function
- * @param {ReactCodeMirrorProps&EditorProps} props
- * @return {React.ReactNode}
- */
-export default function EditorCode({ setValue, value, ...props }) {
-  /**
-   * @function setValueOnChange
-   * @param {string} newValue
-   * @param {ViewUpdate} viewUpdate
-   */
-  function setValueOnChange(newValue, viewUpdate) {
+export default function EditorCode({ setValue, value, ...props }: ReactCodeMirrorProps & EditorProps): React.ReactNode {
+  function setValueOnChange(newValue: string, viewUpdate: ViewUpdate) {
     if (viewUpdate.docChanged) {
       setValue(newValue);
     }

@@ -4,20 +4,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { showAlertErrorServer, showAlert } from "#src/lib/alert";
 
-/**
- * @type {Set<string>}
- */
-const oauthProviderSet = new Set();
+const oauthProviderSet = new Set<string>();
 
 oauthProviderSet.add("google");
 
 /**
  * It uses `useSearchParams`, so it needs to be wrapped in a Suspense boundary.
- *
- * @function
- * @returns {React.ReactNode}
  */
-export default function ErrorInSearchParams() {
+export default function ErrorInSearchParams(): React.ReactNode {
   const router = useRouter();
   const searchParams = useSearchParams();
   const error = searchParams.get("error")?.toLowerCase();

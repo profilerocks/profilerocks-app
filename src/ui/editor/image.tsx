@@ -5,42 +5,26 @@ import { Cropper } from "react-mobile-cropper";
 import IconClose from "#src/icons/close.svg";
 import Button from "#src/ui/button";
 import "react-mobile-cropper/dist/style.css";
+import type { CropperProps, CropperRef } from "react-mobile-cropper";
+
+interface ImageEditorRestProps {
+  callbackBlob?: BlobCallback;
+}
 
 /**
- * @import {CropperProps,CropperRef} from "react-mobile-cropper"
- *
- * @typedef {object} ImageEditorRestProps
- * @prop {BlobCallback} [callbackBlob]
- *
  * Remember that Webkit applies a default max-width and max-height of 100% - 2em - 6px.
  * Override with `none`.
  */
 
-/**
- * @param {CropperProps&ImageEditorRestProps} props
- */
-export default function ImageEditor({ src, callbackBlob, ...restProps }) {
-  /**
-   * @type {React.RefObject<HTMLDialogElement|null>}
-   */
-  const dialogRef = useRef(null);
+export default function ImageEditor({ callbackBlob, src, ...restProps }: CropperProps & ImageEditorRestProps): React.ReactNode {
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
-  /**
-   * @type {React.RefObject<CropperRef|null>}
-   */
-  const copperRef = useRef(null);
+  const copperRef = useRef<CropperRef>(null);
 
   function cleanPhoto() {
     // @ts-expect-error
     URL.revokeObjectURL(src);
   }
-
-  useEffect(() => {
-    if (src) {
-      dialogRef.current?.showModal();
-      return cleanPhoto;
-    }
-  }, [src]);
 
   function onCrop() {
     if (callbackBlob) {
@@ -48,8 +32,7 @@ export default function ImageEditor({ src, callbackBlob, ...restProps }) {
     }
   }
 
-  /** @type {React.KeyboardEventHandler<HTMLDialogElement>} */
-  const onKeyDown = event => {
+  function onKeyDown(event: React.KeyboardEvent<HTMLDialogElement>) {
     if (event.code === "Enter") {
       const el = event.currentTarget;
       if (el.open) {
@@ -59,7 +42,14 @@ export default function ImageEditor({ src, callbackBlob, ...restProps }) {
         onCrop();
       }
     }
-  };
+  }
+
+  useEffect(() => {
+    if (src) {
+      dialogRef.current?.showModal();
+      return cleanPhoto;
+    }
+  }, [src]);
 
   return (
     <dialog className="h-full max-h-none w-full max-w-none" onKeyDown={onKeyDown} ref={dialogRef}>
