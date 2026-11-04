@@ -1,11 +1,11 @@
 import LogoLong from "#src/static/logo/long.svg";
 import Minimap from "#src/ui/minimap";
 
-interface LayoutFormProps {
+interface FormLayoutProps {
   children: React.ReactNode
 }
 
-export default function LayoutForm({ children }: LayoutFormProps): React.ReactNode {
+export default function FormLayout({ children }: FormLayoutProps): React.ReactNode {
   return (
     <>
       <header className="mx-auto w-full max-w-2xl px-6 pbs-5">

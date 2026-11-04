@@ -1,20 +1,14 @@
 import LinkBack from "#src/ui/link/back";
 import Settings from "#src/ui/settings";
 import SvgLogoLong from "#src/static/logo/long.svg";
+import type { Metadata } from "next";
 
-/**
- * @import {Metadata} from "next"
- */
-
-/**
- * @type {Metadata}
- */
-export const metadata = {
+export const metadata: Metadata = {
   title: "Settings",
   description: "Settings page"
 };
 
-export default function PageSettings() {
+export default function PageSettings(): React.ReactNode {
   return (
     <>
       <header className="mx-auto flex w-full max-w-4xl items-center gap-2 px-2 pbs-2 md:pbs-3 md:pbe-2 lg:max-w-5xl lg:gap-3 lg:px-4 lg:pbs-6">
