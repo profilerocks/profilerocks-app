@@ -140,7 +140,7 @@ export default function LayoutAuthDefault({ children }: LayoutAuthDefaultProps) 
 
   return (
     <div
-      className="flex flex-1 snap-x snap-mandatory scrollbar-none overflow-x-auto scroll-smooth *:min-w-full *:snap-center *:snap-always *:overflow-y-auto md:*:min-w-auto"
+      className="flex flex-1 snap-x snap-mandatory scrollbar-none overflow-x-auto scroll-smooth *:min-w-full *:snap-center *:snap-always *:overflow-y-auto lg:*:min-w-auto"
       ref={containersRef}
     >
       <section className="z-3 flex flex-col pbe-10 w-sm" id="side">

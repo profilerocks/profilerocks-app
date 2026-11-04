@@ -8,7 +8,7 @@ export default function Minimap({ className: customClassName }: MinimapProps): R
   return (
     <nav
       className={
-        "flex flex-wrap justify-center gap-1 text-sm text-zinc-400 select-none *:rounded-3xl *:px-3 *:py-2 *:transition-colors *:hover:bg-zinc-800 *:hover:text-zinc-300 *:focus-visible:bg-zinc-700 *:focus-visible:text-zinc-200 *:active:bg-zinc-700 *:active:text-zinc-200" +
+        "flex flex-wrap justify-center gap-1 text-sm text-zinc-500 select-none *:rounded-3xl *:px-3 *:py-2 *:transition-colors *:hover:bg-zinc-800 *:hover:text-zinc-400 *:focus-visible:bg-zinc-700 *:focus-visible:text-zinc-300 *:active:bg-zinc-700 *:active:text-zinc-300" +
         (customClassName ? " " + customClassName : "")
       }
     >

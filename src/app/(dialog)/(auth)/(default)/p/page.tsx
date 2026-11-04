@@ -4,11 +4,11 @@ import LinkBack from "#src/ui/link/back";
 export default function PageCreateProfile() {
   return (
     <>
-      <LinkBack className="ms-2 mbs-3 max-w-max pe-3.5 sm:hidden" href="#side">
+      <LinkBack className="ms-2 mbs-3 max-w-max pe-3.5 lg:hidden" href="#side">
         Home
       </LinkBack>
-      <div className="px-4">
-        <h1 className="my-4 text-center text-3xl sm:text-4xl">Create a new profile</h1>
+      <div className="px-4 pbe-10">
+        <h1 className="my-4 text-center text-3xl sm:text-4xl lg:text-5xl lg:my-6">Create a new profile</h1>
         <FormProfileNameIdPageWrapper />
       </div>
     </>
