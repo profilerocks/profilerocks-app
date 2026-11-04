@@ -7,7 +7,7 @@ import { HREF_PROFILE } from "#src/lib/env";
 import { isProfileNameIdValid } from "#src/lib/profile";
 import Minimap from "#src/ui/minimap";
 
-export default function NotFound() {
+export default function PageNotFound() {
   const pathname = usePathname();
 
   useEffect(() => {

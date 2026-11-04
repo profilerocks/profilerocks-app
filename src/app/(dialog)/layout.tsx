@@ -1,10 +1,10 @@
 import Dialog from "#src/ui/dialog";
 
-interface DialogLayoutProps {
+interface LayoutDialogProps {
   children: React.ReactNode;
 }
 
-export default function DialogLayout({ children }: DialogLayoutProps): React.ReactNode {
+export default function LayoutDialog({ children }: LayoutDialogProps): React.ReactNode {
   return (
     <>
       {children}

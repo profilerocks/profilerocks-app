@@ -5,10 +5,6 @@ import Link from "#src/ui/link";
 import ProfileCurrentPlan from "#src/ui/profile/plan";
 import ProfilePremiumSettings from "#src/ui/profile/settings/premium";
 
-/**
- * @function
- * @returns {React.ReactNode}
- */
 export default function PageProfileSettings() {
   return (
     <>

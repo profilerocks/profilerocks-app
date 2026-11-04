@@ -3,11 +3,11 @@ import AuthProfile from "#src/ui/auth/profile";
 import LinkBack from "#src/ui/link/back";
 import LinkNext from "#src/ui/link/next";
 
-/**
- * @param {Object} props
- * @param {React.ReactNode} props.children
- */
-export default function LayoutProfile({ children }) {
+interface LayoutProfileProps {
+  children: React.ReactNode
+}
+
+export default function LayoutProfile({ children }: LayoutProfileProps) {
   return (
     <Suspense>
       <AuthProfile>

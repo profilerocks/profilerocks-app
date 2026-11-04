@@ -15,7 +15,6 @@ import IconPencil from "#src/icons/pencil.svg";
 import IconTextRight from "#src/icons/text/right.svg";
 import { showAlert, showAlertErrorApp } from "#src/lib/alert";
 import { normalizeDisplayName } from "#src/lib/name";
-
 import {
   requestProfileDataDelete,
   requestProfileDataEmbedUpdate,
@@ -23,7 +22,6 @@ import {
   requestProfileDataPositionUpdate,
   requestProfileDataUpdate
 } from "#src/lib/request";
-
 import globalState from "#src/lib/state";
 import { deleteProfileDataEntry, updateProfileDataEntry } from "#src/lib/state/profile";
 import Button from "#src/ui/button";
@@ -32,17 +30,18 @@ import ButtonDanger from "#src/ui/button/danger";
 import InputCheckbox from "#src/ui/input/checkbox";
 import InputGroup from "#src/ui/input/group";
 import TextEditor from "#src/ui/editor/text";
-
-// TODO: Add Ctrl + S to save
-
-/**
- * @import {ProfileDataEntryObject} from "#src/lib/state"
- */
+import type { ProfileDataEntryObject } from "#src/lib/state";
 
 /**
- * @type {React.ComponentProps<DragDropProvider>["onDragEnd"]}
+ * TODO: Add Ctrl + S to save
  */
-const updateProfileDataPositionOnDragEnd = async event => {
+
+interface ProfileDataEntryContentProps {
+  entry: ProfileDataEntryObject
+  handleRef: React.Ref<HTMLDivElement>
+}
+
+async function updateProfileDataPositionOnDragEnd(event: Parameters<NonNullable<React.ComponentProps<typeof DragDropProvider>["onDragEnd"]>>[0]) {
   if (event.canceled) {
     return;
   }
@@ -117,14 +116,12 @@ const updateProfileDataPositionOnDragEnd = async event => {
   }
 };
 
-/**
- * @function ButtonAddProfileData
- * @param {Object} props
- * @param {React.ReactNode} props.children
- * @param {(boolean|null)} props.embed
- * @returns {React.ReactNode}
- */
-function ButtonAddProfileData({ children, embed }) {
+interface ButtonAddProfileDataProps {
+  children: React.ReactNode
+  embed: boolean | null
+}
+
+function ButtonAddProfileData({ children, embed }: ButtonAddProfileDataProps): React.ReactNode {
   function addDataEntryOnClick() {
     const { currentProfile } = globalState;
 
@@ -132,10 +129,7 @@ function ButtonAddProfileData({ children, embed }) {
       return;
     }
 
-    /**
-     * @type {ProfileDataEntryObject}
-     */
-    const dataEntry = {
+    const dataEntry: ProfileDataEntryObject = {
       content: "",
       embed,
       tag: crypto.randomUUID()
@@ -155,22 +149,15 @@ function ButtonAddProfileData({ children, embed }) {
   );
 }
 
-/**
- * @function ButtonDeleteEntry
- * @param {Object} props
- * @param {boolean} props.loading
- * @param {React.Dispatch<boolean>} props.setLoading
- * @param {string} props.tag
- * @param {boolean} [props.pending]
- * @returns {React.ReactNode}
- */
-function ButtonDeleteEntry({ loading, pending, setLoading, tag }) {
-  /**
-   * @async
-   * @function deleteDataEntryOnClick
-   * @param {React.MouseEvent<HTMLButtonElement>} event
-   */
-  async function deleteDataEntryOnClick(event) {
+interface ButtonDeleteEntryProps {
+  loading: boolean
+  setLoading: React.Dispatch<boolean>
+  tag: string
+  pending: boolean
+}
+
+function ButtonDeleteEntry({ loading, pending, setLoading, tag }: ButtonDeleteEntryProps): React.ReactNode {
+  async function deleteDataEntryOnClick(event: React.MouseEvent<HTMLButtonElement>) {
     if (loading || !confirm("Are you sure you want to delete this data?")) {
       return;
     }
@@ -210,27 +197,22 @@ function ButtonDeleteEntry({ loading, pending, setLoading, tag }) {
   );
 }
 
-/**
- * @function LinkEntry
- * @param {Object} props
- * @param {React.Ref<HTMLDivElement>} props.handleRef
- * @param {string} props.tag
- * @param {string} [props.initialDisplay]
- * @param {boolean} [props.initialEmbed]
- * @param {string} [props.initialUrl] - If not defined, it is considered a new entry.
- * @returns {React.ReactNode}
- */
-function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initialUrl = "", tag }) {
+interface LinkEntryProps {
+  handleRef: React.Ref<HTMLDivElement>
+  tag: string
+  initialDisplay: string
+  initialEmbed: boolean
+  initialUrl: string
+}
+
+function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initialUrl = "", tag }: LinkEntryProps): React.ReactNode {
   const [display, setDisplay] = useState(initialDisplay);
   const [embed, setEmbed] = useState(initialEmbed);
   const [loading, setLoading] = useState(false);
   const [urlString, setUrlString] = useState(initialUrl);
   const deferredDisplay = useDeferredValue(display);
 
-  /**
-   * @type {React.RefObject<HTMLInputElement|null>}
-   */
-  const inputUrlRef = useRef(null);
+  const inputUrlRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     /**
@@ -248,12 +230,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
   const urlValid = URL.canParse(urlString);
   const embedAvailable = urlValid && Boolean(linkToIframe(urlString, { returnObject: true }));
 
-  /**
-   * @async
-   * @function setEmbedOnChange
-   * @param {React.ChangeEvent<HTMLInputElement>} event
-   */
-  async function setEmbedOnChange(event) {
+  async function setEmbedOnChange(event: React.ChangeEvent<HTMLInputElement>) {
     const embedChecked = (event.currentTarget || event.target).checked;
 
     /**
@@ -300,10 +277,6 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
     setEmbed(embedChecked);
   }
 
-  /**
-   * @async
-   * @function saveOnClick
-   */
   async function saveOnClick() {
     if (loading) {
       return;
@@ -344,10 +317,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
         return;
       }
 
-      /**
-       * @type {Parameters<requestProfileDataInsert>[1]}
-       */
-      const data = {
+      const data: Parameters<typeof requestProfileDataInsert>[1] = {
         content: urlString,
         embed,
         display: normalizedDisplay
@@ -355,10 +325,7 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
 
       let profileDataIndex = 0;
 
-      /**
-       * @type {(ProfileDataEntryObject|undefined)}
-       */
-      let profileDataEntry;
+      let profileDataEntry: ProfileDataEntryObject | undefined;
 
       do {
         const currentProfileDataEntry = profileDataEntries[profileDataIndex];
@@ -411,19 +378,11 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
     }
   }
 
-  /**
-   * @function updateDisplayOnChange
-   * @param {React.ChangeEvent<HTMLInputElement>} event
-   */
-  function updateDisplayOnChange(event) {
+  function updateDisplayOnChange(event: React.ChangeEvent<HTMLInputElement>) {
     setDisplay((event.currentTarget ?? event.target).value);
   }
 
-  /**
-   * @function updateUrlStringOnChange
-   * @param {React.ChangeEvent<HTMLInputElement>} event
-   */
-  function updateUrlStringOnChange(event) {
+  function updateUrlStringOnChange(event: React.ChangeEvent<HTMLInputElement>) {
     setUrlString((event.currentTarget ?? event.target).value);
   }
 
@@ -494,21 +453,14 @@ function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initi
   );
 }
 
-/**
- * @function LinkEntryWrapper
- * @param {Object} props
- * @param {ProfileDataEntryObject} props.entry
- * @param {React.Ref<HTMLDivElement>} props.handleRef
- * @returns {React.ReactNode}
- */
-function LinkEntryWrapper({ entry, handleRef }) {
+function LinkEntryWrapper({ entry, handleRef }: ProfileDataEntryContentProps): React.ReactNode {
   let initialDisplay = "";
   let initialUrl = "";
 
   if (entry.content[0] === "[") {
     try {
       [initialUrl, initialDisplay] = JSON.parse(entry.content);
-    } catch {}
+    } catch { }
   } else {
     initialUrl = entry.content;
   }
@@ -524,26 +476,12 @@ function LinkEntryWrapper({ entry, handleRef }) {
   );
 }
 
-/**
- * If `entry.content` is empty, it is considered a new entry.
- *
- * @function TextEditorWrapper
- * @param {Object} props
- * @param {ProfileDataEntryObject} props.entry
- * @param {React.Ref<HTMLDivElement>} [props.handleRef]
- * @returns {React.ReactNode}
- */
-function TextEditorWrapper({ entry, handleRef }) {
+function TextEditorWrapper({ entry, handleRef }: ProfileDataEntryContentProps): React.ReactNode {
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState(entry.content ?? "");
   const trimmedValue = value.trim();
 
-  /**
-   * @async
-   * @function saveOnClick
-   * @param {React.MouseEvent<HTMLButtonElement>} event
-   */
-  async function saveOnClick(event) {
+  async function saveOnClick(event: React.MouseEvent<HTMLButtonElement>) {
     if (loading || !trimmedValue) {
       return;
     }
@@ -578,19 +516,13 @@ function TextEditorWrapper({ entry, handleRef }) {
         return;
       }
 
-      /**
-       * @type {Parameters<requestProfileDataInsert>[1]}
-       */
-      const data = {
+      const data: Parameters<typeof requestProfileDataInsert>[1] = {
         content: trimmedValue
       };
 
       let profileDataIndex = 0;
 
-      /**
-       * @type {(ProfileDataEntryObject|undefined)}
-       */
-      let profileDataEntry;
+      let profileDataEntry: ProfileDataEntryObject | undefined;
 
       do {
         const currentProfileDataEntry = profileDataEntries[profileDataIndex];
@@ -650,10 +582,10 @@ function TextEditorWrapper({ entry, handleRef }) {
           entry.content
             ? undefined
             : view => {
-                view.dispatch({
-                  effects: EditorView.scrollIntoView(0, { y: "start" })
-                });
-              }
+              view.dispatch({
+                effects: EditorView.scrollIntoView(0, { y: "start" })
+              });
+            }
         }
         setValue={setValue}
         title={!entry.content && value ? "Insert to save this text" : undefined}
@@ -685,13 +617,7 @@ function TextEditorWrapper({ entry, handleRef }) {
   );
 }
 
-/**
- * @function ProfileDataEntryContent
- * @param {Object} props
- * @param {ProfileDataEntryObject} props.entry
- * @param {React.Ref<HTMLDivElement>} props.handleRef
- */
-function ProfileDataEntryContent({ entry, handleRef }) {
+function ProfileDataEntryContent({ entry, handleRef }: ProfileDataEntryContentProps): React.ReactNode {
   return entry.embed == null ? (
     <TextEditorWrapper entry={entry} handleRef={handleRef} />
   ) : (
@@ -699,14 +625,12 @@ function ProfileDataEntryContent({ entry, handleRef }) {
   );
 }
 
-/**
- * @function ProfileDataEntry
- * @param {Object} props
- * @param {ProfileDataEntryObject} props.entry
- * @param {number} props.index
- * @returns {React.ReactNode}<TextEditor value={value} setValue={setValue} />
- */
-function ProfileDataEntry({ entry, index }) {
+interface ProfileDataEntryProps {
+  entry: ProfileDataEntryObject
+  index: number
+}
+
+function ProfileDataEntry({ entry, index }: ProfileDataEntryProps): React.ReactNode {
   const { handleRef, ref } = useSortable({
     id: entry.tag,
     index
@@ -719,11 +643,7 @@ function ProfileDataEntry({ entry, index }) {
   );
 }
 
-/**
- * @function
- * @returns {React.ReactNode}
- */
-export default function PageProfileContent() {
+export default function PageProfileContent(): React.ReactNode {
   const { currentProfile } = useSnapshot(globalState);
 
   if (!currentProfile) {

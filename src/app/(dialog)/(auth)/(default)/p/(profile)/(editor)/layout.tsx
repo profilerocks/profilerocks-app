@@ -19,7 +19,7 @@ import LinkPillSolid from "#src/ui/link/pill/solid";
 const ICON_DIMENSION = "1.75rem";
 const TITLE_EDIT_PROFILE_HEADER = "Edit profile header";
 
-function FigureProfileContent() {
+function FigureProfileContent(): React.ReactNode {
   const { currentProfile } = useSnapshot(globalState);
 
   if (!currentProfile) {
@@ -58,13 +58,12 @@ function FigureProfileContent() {
   );
 }
 
-/**
- * @function LinkProfileConfiguration
- * @param {Object} props
- * @param {React.ReactNode} props.children
- * @param {string} props.path
- */
-function LinkProfileConfiguration({ children, path }) {
+interface LinkProfileConfigurationProps {
+  children: React.ReactNode
+  path: string
+}
+
+function LinkProfileConfiguration({ children, path }: LinkProfileConfigurationProps): React.ReactNode {
   const { currentProfile } = useSnapshot(globalState);
   const pathname = usePathname();
 
@@ -89,12 +88,11 @@ function LinkProfileConfiguration({ children, path }) {
   );
 }
 
-/**
- * @function
- * @param {Object} props
- * @param {React.ReactNode} props.children
- */
-export default function LayoutProfile({ children }) {
+interface LayoutProfileEditorProps {
+  children: React.ReactNode
+}
+
+export default function LayoutProfileEditor({ children }: LayoutProfileEditorProps): React.ReactNode {
   const [loading, setLoading] = useState(false);
   const { currentProfile } = useSnapshot(globalState);
 

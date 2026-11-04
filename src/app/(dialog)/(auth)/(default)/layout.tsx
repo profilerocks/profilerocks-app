@@ -15,20 +15,11 @@ import User from "#src/ui/user";
 
 const API_HOST = new URL(API).host;
 
-/**
- * @function renderMarkdown
- * @param {string} str
- * @returns {string}
- */
-function renderMarkdown(str) {
+function renderMarkdown(str: string): string {
   return markdownRenderer.render(str);
 }
 
-/**
- * @function ProfilePreview
- * @returns {React.ReactNode}
- */
-function ProfilePreview() {
+function ProfilePreview(): React.ReactNode {
   const { currentProfile } = useSnapshot(globalState);
 
   return (
@@ -74,17 +65,12 @@ function ProfilePreview() {
   );
 }
 
-/**
- * @function
- * @param {Object} props
- * @param {React.ReactNode} props.children
- * @returns {React.ReactNode}
- */
-export default function DefaultLayout({ children }) {
-  /**
-   * @type {React.RefObject<HTMLDivElement|null>}
-   */
-  const containersRef = useRef(null);
+interface LayoutAuthDefaultProps {
+  children: React.ReactNode
+}
+
+export default function LayoutAuthDefault({ children }: LayoutAuthDefaultProps) {
+  const containersRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const elContainers = containersRef.current;
@@ -119,10 +105,7 @@ export default function DefaultLayout({ children }) {
       { root: elContainers, threshold: 0.5 }
     );
 
-    /**
-     * @type {Record<string,Element>}
-     */
-    const containersRecord = {};
+    const containersRecord: Record<string, Element> = {};
 
     for (const elSection of elContainers.children) {
       containersRecord[elSection.id] = elSection;
