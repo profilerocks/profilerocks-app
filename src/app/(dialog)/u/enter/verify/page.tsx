@@ -11,12 +11,7 @@ import UserEmailVerify from "#src/ui/form/email/verify";
 export default function PageEmailVerify() {
   const router = useRouter();
 
-  /**
-   * @async
-   * @function afterVerification
-   * @param {Response} res
-   */
-  async function afterVerification(res) {
+  async function afterVerification(res: Response) {
     if (res.status === 204) {
       globalState.email = getCurrentOtpState()?.email;
       router.replace("/u/setup");
