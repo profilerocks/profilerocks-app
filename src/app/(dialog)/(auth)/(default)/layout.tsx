@@ -114,7 +114,7 @@ export default function LayoutAuthDefault({ children }: LayoutAuthDefaultProps) 
 
     Object.freeze(containersRecord);
 
-    if (currentSection != "side") {
+    if (currentSection !== "side") {
       document.getElementById(currentSection)?.scrollIntoView({ behavior: "instant" });
     }
 
