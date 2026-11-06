@@ -2,11 +2,7 @@ import type React from "react";
 
 export type ButtonDangerProps = React.ComponentPropsWithoutRef<"button">;
 
-export default function ButtonDanger({
-  className: customClassName,
-  children,
-  ...buttonAttributes
-}: ButtonDangerProps): React.ReactNode {
+export default function ButtonDanger({ className: customClassName, children, ...buttonAttributes }: ButtonDangerProps): React.ReactNode {
   return (
     <button
       className={

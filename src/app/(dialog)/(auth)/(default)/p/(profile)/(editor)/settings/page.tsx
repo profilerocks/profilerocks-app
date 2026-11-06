@@ -11,18 +11,18 @@ export default function PageProfileSettings() {
       <h1 className="text-3xl">Profile Settings</h1>
       <ProfileCurrentPlan className="mbs-4" />
       <ProfilePremiumSettings />
-      <h2>Change profile name</h2>
+      <h2 className="mbs-10 text-2xl text-zinc-300">Change profile name</h2>
       <FormProfileNameIdUpdate />
-      <h2>Profile data</h2>
-      <p className="text-zinc-300">
+      <h2 className="mbs-10 text-2xl text-zinc-300">Profile data</h2>
+      <p className="my-4 text-zinc-400">
         You can export the profile data in a standard, machine-readable JSON format. The option to export your account data can be found in
         the <Link href="/u/settings#data">account settings</Link>.
       </p>
       <ButtonDownloadProfileData />
-      <h2 className="text-2xl text-rose-400">Danger zone</h2>
-      <p className="text-zinc-300">
+      <h2 className="mbs-10 text-2xl text-rose-400">Danger zone</h2>
+      <p className="my-4 text-zinc-400">
         After deletion, the profile and its associated plan will be{" "}
-        <strong className="text-zinc-200">permanently removed and cannot be recovered</strong>.
+        <strong className="text-zinc-300">permanently removed and cannot be recovered</strong>.
       </p>
       <ButtonDeleteProfileMembership />
     </>

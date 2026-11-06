@@ -4,7 +4,7 @@ import LinkBack from "#src/ui/link/back";
 import LinkNext from "#src/ui/link/next";
 
 interface LayoutProfileProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export default function LayoutProfile({ children }: LayoutProfileProps) {

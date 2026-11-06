@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "#src/ui/link";
 import { useSnapshot } from "valtio";
 import { HREF_CONTACT } from "#src/lib/env";
 import { useProfileActivePremium } from "#src/lib/hooks/state";

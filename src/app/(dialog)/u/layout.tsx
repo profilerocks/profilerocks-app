@@ -2,7 +2,7 @@ import LogoLong from "#src/static/logo/long.svg";
 import Minimap from "#src/ui/minimap";
 
 interface LayoutUserForm {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export default function LayoutUserForm({ children }: LayoutUserForm): React.ReactNode {

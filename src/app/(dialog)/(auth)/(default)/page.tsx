@@ -34,7 +34,9 @@ export default function PageAuthDefault() {
         )}
         <footer className="mbs-6 text-zinc-400">
           If you have any issues, you can visit the{" "}
-          <Link href={HREF_HELP} rel="noopener noreferrer" target="_blank">help page</Link>
+          <Link href={HREF_HELP} rel="noopener noreferrer" target="_blank">
+            help page
+          </Link>
         </footer>
       </div>
     </>

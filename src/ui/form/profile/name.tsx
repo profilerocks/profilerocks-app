@@ -275,13 +275,13 @@ export function FormProfileNameIdUpdate(): React.ReactNode {
   return (
     <>
       {nameIdUpdateAt && (
-        <p className="text-sm">
+        <p className="mbs-2 text-xs text-zinc-500">
           Last update: <DateTime dateTime={nameIdUpdateAt} />
         </p>
       )}
-      <p className="text-zinc-300">
-        <strong>You are {disabled && "not currently "}allowed to change the profile name</strong>. It is only allowed once every{" "}
-        {NAME_ID_UPDATE_GAP_DAYS} days.
+      <p className="my-4 text-zinc-400">
+        <strong className="text-zinc-300">You are {disabled && "not currently "}allowed to change the profile name</strong>. It is only
+        allowed once every {NAME_ID_UPDATE_GAP_DAYS} days.
       </p>
       <FormProfileNameId
         defaultValue={currentProfile.name_id}

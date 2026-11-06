@@ -4,12 +4,7 @@ import type React from "react";
 import { usePathname } from "next/navigation";
 import LinkPill, { type LinkPillProps } from "#src/ui/link/pill";
 
-export default function LinkPillSolidActive({
-  children,
-  href,
-  className: customClassName,
-  ...props
-}: LinkPillProps): React.ReactNode {
+export default function LinkPillSolidActive({ children, href, className: customClassName, ...props }: LinkPillProps): React.ReactNode {
   const pathname = usePathname();
 
   const active = href.split("?")[0].split("#")[0] === pathname;

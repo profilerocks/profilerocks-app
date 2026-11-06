@@ -7,10 +7,7 @@ import { deleteUserState } from "#src/lib/state/user";
  * @param message
  * @param confirmFunction
  */
-export function showConfirm(
-  message: string,
-  confirmFunction: Exclude<GlobalState["dialogConfirmFunction"], undefined>
-): void {
+export function showConfirm(message: string, confirmFunction: Exclude<GlobalState["dialogConfirmFunction"], undefined>): void {
   confirmFunction(window.confirm(message));
 }
 

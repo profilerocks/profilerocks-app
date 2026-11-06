@@ -59,8 +59,8 @@ function FigureProfileContent(): React.ReactNode {
 }
 
 interface LinkProfileConfigurationProps {
-  children: React.ReactNode
-  path: string
+  children: React.ReactNode;
+  path: string;
 }
 
 function LinkProfileConfiguration({ children, path }: LinkProfileConfigurationProps): React.ReactNode {
@@ -89,7 +89,7 @@ function LinkProfileConfiguration({ children, path }: LinkProfileConfigurationPr
 }
 
 interface LayoutProfileEditorProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export default function LayoutProfileEditor({ children }: LayoutProfileEditorProps): React.ReactNode {

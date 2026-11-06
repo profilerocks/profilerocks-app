@@ -364,11 +364,7 @@ export interface UserEmailVerifyProps {
   requestOtpVerification: RequestOtpVerification;
 }
 
-export default function UserEmailVerify({
-  afterVerification,
-  children,
-  requestOtpVerification
-}: UserEmailVerifyProps): React.ReactNode {
+export default function UserEmailVerify({ afterVerification, children, requestOtpVerification }: UserEmailVerifyProps): React.ReactNode {
   const pathname = usePathname();
   const router = useRouter();
 

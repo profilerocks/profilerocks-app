@@ -173,11 +173,7 @@ export async function requestProfileDataDelete(profilePublicId: string, tag: str
  * @param tag
  * @param embed
  */
-export async function requestProfileDataEmbedUpdate(
-  profilePublicId: string,
-  tag: string,
-  embed: boolean
-): Promise<Response | undefined> {
+export async function requestProfileDataEmbedUpdate(profilePublicId: string, tag: string, embed: boolean): Promise<Response | undefined> {
   let href = getResourceAPI("/s/profile/" + profilePublicId + "/set/data/" + tag + "/embed");
 
   if (embed) {
@@ -194,10 +190,7 @@ export async function requestProfileDataEmbedUpdate(
  * @param profilePublicId
  * @param data
  */
-export async function requestProfileDataInsert(
-  profilePublicId: string,
-  data: ProfileDataInsertPayload
-): Promise<Response | undefined> {
+export async function requestProfileDataInsert(profilePublicId: string, data: ProfileDataInsertPayload): Promise<Response | undefined> {
   let body: RequestInit["body"];
   let headers: RequestInit["headers"];
 
@@ -294,10 +287,7 @@ export async function requestProfileDataUpdate(
  * @param profilePublicId
  * @param newDisplayName
  */
-export async function requestProfileDisplayNameUpdate(
-  profilePublicId: string,
-  newDisplayName: string
-): Promise<Response | undefined> {
+export async function requestProfileDisplayNameUpdate(profilePublicId: string, newDisplayName: string): Promise<Response | undefined> {
   return await handleRequest(getResourceAPI("/s/profile/" + profilePublicId + "/display"), {
     method: "POST",
     credentials: "include",
@@ -334,10 +324,7 @@ export async function requestProfileMetaDescriptionUpdate(
  * @param profilePublicId
  * @param newNameId
  */
-export async function requestProfileNameIdUpdate(
-  profilePublicId: string,
-  newNameId: string
-): Promise<Response | undefined> {
+export async function requestProfileNameIdUpdate(profilePublicId: string, newNameId: string): Promise<Response | undefined> {
   return await handleRequest(getResourceAPI("/s/profile/" + profilePublicId + "/name"), {
     method: "POST",
     credentials: "include",
@@ -349,10 +336,7 @@ export async function requestProfileNameIdUpdate(
  * @param profilePublicId
  * @param forever
  */
-export async function requestProfilePremiumPlanUpgrade(
-  profilePublicId: string,
-  forever = false
-): Promise<Response | undefined> {
+export async function requestProfilePremiumPlanUpgrade(profilePublicId: string, forever = false): Promise<Response | undefined> {
   let href = getResourceAPI("/s/profile/" + profilePublicId + "/plan/premium");
 
   if (forever) {
@@ -385,10 +369,7 @@ export async function requestProfilePhotoDeletion(profilePublicId: string): Prom
  * @param profilePublicId
  * @param photo
  */
-export async function requestProfilePhotoUpload(
-  profilePublicId: string,
-  photo: Blob
-): Promise<Response | undefined> {
+export async function requestProfilePhotoUpload(profilePublicId: string, photo: Blob): Promise<Response | undefined> {
   const formData = new FormData();
   formData.append("photo", photo);
 
@@ -403,10 +384,7 @@ export async function requestProfilePhotoUpload(
  * @param profilePublicId
  * @param profileThemePublicId
  */
-export async function requestProfileThemeChange(
-  profilePublicId: string,
-  profileThemePublicId: string
-): Promise<Response | undefined> {
+export async function requestProfileThemeChange(profilePublicId: string, profileThemePublicId: string): Promise<Response | undefined> {
   return await handleRequest(getResourceAPI("/s/profile/" + profilePublicId + "/theme/" + profileThemePublicId), {
     credentials: "include",
     method: "POST"
@@ -423,10 +401,7 @@ export async function requestProfileThemes(): Promise<Response | undefined> {
  * @param profilePublicId
  * @param newTitle
  */
-export async function requestProfileTitleUpdate(
-  profilePublicId: string,
-  newTitle: string
-): Promise<Response | undefined> {
+export async function requestProfileTitleUpdate(profilePublicId: string, newTitle: string): Promise<Response | undefined> {
   return await handleRequest(getResourceAPI("/s/profile/" + profilePublicId + "/title"), {
     method: "POST",
     credentials: "include",
@@ -438,10 +413,7 @@ export async function requestProfileTitleUpdate(
  * @param profilePublicId
  * @param visibility
  */
-export async function requestProfileVisibilityUpdate(
-  profilePublicId: string,
-  visibility: boolean
-): Promise<Response | undefined> {
+export async function requestProfileVisibilityUpdate(profilePublicId: string, visibility: boolean): Promise<Response | undefined> {
   return await handleRequest(getResourceAPI("/s/profile/" + profilePublicId + "/visibility?set=") + (visibility ? "1" : "0"), {
     method: "POST",
     credentials: "include"
@@ -452,10 +424,7 @@ export async function requestProfileVisibilityUpdate(
  * @param profilePublicId
  * @param watermark
  */
-export async function requestProfileWatermarkToggle(
-  profilePublicId: string,
-  watermark: boolean
-): Promise<Response | undefined> {
+export async function requestProfileWatermarkToggle(profilePublicId: string, watermark: boolean): Promise<Response | undefined> {
   return await handleRequest(getResourceAPI("/s/profile/" + profilePublicId + "/watermark?set=") + (watermark ? "1" : "0"), {
     method: "POST",
     credentials: "include"

@@ -3,18 +3,10 @@ import otpAttributes from "#shared/otp.json";
 import { fontCode } from "#src/lib/fonts";
 import { regexNotWordsGlobal } from "#src/lib/regex";
 
-export interface InputOtpProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<"input">,
-    | "autoCapitalize"
-    | "className"
-    | "maxLength"
-    | "minLength"
-    | "onBeforeInput"
-    | "placeholder"
-    | "spellCheck"
-    | "type"
-  > {
+export interface InputOtpProps extends Omit<
+  React.ComponentPropsWithoutRef<"input">,
+  "autoCapitalize" | "className" | "maxLength" | "minLength" | "onBeforeInput" | "placeholder" | "spellCheck" | "type"
+> {
   valid?: boolean;
 }
 

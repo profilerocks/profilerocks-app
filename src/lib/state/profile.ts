@@ -70,12 +70,7 @@ export function isProfilePremium(profilePublicId: string): boolean {
  * @param content
  * @param embed
  */
-export function updateProfileDataEntry(
-  profilePublicId: string,
-  tag: string,
-  content: string,
-  embed?: boolean | number | null
-): boolean {
+export function updateProfileDataEntry(profilePublicId: string, tag: string, content: string, embed?: boolean | number | null): boolean {
   if (!globalState.profiles) {
     return false;
   }

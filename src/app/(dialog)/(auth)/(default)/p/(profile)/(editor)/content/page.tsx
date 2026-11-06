@@ -37,11 +37,13 @@ import type { ProfileDataEntryObject } from "#src/lib/state";
  */
 
 interface ProfileDataEntryContentProps {
-  entry: ProfileDataEntryObject
-  handleRef: React.Ref<HTMLDivElement>
+  entry: ProfileDataEntryObject;
+  handleRef: React.Ref<HTMLDivElement>;
 }
 
-async function updateProfileDataPositionOnDragEnd(event: Parameters<NonNullable<React.ComponentProps<typeof DragDropProvider>["onDragEnd"]>>[0]) {
+async function updateProfileDataPositionOnDragEnd(
+  event: Parameters<NonNullable<React.ComponentProps<typeof DragDropProvider>["onDragEnd"]>>[0]
+) {
   if (event.canceled) {
     return;
   }
@@ -114,11 +116,11 @@ async function updateProfileDataPositionOnDragEnd(event: Parameters<NonNullable<
   if (!res.ok) {
     showAlertErrorApp();
   }
-};
+}
 
 interface ButtonAddProfileDataProps {
-  children: React.ReactNode
-  embed: boolean | null
+  children: React.ReactNode;
+  embed: boolean | null;
 }
 
 function ButtonAddProfileData({ children, embed }: ButtonAddProfileDataProps): React.ReactNode {
@@ -150,10 +152,10 @@ function ButtonAddProfileData({ children, embed }: ButtonAddProfileDataProps): R
 }
 
 interface ButtonDeleteEntryProps {
-  loading: boolean
-  setLoading: React.Dispatch<boolean>
-  tag: string
-  pending: boolean
+  loading: boolean;
+  setLoading: React.Dispatch<boolean>;
+  tag: string;
+  pending: boolean;
 }
 
 function ButtonDeleteEntry({ loading, pending, setLoading, tag }: ButtonDeleteEntryProps): React.ReactNode {
@@ -198,11 +200,11 @@ function ButtonDeleteEntry({ loading, pending, setLoading, tag }: ButtonDeleteEn
 }
 
 interface LinkEntryProps {
-  handleRef: React.Ref<HTMLDivElement>
-  tag: string
-  initialDisplay: string
-  initialEmbed: boolean
-  initialUrl: string
+  handleRef: React.Ref<HTMLDivElement>;
+  tag: string;
+  initialDisplay: string;
+  initialEmbed: boolean;
+  initialUrl: string;
 }
 
 function LinkEntry({ handleRef, initialDisplay = "", initialEmbed = false, initialUrl = "", tag }: LinkEntryProps): React.ReactNode {
@@ -460,7 +462,7 @@ function LinkEntryWrapper({ entry, handleRef }: ProfileDataEntryContentProps): R
   if (entry.content[0] === "[") {
     try {
       [initialUrl, initialDisplay] = JSON.parse(entry.content);
-    } catch { }
+    } catch {}
   } else {
     initialUrl = entry.content;
   }
@@ -582,10 +584,10 @@ function TextEditorWrapper({ entry, handleRef }: ProfileDataEntryContentProps): 
           entry.content
             ? undefined
             : view => {
-              view.dispatch({
-                effects: EditorView.scrollIntoView(0, { y: "start" })
-              });
-            }
+                view.dispatch({
+                  effects: EditorView.scrollIntoView(0, { y: "start" })
+                });
+              }
         }
         setValue={setValue}
         title={!entry.content && value ? "Insert to save this text" : undefined}
@@ -626,8 +628,8 @@ function ProfileDataEntryContent({ entry, handleRef }: ProfileDataEntryContentPr
 }
 
 interface ProfileDataEntryProps {
-  entry: ProfileDataEntryObject
-  index: number
+  entry: ProfileDataEntryObject;
+  index: number;
 }
 
 function ProfileDataEntry({ entry, index }: ProfileDataEntryProps): React.ReactNode {

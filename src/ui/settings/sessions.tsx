@@ -10,8 +10,8 @@ export default function SettingsSessions(): React.ReactNode {
     <div id="sessions">
       <h1 className="text-3xl">Sessions</h1>
       <p className="my-4 text-zinc-400">
-        A session represents a logged-in device or browser. If you&apos;ve logged in on a shared computer or suspect unauthorized activity, use
-        the options below to secure your account.
+        A session represents a logged-in device or browser. If you&apos;ve logged in on a shared computer or suspect unauthorized activity,
+        use the options below to secure your account.
       </p>
       <div className="flex flex-col items-start gap-4">
         <Button className="pe-3.5" onClick={showLogOutConfirm}>
