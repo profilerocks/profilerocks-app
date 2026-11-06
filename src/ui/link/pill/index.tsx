@@ -1,12 +1,11 @@
 import type React from "react";
 import Link, { type LinkProps } from "next/link";
 
-export type LinkPillProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps> &
-  LinkProps & {
-    children?: React.ReactNode;
-    href: string;
-    className?: string;
-  };
+export interface LinkPillProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps>, LinkProps {
+  children?: React.ReactNode;
+  href: string;
+  className?: string;
+}
 
 export default function LinkPill({ children, href, className: customClassName, ...restProps }: LinkPillProps): React.ReactNode {
   const className =
@@ -22,7 +21,7 @@ export default function LinkPill({ children, href, className: customClassName, .
   }
 
   return (
-    <a className={className} href={href} {...(restProps as React.AnchorHTMLAttributes<HTMLAnchorElement>)}>
+    <a className={className} href={href} {...restProps}>
       {children}
     </a>
   );
