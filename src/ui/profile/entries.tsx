@@ -25,7 +25,7 @@ function ProfileEntry({ profile }: ProfileEntryProps): React.ReactNode {
 
   return (
     <Link
-      className={"group flex gap-3 px-4 py-3 transition-colors hover:bg-zinc-800 active:bg-zinc-700" + (active ? " bg-zinc-900" : "")}
+      className={active ? "bg-zinc-900" : undefined}
       href={"/p/content?id=" + profile.public_id + "#page"}
     >
       <img
@@ -66,7 +66,7 @@ export default function ProfileList(): React.ReactNode {
     <>
       {profiles?.length ? (
         <Suspense>
-          <div className="select-none">
+          <div className="select-none *:group *:flex *:gap-3 *:px-4 *:py-3 *:transition-colors *:hover:bg-zinc-800 *:active:bg-zinc-700">
             {
               // @ts-ignore
               profiles.map(profileEntryCallback)

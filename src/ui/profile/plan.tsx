@@ -2,12 +2,11 @@
 
 import Link from "#src/ui/link";
 import { useSnapshot } from "valtio";
-import { HREF_CONTACT } from "#src/lib/env";
 import { useProfileActivePremium } from "#src/lib/hooks/state";
 import globalState from "#src/lib/state";
 import ButtonUpgradeProfilePremium from "#src/ui/button/premium/profile";
 
-export default function ProfileCurrentPlan(props: React.ComponentPropsWithoutRef<"div">): React.ReactNode {
+export default function ProfileCurrentPlan(): React.ReactNode {
   const premiumActive = useProfileActivePremium();
   const { currentProfile } = useSnapshot(globalState);
 
@@ -16,7 +15,7 @@ export default function ProfileCurrentPlan(props: React.ComponentPropsWithoutRef
   }
 
   return (
-    <div {...props}>
+    <>
       <h2 className="mbe-3 text-lg text-zinc-300">
         Current plan:{" "}
         <strong className={currentProfile.premium ? "text-yellow-400" : "text-zinc-200"}>
@@ -51,12 +50,6 @@ export default function ProfileCurrentPlan(props: React.ComponentPropsWithoutRef
       ) : (
         <ButtonUpgradeProfilePremium />
       )}
-      <p className="mbs-4 text-sm text-zinc-400">
-        If you think this is a mistake, please{" "}
-        <Link href={HREF_CONTACT} target="_blank">
-          contact support
-        </Link>
-      </p>
-    </div>
+    </>
   );
 }
