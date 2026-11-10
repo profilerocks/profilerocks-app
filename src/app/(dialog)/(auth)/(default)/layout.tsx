@@ -23,7 +23,7 @@ function ProfilePreview(): React.ReactNode {
   const { currentProfile } = useSnapshot(globalState);
 
   return (
-    <section className={"relative flex max-w-md flex-1 flex-col" + (currentProfile ? "" : " hidden")} id="preview" title="Profile preview">
+    <section className={"relative flex max-w-md flex-1 flex-col xl:min-w-auto" + (currentProfile ? "" : " hidden")} id="preview" title="Profile preview">
       {currentProfile && (
         <>
           <header className="flex items-center gap-1.5 border-be border-zinc-700 bg-zinc-900 p-2">
@@ -140,10 +140,10 @@ export default function LayoutAuthDefault({ children }: LayoutAuthDefaultProps) 
 
   return (
     <div
-      className="flex flex-1 snap-x snap-mandatory scrollbar-none overflow-x-auto scroll-smooth *:min-w-full *:snap-center *:snap-always *:overflow-y-auto lg:*:min-w-auto"
+      className="flex flex-1 snap-x snap-mandatory scrollbar-none overflow-x-auto scroll-smooth *:min-w-full *:snap-center *:snap-always *:overflow-y-auto"
       ref={containersRef}
     >
-      <section className="z-3 flex w-sm flex-col pbe-10" id="side">
+      <section className="z-3 flex w-sm flex-col pbe-10 inset-s-0 lg:min-w-auto lg:sticky" id="side">
         <header className="sticky inset-bs-0 z-1 flex gap-3 px-4 py-3.5 before:absolute before:inset-x-0 before:inset-bs-0 before:-z-1 before:shadow-[0_0_1.75em_3.75em_#000]">
           <Link href="/#side" className="select-none">
             <SvgLogoLong width="16em" />
@@ -157,7 +157,7 @@ export default function LayoutAuthDefault({ children }: LayoutAuthDefaultProps) 
         <ProfileList />
         <Minimap className="mbs-auto pbs-8" />
       </section>
-      <section className="flex flex-1 basis-3xs scrollbar-gutter-stable flex-col" id="page">
+      <section className="flex flex-1 basis-3xs scrollbar-gutter-stable flex-col xl:min-w-auto" id="page">
         {children}
       </section>
       <ProfilePreview />
