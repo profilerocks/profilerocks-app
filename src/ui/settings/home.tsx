@@ -1,4 +1,3 @@
-import type React from "react";
 import IconCard from "#src/icons/card.svg";
 import IconConnect from "#src/icons/connect.svg";
 import IconDevices from "#src/icons/devices.svg";
@@ -21,8 +20,8 @@ export default function SettingsHome(): React.ReactNode {
   return (
     <div id="home">
       <h1 className="text-3xl">Information</h1>
-      <div className="mbs-5 flex flex-col gap-5">
-        <div className="overflow-hidden rounded-2xl border-2 border-zinc-700 bg-zinc-950">
+      <div className="mbs-5 flex flex-col gap-5 *:overflow-hidden *:border-2 *:border-zinc-700 *:rounded-lg *:bg-zinc-950">
+        <div>
           <div className="flex items-start justify-start gap-4 border-be-2 border-zinc-700 px-4 py-3.5">
             <IconEmail className="min-w-max text-zinc-300 drop-shadow-xs drop-shadow-black" width={ICON_MAIN_SIZE} />
             <hgroup>
@@ -34,7 +33,7 @@ export default function SettingsHome(): React.ReactNode {
             <StateUserEmail />
           </LinkEdit>
         </div>
-        <div className="overflow-hidden rounded-2xl border-2 border-zinc-700 bg-zinc-950">
+        <div>
           <div className="flex items-start justify-start gap-4 border-be-2 border-zinc-700 px-4 py-3.5">
             <IconUser className="min-w-max text-zinc-300 drop-shadow-xs drop-shadow-black" width={ICON_MAIN_SIZE} />
             <hgroup>

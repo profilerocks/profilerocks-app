@@ -160,7 +160,7 @@ export default function FormUserEmailEnter(): React.ReactNode {
         <IconEmail width="1.125em" />
         Email
       </InputGroup>
-      <p className="mx-2.5 my-5 flex items-start gap-2.5 text-sm text-zinc-400">
+      <p className="mx-2.5 my-5 flex items-start gap-2.25 text-sm text-zinc-400">
         <IconInfo className="max-w-5 text-teal-500" />
         <span>
           By continuing, you agree to the{" "}

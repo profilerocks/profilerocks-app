@@ -10,7 +10,7 @@ export default function User({ className: customClassName }: UserProps): React.R
   return (
     <div
       className={
-        "flex items-center gap-4 rounded-xl border-2 border-zinc-800 bg-zinc-950 p-3" + (customClassName ? " " + customClassName : "")
+        "flex items-center gap-4 rounded-lg border-2 border-zinc-700 bg-zinc-950 p-3" + (customClassName ? " " + customClassName : "")
       }
     >
       <div className="flex-1 overflow-hidden">
