@@ -134,15 +134,15 @@ export default function FormProfileNameId({
 
   return (
     <form autoComplete="off" onSubmit={submitProfileName} title={disabled ? "Not allowed to change the profile name." : undefined}>
-      <div className="mx-auto flex max-w-3xl rounded-xl border-2 border-zinc-700 text-lg transition-colors focus-within:border-emerald-400 sm:text-xl">
-        <label className="cursor-text py-2.25 ps-3.5 text-zinc-300 sm:py-3 sm:ps-4" htmlFor={inputId}>
+      <div className="mx-auto flex max-w-3xl rounded-xl border-2 border-zinc-700 text-lg transition-colors focus-within:border-emerald-400 sm:text-xl sm:rounded-2xl">
+        <label className="cursor-text py-2.25 ps-2.75 text-zinc-400 sm:py-3 sm:ps-4 sm:py-3.25 select-none" htmlFor={inputId}>
           profile.rocks/
         </label>
         <input
           autoCapitalize="off"
           autoComplete="off"
           autoCorrect="off"
-          className="min-w-0 flex-1 caret-emerald-400 outline-hidden"
+          className="min-w-0 flex-1 caret-emerald-400 outline-hidden placeholder:text-zinc-500"
           disabled={inputDisabled}
           id={inputId}
           minLength={profileAttributes.minLength}
@@ -155,7 +155,7 @@ export default function FormProfileNameId({
           value={nameId}
           type="text"
         />
-        <Button className="mx-1 self-center" disabled={!nameIdValid || inputDisabled} title={submitTitle} type="submit">
+        <Button className="mx-1 self-center sm:mx-2" disabled={!nameIdValid || inputDisabled} title={submitTitle} type="submit">
           {children}
         </Button>
       </div>
