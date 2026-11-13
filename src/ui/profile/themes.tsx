@@ -55,7 +55,7 @@ function ProfileThemePreviewCheck({ disabled, publicId }: ProfileThemePreviewChe
       />
       <label
         className={
-          "min-w-24 cursor-pointer rounded-3xl bg-zinc-900 p-2 text-center text-sm transition-colors hover:bg-zinc-800 active:bg-zinc-700 " +
+          "min-w-24 cursor-pointer rounded-lg bg-zinc-900 p-2 text-center text-sm transition-colors hover:bg-zinc-800 active:bg-zinc-700 " +
           (checked ? "text-emerald-400" : "text-zinc-400 hover:text-zinc-300 active:text-zinc-200")
         }
         htmlFor={inputPreviewCheckboxId}
@@ -241,7 +241,7 @@ export default function ProfileThemes() {
     <>
       {freeThemesAvailable && (
         <>
-          <h2 className="text-2xl">Free Themes</h2>
+          <h2 className="text-2xl text-zinc-300">Free Themes</h2>
           <ProfileThemeList>{profileFreeThemeList}</ProfileThemeList>
         </>
       )}
