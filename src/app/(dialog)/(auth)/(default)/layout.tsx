@@ -57,7 +57,7 @@ function ProfilePreview(): React.ReactNode {
             title="Preview"
           />
           {currentProfile.theme_preview && (
-            <p className="font-xs absolute inset-e-0.25 inset-bs-14.5 z-2 rounded-lg bg-zinc-900/95 px-3.5 py-2">This is a theme preview</p>
+            <p className="text-xs absolute inset-e-0.5 inset-bs-14.75 z-2 rounded-lg text-zinc-300 bg-zinc-900/95 px-1.75 py-0.75">This is a theme preview</p>
           )}
         </>
       )}
