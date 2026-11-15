@@ -131,8 +131,8 @@ export default function LayoutProfileEditor({ children }: LayoutProfileEditorPro
       <figure className="m-4 mbe-6 flex min-h-max max-w-full items-center gap-3.5 overflow-hidden select-none">
         <FigureProfileContent />
       </figure>
-      <div className="px-4 pbe-12">{loading ? "Loading..." : children}</div>
-      <nav className="sticky inset-be-0 z-2 mbs-auto flex border-bs border-zinc-800 bg-zinc-950/80 text-xs text-zinc-400 shadow-black backdrop-blur-sm select-none *:relative *:flex *:flex-1 *:flex-col *:items-center *:gap-1 *:p-2.5 *:transition-colors *:before:absolute *:before:inset-x-1/2 *:before:inset-bs-2 *:before:inset-be-7 *:before:-z-1 *:before:rounded-2xl *:before:shadow-xs *:before:shadow-black *:before:transition-all *:hover:text-zinc-300 *:active:text-zinc-200 sm:inset-be-2 sm:mx-4 sm:rounded-xl sm:border-2 sm:text-sm sm:*:before:rounded-lg sm:shadow-xl sm:*:gap-0.75 sm:*:before:inset-y-1">
+      <div className="px-4 pbe-12 sm:order-last">{loading ? "Loading..." : children}</div>
+      <nav className="sticky inset-be-0 z-2 mbs-auto flex border-bs border-zinc-800 bg-zinc-950/80 text-xs text-zinc-400 shadow-black backdrop-blur-sm select-none *:relative *:flex *:flex-1 *:flex-col *:items-center *:justify-center *:gap-y-1 *:gap-x-2 *:p-2.5 *:transition-colors *:before:absolute *:before:inset-x-1/2 *:before:inset-bs-2 *:before:inset-be-7 *:before:-z-1 *:before:rounded-2xl *:before:shadow-xs *:before:shadow-black *:before:transition-all *:hover:text-zinc-300 *:active:text-zinc-200 sm:inset-be-2 sm:mx-4 sm:rounded-xl sm:border-2 sm:text-lg sm:*:before:rounded-lg sm:shadow-xl sm:*:p-3.5 sm:*:before:inset-y-1 sm:*:flex-row">
         <LinkProfileConfiguration path="content">
           <IconContent width={ICON_DIMENSION} />
           Content
