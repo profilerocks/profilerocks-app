@@ -12,13 +12,12 @@ import { getSecondsFromBase36 } from "#src/lib/time";
 import IconArrowRight from "#src/icons/arrow/right.svg";
 import IconBlock from "#src/icons/block.svg";
 import IconEmail from "#src/icons/email.svg";
+import IconLoading from "#src/icons/loading.svg";
 import { requestOtpUpdateCreation } from "#src/lib/request";
 import InputGroup from "#src/ui/input/group";
 import Button from "#src/ui/button";
 import LinkBack from "#src/ui/link/back";
 import otpAttributes from "#shared/otp.json";
-
-export type RequestOtpCreation = (email: string) => Promise<Response | undefined>;
 
 export interface FormUserEmailProps {
   children?: React.ReactNode;
@@ -177,12 +176,12 @@ export default function FormUserEmail({ children, hrefBack }: FormUserEmailProps
           {emailBlock ? (
             <>
               <IconBlock width="1.25em" />
-              Email blocked
+              Email address blocked
             </>
           ) : (
             <>
               Next
-              <IconArrowRight width="1.25em" />
+              {submitting ? <IconLoading width="1.25em" /> : <IconArrowRight width="1.25em" />}
             </>
           )}
         </Button>

@@ -13,15 +13,14 @@ import { getCurrentOtpState, getOtpState, switchOtpState, type OtpState } from "
 import { getSecondsFromBase36 } from "#src/lib/time";
 import IconEmail from "#src/icons/email.svg";
 import IconAgreement from "#src/icons/agreement.svg";
+import IconArrowRight from "#src/icons/arrow/right.svg";
+import IconBlock from "#src/icons/block.svg";
 import IconInfo from "#src/icons/info.svg";
+import IconLoading from "#src/icons/loading.svg";
 import Link from "#src/ui/link";
 import InputGroup from "#src/ui/input/group";
-import ButtonNext from "#src/ui/button/next";
+import Button from "#src/ui/button";
 import otpAttributes from "#shared/otp.json";
-
-export type RequestOtpCreation = (email: string) => Promise<Response | undefined>;
-
-const AGREE_CONTINUE_TEXT = "Agree & Continue";
 
 export default function FormUserEmailEnter(): React.ReactNode {
   const [email, setEmail] = useState(getCurrentOtpState()?.email ?? "");
@@ -173,15 +172,25 @@ export default function FormUserEmailEnter(): React.ReactNode {
           </Link>
         </span>
       </p>
-      <ButtonNext
+      <Button
         className="w-full"
         disabled={submitting || !emailFormatValidity || emailBlock}
         title={emailFormatValidity ? (submitting ? "Submitting..." : undefined) : "Enter a valid email address"}
         type="submit"
       >
-        <IconAgreement width="1.25em" />
-        {AGREE_CONTINUE_TEXT}
-      </ButtonNext>
+        {emailBlock ? (
+          <>
+            <IconBlock width="1.25em" />
+            Email address blocked
+          </>
+        ) : (
+          <>
+            <IconAgreement width="1.25em" />
+            Agree and continue
+            <span className="ms-auto">{submitting ? <IconLoading width="1.5em" /> : <IconArrowRight width="1.25em" />}</span>
+          </>
+        )}
+      </Button>
     </form>
   );
 }

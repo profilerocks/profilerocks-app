@@ -319,7 +319,7 @@ SOFTWARE.
 
 Source: <https://gitlab.com/SUSE-UIUX/eos-icons>
 
-- `loading.svg`: three-dots-loading
+- `loading.svg`: bubble-loading
 
 ### License (MIT: 2020 SUSE Software Solutions Germany GmbH)
 
