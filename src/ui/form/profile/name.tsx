@@ -15,7 +15,7 @@ import { requestProfileCreation, requestProfileNameIdUpdate } from "#src/lib/req
 import globalState from "#src/lib/state";
 import Button from "#src/ui/button";
 import DateTime from "#src/ui/date/time";
-import Link from "#src/ui/link";
+import LinkExternal from "#src/ui/link/external";
 import Message from "#src/ui/message";
 
 export type RequestFunction = (nameId: string) => Promise<Response | undefined>;
@@ -169,9 +169,9 @@ export default function FormProfileNameId({
         <li className={nameIdBlacklisted ? "text-rose-400" : nameIdBlacklisted === false ? "text-green-400" : undefined}>
           <span>
             It is not{" "}
-            <Link href="/i/blacklist" target="_blank" rel="noopener noreferrer">
+            <LinkExternal href="/i/blacklist" target="_blank" rel="noopener noreferrer">
               blacklisted
-            </Link>
+            </LinkExternal>
           </span>
         </li>
         <li className={unique ? "text-green-400" : submitting ? "animate-pulse" : unique === false ? "text-rose-400" : undefined}>

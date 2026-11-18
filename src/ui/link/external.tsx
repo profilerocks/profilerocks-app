@@ -2,7 +2,7 @@ import type React from "react";
 
 export type LinkProps = React.ComponentPropsWithoutRef<"a">;
 
-export default function Link({ children, className: customClassName, ...restProps }: LinkProps): React.ReactNode {
+export default function LinkExternal({ children, className: customClassName, ...restProps }: LinkProps): React.ReactNode {
   return (
     <a
       {...restProps}

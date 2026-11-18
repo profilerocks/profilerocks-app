@@ -9,7 +9,7 @@ import { requestPolarSession } from "#src/lib/request";
 import globalState from "#src/lib/state";
 import { msToSeconds } from "#src/lib/time";
 import ButtonNext from "#src/ui/button/next";
-import Link from "#src/ui/link";
+import LinkExternal from "#src/ui/link/external";
 
 function ButtonPolarSh(): React.ReactNode {
   async function redirectToPolarOnClick(event: React.MouseEvent<HTMLButtonElement>): Promise<void> {
@@ -48,7 +48,7 @@ function ButtonPolarSh(): React.ReactNode {
       if (expiresString) {
         try {
           globalState.polarShSessionUrlExpires = msToSeconds(new Date(expiresString).getTime());
-        } catch {}
+        } catch { }
       }
 
       /**
@@ -79,9 +79,9 @@ export default function PolarShSettings(): React.ReactNode {
     <>
       <p className="my-4 text-zinc-300">You haven&apos;t made any payments yet. If you think this is a mistake, please contact support.</p>
       <p>
-        <Link href={HREF_CONTACT} target="_blank">
+        <LinkExternal href={HREF_CONTACT} target="_blank">
           {HREF_CONTACT}
-        </Link>
+        </LinkExternal>
       </p>
     </>
   );

@@ -6,7 +6,7 @@ import { HREF_HELP, PLATFORM_DESCRIPTION, PLATFORM_NAME } from "#src/lib/env";
 import globalState from "#src/lib/state";
 import LinkBack from "#src/ui/link/back";
 import LinkNext from "#src/ui/link/next";
-import Link from "#src/ui/link";
+import LinkExternal from "#src/ui/link/external";
 
 export default function PageAuthDefault() {
   const { profiles } = useSnapshot(globalState);
@@ -34,9 +34,9 @@ export default function PageAuthDefault() {
         )}
         <footer className="mbs-6 text-zinc-400">
           If you have any issues, you can visit the{" "}
-          <Link href={HREF_HELP} rel="noopener noreferrer" target="_blank">
+          <LinkExternal href={HREF_HELP} rel="noopener noreferrer" target="_blank">
             help page
-          </Link>
+          </LinkExternal>
         </footer>
       </div>
     </>

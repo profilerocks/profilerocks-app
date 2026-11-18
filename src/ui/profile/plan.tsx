@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "#src/ui/link";
 import { useSnapshot } from "valtio";
 import { useProfileActivePremium } from "#src/lib/hooks/state";
 import globalState from "#src/lib/state";
 import ButtonUpgradeProfilePremium from "#src/ui/button/premium/profile";
+import LinkExternal from "#src/ui/link/external";
 
 export default function ProfileCurrentPlan(): React.ReactNode {
   const premiumActive = useProfileActivePremium();
@@ -25,7 +25,7 @@ export default function ProfileCurrentPlan(): React.ReactNode {
       {currentProfile.premium ? (
         <>
           <p>
-            You can manage the payment in the <Link href="/u/settings#payments">payment settings</Link>.
+            You can manage the payment in the <LinkExternal href="/u/settings#payments">payment settings</LinkExternal>.
           </p>
           <p>
             Status:{" "}

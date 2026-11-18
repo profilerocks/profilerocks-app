@@ -17,7 +17,7 @@ import IconArrowRight from "#src/icons/arrow/right.svg";
 import IconBlock from "#src/icons/block.svg";
 import IconInfo from "#src/icons/info.svg";
 import IconLoading from "#src/icons/loading.svg";
-import Link from "#src/ui/link";
+import LinkExternal from "#src/ui/link/external";
 import InputGroup from "#src/ui/input/group";
 import Button from "#src/ui/button";
 import otpAttributes from "#shared/otp.json";
@@ -163,13 +163,13 @@ export default function FormUserEmailEnter(): React.ReactNode {
         <IconInfo className="max-w-5 text-teal-500" />
         <span>
           By continuing, you agree to the{" "}
-          <Link href={HREF_TERMS} target="_blank" rel="terms-of-service">
+          <LinkExternal href={HREF_TERMS} target="_blank" rel="terms-of-service">
             Terms of Service
-          </Link>{" "}
+          </LinkExternal>{" "}
           and acknowledge the{" "}
-          <Link href={HREF_PRIVACY} target="_blank" rel="privacy-policy">
+          <LinkExternal href={HREF_PRIVACY} target="_blank" rel="privacy-policy">
             Privacy Policy
-          </Link>
+          </LinkExternal>
         </span>
       </p>
       <Button

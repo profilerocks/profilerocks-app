@@ -4,7 +4,7 @@ import ButtonDownloadProfileData from "#src/ui/button/download/profile";
 import FormProfileMetaDescription from "#src/ui/form/profile/meta/description";
 import { FormProfileNameIdUpdate } from "#src/ui/form/profile/name";
 import FormProfileTitle from "#src/ui/form/profile/title";
-import Link from "#src/ui/link";
+import LinkExternal from "#src/ui/link/external";
 import ProfileCurrentPlan from "#src/ui/profile/plan";
 import ProfileWatermark from "#src/ui/profile/watermark";
 
@@ -16,9 +16,9 @@ export default function PageProfileSettings() {
         <ProfileCurrentPlan />
         <p className="mbs-4 text-sm text-zinc-400">
           If you think this is a mistake, please{" "}
-          <Link href={HREF_CONTACT} target="_blank">
+          <LinkExternal href={HREF_CONTACT} target="_blank">
             contact support
-          </Link>
+          </LinkExternal>
         </p>
       </div>
       <div className="border-y border-yellow-400 mbs-8">
@@ -37,7 +37,7 @@ export default function PageProfileSettings() {
       <h2 className="mbs-10 text-2xl text-zinc-300">Profile data</h2>
       <p className="my-4 text-zinc-400">
         You can export the profile data in a standard, machine-readable JSON format. The option to export your account data can be found in
-        the <Link href="/u/settings#data">account settings</Link>.
+        the <LinkExternal href="/u/settings#data">account settings</LinkExternal>.
       </p>
       <ButtonDownloadProfileData />
       <h2 className="mbs-10 text-2xl text-rose-400">Danger zone</h2>

@@ -1,5 +1,6 @@
+import Link from "next/link"
+import type { LinkProps } from "next/link";
 import type React from "react";
-import Link, { type LinkProps } from "next/link";
 
 export interface LinkPillProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps>, LinkProps {
   children?: React.ReactNode;
