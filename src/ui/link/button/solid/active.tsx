@@ -1,12 +1,17 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import LinkButton, { type LinkButtonProps } from "#src/ui/link/button";
+import LinkButton from "#src/ui/link/button";
 
-export default function LinkButtonSolidActive({ children, href, className: customClassName, ...props }: LinkButtonProps): React.ReactNode {
+export default function LinkButtonSolidActive({
+  children,
+  href,
+  className: customClassName,
+  ...props
+}: React.ComponentProps<typeof LinkButton>): React.ReactNode {
   const pathname = usePathname();
 
-  const active = href.split("?")[0].split("#")[0] === pathname;
+  const active = href.toString().split("?")[0].split("#")[0] === pathname;
 
   return (
     <LinkButton

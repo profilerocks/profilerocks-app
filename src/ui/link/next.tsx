@@ -1,6 +1,6 @@
 import IconArrowRight from "#src/icons/arrow/right.svg";
 
-export default function LinkButtonNext({ children, ...props }: React.ComponentPropsWithoutRef<"a">): React.ReactNode {
+export default function AnchorNext({ children, ...props }: React.ComponentPropsWithoutRef<"a">): React.ReactNode {
   return (
     <a {...props}>
       {children}

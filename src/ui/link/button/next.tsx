@@ -1,8 +1,7 @@
 import IconArrowRight from "#src/icons/arrow/right.svg";
 import LinkButtonSolid from "#src/ui/link/button/solid";
-import type { LinkButtonProps } from "#src/ui/link/button";
 
-export default function LinkButtonNext({ children, ...props }: LinkButtonProps): React.ReactNode {
+export default function LinkButtonNext({ children, ...props }: React.ComponentProps<typeof LinkButtonSolid>): React.ReactNode {
   return (
     <LinkButtonSolid {...props}>
       {children}
