@@ -5,13 +5,12 @@ import LinkButton from "#src/ui/link/button";
 
 export default function LinkButtonSolidActive({
   children,
-  href,
   className: customClassName,
-  ...props
+  ...restProps
 }: React.ComponentProps<typeof LinkButton>): React.ReactNode {
   const pathname = usePathname();
 
-  const active = href.toString().split("?")[0].split("#")[0] === pathname;
+  const active = restProps.href.toString().split("?")[0].split("#")[0] === pathname;
 
   return (
     <LinkButton
@@ -20,8 +19,7 @@ export default function LinkButtonSolidActive({
         (active ? "text-emerald-400" : "text-zinc-400 hover:text-zinc-300 active:text-zinc-200") +
         (customClassName ? " " + customClassName : "")
       }
-      href={href}
-      {...props}
+      {...restProps}
     >
       {children}
     </LinkButton>
