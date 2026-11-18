@@ -1,4 +1,3 @@
-import type React from "react";
 import FormDisplayName from "#src/ui/form/display";
 import IconPencil from "#src/icons/pencil.svg";
 

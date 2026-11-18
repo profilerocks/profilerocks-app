@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { useState } from "react";
 import { showAlertErrorApp } from "#src/lib/alert";
 import IconDownload from "#src/icons/download.svg";

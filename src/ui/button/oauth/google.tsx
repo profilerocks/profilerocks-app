@@ -1,4 +1,3 @@
-import type React from "react";
 import Oauth from "#src/ui/button/oauth";
 import IconColoredGoogle from "#src/icons/colored/google.svg";
 

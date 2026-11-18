@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { useEffect, useRef } from "react";
 import IconCard from "#src/icons/card.svg";
 import IconConnect from "#src/icons/connect.svg";

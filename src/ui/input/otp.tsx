@@ -1,4 +1,3 @@
-import type React from "react";
 import otpAttributes from "#shared/otp.json";
 import { fontCode } from "#src/lib/fonts";
 import { regexNotWordsGlobal } from "#src/lib/regex";

@@ -1,4 +1,3 @@
-import type React from "react";
 import { proxy } from "valtio";
 import type { OtpState } from "#src/lib/state/otp";
 

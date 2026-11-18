@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import useAuthOffline from "#src/lib/hooks/auth/offline";
 import Message from "#src/ui/message";
 

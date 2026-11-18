@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { useId } from "react";
 
 export interface InputCheckboxProps extends Omit<React.ComponentPropsWithoutRef<"input">, "id" | "type"> {

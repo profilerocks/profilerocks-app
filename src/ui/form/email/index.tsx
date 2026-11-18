@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { isValid as isEmailValid } from "mailchecker";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -16,7 +15,7 @@ import IconLoading from "#src/icons/loading.svg";
 import { requestOtpUpdateCreation } from "#src/lib/request";
 import InputGroup from "#src/ui/input/group";
 import Button from "#src/ui/button";
-import LinkBack from "#src/ui/link/back";
+import LinkButtonBack from "#src/ui/link/button/back";
 import otpAttributes from "#shared/otp.json";
 
 export interface FormUserEmailProps {
@@ -163,9 +162,9 @@ export default function FormUserEmail({ children, hrefBack }: FormUserEmailProps
       {children}
       <div className="mbs-5 flex justify-between">
         {hrefBack && (
-          <LinkBack className="pe-3.5" href={hrefBack}>
+          <LinkButtonBack className="pe-3.5" href={hrefBack}>
             Back
-          </LinkBack>
+          </LinkButtonBack>
         )}
         <Button
           className={emailBlock ? "pe-3.5" : "ps-3.5"}

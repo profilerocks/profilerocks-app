@@ -1,4 +1,3 @@
-import type React from "react";
 import IconLogout from "#src/icons/logout.svg";
 import { showLogOutConfirm, showLogOutAllSessionsConfirm } from "#src/lib/confirm";
 import Button from "#src/ui/button";

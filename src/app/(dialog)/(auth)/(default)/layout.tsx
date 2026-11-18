@@ -8,7 +8,7 @@ import { API } from "#src/lib/env";
 import markdownRenderer from "#src/lib/markdown";
 import globalState from "#src/lib/state";
 import SvgLogoLong from "#src/static/logo/long.svg";
-import LinkBack from "#src/ui/link/back";
+import LinkButtonBack from "#src/ui/link/button/back";
 import Minimap from "#src/ui/minimap";
 import ProfileList from "#src/ui/profile/entries";
 import User from "#src/ui/user";
@@ -23,11 +23,15 @@ function ProfilePreview(): React.ReactNode {
   const { currentProfile } = useSnapshot(globalState);
 
   return (
-    <section className={"relative flex max-w-md flex-1 flex-col xl:min-w-auto" + (currentProfile ? "" : " hidden")} id="preview" title="Profile preview">
+    <section
+      className={"relative flex max-w-md flex-1 flex-col xl:min-w-auto" + (currentProfile ? "" : " hidden")}
+      id="preview"
+      title="Profile preview"
+    >
       {currentProfile && (
         <>
           <header className="flex items-center gap-1.5 border-be border-zinc-700 bg-zinc-900 p-2">
-            <LinkBack className="hide-desktop-large" href="#page" />
+            <LinkButtonBack className="hide-desktop-large" href="#page" />
             <a
               className="relative min-h-max flex-1 scrollbar-gutter-stable overflow-x-auto overflow-y-visible rounded-lg bg-zinc-950 py-2 text-nowrap shadow-zinc-950 before:sticky before:inset-s-0 before:me-3 before:shadow-md after:sticky after:inset-e-0 after:ms-3 after:shadow-md"
               href={API_HOST + "/" + currentProfile.name_id}
@@ -57,7 +61,9 @@ function ProfilePreview(): React.ReactNode {
             title="Preview"
           />
           {currentProfile.theme_preview && (
-            <p className="text-xs absolute inset-e-0.5 inset-bs-14.75 z-2 rounded-lg text-zinc-300 bg-zinc-900/95 px-1.75 py-0.75">This is a theme preview</p>
+            <p className="absolute inset-e-0.5 inset-bs-14.75 z-2 rounded-lg bg-zinc-900/95 px-1.75 py-0.75 text-xs text-zinc-300">
+              This is a theme preview
+            </p>
           )}
         </>
       )}
@@ -143,7 +149,7 @@ export default function LayoutAuthDefault({ children }: LayoutAuthDefaultProps) 
       className="flex flex-1 snap-x snap-mandatory scrollbar-none overflow-x-auto scroll-smooth *:min-w-full *:snap-center *:snap-always *:overflow-y-auto"
       ref={containersRef}
     >
-      <section className="z-3 flex w-sm flex-col pbe-10 inset-s-0 lg:min-w-auto lg:sticky" id="side">
+      <section className="inset-s-0 z-3 flex w-sm flex-col pbe-10 lg:sticky lg:min-w-auto" id="side">
         <header className="sticky inset-bs-0 z-1 flex gap-3 px-4 py-3.5 before:absolute before:inset-x-0 before:inset-bs-0 before:-z-1 before:shadow-[0_0_1.75em_3.75em_#000]">
           <Link href="/#side" className="select-none">
             <SvgLogoLong width="16em" />

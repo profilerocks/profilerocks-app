@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 import { showAlertErrorApp } from "#src/lib/alert";

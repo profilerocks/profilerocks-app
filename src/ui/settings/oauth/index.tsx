@@ -1,4 +1,3 @@
-import type React from "react";
 import { PLATFORM_NAME } from "#src/lib/env";
 import OauthProvider from "#src/ui/settings/oauth/provider";
 import IconColoredGoogle from "#src/icons/colored/google.svg";

@@ -1,4 +1,3 @@
-import type React from "react";
 import ButtonDownloadAccountData from "#src/ui/button/download/account";
 import ButtonDeleteAccount from "#src/ui/button/danger/delete/account";
 

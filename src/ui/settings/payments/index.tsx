@@ -1,4 +1,3 @@
-import type React from "react";
 import PolarShSettings from "#src/ui/settings/payments/polar";
 
 export default function SettingsPayments(): React.ReactNode {

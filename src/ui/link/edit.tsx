@@ -1,4 +1,3 @@
-import type React from "react";
 import Link, { type LinkProps } from "next/link";
 import IconPencil from "#src/icons/pencil.svg";
 import IconArrowRight from "#src/icons/arrow/right.svg";

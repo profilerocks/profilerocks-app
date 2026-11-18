@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { useSnapshot } from "valtio";
 import IconPolarSh from "#src/icons/polar.sh.svg";
 import { showAlertErrorApp } from "#src/lib/alert";
@@ -48,7 +47,7 @@ function ButtonPolarSh(): React.ReactNode {
       if (expiresString) {
         try {
           globalState.polarShSessionUrlExpires = msToSeconds(new Date(expiresString).getTime());
-        } catch { }
+        } catch {}
       }
 
       /**

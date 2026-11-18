@@ -1,4 +1,3 @@
-import type React from "react";
 import { useId } from "react";
 
 export interface InputGroupProps extends React.ComponentPropsWithoutRef<"input"> {

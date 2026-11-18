@@ -14,7 +14,7 @@ import { HREF_ASSETS } from "#src/lib/env";
 import { requestProfileData } from "#src/lib/request";
 import globalState from "#src/lib/state";
 import { updateProfileState } from "#src/lib/state/profile";
-import LinkPillSolid from "#src/ui/link/pill/solid";
+import LinkButtonSolid from "#src/ui/link/button/solid";
 
 const ICON_DIMENSION = "1.75rem";
 const TITLE_EDIT_PROFILE_HEADER = "Edit profile header";
@@ -49,10 +49,10 @@ function FigureProfileContent(): React.ReactNode {
             {currentProfile.name_id}
           </p>
         </div>
-        <LinkPillSolid className="m-1" href={href} title={TITLE_EDIT_PROFILE_HEADER}>
+        <LinkButtonSolid className="m-1" href={href} title={TITLE_EDIT_PROFILE_HEADER}>
           <span className="hidden ps-1 sm:inline">Edit</span>
           <IconPencil className="min-w-6" />
-        </LinkPillSolid>
+        </LinkButtonSolid>
       </figcaption>
     </>
   );
@@ -132,7 +132,7 @@ export default function LayoutProfileEditor({ children }: LayoutProfileEditorPro
         <FigureProfileContent />
       </figure>
       <div className="px-4 pbe-12 sm:order-last">{loading ? "Loading..." : children}</div>
-      <nav className="sticky inset-be-0 z-2 mbs-auto flex border-bs border-zinc-800 bg-zinc-950/80 text-xs text-zinc-400 shadow-black backdrop-blur-sm select-none *:relative *:flex *:flex-1 *:flex-col *:items-center *:justify-center *:gap-y-1 *:gap-x-2 *:p-2.5 *:transition-colors *:before:absolute *:before:inset-x-1/2 *:before:inset-bs-2 *:before:inset-be-7 *:before:-z-1 *:before:rounded-2xl *:before:shadow-xs *:before:shadow-black *:before:transition-all *:hover:text-zinc-300 *:active:text-zinc-200 sm:inset-be-2 sm:mx-4 sm:rounded-xl sm:border-2 sm:text-lg sm:*:before:rounded-lg sm:shadow-xl sm:*:p-3.5 sm:*:before:inset-y-1 sm:*:flex-row">
+      <nav className="sticky inset-be-0 z-2 mbs-auto flex border-bs border-zinc-800 bg-zinc-950/80 text-xs text-zinc-400 shadow-black backdrop-blur-sm select-none *:relative *:flex *:flex-1 *:flex-col *:items-center *:justify-center *:gap-x-2 *:gap-y-1 *:p-2.5 *:transition-colors *:before:absolute *:before:inset-x-1/2 *:before:inset-bs-2 *:before:inset-be-7 *:before:-z-1 *:before:rounded-2xl *:before:shadow-xs *:before:shadow-black *:before:transition-all *:hover:text-zinc-300 *:active:text-zinc-200 sm:inset-be-2 sm:mx-4 sm:rounded-xl sm:border-2 sm:text-lg sm:shadow-xl sm:*:flex-row sm:*:p-3.5 sm:*:before:inset-y-1 sm:*:before:rounded-lg">
         <LinkProfileConfiguration path="content">
           <IconContent width={ICON_DIMENSION} />
           Content

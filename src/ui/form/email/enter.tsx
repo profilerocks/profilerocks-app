@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { isValid as isEmailValid } from "mailchecker";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";

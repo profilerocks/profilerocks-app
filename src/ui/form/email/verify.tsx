@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
@@ -16,7 +15,7 @@ import IconUserVerify from "#src/icons/user/verify.svg";
 import otpAttributes from "#shared/otp.json";
 import Button from "#src/ui/button";
 import InputOtp from "#src/ui/input/otp";
-import LinkBack from "#src/ui/link/back";
+import LinkButtonBack from "#src/ui/link/button/back";
 
 export type AfterVerification = (res: Response) => Promise<void> | void;
 
@@ -38,13 +37,13 @@ function otpInputBlockCounter(prev: number): number {
   return 0;
 }
 
-function ReactiveLinkBack(): React.ReactNode {
+function ReactiveLinkButtonBack(): React.ReactNode {
   const hrefBack = useContext(ContextHrefBack);
 
   return (
-    <LinkBack className="pe-3.5" href={hrefBack}>
+    <LinkButtonBack className="pe-3.5" href={hrefBack}>
       Back
-    </LinkBack>
+    </LinkButtonBack>
   );
 }
 
@@ -102,7 +101,7 @@ function FormOtpContent({ submitting }: FormOtpContentProps): React.ReactNode {
         <InputOtp disabled={otpInputBlock} name="otp" onChange={setOtpOnChange} required valid={otpValid} value={otp} />
       </div>
       <div className="flex flex-wrap justify-between gap-5">
-        <ReactiveLinkBack />
+        <ReactiveLinkButtonBack />
         <Button
           className="ps-3.5"
           disabled={submitting || otpInputBlock || !otpValid}

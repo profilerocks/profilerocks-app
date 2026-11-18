@@ -1,4 +1,3 @@
-import type React from "react";
 import IconArrowRight from "#src/icons/arrow/right.svg";
 import Button, { type ButtonProps } from "#src/ui/button";
 

@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { useRouter } from "next/navigation";
 import { useDeferredValue, useState } from "react";
 import displayNameAttributes from "#shared/display.json";

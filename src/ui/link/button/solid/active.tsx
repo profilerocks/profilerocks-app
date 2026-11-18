@@ -1,16 +1,15 @@
 "use client";
 
-import type React from "react";
 import { usePathname } from "next/navigation";
-import LinkPill, { type LinkPillProps } from "#src/ui/link/pill";
+import LinkButton, { type LinkButtonProps } from "#src/ui/link/button";
 
-export default function LinkPillSolidActive({ children, href, className: customClassName, ...props }: LinkPillProps): React.ReactNode {
+export default function LinkButtonSolidActive({ children, href, className: customClassName, ...props }: LinkButtonProps): React.ReactNode {
   const pathname = usePathname();
 
   const active = href.split("?")[0].split("#")[0] === pathname;
 
   return (
-    <LinkPill
+    <LinkButton
       className={
         "bg-zinc-900 " +
         (active ? "text-emerald-400" : "text-zinc-400 hover:text-zinc-300 active:text-zinc-200") +
@@ -20,6 +19,6 @@ export default function LinkPillSolidActive({ children, href, className: customC
       {...props}
     >
       {children}
-    </LinkPill>
+    </LinkButton>
   );
 }

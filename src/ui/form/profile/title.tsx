@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { useDeferredValue, useState } from "react";
 import { showAlertErrorApp } from "#src/lib/alert";
 import { useProfileActivePremium } from "#src/lib/hooks/state";

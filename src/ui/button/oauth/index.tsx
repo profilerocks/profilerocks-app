@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import IconArrowRight from "#src/icons/arrow/right.svg";
 import { showAlertErrorApp, showAlertErrorServer } from "#src/lib/alert";
 import { requestOauthLink } from "#src/lib/request";

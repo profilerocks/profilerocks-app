@@ -1,5 +1,3 @@
-import type React from "react";
-
 export type ButtonProps = React.ComponentPropsWithoutRef<"button">;
 
 export default function Button({ className: customClassName, children, ...buttonAttributes }: ButtonProps): React.ReactNode {

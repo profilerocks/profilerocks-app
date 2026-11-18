@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { useState, useEffect } from "react";
 import IconShare from "#src/icons/share.svg";
 

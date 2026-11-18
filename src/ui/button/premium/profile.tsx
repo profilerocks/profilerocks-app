@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { useSnapshot } from "valtio";
 import IconPremium from "#src/icons/premium.svg";
 import { showAlertErrorApp, showAlertErrorServer } from "#src/lib/alert";

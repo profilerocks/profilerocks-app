@@ -9,8 +9,8 @@ import IconSettings from "#src/icons/settings.svg";
 import IconUserPlus from "#src/icons/user/plus.svg";
 import { HREF_ASSETS } from "#src/lib/env";
 import globalState from "#src/lib/state";
-import LinkNext from "#src/ui/link/next";
-import LinkPillSolidActive from "#src/ui/link/pill/solid/active";
+import LinkButtonNext from "#src/ui/link/button/next";
+import LinkButtonSolidActive from "#src/ui/link/button/solid/active";
 import type { Profile } from "#src/lib/state";
 
 interface ProfileEntryProps {
@@ -24,10 +24,7 @@ function ProfileEntry({ profile }: ProfileEntryProps): React.ReactNode {
   const displayName = profile.display_name || profile.name_id;
 
   return (
-    <Link
-      className={active ? "bg-zinc-900" : undefined}
-      href={"/p/content?id=" + profile.public_id + "#page"}
-    >
+    <Link className={active ? "bg-zinc-900" : undefined} href={"/p/content?id=" + profile.public_id + "#page"}>
       <img
         alt="Profile photo"
         className="rounded-full shadow-sm shadow-black"
@@ -66,7 +63,7 @@ export default function ProfileList(): React.ReactNode {
     <>
       {profiles?.length ? (
         <Suspense>
-          <div className="select-none *:group *:flex *:gap-3 *:px-4 *:py-3 *:transition-colors *:hover:bg-zinc-800 *:active:bg-zinc-700">
+          <div className="*:group select-none *:flex *:gap-3 *:px-4 *:py-3 *:transition-colors *:hover:bg-zinc-800 *:active:bg-zinc-700">
             {
               // @ts-ignore
               profiles.map(profileEntryCallback)
@@ -76,15 +73,15 @@ export default function ProfileList(): React.ReactNode {
       ) : null}
       <nav className="mbs-4 flex flex-wrap gap-x-6 gap-y-4 px-4 *:flex-1">
         {profilesRemaining > 0 && (
-          <LinkPillSolidActive className="pe-3.5" href="/p#page">
+          <LinkButtonSolidActive className="pe-3.5" href="/p#page">
             <IconUserPlus width="1.5em" />
             Create a new profile
-          </LinkPillSolidActive>
+          </LinkButtonSolidActive>
         )}
-        <LinkNext className="group" href="/u/settings">
+        <LinkButtonNext className="group" href="/u/settings">
           <IconSettings className="transition-transform duration-1000 group-hover:rotate-360" width="1.5em" />
           User Settings
-        </LinkNext>
+        </LinkButtonNext>
       </nav>
       <p className="mbs-6 text-center text-sm text-zinc-500">You can create up to {profileAttributes.limit} profiles</p>
       {profiles?.length ? (

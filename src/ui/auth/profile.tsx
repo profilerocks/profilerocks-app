@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";

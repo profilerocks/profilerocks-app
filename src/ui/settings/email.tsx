@@ -1,4 +1,3 @@
-import type React from "react";
 import FormUserEmail from "#src/ui/form/email";
 
 export default function SettingsEmail(): React.ReactNode {

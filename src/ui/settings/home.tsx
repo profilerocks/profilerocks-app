@@ -10,7 +10,7 @@ import { showLogOutConfirm } from "#src/lib/confirm";
 import { useUserEmail as StateUserEmail, useUserDisplayName as StateUserDisplayName } from "#src/lib/hooks/state";
 import Button from "#src/ui/button";
 import LinkEdit from "#src/ui/link/edit";
-import LinkNext from "#src/ui/link/next";
+import LinkButtonNext from "#src/ui/link/button/next";
 import Minimap from "#src/ui/minimap";
 
 const ICON_MAIN_SIZE = "2.875em";
@@ -20,7 +20,7 @@ export default function SettingsHome(): React.ReactNode {
   return (
     <div id="home">
       <h1 className="text-3xl">Information</h1>
-      <div className="mbs-5 flex flex-col gap-5 *:overflow-hidden *:border-2 *:border-zinc-700 *:rounded-lg *:bg-zinc-950">
+      <div className="mbs-5 flex flex-col gap-5 *:overflow-hidden *:rounded-lg *:border-2 *:border-zinc-700 *:bg-zinc-950">
         <div>
           <div className="flex items-start justify-start gap-4 border-be-2 border-zinc-700 px-4 py-3.5">
             <IconEmail className="min-w-max text-zinc-300 drop-shadow-xs drop-shadow-black" width={ICON_MAIN_SIZE} />
@@ -46,23 +46,23 @@ export default function SettingsHome(): React.ReactNode {
           </LinkEdit>
         </div>
       </div>
-      <nav className="my-7 flex flex-wrap gap-x-6 gap-y-4 border-be border-zinc-700 pbe-6 *:flex-1 *:basis-3xs">
-        <LinkNext href="#oauth">
+      <nav className="my-7 flex flex-wrap gap-x-6 border-be border-zinc-700 pbe-6 *:flex *:min-w-max *:flex-1 *:basis-3xs *:items-center *:gap-2.5 *:p-2.5 *:font-medium *:transition-colors *:select-none *:hover:bg-zinc-800 *:active:bg-zinc-700">
+        <LinkButtonNext href="#oauth">
           <IconConnect className="drop-shadow-xs drop-shadow-black" width={ICON_DIMENSION} />
           Linked accounts
-        </LinkNext>
-        <LinkNext href="#sessions">
+        </LinkButtonNext>
+        <LinkButtonNext href="#sessions">
           <IconDevices className="drop-shadow-xs drop-shadow-black" width={ICON_DIMENSION} />
           Sessions
-        </LinkNext>
-        <LinkNext href="#payments">
+        </LinkButtonNext>
+        <LinkButtonNext href="#payments">
           <IconCard className="drop-shadow-xs drop-shadow-black" width={ICON_DIMENSION} />
           Payments
-        </LinkNext>
-        <LinkNext href="#data">
+        </LinkButtonNext>
+        <LinkButtonNext href="#data">
           <IconUserData className="drop-shadow-xs drop-shadow-black" width={ICON_DIMENSION} />
           My data
-        </LinkNext>
+        </LinkButtonNext>
       </nav>
       <Button onClick={showLogOutConfirm} className="w-full">
         <IconLogout width={ICON_DIMENSION} />

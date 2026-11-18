@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { useRouter } from "next/navigation";
 import { useDeferredValue, useEffect, useId, useState } from "react";
 import { useSnapshot } from "valtio";
@@ -134,8 +133,8 @@ export default function FormProfileNameId({
 
   return (
     <form autoComplete="off" onSubmit={submitProfileName} title={disabled ? "Not allowed to change the profile name." : undefined}>
-      <div className="mx-auto flex max-w-3xl rounded-xl border-2 border-zinc-700 text-lg transition-colors focus-within:border-emerald-400 sm:text-xl sm:rounded-2xl">
-        <label className="cursor-text py-2.25 ps-2.75 text-zinc-400 sm:py-3 sm:ps-4 sm:py-3.25 select-none" htmlFor={inputId}>
+      <div className="mx-auto flex max-w-3xl rounded-xl border-2 border-zinc-700 text-lg transition-colors focus-within:border-emerald-400 sm:rounded-2xl sm:text-xl">
+        <label className="cursor-text py-2.25 ps-2.75 text-zinc-400 select-none sm:py-3 sm:py-3.25 sm:ps-4" htmlFor={inputId}>
           profile.rocks/
         </label>
         <input

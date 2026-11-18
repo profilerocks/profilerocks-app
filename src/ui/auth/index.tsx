@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import useAuth from "#src/lib/hooks/auth";
 import Message from "#src/ui/message";
 

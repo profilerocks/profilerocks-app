@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { useRouter } from "next/navigation";
 import { useState, useDeferredValue } from "react";
 import { showAlertErrorApp } from "#src/lib/alert";
@@ -9,7 +8,7 @@ import { requestUserDisplayNameUpdate } from "#src/lib/request";
 import globalState from "#src/lib/state";
 import displayAttributes from "#shared/display.json";
 import InputGroup from "#src/ui/input/group";
-import LinkBack from "#src/ui/link/back";
+import LinkButtonBack from "#src/ui/link/button/back";
 import Button from "#src/ui/button";
 
 interface FormDisplayNameProps {
@@ -90,9 +89,9 @@ export default function FormDisplayName({ children, hrefBack, hrefNext }: FormDi
       </p>
       <div className="mbs-5 flex justify-between">
         {hrefBack && (
-          <LinkBack className="pe-3.5" href={hrefBack}>
+          <LinkButtonBack className="pe-3.5" href={hrefBack}>
             Back
-          </LinkBack>
+          </LinkButtonBack>
         )}
         <Button className={hrefBack ? "ps-3.5" : "w-full"} disabled={disabled} type="submit">
           {children}

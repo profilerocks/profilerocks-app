@@ -21,15 +21,17 @@ export default function PageProfileSettings() {
           </LinkExternal>
         </p>
       </div>
-      <div className="border-y border-yellow-400 mbs-8">
-        <h2 className="text-2xl text-yellow-400 mbs-4">Premium Settings</h2>
-        <p className="text-zinc-300 mbs-2 mbe-4">Settings only available for premium profiles.</p>
+      <div className="mbs-8 border-y border-yellow-400">
+        <h2 className="mbs-4 text-2xl text-yellow-400">Premium Settings</h2>
+        <p className="mbs-2 mbe-4 text-zinc-300">Settings only available for premium profiles.</p>
         <ProfileWatermark />
-        <h2 className="text-xl text-yellow-400 mbs-4">Page title</h2>
+        <h2 className="mbs-4 text-xl text-yellow-400">Page title</h2>
         <p className="text-zinc-400">A web page title appears in browser tabs, search results, bookmarks, and social media previews.</p>
         <FormProfileTitle />
-        <h2 className="text-xl text-yellow-400 mbs-4">Meta description</h2>
-        <p className="text-zinc-400">A meta description appears in search results and social media previews to summarize the page content.</p>
+        <h2 className="mbs-4 text-xl text-yellow-400">Meta description</h2>
+        <p className="text-zinc-400">
+          A meta description appears in search results and social media previews to summarize the page content.
+        </p>
         <FormProfileMetaDescription />
       </div>
       <h2 className="mbs-10 text-2xl text-zinc-300">Change profile name</h2>
