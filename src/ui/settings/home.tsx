@@ -10,7 +10,7 @@ import { showLogOutConfirm } from "#src/lib/confirm";
 import { useUserEmail as StateUserEmail, useUserDisplayName as StateUserDisplayName } from "#src/lib/hooks/state";
 import Button from "#src/ui/button";
 import LinkEdit from "#src/ui/link/edit";
-import LinkButtonNext from "#src/ui/link/button/next";
+import AnchorNext from "#src/ui/link/next";
 import Minimap from "#src/ui/minimap";
 
 const ICON_MAIN_SIZE = "2.875em";
@@ -46,23 +46,23 @@ export default function SettingsHome(): React.ReactNode {
           </LinkEdit>
         </div>
       </div>
-      <nav className="my-7 flex flex-wrap gap-x-6 border-be border-zinc-700 pbe-6 *:flex *:min-w-max *:flex-1 *:basis-3xs *:items-center *:gap-2.5 *:p-2.5 *:font-medium *:transition-colors *:select-none *:hover:bg-zinc-800 *:active:bg-zinc-700">
-        <LinkButtonNext href="#oauth">
+      <nav className="my-7 flex flex-wrap gap-y-0.5 gap-x-6 border-be border-zinc-700 pbe-6 *:flex *:min-w-max *:bg-zinc-900 *:text-zinc-400 *:hover:text-zinc-300 *:active:text-zinc-200 *:flex-1 *:basis-3xs *:items-center *:gap-2.5 *:p-2.5 *:font-medium *:transition-colors *:select-none *:hover:bg-zinc-800 *:active:bg-zinc-700">
+        <AnchorNext className="rounded-t-lg" href="#oauth">
           <IconConnect className="drop-shadow-xs drop-shadow-black" width={ICON_DIMENSION} />
           Linked accounts
-        </LinkButtonNext>
-        <LinkButtonNext href="#sessions">
+        </AnchorNext>
+        <AnchorNext href="#sessions">
           <IconDevices className="drop-shadow-xs drop-shadow-black" width={ICON_DIMENSION} />
           Sessions
-        </LinkButtonNext>
-        <LinkButtonNext href="#payments">
+        </AnchorNext>
+        <AnchorNext href="#payments">
           <IconCard className="drop-shadow-xs drop-shadow-black" width={ICON_DIMENSION} />
           Payments
-        </LinkButtonNext>
-        <LinkButtonNext href="#data">
+        </AnchorNext>
+        <AnchorNext className="rounded-b-lg" href="#data">
           <IconUserData className="drop-shadow-xs drop-shadow-black" width={ICON_DIMENSION} />
           My data
-        </LinkButtonNext>
+        </AnchorNext>
       </nav>
       <Button onClick={showLogOutConfirm} className="w-full">
         <IconLogout width={ICON_DIMENSION} />
