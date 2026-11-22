@@ -46,7 +46,7 @@ export default function SettingsHome(): React.ReactNode {
           </LinkEdit>
         </div>
       </div>
-      <nav className="my-7 flex flex-wrap gap-y-0.5 gap-x-6 border-be border-zinc-700 pbe-6 *:flex *:min-w-max *:bg-zinc-900 *:text-zinc-400 *:hover:text-zinc-300 *:active:text-zinc-200 *:flex-1 *:basis-3xs *:items-center *:gap-2.5 *:p-2.5 *:font-medium *:transition-colors *:select-none *:hover:bg-zinc-800 *:active:bg-zinc-700">
+      <nav className="my-7 flex flex-col flex-wrap gap-x-6 gap-y-0.5 border-be border-zinc-700 pbe-6 *:flex *:min-w-max *:flex-1 *:items-center *:gap-2.5 *:bg-zinc-900 *:p-2.5 *:font-medium *:text-zinc-400 *:transition-colors *:select-none *:hover:bg-zinc-800 *:hover:text-zinc-300 *:active:bg-zinc-700 *:active:text-zinc-200 sm:flex-row sm:gap-y-4 sm:*:basis-3xs sm:*:rounded-lg">
         <AnchorNext className="rounded-t-lg" href="#oauth">
           <IconConnect className="drop-shadow-xs drop-shadow-black" width={ICON_DIMENSION} />
           Linked accounts

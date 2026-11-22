@@ -6,7 +6,7 @@ export default function PageSetupUserName() {
   return (
     <>
       <h1 className="text-3xl">How would you like to be addressed?</h1>
-      <p className="mbs-3 mbe-4 text-zinc-300">
+      <p className="mbs-3 mbe-4 text-zinc-400">
         This information will be used to store your contact information. You can always change it later.
       </p>
       <FormDisplayName hrefNext="/">
