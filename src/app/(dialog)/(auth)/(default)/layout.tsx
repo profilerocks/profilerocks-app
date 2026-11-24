@@ -4,6 +4,7 @@ import renderProfile from "@profile.rocks/generator";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { useSnapshot } from "valtio";
+import IconSettings from "#src/icons/settings.svg";
 import { API } from "#src/lib/env";
 import markdownRenderer from "#src/lib/markdown";
 import globalState from "#src/lib/state";
@@ -11,7 +12,7 @@ import SvgLogoLong from "#src/static/logo/long.svg";
 import LinkButtonBack from "#src/ui/link/button/back";
 import Minimap from "#src/ui/minimap";
 import ProfileList from "#src/ui/profile/entries";
-import User from "#src/ui/user";
+import { UserDisplayName, UserEmail } from "#src/ui/user/client";
 
 const API_HOST = new URL(API).host;
 
@@ -150,8 +151,9 @@ export default function LayoutAuthDefault({ children }: LayoutAuthDefaultProps) 
       ref={containersRef}
     >
       <section className="inset-s-0 z-3 flex w-sm flex-col pbe-10 lg:sticky lg:min-w-auto" id="side">
-        <header className="sticky inset-bs-0 z-1 flex gap-3 px-4 py-3.5 before:absolute before:inset-x-0 before:inset-bs-0 before:-z-1 before:shadow-[0_0_1.75em_3.75em_#000]">
-          <Link href="/#side" className="select-none">
+        <header className="flex sticky inset-bs-0 z-1 py-4">
+          <div className="absolute inset-x-0 inset-bs-0 -z-1 shadow-[0_0_1.75em_3.75em_#000]" />
+          <Link href="/#side" className="select-none ms-5">
             <SvgLogoLong width="16em" />
           </Link>
           {/*<details name={DETAILS_NAME} className={styles["page-header-details"]}>
@@ -159,9 +161,21 @@ export default function LayoutAuthDefault({ children }: LayoutAuthDefaultProps) 
             <div className={styles.dropdown}></div>
           </details>*/}
         </header>
-        <User className="m-4" />
         <ProfileList />
-        <Minimap className="mbs-auto pbs-8" />
+        <div className="flex items-center gap-4 mx-4 px-2 border-zinc-700 border-bs pbs-4 mbs-auto">
+          <div className="flex-1 overflow-hidden">
+            <UserDisplayName />
+            <UserEmail />
+          </div>
+          <Link
+            className="group flex min-w-max items-center gap-2.5 rounded-lg p-1.5 font-medium text-teal-500 transition-colors select-none hover:bg-zinc-800 hover:text-teal-400 active:bg-zinc-700 active:text-teal-300"
+            href="/u/settings"
+            title="User settings"
+          >
+            <IconSettings className="transition-transform duration-1000 group-hover:rotate-360" width="1.75em" />
+          </Link>
+        </div>
+        <Minimap className="mbs-8" />
       </section>
       <section className="flex flex-1 basis-3xs scrollbar-gutter-stable flex-col xl:min-w-auto" id="page">
         {children}

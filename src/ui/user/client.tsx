@@ -18,7 +18,7 @@ export function UserEmail(): React.ReactNode {
   }
 
   return (
-    <p className="text-xs text-zinc-400" title={displayEmail}>
+    <p className="text-sm text-zinc-400" title={displayEmail}>
       {displayEmail}
     </p>
   );
