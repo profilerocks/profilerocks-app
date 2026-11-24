@@ -144,7 +144,7 @@ export default function ProfileThemes() {
     return (
       <>
         <IconLoading width="1.5em" />
-        Loading...
+        Loading
       </>
     );
   }

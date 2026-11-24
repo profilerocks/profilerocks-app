@@ -8,5 +8,5 @@ interface Props {
 }
 
 export default function WithAuthClient({ children }: Props): React.ReactNode {
-  return useAuthOffline() ? children : <Message>Redirecting...</Message>;
+  return useAuthOffline() ? children : <Message>Redirecting</Message>;
 }

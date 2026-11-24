@@ -37,5 +37,5 @@ export default function AuthProfile({ children }: Props): React.ReactNode {
     };
   }, [profilePublicId, profiles, router]);
 
-  return currentProfile ? children : <Message>Loading...</Message>;
+  return currentProfile ? children : <Message>Loading</Message>;
 }

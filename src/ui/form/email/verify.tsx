@@ -105,7 +105,7 @@ function FormOtpContent({ submitting }: FormOtpContentProps): React.ReactNode {
         <Button
           className="ps-3.5"
           disabled={submitting || otpInputBlock || !otpValid}
-          title={submitting ? "Submitting..." : otpValid === false ? "Invalid OTP Code" : undefined}
+          title={submitting ? "Submitting" : otpValid === false ? "Invalid OTP Code" : undefined}
           type="submit"
         >
           Verify
@@ -393,6 +393,6 @@ export default function UserEmailVerify({ afterVerification, children, requestOt
       </ContextHrefBack.Provider>
     </>
   ) : (
-    <h2 className="my-5 text-2xl">Redirecting...</h2>
+    <h2 className="my-5 text-2xl">Redirecting</h2>
   );
 }

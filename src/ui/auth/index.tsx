@@ -14,5 +14,5 @@ export default function WithAuth({ children }: Props): React.ReactNode {
     return children;
   }
 
-  return <Message>{allowed === undefined ? "Loading..." : "Redirecting..."}</Message>;
+  return <Message>{allowed === undefined ? "Loading" : "Redirecting"}</Message>;
 }

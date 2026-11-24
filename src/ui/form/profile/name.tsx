@@ -217,7 +217,7 @@ export function FormProfileNameIdPageWrapper(): React.ReactNode {
       <IconArrowRight width="1em" />
     </FormProfileNameId>
   ) : (
-    <Message>Redirecting...</Message>
+    <Message>Redirecting</Message>
   );
 }
 

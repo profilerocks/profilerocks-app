@@ -174,7 +174,7 @@ export default function FormUserEmailEnter(): React.ReactNode {
       <Button
         className="w-full"
         disabled={submitting || !emailFormatValidity || emailBlock}
-        title={emailFormatValidity ? (submitting ? "Submitting..." : undefined) : "Enter a valid email address"}
+        title={emailFormatValidity ? (submitting ? "Submitting" : undefined) : "Enter a valid email address"}
         type="submit"
       >
         {emailBlock ? (

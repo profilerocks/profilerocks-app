@@ -169,7 +169,7 @@ export default function FormUserEmail({ children, hrefBack }: FormUserEmailProps
         <Button
           className={emailBlock ? "pe-3.5" : "ps-3.5"}
           disabled={submitting || !emailFormatValidity || emailBlock}
-          title={emailFormatValidity ? (submitting ? "Submitting..." : undefined) : "Enter a valid email address"}
+          title={emailFormatValidity ? (submitting ? "Submitting" : undefined) : "Enter a valid email address"}
           type="submit"
         >
           {emailBlock ? (
