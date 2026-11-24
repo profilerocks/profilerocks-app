@@ -24,7 +24,7 @@ function ProfileEntry({ profile }: ProfileEntryProps): React.ReactNode {
   const displayName = profile.display_name || profile.name_id;
 
   return (
-    <Link className={active ? "bg-zinc-900" : undefined} href={"/p/content?id=" + profile.public_id + "#page"}>
+    <Link className={"group" + (active ? " bg-zinc-900" : "")} href={"/p/content?id=" + profile.public_id + "#page"}>
       <img
         alt="Profile photo"
         className="rounded-full shadow-sm shadow-black"
@@ -37,7 +37,7 @@ function ProfileEntry({ profile }: ProfileEntryProps): React.ReactNode {
         <p
           className={
             "truncate text-lg transition-colors " +
-            (active ? "text-emerald-400" : "text-zinc-300 group-hover:text-zinc-200 group-active:text-zinc-100")
+            (active ? "text-emerald-400 group-hover:text-emerald-300" : "text-zinc-300 group-hover:text-zinc-200 group-active:text-zinc-100")
           }
           title={displayName}
         >
@@ -63,7 +63,7 @@ export default function ProfileList(): React.ReactNode {
     <>
       {profiles?.length ? (
         <Suspense>
-          <div className="*:group select-none *:flex *:gap-3 *:px-4 *:py-3 *:transition-colors *:hover:bg-zinc-800 *:active:bg-zinc-700">
+          <div className="px-4 space-y-1 *:group select-none *:rounded-lg *:flex *:gap-3 *:p-2 *:transition-colors *:hover:bg-zinc-800 *:active:bg-zinc-700">
             {
               // @ts-ignore
               profiles.map(profileEntryCallback)
@@ -71,7 +71,7 @@ export default function ProfileList(): React.ReactNode {
           </div>
         </Suspense>
       ) : null}
-      <nav className="mbs-4 flex flex-wrap gap-x-6 gap-y-4 px-4 *:flex-1">
+      <nav className="mbs-6 flex flex-wrap gap-x-6 gap-y-4 px-4 *:flex-1">
         {profilesRemaining > 0 && (
           <LinkButtonSolidActive className="pe-3.5" href="/p#page">
             <IconUserPlus width="1.5em" />
