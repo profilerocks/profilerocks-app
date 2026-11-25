@@ -151,9 +151,9 @@ export default function LayoutAuthDefault({ children }: LayoutAuthDefaultProps) 
       ref={containersRef}
     >
       <section className="inset-s-0 z-3 flex w-sm flex-col pbe-10 lg:sticky lg:min-w-auto" id="side">
-        <header className="flex sticky inset-bs-0 z-1 py-4">
+        <header className="sticky inset-bs-0 z-1 flex py-4">
           <div className="absolute inset-x-0 inset-bs-0 -z-1 shadow-[0_0_1.75em_3.75em_#000]" />
-          <Link href="/#side" className="select-none ms-5">
+          <Link href="/#side" className="ms-5 select-none">
             <SvgLogoLong width="16em" />
           </Link>
           {/*<details name={DETAILS_NAME} className={styles["page-header-details"]}>
@@ -162,7 +162,7 @@ export default function LayoutAuthDefault({ children }: LayoutAuthDefaultProps) 
           </details>*/}
         </header>
         <ProfileList />
-        <div className="flex items-center gap-4 mx-4 px-2 border-zinc-700 border-bs pbs-4 mbs-auto">
+        <div className="mx-4 mbs-auto flex items-center gap-4 border-bs border-zinc-700 px-2 pbs-4">
           <div className="flex-1 overflow-hidden">
             <UserDisplayName />
             <UserEmail />

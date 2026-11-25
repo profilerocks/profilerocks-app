@@ -37,7 +37,9 @@ function ProfileEntry({ profile }: ProfileEntryProps): React.ReactNode {
         <p
           className={
             "truncate text-lg transition-colors " +
-            (active ? "text-emerald-400 group-hover:text-emerald-300" : "text-zinc-300 group-hover:text-zinc-200 group-active:text-zinc-100")
+            (active
+              ? "text-emerald-400 group-hover:text-emerald-300"
+              : "text-zinc-300 group-hover:text-zinc-200 group-active:text-zinc-100")
           }
           title={displayName}
         >
@@ -63,7 +65,7 @@ export default function ProfileList(): React.ReactNode {
     <>
       {profiles?.length ? (
         <Suspense>
-          <div className="px-4 space-y-1 *:group select-none *:rounded-lg *:flex *:gap-3 *:p-2 *:transition-colors *:hover:bg-zinc-800 *:active:bg-zinc-700">
+          <div className="*:group space-y-1 px-4 select-none *:flex *:gap-3 *:rounded-lg *:p-2 *:transition-colors *:hover:bg-zinc-800 *:active:bg-zinc-700">
             {
               // @ts-ignore
               profiles.map(profileEntryCallback)
